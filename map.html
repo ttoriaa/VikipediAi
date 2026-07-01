@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Competition Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --bg0: #f6f8f6;
+      --bg1: #eaf1ed;
+      --ink: #112018;
+      --muted: #385247;
+      --panel: rgba(255, 255, 255, 0.82);
+      --line-dep: #0f766e;
+      --line-comp: #b45309;
+      --domestic: #115e59;
+      --global: #1d4ed8;
+      --upstream: #6b7280;
+      --agent: #7c3aed;
+      --shadow: 0 20px 50px rgba(17, 32, 24, 0.12);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Noto Sans SC", sans-serif;
+      background:
+        radial-gradient(1000px 600px at 8% -10%, #d9efe4 0%, rgba(217, 239, 228, 0) 55%),
+        radial-gradient(800px 500px at 90% 10%, #dce8ff 0%, rgba(220, 232, 255, 0) 50%),
+        linear-gradient(165deg, var(--bg0) 0%, var(--bg1) 100%);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 26px 20px 40px;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .topline a {
+      color: #0f766e;
+      text-decoration: none;
+    }
+
+    .hero {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      line-height: 1.12;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-size: clamp(28px, 4.2vw, 46px);
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      border: 1px solid rgba(17, 32, 24, 0.2);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-size: 13px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(17, 32, 24, 0.09);
+    }
+
+    .btn.active {
+      color: white;
+      border-color: transparent;
+      background: linear-gradient(120deg, #14532d, #0f766e);
+    }
+
+    .btn.view.active {
+      background: linear-gradient(120deg, #1e3a8a, #0f766e);
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(17, 32, 24, 0.12);
+      border-radius: 999px;
+      padding: 5px 11px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
+    .dot.dep { background: var(--line-dep); }
+    .dot.comp { background: var(--line-comp); }
+
+    .board {
+      position: relative;
+      border-radius: 24px;
+      border: 1px solid rgba(17, 32, 24, 0.14);
+      box-shadow: var(--shadow);
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.74));
+      overflow: hidden;
+    }
+
+    .board-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .column {
+      padding: 18px;
+      border-right: 1px dashed rgba(17, 32, 24, 0.16);
+    }
+
+    .column:last-child { border-right: none; }
+    .col-title {
+      margin: 0 0 12px;
+      font-size: 18px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      letter-spacing: 0.01em;
+    }
+
+    .col-title.domestic { color: var(--domestic); }
+    .col-title.global { color: var(--global); }
+
+    .lane {
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(17, 32, 24, 0.1);
+      border-radius: var(--radius);
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .lane:last-child { margin-bottom: 0; }
+
+    .lane h3 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .nodes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .cross-lane {
+      padding: 0 18px 16px;
+    }
+
+    .cross-lane .lane {
+      margin: 0;
+      background: rgba(250, 245, 255, 0.86);
+    }
+
+    .cross-lane .nodes {
+      grid-template-columns: 1fr;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+
+    .node {
+      position: relative;
+      border-radius: 12px;
+      border: 1px solid rgba(17, 32, 24, 0.14);
+      background: var(--panel);
+      padding: 10px 10px;
+      min-height: 68px;
+      backdrop-filter: blur(4px);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      animation: reveal 0.45s ease both;
+    }
+
+    .node:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(17, 32, 24, 0.13);
+    }
+
+    .name {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    .role {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+
+    .node[data-region="domestic"] { border-left: 4px solid var(--domestic); }
+    .node[data-region="global"] { border-left: 4px solid var(--global); }
+    .node[data-type="upstream"] { border-left: 4px solid var(--upstream); }
+    .node[data-type="agent"] { border-left: 4px solid var(--agent); }
+
+    .node.dim {
+      opacity: 0.32;
+      filter: grayscale(22%);
+    }
+
+    .node.focus {
+      box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.18), 0 12px 24px rgba(17, 32, 24, 0.16);
+    }
+
+    #edgeLayer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .edge {
+      fill: none;
+      stroke-width: 2.4;
+      opacity: 0.7;
+      stroke-linecap: round;
+      stroke-dasharray: 1;
+    }
+
+    .edge.dep { stroke: var(--line-dep); }
+    .edge.comp {
+      stroke: var(--line-comp);
+      stroke-dasharray: 7 7;
+    }
+
+    .edge.hidden { opacity: 0; }
+    .edge.dim { opacity: 0.16; }
+
+    .notes {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 12px;
+    }
+
+    .note {
+      border-radius: var(--radius);
+      border: 1px solid rgba(17, 32, 24, 0.13);
+      background: rgba(255, 255, 255, 0.82);
+      padding: 14px;
+    }
+
+    .note h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    .note p,
+    .note li {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .note ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 980px) {
+      .board-inner { grid-template-columns: 1fr; }
+      .column {
+        border-right: none;
+        border-bottom: 1px dashed rgba(17, 32, 24, 0.16);
+      }
+      .column:last-child { border-bottom: none; }
+      .notes { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nodes { grid-template-columns: 1fr; }
+      .page { padding: 22px 14px 28px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page" id="captureRoot">
+    <div class="topline">
+      <a href="index.html" data-i18n="back">Back to Home</a>
+      <span id="versionBadge">version</span>
+    </div>
+
+    <section class="hero">
+      <h1 id="titleText"></h1>
+      <p class="subtitle" data-i18n="subtitle"></p>
+      <div class="toolbar">
+        <button class="btn active" data-filter="all" type="button" data-i18n="f_all"></button>
+        <button class="btn" data-filter="comp" type="button" data-i18n="f_comp"></button>
+        <button class="btn" data-filter="dep" type="button" data-i18n="f_dep"></button>
+        <button class="btn" data-filter="pair" type="button" data-i18n="f_pair"></button>
+        <button class="btn view active" data-view="normal" type="button" data-i18n="v_normal"></button>
+        <button class="btn view" data-view="invest" type="button" data-i18n="v_invest"></button>
+        <button class="btn view" data-view="procure" type="button" data-i18n="v_procure"></button>
+        <button class="btn" id="langBtn" type="button">EN</button>
+        <button class="btn" id="exportBtn" type="button" data-i18n="export"></button>
+      </div>
+    </section>
+
+    <div class="legend">
+      <span class="chip"><span class="dot comp"></span><span data-i18n="legend_comp"></span></span>
+      <span class="chip"><span class="dot dep"></span><span data-i18n="legend_dep"></span></span>
+      <span class="chip" data-i18n="legend_note"></span>
+    </div>
+
+    <section class="board" id="board">
+      <svg id="edgeLayer"></svg>
+      <div class="board-inner">
+        <article class="column" id="domesticCol">
+          <h2 class="col-title domestic" data-i18n="col_domestic"></h2>
+
+          <section class="lane">
+            <h3 data-i18n="lane_upstream"></h3>
+            <div class="nodes" id="nodes-domestic-upstream"></div>
+          </section>
+
+          <section class="lane">
+            <h3 data-i18n="lane_model"></h3>
+            <div class="nodes" id="nodes-domestic-model"></div>
+          </section>
+
+          <section class="lane">
+            <h3 data-i18n="lane_app"></h3>
+            <div class="nodes" id="nodes-domestic-app"></div>
+          </section>
+        </article>
+
+        <article class="column" id="globalCol">
+          <h2 class="col-title global" data-i18n="col_global"></h2>
+
+          <section class="lane">
+            <h3 data-i18n="lane_upstream"></h3>
+            <div class="nodes" id="nodes-global-upstream"></div>
+          </section>
+
+          <section class="lane">
+            <h3 data-i18n="lane_model"></h3>
+            <div class="nodes" id="nodes-global-model"></div>
+          </section>
+
+          <section class="lane">
+            <h3 data-i18n="lane_app"></h3>
+            <div class="nodes" id="nodes-global-app"></div>
+          </section>
+        </article>
+      </div>
+
+      <section class="cross-lane">
+        <div class="lane">
+          <h3 data-i18n="lane_agent"></h3>
+          <div class="nodes" id="nodes-cross-agent"></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="notes">
+      <article class="note">
+        <h3 data-i18n="note1_title"></h3>
+        <ul>
+          <li data-i18n="note1_1"></li>
+          <li data-i18n="note1_2"></li>
+          <li data-i18n="note1_3"></li>
+          <li data-i18n="note1_4"></li>
+        </ul>
+      </article>
+
+      <article class="note">
+        <h3 data-i18n="note2_title"></h3>
+        <p data-i18n="note2_desc"></p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const i18n = {
+        zh: {
+          subtitle: "同一张图展示两种关系：直接竞争（同层抢用户/开发者/企业预算）与上下游依赖（算力/模型/分发链路）。",
+          back: "返回导航页",
+          f_all: "显示全部关系",
+          f_comp: "仅看直接竞争",
+          f_dep: "仅看上下游依赖",
+          f_pair: "中美直接对位竞争",
+          v_normal: "常规视图",
+          v_invest: "投资视角",
+          v_procure: "企业采购视角",
+          export: "导出 16:9 汇报截图",
+          legend_comp: "虚线：直接竞争",
+          legend_dep: "实线：上下游依赖",
+          legend_note: "注：公司可能同时跨多层，图中按主战场放置",
+          col_domestic: "国内",
+          col_global: "国外",
+          lane_upstream: "上游能力 / 供给",
+          lane_model: "基座模型层",
+          lane_app: "应用层",
+          lane_agent: "Agent 编排层（跨区）",
+          note1_title: "读图提示：谁和谁直接竞争？",
+          note1_1: "模型层：DeepSeek、GLM 与 OpenAI、Gemini、Anthropic 在 API 与企业预算上直接竞争。",
+          note1_2: "消费应用层：豆包、Kimi 与 ChatGPT、Claude、Gemini App、Perplexity 在用户时长与留存上竞争。",
+          note1_3: "Coding 层：Cursor 与 GitHub Copilot 直接竞争开发者席位与团队预算。",
+          note1_4: "中美直接对位竞争：聚焦中美同赛道产品对打关系。",
+          note2_title: "OpenClaw 在产业中的定位",
+          note2_desc: "OpenClaw 更接近开源 Agent Runtime/Workflow 编排层，上游依赖基座模型与云算力，下游承接企业自动化与流程落地。",
+          export_fail: "导出依赖 html2canvas，加载失败。请检查网络后重试。"
+        },
+        en: {
+          subtitle: "One map overlays two relationships: direct competition and upstream-downstream dependencies.",
+          back: "Back to Home",
+          f_all: "Show All",
+          f_comp: "Competition Only",
+          f_dep: "Dependency Only",
+          f_pair: "China-US Matchups",
+          v_normal: "Normal View",
+          v_invest: "Investor View",
+          v_procure: "Enterprise Buying View",
+          export: "Export 16:9 Slide Screenshot",
+          legend_comp: "Dashed: direct competition",
+          legend_dep: "Solid: upstream/downstream dependency",
+          legend_note: "Note: A company may span multiple layers; this map places each by primary battleground.",
+          col_domestic: "China",
+          col_global: "Global",
+          lane_upstream: "Upstream Capability / Supply",
+          lane_model: "Foundation Model Layer",
+          lane_app: "Application Layer",
+          lane_agent: "Agent Orchestration Layer (Cross-region)",
+          note1_title: "How to read direct competition",
+          note1_1: "Model layer: DeepSeek and GLM directly compete with OpenAI, Gemini, and Anthropic for API and enterprise budget.",
+          note1_2: "Consumer layer: Doubao and Kimi compete with ChatGPT, Claude, Gemini App, and Perplexity for attention and retention.",
+          note1_3: "Coding layer: Cursor and GitHub Copilot compete for developer seats and team budgets.",
+          note1_4: "China-US matchup mode focuses on direct head-to-head battles in the same track.",
+          note2_title: "OpenClaw Positioning",
+          note2_desc: "OpenClaw is best positioned as an open Agent Runtime/Workflow orchestration layer. It depends upstream on base models and cloud compute, and serves enterprise automation downstream.",
+          export_fail: "Export requires html2canvas. Please retry after network is available."
+        }
+      };
+
+      const state = {
+        lang: "zh",
+        filter: "all",
+        view: "normal",
+        graph: null
+      };
+
+      const board = document.getElementById("board");
+      const svg = document.getElementById("edgeLayer");
+      const filterButtons = Array.from(document.querySelectorAll(".btn[data-filter]"));
+      const viewButtons = Array.from(document.querySelectorAll(".btn[data-view]"));
+      const langBtn = document.getElementById("langBtn");
+      const exportBtn = document.getElementById("exportBtn");
+      const versionBadge = document.getElementById("versionBadge");
+      const titleText = document.getElementById("titleText");
+
+      function setTextByLang() {
+        const t = i18n[state.lang];
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          const key = el.getAttribute("data-i18n");
+          if (t[key]) el.textContent = t[key];
+        });
+        langBtn.textContent = state.lang === "zh" ? "EN" : "中文";
+        if (state.graph && state.graph.meta) {
+          titleText.textContent = state.lang === "zh" ? state.graph.meta.title_zh : state.graph.meta.title_en;
+        }
+      }
+
+      function createNode(node) {
+        const div = document.createElement("div");
+        div.className = "node";
+        div.id = node.id;
+        div.dataset.region = node.region;
+        div.dataset.type = node.type;
+
+        const name = document.createElement("div");
+        name.className = "name";
+        name.textContent = state.lang === "zh" ? node.name_zh : node.name_en;
+
+        const role = document.createElement("div");
+        role.className = "role";
+        role.textContent = state.lang === "zh" ? node.role_zh : node.role_en;
+
+        div.appendChild(name);
+        div.appendChild(role);
+        return div;
+      }
+
+      function renderNodes() {
+        const nodeGroups = {
+          "domestic-upstream": [],
+          "domestic-model": [],
+          "domestic-app": [],
+          "global-upstream": [],
+          "global-model": [],
+          "global-app": [],
+          "cross-agent": []
+        };
+
+        state.graph.nodes.forEach(function (node) {
+          const key = node.column + "-" + node.lane;
+          if (nodeGroups[key]) nodeGroups[key].push(node);
+        });
+
+        Object.keys(nodeGroups).forEach(function (key) {
+          const container = document.getElementById("nodes-" + key);
+          if (!container) return;
+          container.innerHTML = "";
+          nodeGroups[key].forEach(function (node) {
+            container.appendChild(createNode(node));
+          });
+        });
+      }
+
+      function edgeVisible(edge) {
+        if (state.filter === "all") return true;
+        if (state.filter === "comp") return edge.type === "comp";
+        if (state.filter === "dep") return edge.type === "dep";
+        if (state.filter === "pair") return edge.type === "comp" && edge.pair === true;
+        return true;
+      }
+
+      function edgeInFocus(edge) {
+        if (state.view === "normal") return true;
+        const focus = new Set(state.graph.views[state.view] || []);
+        return focus.has(edge.from) || focus.has(edge.to);
+      }
+
+      function applyNodeView() {
+        const focus = state.view === "normal" ? new Set() : new Set(state.graph.views[state.view] || []);
+        Array.from(document.querySelectorAll(".node")).forEach(function (nodeEl) {
+          if (focus.size === 0) {
+            nodeEl.classList.remove("dim");
+            nodeEl.classList.remove("focus");
+            return;
+          }
+          if (focus.has(nodeEl.id)) {
+            nodeEl.classList.remove("dim");
+            nodeEl.classList.add("focus");
+          } else {
+            nodeEl.classList.add("dim");
+            nodeEl.classList.remove("focus");
+          }
+        });
+      }
+
+      function midpoint(x1, y1, x2, y2) {
+        return { x: (x1 + x2) / 2, y: (y1 + y2) / 2 };
+      }
+
+      function buildPath(fromRect, toRect, boardRect) {
+        const start = {
+          x: fromRect.left + fromRect.width / 2 - boardRect.left,
+          y: fromRect.top + fromRect.height / 2 - boardRect.top
+        };
+        const end = {
+          x: toRect.left + toRect.width / 2 - boardRect.left,
+          y: toRect.top + toRect.height / 2 - boardRect.top
+        };
+
+        const mid = midpoint(start.x, start.y, end.x, end.y);
+        const curve = Math.max(20, Math.abs(end.x - start.x) * 0.2);
+        const c1x = mid.x - curve;
+        const c1y = start.y;
+        const c2x = mid.x + curve;
+        const c2y = end.y;
+
+        return "M " + start.x + " " + start.y + " C " + c1x + " " + c1y + ", " + c2x + " " + c2y + ", " + end.x + " " + end.y;
+      }
+
+      function renderEdges() {
+        const boardRect = board.getBoundingClientRect();
+        svg.setAttribute("width", String(boardRect.width));
+        svg.setAttribute("height", String(boardRect.height));
+        svg.innerHTML = "";
+
+        state.graph.edges.forEach(function (edge) {
+          const fromEl = document.getElementById(edge.from);
+          const toEl = document.getElementById(edge.to);
+          if (!fromEl || !toEl) return;
+
+          const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          path.setAttribute("d", buildPath(fromEl.getBoundingClientRect(), toEl.getBoundingClientRect(), boardRect));
+          const visible = edgeVisible(edge);
+          const dim = !edgeInFocus(edge);
+          path.setAttribute("class", "edge " + edge.type + (visible ? "" : " hidden") + (dim ? " dim" : ""));
+          svg.appendChild(path);
+        });
+      }
+
+      async function exportScreenshot() {
+        if (typeof window.html2canvas !== "function") {
+          alert(i18n[state.lang].export_fail);
+          return;
+        }
+
+        const sourceCanvas = await window.html2canvas(document.getElementById("captureRoot"), {
+          backgroundColor: "#f6f8f6",
+          scale: 2,
+          useCORS: true
+        });
+
+        const out = document.createElement("canvas");
+        out.width = 1600;
+        out.height = 900;
+        const ctx = out.getContext("2d");
+        if (!ctx) return;
+
+        ctx.fillStyle = "#f6f8f6";
+        ctx.fillRect(0, 0, out.width, out.height);
+
+        const sw = sourceCanvas.width;
+        const sh = sourceCanvas.height;
+        const scale = Math.min(out.width / sw, out.height / sh);
+        const dw = Math.round(sw * scale);
+        const dh = Math.round(sh * scale);
+        const dx = Math.floor((out.width - dw) / 2);
+        const dy = Math.floor((out.height - dh) / 2);
+
+        ctx.drawImage(sourceCanvas, dx, dy, dw, dh);
+
+        const a = document.createElement("a");
+        a.href = out.toDataURL("image/png");
+        a.download = "ai-competition-map-16x9.png";
+        a.click();
+      }
+
+      function wireEvents() {
+        filterButtons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            state.filter = btn.getAttribute("data-filter") || "all";
+            filterButtons.forEach(function (x) { x.classList.remove("active"); });
+            btn.classList.add("active");
+            renderEdges();
+          });
+        });
+
+        viewButtons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            state.view = btn.getAttribute("data-view") || "normal";
+            viewButtons.forEach(function (x) { x.classList.remove("active"); });
+            btn.classList.add("active");
+            applyNodeView();
+            renderEdges();
+          });
+        });
+
+        langBtn.addEventListener("click", function () {
+          state.lang = state.lang === "zh" ? "en" : "zh";
+          setTextByLang();
+          renderNodes();
+          applyNodeView();
+          renderEdges();
+        });
+
+        exportBtn.addEventListener("click", exportScreenshot);
+        window.addEventListener("resize", renderEdges);
+      }
+
+      async function bootstrap() {
+        const res = await fetch("data/graph.json?v=2.2.0");
+        state.graph = await res.json();
+        versionBadge.textContent = state.graph.meta.version + " | " + state.graph.meta.updated;
+
+        setTextByLang();
+        renderNodes();
+        applyNodeView();
+        renderEdges();
+        wireEvents();
+      }
+
+      bootstrap().catch(function (err) {
+        console.error(err);
+      });
+    })();
+  </script>
+</body>
+</html>
