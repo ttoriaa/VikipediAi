@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Developer Coding AI Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg0: #f6f8f6;
+      --bg1: #eaf1ed;
+      --ink: #112018;
+      --muted: #385247;
+      --panel: rgba(255, 255, 255, 0.86);
+      --line: rgba(17, 32, 24, 0.16);
+      --brandA: #115e59;
+      --brandB: #1d4ed8;
+      --shadow: 0 20px 50px rgba(17, 32, 24, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Noto Sans SC", sans-serif;
+      background:
+        radial-gradient(1000px 600px at 6% -10%, #d9efe4 0%, rgba(217, 239, 228, 0) 55%),
+        radial-gradient(900px 600px at 98% 8%, #dce8ff 0%, rgba(220, 232, 255, 0) 52%),
+        linear-gradient(165deg, var(--bg0) 0%, var(--bg1) 100%);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 18px 32px;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .topline a {
+      color: #0f766e;
+      text-decoration: none;
+    }
+
+    .lang {
+      border-radius: 999px;
+      border: 1px solid rgba(17, 32, 24, 0.2);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      font-size: 12px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+      font-size: clamp(30px, 4.8vw, 50px);
+    }
+
+    .subtitle {
+      margin: 10px 0 14px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 16px;
+      max-width: 920px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tab {
+      border: 1px solid rgba(17, 32, 24, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      padding: 8px 13px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      border-color: transparent;
+      color: white;
+      background: linear-gradient(120deg, var(--brandA), var(--brandB));
+    }
+
+    .panel {
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.78));
+      padding: 14px;
+    }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .card {
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 12px;
+    }
+
+    .card h3 {
+      margin: 0 0 7px;
+      font-size: 17px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    .card p, .card li {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .card ul { margin: 0; padding-left: 18px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--line);
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(17, 32, 24, 0.1);
+      text-align: left;
+      font-size: 13px;
+      vertical-align: top;
+    }
+
+    th {
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      background: rgba(17, 32, 24, 0.04);
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="topline">
+      <a href="index.html" id="backLink">返回导航页</a>
+      <div>
+        <span id="version">v1.0.0 | 2026-07-02</span>
+        <button class="lang" id="langBtn">EN</button>
+      </div>
+    </div>
+
+    <h1 id="title">开发者与编程 AI 专题图谱</h1>
+    <p class="subtitle" id="subtitle">聚焦开发者工具赛道主流产品：模型依赖与能力结构、发展进程、当前表现与场景建议，用于研发效率平台选型和管理层讲解。</p>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-tab="overview" id="tabOverview">模型总览</button>
+      <button class="tab" data-tab="timeline" id="tabTimeline">发展进程</button>
+      <button class="tab" data-tab="performance" id="tabPerformance">性能表现</button>
+      <button class="tab" data-tab="scenarios" id="tabScenarios">适用场景</button>
+    </div>
+
+    <section class="panel">
+      <div class="section active" data-section="overview">
+        <div class="grid">
+          <article class="card">
+            <h3 id="ov1Title">国际主流产品</h3>
+            <ul id="ov1List">
+              <li>代表：GitHub Copilot / Cursor / Windsurf / Amazon Q Developer / JetBrains AI Assistant</li>
+              <li>特点：IDE 深度集成、Agent 任务流、企业协作能力强化</li>
+              <li>模型依赖：OpenAI / Anthropic / Gemini 等</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 id="ov2Title">国内主流产品</h3>
+            <ul id="ov2List">
+              <li>代表：通义灵码 / Trae-MarsCode / 百度 Comate</li>
+              <li>特点：中文代码与企业研发流程适配较好</li>
+              <li>模型依赖：Qwen / DeepSeek / 文心等本地化模型能力</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 id="ov3Title">核心能力分层</h3>
+            <ul id="ov3List">
+              <li>补全与重构：行级/函数级建议</li>
+              <li>代码理解：跨文件检索、上下文问答</li>
+              <li>Agent 执行：任务拆解、修改、测试与回归</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 id="ov4Title">选型关键维度</h3>
+            <ul id="ov4List">
+              <li>代码质量提升效果</li>
+              <li>工程治理与审计能力</li>
+              <li>私有化与合规部署能力</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section" data-section="timeline">
+        <table>
+          <thead>
+            <tr>
+              <th id="tlH1">阶段</th>
+              <th id="tlH2">行业变化</th>
+              <th id="tlH3">代表趋势</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="tl1a">2022-2023: Copilot 普及期</td>
+              <td id="tl1b">AI 补全进入主流 IDE</td>
+              <td id="tl1c">从“代码补全”走向“对话式编程”</td>
+            </tr>
+            <tr>
+              <td id="tl2a">2024: IDE Agent 化</td>
+              <td id="tl2b">从建议走向跨文件修改</td>
+              <td id="tl2c">代码理解 + 执行链路成为竞争核心</td>
+            </tr>
+            <tr>
+              <td id="tl3a">2025-2026: 团队平台化</td>
+              <td id="tl3b">关注 ROI、治理、可审计</td>
+              <td id="tl3c">企业级策略控制、多模型路由与私有部署</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section" data-section="performance">
+        <table>
+          <thead>
+            <tr>
+              <th id="pfH1">产品族群</th>
+              <th id="pfH2">代码补全</th>
+              <th id="pfH3">跨文件理解</th>
+              <th id="pfH4">Agent 执行</th>
+              <th id="pfH5">企业治理</th>
+              <th id="pfH6">生态集成</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Copilot / Cursor / Windsurf</td><td id="pf1">高</td><td id="pf2">高</td><td id="pf3">中高</td><td id="pf4">中高</td><td id="pf5">高</td>
+            </tr>
+            <tr>
+              <td>Amazon Q / JetBrains AI</td><td id="pf6">中高</td><td id="pf7">中高</td><td id="pf8">中</td><td id="pf9">高</td><td id="pf10">高</td>
+            </tr>
+            <tr>
+              <td>通义灵码 / Trae / Comate</td><td id="pf11">中高</td><td id="pf12">中高</td><td id="pf13">中</td><td id="pf14">中高</td><td id="pf15">中高</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note" id="perfNote">注：分级用于战略沟通，不代表统一基准榜单；建议结合你们代码仓和任务集做 PoC 验证。</p>
+      </div>
+
+      <div class="section" data-section="scenarios">
+        <div class="grid">
+          <article class="card">
+            <h3 id="sc1Title">业务功能迭代提速（Feature Sprint）</h3>
+            <ul id="sc1List">
+              <li>案例：电商业务线每两周迭代，接口变更多导致联调返工。</li>
+              <li>推荐组合：Copilot/Cursor + Claude/GPT（补全、重构、单测草稿）。</li>
+              <li>实施方式：在 PR 流程中自动生成接口变更说明与回归测试建议。</li>
+              <li>效果指标：需求到上线周期缩短约 20%-30%，返工次数显著下降。</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 id="sc2Title">遗留系统改造（Legacy Modernization）</h3>
+            <ul id="sc2List">
+              <li>案例：Java 单体拆分微服务，历史代码缺注释、依赖复杂。</li>
+              <li>推荐组合：JetBrains AI Assistant / Amazon Q + 大模型问答（跨文件理解）。</li>
+              <li>实施方式：先生成依赖地图，再按模块输出重构步骤与风险清单。</li>
+              <li>效果指标：核心模块改造评估时间缩短约 40%，回归缺陷率下降。</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 id="sc3Title">测试与质量门禁自动化</h3>
+            <ul id="sc3List">
+              <li>案例：多仓库项目测试覆盖率低，人工 Code Review 压力大。</li>
+              <li>推荐组合：Windsurf/Cursor Agent + DeepSeek-Coder（测试生成与批修）。</li>
+              <li>实施方式：CI 触发 AI 生成单测候选、边界用例和潜在缺陷解释。</li>
+              <li>效果指标：单测覆盖率提升约 15%-25%，评审吞吐提升约 30%。</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 id="sc4Title">多团队协同治理与规范统一</h3>
+            <ul id="sc4List">
+              <li>案例：前后端与数据团队工具链不同，输出风格和规范不一致。</li>
+              <li>推荐组合：Copilot for Business / 企业版 Cursor + 统一 Prompt 策略中心。</li>
+              <li>实施方式：沉淀团队级提示模板、代码规范检查与审计日志策略。</li>
+              <li>效果指标：跨团队交付一致性提升，评审沟通成本明显下降。</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 id="sc5Title">合规与私有化研发场景</h3>
+            <ul id="sc5List">
+              <li>案例：金融/车企研发代码不能出域，需满足审计与权限隔离要求。</li>
+              <li>推荐组合：通义灵码/Comate + 私有化模型（Qwen/DeepSeek/GLM）。</li>
+              <li>实施方式：部署内网推理网关，启用敏感代码脱敏与访问留痕。</li>
+              <li>效果指标：在合规前提下保持研发提效，安全审计通过率提升。</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const i18n = {
+        zh: {
+          backLink: "返回导航页",
+          title: "开发者与编程 AI 专题图谱",
+          subtitle: "聚焦开发者工具赛道主流产品：模型依赖与能力结构、发展进程、当前表现与场景建议，用于研发效率平台选型和管理层讲解。",
+          tabOverview: "模型总览",
+          tabTimeline: "发展进程",
+          tabPerformance: "性能表现",
+          tabScenarios: "适用场景",
+          ov1Title: "国际主流产品",
+          ov1List: [
+            "代表：GitHub Copilot / Cursor / Windsurf / Amazon Q Developer / JetBrains AI Assistant",
+            "特点：IDE 深度集成、Agent 任务流、企业协作能力强化",
+            "模型依赖：OpenAI / Anthropic / Gemini 等"
+          ],
+          ov2Title: "国内主流产品",
+          ov2List: [
+            "代表：通义灵码 / Trae-MarsCode / 百度 Comate",
+            "特点：中文代码与企业研发流程适配较好",
+            "模型依赖：Qwen / DeepSeek / 文心等本地化模型能力"
+          ],
+          ov3Title: "核心能力分层",
+          ov3List: [
+            "补全与重构：行级/函数级建议",
+            "代码理解：跨文件检索、上下文问答",
+            "Agent 执行：任务拆解、修改、测试与回归"
+          ],
+          ov4Title: "选型关键维度",
+          ov4List: [
+            "代码质量提升效果",
+            "工程治理与审计能力",
+            "私有化与合规部署能力"
+          ],
+          tlH1: "阶段",
+          tlH2: "行业变化",
+          tlH3: "代表趋势",
+          tl1a: "2022-2023: Copilot 普及期",
+          tl1b: "AI 补全进入主流 IDE",
+          tl1c: "从“代码补全”走向“对话式编程”",
+          tl2a: "2024: IDE Agent 化",
+          tl2b: "从建议走向跨文件修改",
+          tl2c: "代码理解 + 执行链路成为竞争核心",
+          tl3a: "2025-2026: 团队平台化",
+          tl3b: "关注 ROI、治理、可审计",
+          tl3c: "企业级策略控制、多模型路由与私有部署",
+          pfH1: "产品族群",
+          pfH2: "代码补全",
+          pfH3: "跨文件理解",
+          pfH4: "Agent 执行",
+          pfH5: "企业治理",
+          pfH6: "生态集成",
+          pf1: "高", pf2: "高", pf3: "中高", pf4: "中高", pf5: "高",
+          pf6: "中高", pf7: "中高", pf8: "中", pf9: "高", pf10: "高",
+          pf11: "中高", pf12: "中高", pf13: "中", pf14: "中高", pf15: "中高",
+          perfNote: "注：分级用于战略沟通，不代表统一基准榜单；建议结合你们代码仓和任务集做 PoC 验证。",
+          sc1Title: "业务功能迭代提速（Feature Sprint）",
+          sc1List: [
+            "案例：电商业务线每两周迭代，接口变更多导致联调返工。",
+            "推荐组合：Copilot/Cursor + Claude/GPT（补全、重构、单测草稿）。",
+            "实施方式：在 PR 流程中自动生成接口变更说明与回归测试建议。",
+            "效果指标：需求到上线周期缩短约 20%-30%，返工次数显著下降。"
+          ],
+          sc2Title: "遗留系统改造（Legacy Modernization）",
+          sc2List: [
+            "案例：Java 单体拆分微服务，历史代码缺注释、依赖复杂。",
+            "推荐组合：JetBrains AI Assistant / Amazon Q + 大模型问答（跨文件理解）。",
+            "实施方式：先生成依赖地图，再按模块输出重构步骤与风险清单。",
+            "效果指标：核心模块改造评估时间缩短约 40%，回归缺陷率下降。"
+          ],
+          sc3Title: "测试与质量门禁自动化",
+          sc3List: [
+            "案例：多仓库项目测试覆盖率低，人工 Code Review 压力大。",
+            "推荐组合：Windsurf/Cursor Agent + DeepSeek-Coder（测试生成与批修）。",
+            "实施方式：CI 触发 AI 生成单测候选、边界用例和潜在缺陷解释。",
+            "效果指标：单测覆盖率提升约 15%-25%，评审吞吐提升约 30%。"
+          ],
+          sc4Title: "多团队协同治理与规范统一",
+          sc4List: [
+            "案例：前后端与数据团队工具链不同，输出风格和规范不一致。",
+            "推荐组合：Copilot for Business / 企业版 Cursor + 统一 Prompt 策略中心。",
+            "实施方式：沉淀团队级提示模板、代码规范检查与审计日志策略。",
+            "效果指标：跨团队交付一致性提升，评审沟通成本明显下降。"
+          ],
+          sc5Title: "合规与私有化研发场景",
+          sc5List: [
+            "案例：金融/车企研发代码不能出域，需满足审计与权限隔离要求。",
+            "推荐组合：通义灵码/Comate + 私有化模型（Qwen/DeepSeek/GLM）。",
+            "实施方式：部署内网推理网关，启用敏感代码脱敏与访问留痕。",
+            "效果指标：在合规前提下保持研发提效，安全审计通过率提升。"
+          ]
+        },
+        en: {
+          backLink: "Back to Home",
+          title: "Developer and Coding AI Hub",
+          subtitle: "Focused on mainstream developer AI tools: model dependencies, capability evolution, current performance, and recommended scenarios for platform selection.",
+          tabOverview: "Model Overview",
+          tabTimeline: "Development Timeline",
+          tabPerformance: "Performance Snapshot",
+          tabScenarios: "Scenario Fit",
+          ov1Title: "Leading Global Products",
+          ov1List: [
+            "Examples: GitHub Copilot / Cursor / Windsurf / Amazon Q Developer / JetBrains AI Assistant",
+            "Traits: deep IDE integration, agentic task flows, stronger enterprise collaboration",
+            "Model dependencies: OpenAI / Anthropic / Gemini and others"
+          ],
+          ov2Title: "Leading China Products",
+          ov2List: [
+            "Examples: Tongyi Lingma / Trae-MarsCode / Baidu Comate",
+            "Traits: stronger Chinese code understanding and enterprise workflow fit",
+            "Model dependencies: Qwen / DeepSeek / ERNIE and localized model stacks"
+          ],
+          ov3Title: "Core Capability Layers",
+          ov3List: [
+            "Completion and refactor: line/function-level suggestions",
+            "Code understanding: cross-file retrieval and contextual Q&A",
+            "Agent execution: task decomposition, edits, tests, and regression"
+          ],
+          ov4Title: "Selection Criteria",
+          ov4List: [
+            "Measured code quality uplift",
+            "Engineering governance and auditability",
+            "Private deployment and compliance readiness"
+          ],
+          tlH1: "Stage",
+          tlH2: "Industry Shift",
+          tlH3: "Representative Trend",
+          tl1a: "2022-2023: Copilot adoption wave",
+          tl1b: "AI completion entered mainstream IDE workflows",
+          tl1c: "From completion to conversational programming",
+          tl2a: "2024: IDE agentization",
+          tl2b: "From suggestions to cross-file execution",
+          tl2c: "Code understanding plus execution became core differentiation",
+          tl3a: "2025-2026: Team platformization",
+          tl3b: "ROI, governance, and auditability became central",
+          tl3c: "Enterprise policy controls, model routing, and private deployment",
+          pfH1: "Product Group",
+          pfH2: "Code Completion",
+          pfH3: "Cross-file Understanding",
+          pfH4: "Agent Execution",
+          pfH5: "Enterprise Governance",
+          pfH6: "Ecosystem Integration",
+          pf1: "High", pf2: "High", pf3: "Medium-High", pf4: "Medium-High", pf5: "High",
+          pf6: "Medium-High", pf7: "Medium-High", pf8: "Medium", pf9: "High", pf10: "High",
+          pf11: "Medium-High", pf12: "Medium-High", pf13: "Medium", pf14: "Medium-High", pf15: "Medium-High",
+          perfNote: "Note: Bands are for strategic communication, not a unified benchmark leaderboard. Validate with your own repositories and tasks through PoC.",
+          sc1Title: "Feature sprint acceleration",
+          sc1List: [
+            "Case: A commerce team ships every two weeks and frequent API changes create repeated integration rework.",
+            "Recommended stack: Copilot/Cursor + Claude/GPT for completion, refactor suggestions, and unit-test drafts.",
+            "Implementation: Generate API change summaries and regression test hints automatically in each PR.",
+            "Outcome: Requirement-to-release cycle reduced by about 20%-30%, with materially fewer rework loops."
+          ],
+          sc2Title: "Legacy modernization",
+          sc2List: [
+            "Case: A Java monolith is being split into microservices, with sparse comments and heavy implicit dependencies.",
+            "Recommended stack: JetBrains AI Assistant / Amazon Q plus LLM Q&A for cross-file understanding.",
+            "Implementation: Build dependency maps first, then generate module-by-module refactor plans and risk checklists.",
+            "Outcome: Core module assessment time reduced by about 40%, with lower regression defect rates."
+          ],
+          sc3Title: "Test and quality-gate automation",
+          sc3List: [
+            "Case: Multi-repo programs have low test coverage and overloaded manual code review capacity.",
+            "Recommended stack: Windsurf/Cursor Agent + DeepSeek-Coder for test generation and batch fixes.",
+            "Implementation: CI triggers AI-generated unit-test candidates, edge-case suites, and defect explanations.",
+            "Outcome: Unit-test coverage improved by about 15%-25%, and review throughput increased by about 30%."
+          ],
+          sc4Title: "Multi-team governance and standardization",
+          sc4List: [
+            "Case: Frontend, backend, and data teams use different toolchains, causing inconsistent code and documentation styles.",
+            "Recommended stack: Copilot for Business / enterprise Cursor with a centralized prompt-policy layer.",
+            "Implementation: Standardize team templates, coding-style checks, and audit logging policies.",
+            "Outcome: Cross-team delivery consistency improves and review communication overhead drops significantly."
+          ],
+          sc5Title: "Compliance and private-deployment engineering",
+          sc5List: [
+            "Case: In regulated sectors, source code cannot leave the network and full auditability is mandatory.",
+            "Recommended stack: Tongyi Lingma/Comate with private models such as Qwen/DeepSeek/GLM.",
+            "Implementation: Deploy an internal inference gateway with sensitive-code masking and access traceability.",
+            "Outcome: Engineering productivity is preserved under compliance constraints, with higher security audit pass rates."
+          ]
+        }
+      };
+
+      const tabs = Array.from(document.querySelectorAll(".tab"));
+      const sections = Array.from(document.querySelectorAll(".section"));
+      const langBtn = document.getElementById("langBtn");
+      let lang = "zh";
+
+      function setList(id, items) {
+        const ul = document.getElementById(id);
+        ul.innerHTML = "";
+        items.forEach(function (text) {
+          const li = document.createElement("li");
+          li.textContent = text;
+          ul.appendChild(li);
+        });
+      }
+
+      function applyText() {
+        const t = i18n[lang];
+        document.getElementById("backLink").textContent = t.backLink;
+        document.getElementById("title").textContent = t.title;
+        document.getElementById("subtitle").textContent = t.subtitle;
+        document.getElementById("tabOverview").textContent = t.tabOverview;
+        document.getElementById("tabTimeline").textContent = t.tabTimeline;
+        document.getElementById("tabPerformance").textContent = t.tabPerformance;
+        document.getElementById("tabScenarios").textContent = t.tabScenarios;
+
+        document.getElementById("ov1Title").textContent = t.ov1Title;
+        document.getElementById("ov2Title").textContent = t.ov2Title;
+        document.getElementById("ov3Title").textContent = t.ov3Title;
+        document.getElementById("ov4Title").textContent = t.ov4Title;
+        setList("ov1List", t.ov1List);
+        setList("ov2List", t.ov2List);
+        setList("ov3List", t.ov3List);
+        setList("ov4List", t.ov4List);
+
+        [
+          "tlH1","tlH2","tlH3","tl1a","tl1b","tl1c","tl2a","tl2b","tl2c","tl3a","tl3b","tl3c",
+          "pfH1","pfH2","pfH3","pfH4","pfH5","pfH6","pf1","pf2","pf3","pf4","pf5","pf6","pf7","pf8","pf9","pf10","pf11","pf12","pf13","pf14","pf15",
+          "perfNote","sc1Title","sc2Title","sc3Title","sc4Title","sc5Title"
+        ].forEach(function (id) {
+          document.getElementById(id).textContent = t[id];
+        });
+
+        setList("sc1List", t.sc1List);
+        setList("sc2List", t.sc2List);
+        setList("sc3List", t.sc3List);
+        setList("sc4List", t.sc4List);
+        setList("sc5List", t.sc5List);
+
+        langBtn.textContent = lang === "zh" ? "EN" : "中文";
+        document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+      }
+
+      function activateTab(tabName) {
+        tabs.forEach(function (tab) {
+          tab.classList.toggle("active", tab.getAttribute("data-tab") === tabName);
+        });
+        sections.forEach(function (section) {
+          section.classList.toggle("active", section.getAttribute("data-section") === tabName);
+        });
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          const tabName = tab.getAttribute("data-tab");
+          activateTab(tabName);
+          history.replaceState(null, "", "#" + tabName);
+        });
+      });
+
+      langBtn.addEventListener("click", function () {
+        lang = lang === "zh" ? "en" : "zh";
+        applyText();
+      });
+
+      const hash = (location.hash || "#overview").replace("#", "");
+      activateTab(["overview", "timeline", "performance", "scenarios"].includes(hash) ? hash : "overview");
+      applyText();
+    })();
+  </script>
+</body>
+</html>
