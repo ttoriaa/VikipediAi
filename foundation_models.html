@@ -183,6 +183,38 @@
       font-size: 14px;
     }
 
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .profile-card {
+      border: 1px solid rgba(17, 32, 24, 0.1);
+      border-radius: 14px;
+      padding: 10px;
+      background: rgba(17, 32, 24, 0.03);
+    }
+
+    .profile-card h4 {
+      margin: 0 0 4px;
+      font-size: 14px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    .profile-line {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .profile-label {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
     .section-head {
       margin: 4px 0 10px;
       font-size: 18px;
@@ -229,6 +261,7 @@
 
     @media (max-width: 960px) {
       .grid { grid-template-columns: 1fr; }
+      .profile-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -237,7 +270,7 @@
     <div class="topline">
       <a href="index.html" id="backLink">返回导航页</a>
       <div>
-        <span id="version">v1.1.0 | 2026-07-02</span>
+        <span id="version">v1.2.0 | 2026-07-02</span>
         <button class="lang" id="langBtn">EN</button>
       </div>
     </div>
@@ -431,7 +464,7 @@
           globalModels: [
             {
               name: "OpenAI",
-              subtitle: "通用能力上限与生态完整度领先（含 GPT-5.x/6.x 与 Codex 编程代理）",
+              subtitle: "通用能力上限与生态完整度领先（已纳入 GPT-5.5，含 GPT-5.x/6.x 与 Codex 编程代理）",
               representatives: ["GPT-4o", "o3", "o4-mini", "GPT-5.4", "GPT-5.5", "GPT-6.5", "Codex"],
               strengths: [
                 "复杂推理与多工具调用能力强，适合长链路任务",
@@ -443,6 +476,36 @@
                 "企业知识助手与管理分析",
                 "跨系统 Agent 编排",
                 "高要求内容与代码生成"
+              ],
+              profilesTitle: "OpenAI 子模型怎么选",
+              profilesFitLabel: "适合场景",
+              profilesPerfLabel: "性能画像",
+              profiles: [
+                {
+                  name: "GPT-4o",
+                  fit: "实时多模态助手、语音/图像交互、前台客服与销售演示。",
+                  performance: "速度快、交互顺滑、多模态成熟；复杂长链推理通常弱于 GPT-5.5 与 o3，但更适合高频用户交互。"
+                },
+                {
+                  name: "o3",
+                  fit: "复杂决策、方案比较、跨文档分析、需要较强推理严谨性的任务。",
+                  performance: "深度推理和多步拆解能力强，适合难题分析；通常比 GPT-4o 更慢、更贵，但结论质量更稳。"
+                },
+                {
+                  name: "o4-mini",
+                  fit: "轻量自动化、批量分类、低成本助手、需要大规模并发的内部工具。",
+                  performance: "成本和时延表现更友好，适合中等复杂度任务；在高难推理、写作精细度上不如 GPT-5.5。"
+                },
+                {
+                  name: "GPT-5.5",
+                  fit: "高质量写作、企业知识助理、复杂分析、Agent 中枢、需要稳定工具调用的工作流。",
+                  performance: "综合推理、结构化表达和工具调用成功率更强；质量上明显高于 GPT-4o，但时延和成本也更高。"
+                },
+                {
+                  name: "Codex",
+                  fit: "代码补全、重构、测试生成、仓库级修复、PR 辅助和工程自动执行。",
+                  performance: "工程任务分解、补丁生成、文件与命令级协同更强；不是通用前台对话主模型，通常与 GPT-5.5 配合使用。"
+                }
               ]
             },
             {
@@ -458,6 +521,26 @@
                 "知识工程与文档生产",
                 "研发代码审阅与重构",
                 "法规/流程类问答助手"
+              ],
+              profilesTitle: "Anthropic 子模型怎么选",
+              profilesFitLabel: "适合场景",
+              profilesPerfLabel: "性能画像",
+              profiles: [
+                {
+                  name: "Claude 3.5 Sonnet",
+                  fit: "企业知识问答、文档起草、代码审阅、需要质量与速度平衡的主力模型。",
+                  performance: "综合能力最均衡，长文理解、代码解释、结构化输出稳定；通常是 Anthropic 体系里最实用的默认选择。"
+                },
+                {
+                  name: "Claude 3 Opus",
+                  fit: "高复杂分析、深度写作、需要更强抽象能力和推理耐力的任务。",
+                  performance: "质量上限更高，适合更难的思考型任务；但成本和时延通常高于 Sonnet，不适合高频大规模调用。"
+                },
+                {
+                  name: "Claude 3 Haiku",
+                  fit: "轻量总结、快速分类、FAQ 首答、低成本批处理。",
+                  performance: "响应更快、成本更低，适合简单稳定任务；复杂推理、代码质量和长文一致性不如 Sonnet/Opus。"
+                }
               ]
             },
             {
@@ -473,6 +556,26 @@
                 "视觉与多模态分析",
                 "搜索增强与办公协同",
                 "实时助手与内容生产"
+              ],
+              profilesTitle: "Gemini 子模型怎么选",
+              profilesFitLabel: "适合场景",
+              profilesPerfLabel: "性能画像",
+              profiles: [
+                {
+                  name: "Gemini 2.5 Pro",
+                  fit: "复杂多模态分析、长文理解、需要与搜索或 Workspace 深度联动的高价值任务。",
+                  performance: "综合能力最强，视觉理解、长上下文和复杂任务表现更稳；相应地成本和时延也更高。"
+                },
+                {
+                  name: "Gemini 2.5 Flash",
+                  fit: "实时助手、轻量多模态交互、快速内容生成和高并发应用。",
+                  performance: "速度和成本更友好，适合大规模在线交互；在深度推理和复杂长任务上通常弱于 Pro。"
+                },
+                {
+                  name: "Gemini 1.5 Pro",
+                  fit: "需要超长上下文处理的资料归纳、会议纪要、长视频或长文档问答。",
+                  performance: "长上下文能力仍然有价值，但代际上通常不如 2.5 Pro 全面；适合特定长输入场景。"
+                }
               ]
             }
           ],
@@ -490,6 +593,26 @@
                 "企业知识助手",
                 "研发编码与自动化脚本",
                 "本地化智能客服"
+              ],
+              profilesTitle: "Qwen 子模型怎么选",
+              profilesFitLabel: "适合场景",
+              profilesPerfLabel: "性能画像",
+              profiles: [
+                {
+                  name: "Qwen2.5-Max",
+                  fit: "中文主力助手、复杂业务问答、企业知识库、需要更高上限的通用任务。",
+                  performance: "整体能力上限更高，中文表达和复杂任务更稳；通常是 Qwen 家族中面向高质量输出的优先选择。"
+                },
+                {
+                  name: "Qwen2.5-72B-Instruct",
+                  fit: "私有部署、成本受控的企业通用助手、流程问答与文档处理。",
+                  performance: "能力、部署可行性和成本较平衡，适合做企业内网主模型；顶级推理和代码深度弱于最强闭源。"
+                },
+                {
+                  name: "Qwen2.5-Coder",
+                  fit: "代码补全、脚本生成、研发自动化、小型工程 Copilot 场景。",
+                  performance: "代码相关任务表现更专门，性价比高；通用写作和复杂业务分析通常不如 Max。"
+                }
               ]
             },
             {
@@ -695,7 +818,7 @@
           globalModels: [
             {
               name: "OpenAI",
-              subtitle: "Top-end general capability and complete ecosystem (including GPT-5.x/6.x and Codex agent)",
+              subtitle: "Top-end general capability and complete ecosystem (now including GPT-5.5, plus GPT-5.x/6.x and Codex agent)",
               representatives: ["GPT-4o", "o3", "o4-mini", "GPT-5.4", "GPT-5.5", "GPT-6.5", "Codex"],
               strengths: [
                 "Strong complex reasoning and tool orchestration for long task chains",
@@ -707,6 +830,36 @@
                 "Enterprise knowledge assistants and decision support",
                 "Cross-system agent orchestration",
                 "High-quality content and code generation"
+              ],
+              profilesTitle: "How to pick among OpenAI sub-models",
+              profilesFitLabel: "Best-fit scenarios",
+              profilesPerfLabel: "Performance profile",
+              profiles: [
+                {
+                  name: "GPT-4o",
+                  fit: "Real-time multimodal assistants, voice and image interaction, front-line support, and live demos.",
+                  performance: "Fast, smooth, and mature in multimodal interaction; typically weaker than GPT-5.5 and o3 on long-chain reasoning, but better suited for high-frequency user-facing flows."
+                },
+                {
+                  name: "o3",
+                  fit: "Complex decisions, option comparison, cross-document analysis, and tasks that need rigorous reasoning.",
+                  performance: "Strong deep reasoning and multi-step decomposition; usually slower and more expensive than GPT-4o, but more reliable on hard analytical tasks."
+                },
+                {
+                  name: "o4-mini",
+                  fit: "Lightweight automation, batch classification, low-cost assistants, and high-concurrency internal tools.",
+                  performance: "More favorable on latency and cost, good for medium-complexity work; weaker than GPT-5.5 on difficult reasoning and premium writing quality."
+                },
+                {
+                  name: "GPT-5.5",
+                  fit: "High-quality writing, enterprise knowledge assistants, complex analysis, agent orchestration, and workflows needing stable tool use.",
+                  performance: "Stronger overall reasoning, structured expression, and tool-call reliability; clearly higher quality than GPT-4o, with higher latency and cost."
+                },
+                {
+                  name: "Codex",
+                  fit: "Code completion, refactoring, test generation, repo-scale fixes, PR assistance, and engineering automation.",
+                  performance: "Stronger at engineering task breakdown, patch generation, and file/command-level execution; not the primary choice for general customer-facing chat, and best paired with GPT-5.5."
+                }
               ]
             },
             {
@@ -722,6 +875,26 @@
                 "Knowledge engineering and documentation workflows",
                 "Engineering code review and refactoring",
                 "Policy/process-oriented assistants"
+              ],
+              profilesTitle: "How to pick among Anthropic sub-models",
+              profilesFitLabel: "Best-fit scenarios",
+              profilesPerfLabel: "Performance profile",
+              profiles: [
+                {
+                  name: "Claude 3.5 Sonnet",
+                  fit: "Enterprise knowledge assistants, document drafting, code review, and default production use where quality and speed both matter.",
+                  performance: "The most balanced option overall, with stable long-context understanding, code explanation, and structured output; typically the practical default inside the Anthropic family."
+                },
+                {
+                  name: "Claude 3 Opus",
+                  fit: "High-complexity analysis, deeper writing, and tasks that need stronger abstraction and reasoning endurance.",
+                  performance: "Higher quality ceiling for difficult thinking-heavy tasks, but usually with higher cost and latency than Sonnet, making it less suitable for high-volume traffic."
+                },
+                {
+                  name: "Claude 3 Haiku",
+                  fit: "Light summaries, rapid classification, first-response FAQ, and low-cost batch processing.",
+                  performance: "Faster and cheaper for simple stable tasks, but weaker than Sonnet and Opus on difficult reasoning, code quality, and long-form consistency."
+                }
               ]
             },
             {
@@ -737,6 +910,26 @@
                 "Vision and multimodal analysis",
                 "Search-augmented office collaboration",
                 "Real-time assistant experiences"
+              ],
+              profilesTitle: "How to pick among Gemini sub-models",
+              profilesFitLabel: "Best-fit scenarios",
+              profilesPerfLabel: "Performance profile",
+              profiles: [
+                {
+                  name: "Gemini 2.5 Pro",
+                  fit: "Complex multimodal analysis, long-context understanding, and high-value workflows tied to Search or Workspace.",
+                  performance: "The strongest all-around option in the Gemini line, with steadier visual reasoning, long-context handling, and difficult task performance, at higher latency and cost."
+                },
+                {
+                  name: "Gemini 2.5 Flash",
+                  fit: "Real-time assistants, lightweight multimodal interaction, quick content generation, and high-concurrency products.",
+                  performance: "More favorable on speed and cost, making it well suited for scaled interactive usage; generally weaker than Pro on deep reasoning and long difficult tasks."
+                },
+                {
+                  name: "Gemini 1.5 Pro",
+                  fit: "Very long-context digestion, meeting synthesis, and Q&A over long documents or video transcripts.",
+                  performance: "Still valuable for extra-long inputs, but usually less complete overall than 2.5 Pro; best used for specific long-input workloads."
+                }
               ]
             }
           ],
@@ -754,6 +947,26 @@
                 "Enterprise knowledge assistants",
                 "Coding copilots and automation scripts",
                 "Localized customer service systems"
+              ],
+              profilesTitle: "How to pick among Qwen sub-models",
+              profilesFitLabel: "Best-fit scenarios",
+              profilesPerfLabel: "Performance profile",
+              profiles: [
+                {
+                  name: "Qwen2.5-Max",
+                  fit: "Chinese-first primary assistants, complex business QA, enterprise knowledge bases, and general tasks that need a higher ceiling.",
+                  performance: "Higher overall ceiling with stronger Chinese expression and better stability on harder tasks; usually the preferred Qwen option when output quality matters most."
+                },
+                {
+                  name: "Qwen2.5-72B-Instruct",
+                  fit: "Private deployment, cost-controlled enterprise assistants, workflow QA, and document processing.",
+                  performance: "A strong balance of capability, deployability, and cost for internal enterprise usage, though still behind the strongest closed models on frontier reasoning and code depth."
+                },
+                {
+                  name: "Qwen2.5-Coder",
+                  fit: "Code completion, script generation, engineering automation, and lightweight coding copilot use cases.",
+                  performance: "More specialized and cost-effective for coding tasks, while general writing and complex business analysis are usually weaker than Max."
+                }
               ]
             },
             {
@@ -957,6 +1170,39 @@
             sceneList.appendChild(li);
           });
           article.appendChild(sceneList);
+
+          if (model.profiles && model.profiles.length) {
+            const profileTitle = document.createElement("p");
+            profileTitle.className = "block-title";
+            profileTitle.textContent = model.profilesTitle || (lang === "zh" ? "子模型选型" : "Sub-model guide");
+            article.appendChild(profileTitle);
+
+            const profileGrid = document.createElement("div");
+            profileGrid.className = "profile-grid";
+
+            model.profiles.forEach(function (profile) {
+              const profileCard = document.createElement("div");
+              profileCard.className = "profile-card";
+
+              const name = document.createElement("h4");
+              name.textContent = profile.name;
+              profileCard.appendChild(name);
+
+              const fit = document.createElement("p");
+              fit.className = "profile-line";
+              fit.innerHTML = '<span class="profile-label">' + (model.profilesFitLabel || (lang === "zh" ? "适合场景" : "Best-fit scenarios")) + ':</span> ' + profile.fit;
+              profileCard.appendChild(fit);
+
+              const perf = document.createElement("p");
+              perf.className = "profile-line";
+              perf.innerHTML = '<span class="profile-label">' + (model.profilesPerfLabel || (lang === "zh" ? "性能画像" : "Performance profile")) + ':</span> ' + profile.performance;
+              profileCard.appendChild(perf);
+
+              profileGrid.appendChild(profileCard);
+            });
+
+            article.appendChild(profileGrid);
+          }
 
           container.appendChild(article);
         });
