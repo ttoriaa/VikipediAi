@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
@@ -24,7 +24,6 @@
       --shadow: 0 20px 50px rgba(17, 32, 24, 0.12);
       --radius: 18px;
     }
-
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -36,54 +35,13 @@
         linear-gradient(165deg, var(--bg0) 0%, var(--bg1) 100%);
       min-height: 100vh;
     }
-
-    .page {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 26px 20px 40px;
-    }
-
-    .topline {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .topline a {
-      color: #0f766e;
-      text-decoration: none;
-    }
-
-    .hero {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    h1 {
-      margin: 0;
-      line-height: 1.12;
-      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
-      font-size: clamp(28px, 4.2vw, 46px);
-      letter-spacing: -0.02em;
-    }
-
-    .subtitle {
-      margin: 0;
-      color: var(--muted);
-      font-size: 16px;
-    }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
+    .page { max-width: 1320px; margin: 0 auto; padding: 26px 20px 40px; }
+    .topline { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; color: var(--muted); font-size: 13px; }
+    .topline a { color: #0f766e; text-decoration: none; }
+    .hero { display: grid; gap: 12px; margin-bottom: 14px; }
+    h1 { margin: 0; line-height: 1.12; font-family: "Space Grotesk", "Noto Sans SC", sans-serif; font-size: clamp(28px, 4.2vw, 46px); letter-spacing: -0.02em; }
+    .subtitle { margin: 0; color: var(--muted); font-size: 16px; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; }
     .btn {
       border: 1px solid rgba(17, 32, 24, 0.2);
       background: rgba(255, 255, 255, 0.9);
@@ -95,122 +53,39 @@
       font-size: 13px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 18px rgba(17, 32, 24, 0.09);
-    }
-
-    .btn.active {
-      color: white;
-      border-color: transparent;
-      background: linear-gradient(120deg, #14532d, #0f766e);
-    }
-
-    .btn.view.active {
-      background: linear-gradient(120deg, #1e3a8a, #0f766e);
-    }
-
-    .legend {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(17, 32, 24, 0.12);
-      border-radius: 999px;
-      padding: 5px 11px;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      display: inline-block;
-    }
-
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 18px rgba(17, 32, 24, 0.09); }
+    .btn.active { color: white; border-color: transparent; background: linear-gradient(120deg, #14532d, #0f766e); }
+    .btn.view.active { background: linear-gradient(120deg, #1e3a8a, #0f766e); }
+    .btn.scope.active { background: linear-gradient(120deg, #b45309, #0f766e); }
+    .btn.toggle.active { background: linear-gradient(120deg, #7c3aed, #0f766e); color: #fff; border-color: transparent; }
+    .legend { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; color: var(--muted); font-size: 13px; }
+    .chip { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(17, 32, 24, 0.12); border-radius: 999px; padding: 5px 11px; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; display: inline-block; }
     .dot.dep { background: var(--line-dep); }
     .dot.comp { background: var(--line-comp); }
-
-    .board {
-      position: relative;
-      border-radius: 24px;
-      border: 1px solid rgba(17, 32, 24, 0.14);
-      box-shadow: var(--shadow);
-      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.74));
-      overflow: hidden;
-    }
-
-    .board-inner {
-      position: relative;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-    }
-
-    .column {
-      padding: 18px;
-      border-right: 1px dashed rgba(17, 32, 24, 0.16);
-    }
-
+    .board { position: relative; border-radius: 24px; border: 1px solid rgba(17, 32, 24, 0.14); box-shadow: var(--shadow); background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.74)); overflow: hidden; }
+    .board-inner { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .column { padding: 18px; border-right: 1px dashed rgba(17, 32, 24, 0.16); }
     .column:last-child { border-right: none; }
-    .col-title {
-      margin: 0 0 12px;
-      font-size: 18px;
-      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
-      letter-spacing: 0.01em;
-    }
-
+    .col-title { margin: 0 0 12px; font-size: 18px; font-family: "Space Grotesk", "Noto Sans SC", sans-serif; letter-spacing: 0.01em; }
     .col-title.domestic { color: var(--domestic); }
     .col-title.global { color: var(--global); }
-
-    .lane {
-      background: rgba(255, 255, 255, 0.86);
-      border: 1px solid rgba(17, 32, 24, 0.1);
-      border-radius: var(--radius);
-      padding: 12px;
-      margin-bottom: 12px;
-    }
-
+    .lane { background: rgba(255, 255, 255, 0.86); border: 1px solid rgba(17, 32, 24, 0.1); border-radius: var(--radius); padding: 12px; margin-bottom: 12px; }
     .lane:last-child { margin-bottom: 0; }
-
-    .lane h3 {
-      margin: 0 0 8px;
-      font-size: 13px;
+    .lane h3 { margin: 0 0 8px; font-size: 13px; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+    .subcat-block { margin-bottom: 10px; }
+    .subcat-title {
+      margin: 0 0 6px;
+      font-size: 12px;
       color: var(--muted);
       letter-spacing: 0.04em;
       text-transform: uppercase;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
     }
-
-    .nodes {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .cross-lane {
-      padding: 0 18px 16px;
-    }
-
-    .cross-lane .lane {
-      margin: 0;
-      background: rgba(250, 245, 255, 0.86);
-    }
-
-    .cross-lane .nodes {
-      grid-template-columns: 1fr;
-      max-width: 340px;
-      margin: 0 auto;
-    }
-
+    .nodes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .cross-lane { padding: 0 18px 16px; }
+    .cross-lane .lane { margin: 0; background: rgba(250, 245, 255, 0.86); }
+    .cross-lane .nodes { grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
     .node {
       position: relative;
       border-radius: 12px;
@@ -221,117 +96,90 @@
       backdrop-filter: blur(4px);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
       animation: reveal 0.45s ease both;
+      cursor: pointer;
     }
-
-    .node:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 22px rgba(17, 32, 24, 0.13);
-    }
-
-    .name {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
-    }
-
-    .role {
-      font-size: 12px;
+    .node:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(17, 32, 24, 0.13); }
+    .name { font-size: 14px; font-weight: 700; margin-bottom: 6px; font-family: "Space Grotesk", "Noto Sans SC", sans-serif; }
+    .role { font-size: 12px; color: var(--muted); line-height: 1.3; }
+    .company { margin-top: 4px; font-size: 11px; color: #1f4f3f; line-height: 1.3; }
+    .tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag {
+      border: 1px solid rgba(17, 32, 24, 0.15);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
       color: var(--muted);
-      line-height: 1.3;
+      font-size: 11px;
+      padding: 2px 7px;
+      line-height: 1.2;
     }
-
     .node[data-region="domestic"] { border-left: 4px solid var(--domestic); }
     .node[data-region="global"] { border-left: 4px solid var(--global); }
     .node[data-type="upstream"] { border-left: 4px solid var(--upstream); }
     .node[data-type="agent"] { border-left: 4px solid var(--agent); }
-
-    .node.dim {
-      opacity: 0.32;
-      filter: grayscale(22%);
-    }
-
-    .node.focus {
-      box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.18), 0 12px 24px rgba(17, 32, 24, 0.16);
-    }
-
-    #edgeLayer {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: visible;
-    }
-
-    .edge {
-      fill: none;
-      stroke-width: 2.4;
-      opacity: 0.7;
-      stroke-linecap: round;
-      stroke-dasharray: 1;
-    }
-
+    .node.dim { opacity: 0.32; filter: grayscale(22%); }
+    .node.focus { box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.18), 0 12px 24px rgba(17, 32, 24, 0.16); }
+    .node.hidden-node { display: none; }
+    .board.scope-domestic-model .board-inner { grid-template-columns: 1fr; }
+    .board.scope-domestic-model #globalCol,
+    .board.scope-domestic-model .cross-lane,
+    .board.scope-domestic-model #domesticUpstreamLane,
+    .board.scope-domestic-model #domesticAppLane { display: none; }
+    .board.scope-domestic-model #domesticCol { border-right: none; }
+    #edgeLayer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+    .edge { fill: none; stroke-width: 2.4; opacity: 0.7; stroke-linecap: round; stroke-dasharray: 1; }
     .edge.dep { stroke: var(--line-dep); }
-    .edge.comp {
-      stroke: var(--line-comp);
-      stroke-dasharray: 7 7;
-    }
-
+    .edge.comp { stroke: var(--line-comp); stroke-dasharray: 7 7; }
     .edge.hidden { opacity: 0; }
     .edge.dim { opacity: 0.16; }
-
-    .notes {
-      margin-top: 16px;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 12px;
+    .notes { margin-top: 16px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 12px; }
+    .note { border-radius: var(--radius); border: 1px solid rgba(17, 32, 24, 0.13); background: rgba(255, 255, 255, 0.82); padding: 14px; }
+    .note h3 { margin: 0 0 8px; font-size: 15px; font-family: "Space Grotesk", "Noto Sans SC", sans-serif; }
+    .note p, .note li { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 0; }
+    .note ul { margin: 0; padding-left: 18px; }
+    .capture-clean .topline,
+    .capture-clean .toolbar,
+    .capture-clean .legend,
+    .capture-clean .notes { display: none; }
+    .modal {
+      position: fixed; inset: 0; background: rgba(12, 22, 16, 0.48); display: none;
+      align-items: center; justify-content: center; padding: 16px; z-index: 30;
     }
-
-    .note {
-      border-radius: var(--radius);
-      border: 1px solid rgba(17, 32, 24, 0.13);
-      background: rgba(255, 255, 255, 0.82);
-      padding: 14px;
+    .modal.open { display: flex; }
+    .modal-card {
+      width: min(820px, 100%); max-height: min(84vh, 920px); overflow: auto;
+      border-radius: 16px; border: 1px solid rgba(17, 32, 24, 0.16); background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 24px 54px rgba(12, 22, 16, 0.3); padding: 14px;
     }
-
-    .note h3 {
-      margin: 0 0 8px;
-      font-size: 15px;
+    .modal-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .modal-top h3 { margin: 0; font-size: 20px; font-family: "Space Grotesk", "Noto Sans SC", sans-serif; }
+    .close { border: 1px solid rgba(17, 32, 24, 0.22); border-radius: 999px; background: rgba(255,255,255,0.94); padding: 6px 11px; cursor: pointer; font-size: 12px; color: var(--muted); }
+    .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .modal-section { border: 1px solid rgba(17, 32, 24, 0.12); border-radius: 12px; background: rgba(255, 255, 255, 0.92); padding: 10px; }
+    .modal-section.full { grid-column: 1 / -1; }
+    .modal-section h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+    .modal-section p, .modal-section li { margin: 0; font-size: 14px; line-height: 1.45; }
+    .modal-section ul { margin: 0; padding-left: 18px; }
+    .link-line { margin-top: 8px; }
+    .link-line a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #0f766e;
+      text-decoration: none;
+      font-size: 13px;
       font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
     }
-
-    .note p,
-    .note li {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-      margin: 0;
-    }
-
-    .note ul {
-      margin: 0;
-      padding-left: 18px;
-    }
-
-    @keyframes reveal {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    @keyframes reveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 980px) {
       .board-inner { grid-template-columns: 1fr; }
-      .column {
-        border-right: none;
-        border-bottom: 1px dashed rgba(17, 32, 24, 0.16);
-      }
+      .column { border-right: none; border-bottom: 1px dashed rgba(17, 32, 24, 0.16); }
       .column:last-child { border-bottom: none; }
       .notes { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 640px) {
       .nodes { grid-template-columns: 1fr; }
       .page { padding: 22px 14px 28px; }
+      .modal-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -350,10 +198,12 @@
         <button class="btn" data-filter="comp" type="button" data-i18n="f_comp"></button>
         <button class="btn" data-filter="dep" type="button" data-i18n="f_dep"></button>
         <button class="btn" data-filter="pair" type="button" data-i18n="f_pair"></button>
+        <button class="btn scope" data-scope="domestic-model" type="button" data-i18n="s_domestic_model"></button>
         <button class="btn view active" data-view="normal" type="button" data-i18n="v_normal"></button>
         <button class="btn view" data-view="invest" type="button" data-i18n="v_invest"></button>
         <button class="btn view" data-view="procure" type="button" data-i18n="v_procure"></button>
         <button class="btn" id="langBtn" type="button">EN</button>
+        <button class="btn toggle" id="cleanModeBtn" type="button" data-i18n="clean_mode"></button>
         <button class="btn" id="exportBtn" type="button" data-i18n="export"></button>
       </div>
     </section>
@@ -369,65 +219,42 @@
       <div class="board-inner">
         <article class="column" id="domesticCol">
           <h2 class="col-title domestic" data-i18n="col_domestic"></h2>
-
-          <section class="lane">
-            <h3 data-i18n="lane_upstream"></h3>
-            <div class="nodes" id="nodes-domestic-upstream"></div>
-          </section>
-
-          <section class="lane">
-            <h3 data-i18n="lane_model"></h3>
-            <div class="nodes" id="nodes-domestic-model"></div>
-          </section>
-
-          <section class="lane">
+          <section class="lane" id="domesticUpstreamLane"><h3 data-i18n="lane_upstream"></h3><div class="nodes" id="nodes-domestic-upstream"></div></section>
+          <section class="lane" id="domesticModelLane"><h3 data-i18n="lane_model"></h3><div class="nodes" id="nodes-domestic-model"></div></section>
+          <section class="lane" id="domesticAppLane">
             <h3 data-i18n="lane_app"></h3>
-            <div class="nodes" id="nodes-domestic-app"></div>
+            <div id="nodes-domestic-app"></div>
           </section>
         </article>
-
         <article class="column" id="globalCol">
           <h2 class="col-title global" data-i18n="col_global"></h2>
-
-          <section class="lane">
-            <h3 data-i18n="lane_upstream"></h3>
-            <div class="nodes" id="nodes-global-upstream"></div>
-          </section>
-
-          <section class="lane">
-            <h3 data-i18n="lane_model"></h3>
-            <div class="nodes" id="nodes-global-model"></div>
-          </section>
-
+          <section class="lane"><h3 data-i18n="lane_upstream"></h3><div class="nodes" id="nodes-global-upstream"></div></section>
+          <section class="lane"><h3 data-i18n="lane_model"></h3><div class="nodes" id="nodes-global-model"></div></section>
           <section class="lane">
             <h3 data-i18n="lane_app"></h3>
-            <div class="nodes" id="nodes-global-app"></div>
+            <div id="nodes-global-app"></div>
           </section>
         </article>
       </div>
-
-      <section class="cross-lane">
-        <div class="lane">
-          <h3 data-i18n="lane_agent"></h3>
-          <div class="nodes" id="nodes-cross-agent"></div>
-        </div>
-      </section>
+      <section class="cross-lane"><div class="lane"><h3 data-i18n="lane_agent"></h3><div class="nodes" id="nodes-cross-agent"></div></div></section>
     </section>
 
     <section class="notes">
-      <article class="note">
-        <h3 data-i18n="note1_title"></h3>
-        <ul>
-          <li data-i18n="note1_1"></li>
-          <li data-i18n="note1_2"></li>
-          <li data-i18n="note1_3"></li>
-          <li data-i18n="note1_4"></li>
-        </ul>
-      </article>
+      <article class="note"><h3 data-i18n="note1_title"></h3><ul><li data-i18n="note1_1"></li><li data-i18n="note1_2"></li><li data-i18n="note1_3"></li><li data-i18n="note1_4"></li></ul></article>
+      <article class="note"><h3 data-i18n="note2_title"></h3><p data-i18n="note2_desc"></p></article>
+    </section>
 
-      <article class="note">
-        <h3 data-i18n="note2_title"></h3>
-        <p data-i18n="note2_desc"></p>
+    <section class="modal" id="nodeModal" aria-hidden="true">
+      <article class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-top"><h3 id="modalTitle">Node</h3><button class="close" id="modalClose" type="button" data-i18n="close"></button></div>
+        <div class="modal-grid">
+          <section class="modal-section full"><h4 data-i18n="modal_company"></h4><p id="modalCompany"></p></section>
+          <section class="modal-section full"><h4 data-i18n="modal_positioning"></h4><p id="modalPositioning"></p></section>
+          <section class="modal-section full"><h4 data-i18n="modal_models"></h4><ul id="modalModels"></ul></section>
+          <section class="modal-section"><h4 data-i18n="modal_competitors"></h4><ul id="modalCompetitors"></ul></section>
+          <section class="modal-section"><h4 data-i18n="modal_dependencies"></h4><ul id="modalDependencies"></ul></section>
+          <section class="modal-section full link-line"><a id="modalUsecaseLink" href="usecases.html" data-i18n="goto_usecase"></a></section>
+        </div>
       </article>
     </section>
   </main>
@@ -437,79 +264,108 @@
       const i18n = {
         zh: {
           subtitle: "同一张图展示两种关系：直接竞争（同层抢用户/开发者/企业预算）与上下游依赖（算力/模型/分发链路）。",
-          back: "返回导航页",
-          f_all: "显示全部关系",
-          f_comp: "仅看直接竞争",
-          f_dep: "仅看上下游依赖",
-          f_pair: "中美直接对位竞争",
-          v_normal: "常规视图",
-          v_invest: "投资视角",
-          v_procure: "企业采购视角",
-          export: "导出 16:9 汇报截图",
-          legend_comp: "虚线：直接竞争",
-          legend_dep: "实线：上下游依赖",
-          legend_note: "注：公司可能同时跨多层，图中按主战场放置",
-          col_domestic: "国内",
-          col_global: "国外",
-          lane_upstream: "上游能力 / 供给",
-          lane_model: "基座模型层",
-          lane_app: "应用层",
-          lane_agent: "Agent 编排层（跨区）",
+          back: "返回导航页", f_all: "显示全部关系", f_comp: "仅看直接竞争", f_dep: "仅看上下游依赖", f_pair: "中美直接对位竞争",
+          s_domestic_model: "只看国内模型层",
+          v_normal: "常规视图", v_invest: "投资视角", v_procure: "企业采购视角", clean_mode: "干净导出模式", export: "导出 16:9 汇报截图",
+          legend_comp: "虚线：直接竞争", legend_dep: "实线：上下游依赖", legend_note: "注：公司可能同时跨多层，图中按主战场放置",
+          col_domestic: "国内", col_global: "国外", lane_upstream: "上游能力 / 供给", lane_model: "基座模型层", lane_app: "应用层", lane_agent: "Agent 编排层（跨区）",
+          sub_customer: "客户与通用对话", sub_search: "搜索与知识问答", sub_coding: "开发者与编码",
           note1_title: "读图提示：谁和谁直接竞争？",
-          note1_1: "模型层：DeepSeek、GLM 与 OpenAI、Gemini、Anthropic 在 API 与企业预算上直接竞争。",
+          note1_1: "模型层：DeepSeek、GLM、Qwen、Moonshot、Baichuan、MiniMax、01.AI 与 OpenAI、Gemini、Anthropic 在 API 与企业预算上直接竞争。",
           note1_2: "消费应用层：豆包、Kimi 与 ChatGPT、Claude、Gemini App、Perplexity 在用户时长与留存上竞争。",
-          note1_3: "Coding 层：Cursor 与 GitHub Copilot 直接竞争开发者席位与团队预算。",
+          note1_3: "Coding 层：通义灵码、Trae / MarsCode、百度 Comate、Cursor、GitHub Copilot、Amazon Q Developer、JetBrains AI Assistant 与 Windsurf 在开发者席位与团队预算上直接竞争。",
           note1_4: "中美直接对位竞争：聚焦中美同赛道产品对打关系。",
           note2_title: "OpenClaw 在产业中的定位",
           note2_desc: "OpenClaw 更接近开源 Agent Runtime/Workflow 编排层，上游依赖基座模型与云算力，下游承接企业自动化与流程落地。",
-          export_fail: "导出依赖 html2canvas，加载失败。请检查网络后重试。"
+          export_fail: "导出依赖 html2canvas，加载失败。请检查网络后重试。",
+          schema_fail: "graph.json 未通过 schema 校验，请检查数据文件。",
+          close: "关闭", modal_company: "公司", modal_positioning: "定位", modal_models: "代表模型", modal_competitors: "竞品", modal_dependencies: "依赖",
+          goto_usecase: "查看该产品的详细场景与流程页"
         },
         en: {
           subtitle: "One map overlays two relationships: direct competition and upstream-downstream dependencies.",
-          back: "Back to Home",
-          f_all: "Show All",
-          f_comp: "Competition Only",
-          f_dep: "Dependency Only",
-          f_pair: "China-US Matchups",
-          v_normal: "Normal View",
-          v_invest: "Investor View",
-          v_procure: "Enterprise Buying View",
-          export: "Export 16:9 Slide Screenshot",
-          legend_comp: "Dashed: direct competition",
-          legend_dep: "Solid: upstream/downstream dependency",
-          legend_note: "Note: A company may span multiple layers; this map places each by primary battleground.",
-          col_domestic: "China",
-          col_global: "Global",
-          lane_upstream: "Upstream Capability / Supply",
-          lane_model: "Foundation Model Layer",
-          lane_app: "Application Layer",
-          lane_agent: "Agent Orchestration Layer (Cross-region)",
+          back: "Back to Home", f_all: "Show All", f_comp: "Competition Only", f_dep: "Dependency Only", f_pair: "China-US Matchups",
+          s_domestic_model: "China Models Only",
+          v_normal: "Normal View", v_invest: "Investor View", v_procure: "Enterprise Buying View", clean_mode: "Clean Export Mode", export: "Export 16:9 Slide Screenshot",
+          legend_comp: "Dashed: direct competition", legend_dep: "Solid: upstream/downstream dependency", legend_note: "Note: A company may span multiple layers; this map places each by primary battleground.",
+          col_domestic: "China", col_global: "Global", lane_upstream: "Upstream Capability / Supply", lane_model: "Foundation Model Layer", lane_app: "Application Layer", lane_agent: "Agent Orchestration Layer (Cross-region)",
+          sub_customer: "Customer and General Chat", sub_search: "Search and Answer", sub_coding: "Developer and Coding",
           note1_title: "How to read direct competition",
-          note1_1: "Model layer: DeepSeek and GLM directly compete with OpenAI, Gemini, and Anthropic for API and enterprise budget.",
+          note1_1: "Model layer: DeepSeek, GLM, Qwen, Moonshot, Baichuan, MiniMax, and 01.AI directly compete with OpenAI, Gemini, and Anthropic for API and enterprise budget.",
           note1_2: "Consumer layer: Doubao and Kimi compete with ChatGPT, Claude, Gemini App, and Perplexity for attention and retention.",
-          note1_3: "Coding layer: Cursor and GitHub Copilot compete for developer seats and team budgets.",
+          note1_3: "Coding layer: Tongyi Lingma, Trae / MarsCode, Baidu Comate, Cursor, GitHub Copilot, Amazon Q Developer, JetBrains AI Assistant, and Windsurf compete for developer seats and team budgets.",
           note1_4: "China-US matchup mode focuses on direct head-to-head battles in the same track.",
           note2_title: "OpenClaw Positioning",
           note2_desc: "OpenClaw is best positioned as an open Agent Runtime/Workflow orchestration layer. It depends upstream on base models and cloud compute, and serves enterprise automation downstream.",
-          export_fail: "Export requires html2canvas. Please retry after network is available."
+          export_fail: "Export requires html2canvas. Please retry after network is available.",
+          schema_fail: "graph.json did not pass schema validation. Please check the data file.",
+          close: "Close", modal_company: "Company", modal_positioning: "Positioning", modal_models: "Representative Models", modal_competitors: "Competitors", modal_dependencies: "Dependencies",
+          goto_usecase: "Open detailed use-case tab page"
         }
       };
 
-      const state = {
-        lang: "zh",
-        filter: "all",
-        view: "normal",
-        graph: null
+      const GRAPH_REQUIRED = {
+        root: ["meta", "views", "nodes", "edges"],
+        meta: ["title_zh", "title_en", "version", "updated"],
+        node: ["id", "column", "lane", "region", "type", "name_zh", "name_en", "role_zh", "role_en"],
+        edge: ["from", "to", "type"]
+      };
+      const ALLOWED = {
+        column: ["domestic", "global", "cross"],
+        lane: ["upstream", "model", "app", "agent"],
+        region: ["domestic", "global", "cross"],
+        type: ["upstream", "model", "app", "agent"],
+        edgeType: ["dep", "comp"],
+        appSubcategory: ["customer-chat", "search-answer", "coding-developer", "agent-runtime", "other"]
       };
 
+      const state = { lang: "zh", filter: "all", view: "normal", scope: "all", graph: null, schema: null, cleanExport: false };
       const board = document.getElementById("board");
       const svg = document.getElementById("edgeLayer");
       const filterButtons = Array.from(document.querySelectorAll(".btn[data-filter]"));
       const viewButtons = Array.from(document.querySelectorAll(".btn[data-view]"));
+      const scopeButtons = Array.from(document.querySelectorAll(".btn[data-scope]"));
       const langBtn = document.getElementById("langBtn");
+      const cleanModeBtn = document.getElementById("cleanModeBtn");
       const exportBtn = document.getElementById("exportBtn");
       const versionBadge = document.getElementById("versionBadge");
       const titleText = document.getElementById("titleText");
+      const nodeModal = document.getElementById("nodeModal");
+      const modalClose = document.getElementById("modalClose");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalCompany = document.getElementById("modalCompany");
+      const modalPositioning = document.getElementById("modalPositioning");
+      const modalModels = document.getElementById("modalModels");
+      const modalModelsSection = modalModels ? modalModels.closest(".modal-section") : null;
+      const modalCompetitors = document.getElementById("modalCompetitors");
+      const modalDependencies = document.getElementById("modalDependencies");
+      const modalUsecaseLink = document.getElementById("modalUsecaseLink");
+
+      function validateGraph(graph, schema) {
+        if (!schema || typeof schema !== "object" || !graph || typeof graph !== "object") return false;
+        for (let i = 0; i < GRAPH_REQUIRED.root.length; i += 1) if (!(GRAPH_REQUIRED.root[i] in graph)) return false;
+        for (let i = 0; i < GRAPH_REQUIRED.meta.length; i += 1) if (!(GRAPH_REQUIRED.meta[i] in graph.meta)) return false;
+        if (!Array.isArray(graph.nodes) || graph.nodes.length === 0) return false;
+        if (!Array.isArray(graph.edges)) return false;
+
+        const ids = new Set();
+        for (let i = 0; i < graph.nodes.length; i += 1) {
+          const n = graph.nodes[i];
+          for (let j = 0; j < GRAPH_REQUIRED.node.length; j += 1) if (!(GRAPH_REQUIRED.node[j] in n)) return false;
+          if (ids.has(n.id)) return false;
+          ids.add(n.id);
+          if (!ALLOWED.column.includes(n.column) || !ALLOWED.lane.includes(n.lane) || !ALLOWED.region.includes(n.region) || !ALLOWED.type.includes(n.type)) return false;
+          if (n.lane === "app" && n.app_subcategory && !ALLOWED.appSubcategory.includes(n.app_subcategory)) return false;
+          if (n.lane === "model" && n.representative_models && !Array.isArray(n.representative_models)) return false;
+        }
+
+        for (let i = 0; i < graph.edges.length; i += 1) {
+          const e = graph.edges[i];
+          for (let j = 0; j < GRAPH_REQUIRED.edge.length; j += 1) if (!(GRAPH_REQUIRED.edge[j] in e)) return false;
+          if (!ids.has(e.from) || !ids.has(e.to) || !ALLOWED.edgeType.includes(e.type)) return false;
+        }
+        return true;
+      }
 
       function setTextByLang() {
         const t = i18n[state.lang];
@@ -518,9 +374,50 @@
           if (t[key]) el.textContent = t[key];
         });
         langBtn.textContent = state.lang === "zh" ? "EN" : "中文";
-        if (state.graph && state.graph.meta) {
-          titleText.textContent = state.lang === "zh" ? state.graph.meta.title_zh : state.graph.meta.title_en;
-        }
+        if (state.graph && state.graph.meta) titleText.textContent = state.lang === "zh" ? state.graph.meta.title_zh : state.graph.meta.title_en;
+      }
+
+      function subcategoryLabel(sub) {
+        const t = i18n[state.lang];
+        if (sub === "customer-chat") return t.sub_customer;
+        if (sub === "search-answer") return t.sub_search;
+        if (sub === "coding-developer") return t.sub_coding;
+        return sub || "Other";
+      }
+
+      function companyByNodeId(nodeId) {
+        const companies = {
+          "doubao": "ByteDance",
+          "kimi": "Moonshot AI",
+          "tongyi-lingma": "Alibaba Cloud",
+          "marscode-trae": "ByteDance",
+          "baidu-comate": "Baidu",
+          "chatgpt": "OpenAI",
+          "claude-app": "Anthropic",
+          "gemini-app": "Google",
+          "perplexity": "Perplexity",
+          "cursor": "Anysphere",
+          "copilot": "GitHub / Microsoft",
+          "amazon-q-developer": "AWS",
+          "jetbrains-ai-assistant": "JetBrains",
+          "windsurf": "Codeium",
+          "deepseek": "DeepSeek",
+          "glm": "Zhipu AI",
+          "qwen": "Alibaba",
+          "moonshot-model": "Moonshot AI",
+          "baichuan": "Baichuan",
+          "minimax-model": "MiniMax",
+          "zeroone-ai": "01.AI",
+          "openai": "OpenAI",
+          "gemini": "Google",
+          "anthropic": "Anthropic",
+          "cn-cloud": "Alibaba Cloud / Tencent Cloud / Huawei Cloud / Volcano Engine",
+          "cn-channel": "ByteDance / Tencent / Baidu / Xiaomi-Huawei",
+          "global-cloud": "AWS / Google Cloud / Microsoft Azure / Oracle Cloud",
+          "global-channel": "Google / Microsoft / Apple",
+          "openclaw": "Open Source Community"
+        };
+        return companies[nodeId] || "";
       }
 
       function createNode(node) {
@@ -529,6 +426,8 @@
         div.id = node.id;
         div.dataset.region = node.region;
         div.dataset.type = node.type;
+        div.dataset.column = node.column;
+        div.dataset.lane = node.lane;
 
         const name = document.createElement("div");
         name.className = "name";
@@ -538,35 +437,135 @@
         role.className = "role";
         role.textContent = state.lang === "zh" ? node.role_zh : node.role_en;
 
+        const company = companyByNodeId(node.id);
+        const companyEl = document.createElement("div");
+        companyEl.className = "company";
+        companyEl.textContent = company ? ((state.lang === "zh" ? "公司: " : "Company: ") + company) : "";
+
         div.appendChild(name);
         div.appendChild(role);
+        if (companyEl.textContent) div.appendChild(companyEl);
+
+        if (Array.isArray(node.representative_models) && node.representative_models.length > 0) {
+          const tags = document.createElement("div");
+          tags.className = "tags";
+          node.representative_models.slice(0, 3).forEach(function (m) {
+            const tag = document.createElement("span");
+            tag.className = "tag";
+            tag.textContent = m;
+            tags.appendChild(tag);
+          });
+          div.appendChild(tags);
+        }
+
+        div.addEventListener("click", function () { openNodeModal(node.id); });
         return div;
       }
 
+      function nodeNameById(nodeId) {
+        const node = state.graph.nodes.find(function (x) { return x.id === nodeId; });
+        return node ? (state.lang === "zh" ? node.name_zh : node.name_en) : nodeId;
+      }
+
+      function listToHtml(el, items) {
+        el.innerHTML = "";
+        if (!items.length) {
+          const li = document.createElement("li");
+          li.textContent = "-";
+          el.appendChild(li);
+          return;
+        }
+        items.forEach(function (x) {
+          const li = document.createElement("li");
+          li.textContent = x;
+          el.appendChild(li);
+        });
+      }
+
+      function openNodeModal(nodeId) {
+        const node = state.graph.nodes.find(function (n) { return n.id === nodeId; });
+        if (!node) return;
+        const competitors = state.graph.edges.filter(function (e) { return e.type === "comp" && (e.from === nodeId || e.to === nodeId); }).map(function (e) { return nodeNameById(e.from === nodeId ? e.to : e.from); });
+        const deps = state.graph.edges.filter(function (e) { return e.type === "dep" && (e.from === nodeId || e.to === nodeId); }).map(function (e) {
+          return e.from === nodeId ? ((state.lang === "zh" ? "下游: " : "Downstream: ") + nodeNameById(e.to)) : ((state.lang === "zh" ? "上游: " : "Upstream: ") + nodeNameById(e.from));
+        });
+
+        modalTitle.textContent = nodeNameById(nodeId);
+        modalCompany.textContent = companyByNodeId(nodeId) || "-";
+        modalPositioning.textContent = state.lang === "zh" ? node.role_zh : node.role_en;
+        const models = Array.isArray(node.representative_models) ? node.representative_models : [];
+        const hasModels = models.length > 0;
+        if (modalModelsSection) {
+          modalModelsSection.style.display = hasModels ? "" : "none";
+        }
+        listToHtml(modalModels, models);
+        listToHtml(modalCompetitors, competitors);
+        listToHtml(modalDependencies, deps);
+
+        const usecaseTarget = "usecases.html#" + encodeURIComponent(node.id);
+        modalUsecaseLink.setAttribute("href", usecaseTarget);
+
+        nodeModal.classList.add("open");
+        nodeModal.setAttribute("aria-hidden", "false");
+      }
+
+      function closeNodeModal() {
+        nodeModal.classList.remove("open");
+        nodeModal.setAttribute("aria-hidden", "true");
+      }
+
+      function renderAppGrouped(containerId, nodes) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = "";
+
+        const groups = {
+          "customer-chat": [],
+          "search-answer": [],
+          "coding-developer": []
+        };
+
+        nodes.forEach(function (n) {
+          const key = groups[n.app_subcategory] ? n.app_subcategory : "customer-chat";
+          groups[key].push(n);
+        });
+
+        ["customer-chat", "search-answer", "coding-developer"].forEach(function (key) {
+          if (!groups[key].length) return;
+          const block = document.createElement("div");
+          block.className = "subcat-block";
+          const title = document.createElement("h4");
+          title.className = "subcat-title";
+          title.textContent = subcategoryLabel(key);
+          const grid = document.createElement("div");
+          grid.className = "nodes";
+          groups[key].forEach(function (node) { grid.appendChild(createNode(node)); });
+          block.appendChild(title);
+          block.appendChild(grid);
+          container.appendChild(block);
+        });
+      }
+
       function renderNodes() {
-        const nodeGroups = {
-          "domestic-upstream": [],
-          "domestic-model": [],
-          "domestic-app": [],
-          "global-upstream": [],
-          "global-model": [],
-          "global-app": [],
-          "cross-agent": []
+        const groups = {
+          "domestic-upstream": [], "domestic-model": [], "domestic-app": [],
+          "global-upstream": [], "global-model": [], "global-app": [], "cross-agent": []
         };
 
         state.graph.nodes.forEach(function (node) {
           const key = node.column + "-" + node.lane;
-          if (nodeGroups[key]) nodeGroups[key].push(node);
+          if (groups[key]) groups[key].push(node);
         });
 
-        Object.keys(nodeGroups).forEach(function (key) {
+        ["domestic-upstream", "domestic-model", "global-upstream", "global-model", "cross-agent"].forEach(function (key) {
           const container = document.getElementById("nodes-" + key);
           if (!container) return;
           container.innerHTML = "";
-          nodeGroups[key].forEach(function (node) {
-            container.appendChild(createNode(node));
-          });
+          groups[key].forEach(function (node) { container.appendChild(createNode(node)); });
         });
+
+        renderAppGrouped("nodes-domestic-app", groups["domestic-app"]);
+        renderAppGrouped("nodes-global-app", groups["global-app"]);
       }
 
       function edgeVisible(edge) {
@@ -578,14 +577,21 @@
       }
 
       function edgeInFocus(edge) {
+        if (!state.graph || !state.graph.views) return true;
         if (state.view === "normal") return true;
         const focus = new Set(state.graph.views[state.view] || []);
         return focus.has(edge.from) || focus.has(edge.to);
       }
 
       function applyNodeView() {
+        if (!state.graph || !state.graph.views) return;
         const focus = state.view === "normal" ? new Set() : new Set(state.graph.views[state.view] || []);
         Array.from(document.querySelectorAll(".node")).forEach(function (nodeEl) {
+          if (nodeEl.classList.contains("hidden-node")) {
+            nodeEl.classList.remove("dim");
+            nodeEl.classList.remove("focus");
+            return;
+          }
           if (focus.size === 0) {
             nodeEl.classList.remove("dim");
             nodeEl.classList.remove("focus");
@@ -601,47 +607,57 @@
         });
       }
 
-      function midpoint(x1, y1, x2, y2) {
-        return { x: (x1 + x2) / 2, y: (y1 + y2) / 2 };
+      function center(el) {
+        const b = board.getBoundingClientRect();
+        const r = el.getBoundingClientRect();
+        return { x: r.left - b.left + r.width / 2, y: r.top - b.top + r.height / 2 };
       }
 
-      function buildPath(fromRect, toRect, boardRect) {
-        const start = {
-          x: fromRect.left + fromRect.width / 2 - boardRect.left,
-          y: fromRect.top + fromRect.height / 2 - boardRect.top
-        };
-        const end = {
-          x: toRect.left + toRect.width / 2 - boardRect.left,
-          y: toRect.top + toRect.height / 2 - boardRect.top
-        };
+      function pathFor(a, b) {
+        const dx = (b.x - a.x) * 0.38;
+        return "M " + a.x + " " + a.y + " C " + (a.x + dx) + " " + a.y + ", " + (b.x - dx) + " " + b.y + ", " + b.x + " " + b.y;
+      }
 
-        const mid = midpoint(start.x, start.y, end.x, end.y);
-        const curve = Math.max(20, Math.abs(end.x - start.x) * 0.2);
-        const c1x = mid.x - curve;
-        const c1y = start.y;
-        const c2x = mid.x + curve;
-        const c2y = end.y;
+      function getScopeNodeSet() {
+        if (!state.graph || !Array.isArray(state.graph.nodes)) return null;
+        if (state.scope !== "domestic-model") return null;
+        return new Set(state.graph.nodes.filter(function (n) {
+          return n.column === "domestic" && n.lane === "model";
+        }).map(function (n) { return n.id; }));
+      }
 
-        return "M " + start.x + " " + start.y + " C " + c1x + " " + c1y + ", " + c2x + " " + c2y + ", " + end.x + " " + end.y;
+      function applyScopeView() {
+        const set = getScopeNodeSet();
+        board.classList.toggle("scope-domestic-model", state.scope === "domestic-model");
+        Array.from(document.querySelectorAll(".node")).forEach(function (nodeEl) {
+          const hide = set ? !set.has(nodeEl.id) : false;
+          nodeEl.classList.toggle("hidden-node", hide);
+        });
       }
 
       function renderEdges() {
-        const boardRect = board.getBoundingClientRect();
-        svg.setAttribute("width", String(boardRect.width));
-        svg.setAttribute("height", String(boardRect.height));
-        svg.innerHTML = "";
+        if (!state.graph || !Array.isArray(state.graph.edges)) return;
+        while (svg.firstChild) svg.removeChild(svg.firstChild);
+        const scopeSet = getScopeNodeSet();
+        state.graph.edges.forEach(function (e) {
+          if (scopeSet && (!scopeSet.has(e.from) || !scopeSet.has(e.to))) return;
+          const from = document.getElementById(e.from);
+          const to = document.getElementById(e.to);
+          if (!from || !to) return;
+          const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          p.setAttribute("d", pathFor(center(from), center(to)));
+          p.setAttribute("class", "edge " + e.type + (edgeVisible(e) ? "" : " hidden") + (edgeInFocus(e) ? "" : " dim"));
+          svg.appendChild(p);
+        });
+      }
 
-        state.graph.edges.forEach(function (edge) {
-          const fromEl = document.getElementById(edge.from);
-          const toEl = document.getElementById(edge.to);
-          if (!fromEl || !toEl) return;
-
-          const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-          path.setAttribute("d", buildPath(fromEl.getBoundingClientRect(), toEl.getBoundingClientRect(), boardRect));
-          const visible = edgeVisible(edge);
-          const dim = !edgeInFocus(edge);
-          path.setAttribute("class", "edge " + edge.type + (visible ? "" : " hidden") + (dim ? " dim" : ""));
-          svg.appendChild(path);
+      function rerender() {
+        setTextByLang();
+        renderNodes();
+        requestAnimationFrame(function () {
+          applyScopeView();
+          applyNodeView();
+          renderEdges();
         });
       }
 
@@ -650,39 +666,36 @@
           alert(i18n[state.lang].export_fail);
           return;
         }
+        const root = document.getElementById("captureRoot");
+        const prevWidth = root.style.width;
 
-        const sourceCanvas = await window.html2canvas(document.getElementById("captureRoot"), {
+        if (state.cleanExport) root.classList.add("capture-clean");
+        root.style.width = "1600px";
+
+        await new Promise(function (resolve) { requestAnimationFrame(resolve); });
+
+        const canvas = await window.html2canvas(root, {
           backgroundColor: "#f6f8f6",
-          scale: 2,
+          width: 1600,
+          height: 900,
+          scale: 1,
           useCORS: true
         });
 
-        const out = document.createElement("canvas");
-        out.width = 1600;
-        out.height = 900;
-        const ctx = out.getContext("2d");
-        if (!ctx) return;
-
-        ctx.fillStyle = "#f6f8f6";
-        ctx.fillRect(0, 0, out.width, out.height);
-
-        const sw = sourceCanvas.width;
-        const sh = sourceCanvas.height;
-        const scale = Math.min(out.width / sw, out.height / sh);
-        const dw = Math.round(sw * scale);
-        const dh = Math.round(sh * scale);
-        const dx = Math.floor((out.width - dw) / 2);
-        const dy = Math.floor((out.height - dh) / 2);
-
-        ctx.drawImage(sourceCanvas, dx, dy, dw, dh);
+        root.style.width = prevWidth;
+        if (state.cleanExport) root.classList.remove("capture-clean");
 
         const a = document.createElement("a");
-        a.href = out.toDataURL("image/png");
-        a.download = "ai-competition-map-16x9.png";
+        a.href = canvas.toDataURL("image/png");
+        const d = new Date();
+        const ts = [d.getFullYear(), String(d.getMonth() + 1).padStart(2, "0"), String(d.getDate()).padStart(2, "0")].join("") + "-" + [String(d.getHours()).padStart(2, "0"), String(d.getMinutes()).padStart(2, "0")].join("");
+        a.download = "ai-map-16x9-" + ts + ".png";
+        document.body.appendChild(a);
         a.click();
+        a.remove();
       }
 
-      function wireEvents() {
+      function wire() {
         filterButtons.forEach(function (btn) {
           btn.addEventListener("click", function () {
             state.filter = btn.getAttribute("data-filter") || "all";
@@ -702,33 +715,56 @@
           });
         });
 
-        langBtn.addEventListener("click", function () {
-          state.lang = state.lang === "zh" ? "en" : "zh";
-          setTextByLang();
-          renderNodes();
-          applyNodeView();
-          renderEdges();
+        scopeButtons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            const clickedScope = btn.getAttribute("data-scope") || "all";
+            state.scope = state.scope === clickedScope ? "all" : clickedScope;
+            scopeButtons.forEach(function (x) { x.classList.toggle("active", x === btn && state.scope !== "all"); });
+            applyScopeView();
+            applyNodeView();
+            renderEdges();
+          });
         });
 
-        exportBtn.addEventListener("click", exportScreenshot);
-        window.addEventListener("resize", renderEdges);
+        langBtn.addEventListener("click", function () {
+          state.lang = state.lang === "zh" ? "en" : "zh";
+          rerender();
+        });
+
+        cleanModeBtn.addEventListener("click", function () {
+          state.cleanExport = !state.cleanExport;
+          cleanModeBtn.classList.toggle("active", state.cleanExport);
+        });
+
+        exportBtn.addEventListener("click", function () { exportScreenshot(); });
+
+        modalClose.addEventListener("click", closeNodeModal);
+        nodeModal.addEventListener("click", function (ev) { if (ev.target === nodeModal) closeNodeModal(); });
+        document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") closeNodeModal(); });
+
+        window.addEventListener("resize", function () { renderEdges(); });
       }
 
-      async function bootstrap() {
-        const res = await fetch("data/graph.json?v=2.2.0");
-        state.graph = await res.json();
+      Promise.all([
+        fetch("data/graph.schema.json?v=2.9.0").then(function (r) { return r.json(); }),
+        fetch("data/graph.json?v=2.9.0").then(function (r) { return r.json(); })
+      ]).then(function (arr) {
+        state.schema = arr[0];
+        state.graph = arr[1];
+
+        if (!validateGraph(state.graph, state.schema)) {
+          alert(i18n[state.lang].schema_fail);
+          return;
+        }
+
         versionBadge.textContent = state.graph.meta.version + " | " + state.graph.meta.updated;
-
-        setTextByLang();
-        renderNodes();
-        applyNodeView();
-        renderEdges();
-        wireEvents();
-      }
-
-      bootstrap().catch(function (err) {
+        rerender();
+      }).catch(function (err) {
         console.error(err);
+        alert("Failed to load graph data.");
       });
+
+      wire();
     })();
   </script>
 </body>

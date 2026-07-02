@@ -1,0 +1,935 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Use Cases Tabs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --bg0: #f8faf8;
+      --bg1: #ecf3ef;
+      --ink: #0f2018;
+      --muted: #355347;
+      --card: rgba(255,255,255,0.9);
+      --line: rgba(15, 32, 24, 0.14);
+      --brand: #0f766e;
+      --brand2: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Noto Sans SC", sans-serif;
+      background:
+        radial-gradient(1100px 700px at 0% -5%, #dcefe4 0%, rgba(220,239,228,0) 58%),
+        radial-gradient(900px 600px at 100% 0%, #dce8ff 0%, rgba(220,232,255,0) 55%),
+        linear-gradient(165deg, var(--bg0), var(--bg1));
+      min-height: 100vh;
+    }
+    .page { max-width: 1280px; margin: 0 auto; padding: 24px 18px 36px; }
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .top a { color: var(--brand); text-decoration: none; }
+    h1 {
+      margin: 0;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0 10px;
+    }
+    .tabs.category-tabs { margin-top: 16px; }
+    .tabs.product-tabs {
+      margin-top: 6px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--line);
+    }
+    .tab-category {
+      border: 1px solid var(--line);
+      background: linear-gradient(150deg, rgba(255,255,255,0.95), rgba(234,242,255,0.82));
+      color: #143228;
+      border-radius: 12px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+    .tab-category:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(15, 32, 24, 0.08); }
+    .tab-category.active {
+      border-color: transparent;
+      color: #fff;
+      background: linear-gradient(120deg, #0b4a3a, #0d5b76);
+      box-shadow: 0 10px 24px rgba(11, 74, 58, 0.28);
+    }
+    .tab-product {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.9);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 7px 13px;
+      cursor: pointer;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+    .tab-product:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(15, 32, 24, 0.08); }
+    .tab-product.active {
+      border-color: rgba(15, 118, 110, 0.55);
+      background: linear-gradient(120deg, rgba(15, 118, 110, 0.16), rgba(29, 78, 216, 0.12));
+      color: #0a5a54;
+      font-weight: 700;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--card);
+      padding: 14px;
+    }
+    .panel h2 {
+      margin: 0;
+      font-size: 22px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+    .panel p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    .grid {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .section {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.9);
+      padding: 12px;
+      animation: riseIn 260ms ease both;
+    }
+    .section.full { grid-column: 1 / -1; }
+    .section h3 {
+      margin: 0 0 7px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+    .section p { margin: 0; }
+    .section ul { margin: 0; padding-left: 18px; }
+    .section li { margin: 0; line-height: 1.5; font-size: 14px; }
+    .detail-case {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.92);
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .detail-case:last-child { margin-bottom: 0; }
+    .detail-case h4 {
+      margin: 0;
+      font-size: 15px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+    .detail-case p {
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .detail-block { margin-top: 8px; }
+    .detail-block strong {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .deep-head {
+      margin: 0;
+      font-size: 16px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+    .deep-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .deep-grid .section { margin: 0; }
+    .mermaid-wrap {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.94);
+      padding: 10px;
+      overflow-x: auto;
+    }
+    .mermaid { min-width: 540px; }
+    .shots {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .shot {
+      border: 1px dashed rgba(15, 32, 24, 0.3);
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(233,241,255,0.6));
+      min-height: 180px;
+      padding: 10px;
+      display: grid;
+      align-content: space-between;
+      gap: 10px;
+    }
+    .shot strong { font-size: 13px; }
+    .shot code {
+      display: inline-block;
+      font-size: 11px;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 7px;
+      background: rgba(255,255,255,0.92);
+      word-break: break-all;
+    }
+    .shot p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .code-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .code-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.94);
+      padding: 10px;
+    }
+    .code-card h4 {
+      margin: 0 0 6px;
+      font-size: 14px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+    .code-card pre {
+      margin: 0;
+      overflow-x: auto;
+      font-size: 12px;
+      line-height: 1.5;
+      background: rgba(240, 245, 249, 0.85);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      white-space: pre;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.3;
+      background: rgba(255,255,255,0.92);
+      color: var(--ink);
+    }
+    .emphasis {
+      border-left: 3px solid var(--brand);
+      padding-left: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .product-spotlight {
+      border: 1px solid rgba(15, 118, 110, 0.28);
+      border-radius: 14px;
+      background: linear-gradient(160deg, rgba(220, 242, 236, 0.55), rgba(225, 235, 255, 0.45));
+      padding: 12px;
+      grid-column: 1 / -1;
+    }
+    .product-spotlight h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: #0e5f58;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      letter-spacing: 0.02em;
+      text-transform: none;
+    }
+    .spot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .spot-card {
+      border: 1px solid rgba(15, 32, 24, 0.14);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.88);
+      padding: 10px;
+    }
+    .spot-card h4 {
+      margin: 0 0 6px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+    .spot-card ul { margin: 0; padding-left: 16px; }
+    .spot-card li { font-size: 13px; line-height: 1.45; margin: 0; }
+    .matrix-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.95);
+    }
+    table.matrix {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+      font-size: 13px;
+    }
+    .matrix th,
+    .matrix td {
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 9px;
+      vertical-align: top;
+      text-align: left;
+    }
+    .matrix th:last-child,
+    .matrix td:last-child { border-right: 0; }
+    .matrix tr:last-child td { border-bottom: 0; }
+    .matrix th {
+      position: sticky;
+      top: 0;
+      background: #f1f7f4;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+    .meta { margin-top: 12px; color: var(--muted); font-size: 12px; }
+    .product-gateway {
+      border: 1px solid rgba(15, 118, 110, 0.24);
+      border-radius: 14px;
+      background: linear-gradient(160deg, rgba(220, 242, 236, 0.5), rgba(225, 235, 255, 0.4));
+      padding: 12px;
+      grid-column: 1 / -1;
+    }
+    .product-gateway h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: #0e5f58;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      letter-spacing: 0.02em;
+      text-transform: none;
+    }
+    .gateway-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .gateway-card {
+      border: 1px solid rgba(15, 32, 24, 0.14);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.92);
+      padding: 10px;
+      display: grid;
+      gap: 8px;
+    }
+    .gateway-card h4 {
+      margin: 0;
+      font-size: 15px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+    .gateway-card p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .gateway-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .gateway-link {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.95);
+      color: #0e5f58;
+      text-decoration: none;
+      font-size: 12px;
+      line-height: 1.2;
+      padding: 5px 10px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+    .gateway-link:hover { background: rgba(220, 242, 236, 0.6); }
+    .collapse-control {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: rgba(255,255,255,0.95);
+      color: #0e5f58;
+      font-size: 12px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      cursor: pointer;
+    }
+    .collapse-control:hover { background: rgba(220, 242, 236, 0.6); }
+    .section.collapsible .collapse-toggle {
+      margin-top: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.95);
+      color: #0e5f58;
+      font-size: 12px;
+      padding: 4px 10px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      cursor: pointer;
+    }
+    .section.collapsible .collapse-toggle:hover { background: rgba(220, 242, 236, 0.6); }
+    .section.collapsible.is-collapsed .collapsible-body { display: none; }
+
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+      .shots { grid-template-columns: 1fr; }
+      .deep-grid { grid-template-columns: 1fr; }
+      .page { padding: 18px 12px 26px; }
+      .panel { padding: 12px; border-radius: 14px; }
+      .panel h2 { font-size: 20px; }
+      .subtitle { font-size: 14px; }
+      .tab-category { font-size: 12px; padding: 8px 12px; border-radius: 10px; }
+      .tab-product { font-size: 12px; padding: 7px 10px; }
+      .section { padding: 10px; border-radius: 12px; }
+      .spot-grid { grid-template-columns: 1fr; }
+      .gateway-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="top">
+      <a href="index.html">返回导航页</a>
+      <span id="meta"></span>
+    </div>
+
+    <h1>应用层分类与产品场景 Tabs</h1>
+    <p class="subtitle">第一层是应用层分类，第二层是分类内产品。每个分类先给行业视角，每个产品再给专属能力、场景与 demo。</p>
+
+    <nav class="tabs category-tabs" id="categoryTabs"></nav>
+    <nav class="tabs product-tabs" id="productTabs"></nav>
+
+    <section class="panel" id="panel"></section>
+    <p class="meta" id="anchorNote"></p>
+  </main>
+
+  <script>
+    (function () {
+      if (window.mermaid && typeof window.mermaid.initialize === "function") {
+        window.mermaid.initialize({ startOnLoad: false, securityLevel: "loose", theme: "default" });
+      }
+
+      const categoryTabsEl = document.getElementById("categoryTabs");
+      const productTabsEl = document.getElementById("productTabs");
+      const panelEl = document.getElementById("panel");
+      const metaEl = document.getElementById("meta");
+      const anchorNote = document.getElementById("anchorNote");
+
+      const state = {
+        data: null,
+        activeCategoryId: null,
+        activeProductId: null
+      };
+      const GENERAL_TAB_ID = "__general__";
+
+      function list(items) {
+        return (items || []).map(function (x) { return "<li>" + x + "</li>"; }).join("");
+      }
+
+      function chips(items) {
+        return (items || []).map(function (x) { return "<span class='chip'>" + x + "</span>"; }).join("");
+      }
+
+      function normalizeText(text) {
+        return String(text || "")
+          .toLowerCase()
+          .replace(/[\s\-_,.:;()\[\]{}'"`~!?@#$%^&*+=|\\/<>]+/g, "")
+          .trim();
+      }
+
+      function isSemanticDuplicate(a, b) {
+        const na = normalizeText(a);
+        const nb = normalizeText(b);
+        if (!na || !nb) return false;
+        if (na === nb) return true;
+        if (na.length >= 8 && nb.includes(na)) return true;
+        if (nb.length >= 8 && na.includes(nb)) return true;
+        return false;
+      }
+
+      function dedupeBySemantic(items) {
+        const out = [];
+        (items || []).forEach(function (item) {
+          if (!item) return;
+          const exists = out.some(function (x) { return isSemanticDuplicate(x, item); });
+          if (!exists) out.push(item);
+        });
+        return out;
+      }
+
+      function dedupeFeaturesAndScenarios(product) {
+        const features = dedupeBySemantic(product.performance_and_features || []);
+        const scenarios = dedupeBySemantic(product.scenarios || []).filter(function (s) {
+          return !features.some(function (f) { return isSemanticDuplicate(f, s); });
+        });
+        return { features: features, scenarios: scenarios };
+      }
+
+      function renderMatrix(rows) {
+        if (!Array.isArray(rows) || !rows.length) return "";
+        return "" +
+          "<div class='matrix-wrap'><table class='matrix'>" +
+            "<thead><tr>" +
+              "<th>产品</th>" +
+              "<th>厂商</th>" +
+              "<th>最佳适配团队</th>" +
+              "<th>核心优势</th>" +
+              "<th>治理成熟度</th>" +
+              "<th>部署形态</th>" +
+              "<th>主要风险提示</th>" +
+            "</tr></thead>" +
+            "<tbody>" + rows.map(function (r) {
+              return "<tr>" +
+                "<td>" + (r.product || "") + "</td>" +
+                "<td>" + (r.vendor || "") + "</td>" +
+                "<td>" + (r.fit || "") + "</td>" +
+                "<td>" + (r.strengths || "") + "</td>" +
+                "<td>" + (r.governance || "") + "</td>" +
+                "<td>" + (r.deployment || "") + "</td>" +
+                "<td>" + (r.risk_note || "") + "</td>" +
+              "</tr>";
+            }).join("") + "</tbody>" +
+          "</table></div>";
+      }
+
+      function escapeHtml(text) {
+        return String(text || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/\"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function renderBusinessCases(cases) {
+        if (!Array.isArray(cases) || cases.length === 0) return "";
+        return cases.map(function (item) {
+          return "" +
+            "<article class='detail-case'>" +
+              "<h4>" + (item.title || "Case") + "</h4>" +
+              (item.business_goal ? "<p><strong>Business Goal:</strong> " + item.business_goal + "</p>" : "") +
+              (item.background ? "<p><strong>Background:</strong> " + item.background + "</p>" : "") +
+              (item.workflow ? "<div class='detail-block'><strong>Workflow</strong><ul>" + list(item.workflow) + "</ul></div>" : "") +
+              (item.systems ? "<div class='detail-block'><strong>System Integration</strong><ul>" + list(item.systems) + "</ul></div>" : "") +
+              (item.deliverables ? "<div class='detail-block'><strong>Deliverables</strong><ul>" + list(item.deliverables) + "</ul></div>" : "") +
+              (item.kpis ? "<div class='detail-block'><strong>KPI Targets</strong><ul>" + list(item.kpis) + "</ul></div>" : "") +
+              (item.governance ? "<div class='detail-block'><strong>Governance</strong><ul>" + list(item.governance) + "</ul></div>" : "") +
+            "</article>";
+        }).join("");
+      }
+
+      function renderDeepDive(deep) {
+        if (!deep) return "";
+        return "" +
+          "<article class='section full'>" +
+            "<h3>Instrumentation Deep Dive</h3>" +
+            "<h4 class='deep-head'>" + (deep.topic || "") + "</h4>" +
+            "<div class='deep-grid'>" +
+              "<section class='section'><h3>Purpose</h3><ul>" + list(deep.purpose) + "</ul></section>" +
+              "<section class='section'><h3>Trackable Data</h3><ul>" + list(deep.trackable_data) + "</ul></section>" +
+              "<section class='section'><h3>Decision Support</h3><ul>" + list(deep.decision_support) + "</ul></section>" +
+              "<section class='section'><h3>Copilot Can Deliver</h3><ul>" + list((deep.copilot_scope || {}).can_deliver) + "</ul></section>" +
+              "<section class='section'><h3>Needs Human Review</h3><ul>" + list((deep.copilot_scope || {}).requires_human) + "</ul></section>" +
+              "<section class='section'><h3>Workflow Steps</h3><ul>" + list(deep.workflow) + "</ul></section>" +
+            "</div>" +
+            (deep.flow_diagram_mermaid ? "<div class='mermaid-wrap'><pre class='mermaid'>" + deep.flow_diagram_mermaid + "</pre></div>" : "") +
+            (deep.demo ? "<div class='code-grid'>" +
+              "<section class='code-card'><h4>Event Schema</h4><pre>" + escapeHtml(JSON.stringify(deep.demo.event_schema || {}, null, 2)) + "</pre></section>" +
+              "<section class='code-card'><h4>Frontend Tracking Snippet</h4><pre>" + escapeHtml(deep.demo.frontend_snippet || "") + "</pre></section>" +
+              "<section class='code-card'><h4>Backend Tracking API Snippet</h4><pre>" + escapeHtml(deep.demo.backend_snippet || "") + "</pre></section>" +
+              "<section class='code-card'><h4>Funnel Analysis SQL</h4><pre>" + escapeHtml(deep.demo.analysis_sql || "") + "</pre></section>" +
+            "</div>" : "") +
+          "</article>";
+      }
+
+      function renderMermaid() {
+        if (!window.mermaid || typeof window.mermaid.run !== "function") return;
+        const nodes = panelEl.querySelectorAll(".mermaid");
+        if (!nodes.length) return;
+        window.mermaid.run({ nodes: nodes }).catch(function (err) {
+          console.error("Mermaid render failed", err);
+        });
+      }
+
+      function renderProductSpotlight(product) {
+        if (!product) return "";
+        const hasDiff = Array.isArray(product.differentiators) && product.differentiators.length;
+        const hasBest = Array.isArray(product.best_for) && product.best_for.length;
+        const hasNotIdeal = Array.isArray(product.not_ideal_for) && product.not_ideal_for.length;
+        if (!hasDiff && !hasBest && !hasNotIdeal) return "";
+
+        return "" +
+          "<article class='product-spotlight'>" +
+            "<h3>这个产品和其他产品有什么不同</h3>" +
+            "<div class='spot-grid'>" +
+              (hasDiff ? "<section class='spot-card'><h4>差异化特征</h4><ul>" + list(product.differentiators) + "</ul></section>" : "") +
+              (hasBest ? "<section class='spot-card'><h4>最适配团队</h4><ul>" + list(product.best_for) + "</ul></section>" : "") +
+              (hasNotIdeal ? "<section class='spot-card'><h4>不适配场景</h4><ul>" + list(product.not_ideal_for) + "</ul></section>" : "") +
+            "</div>" +
+          "</article>";
+      }
+
+      function activeCategory() {
+        return (state.data.categories || []).find(function (c) { return c.id === state.activeCategoryId; }) || state.data.categories[0];
+      }
+
+      function activeProduct() {
+        if (state.activeProductId === GENERAL_TAB_ID) return null;
+        const cat = activeCategory();
+        if (!cat) return null;
+        return (cat.products || []).find(function (p) { return p.id === state.activeProductId; }) || cat.products[0] || null;
+      }
+
+      function renderProductGateway(cat) {
+        const products = (cat && cat.products) || [];
+        if (!products.length) return "";
+        return "" +
+          "<article class='product-gateway'>" +
+            "<h3>产品入口（先看 General，再进入具体产品）</h3>" +
+            "<div class='gateway-grid'>" +
+              products.map(function (p) {
+                const encoded = encodeURIComponent(p.id);
+                return "" +
+                  "<section class='gateway-card'>" +
+                    "<h4>" + p.name_zh + "</h4>" +
+                    "<p>" + (p.product_intro || "") + "</p>" +
+                    "<div class='gateway-actions'>" +
+                      "<a class='gateway-link' href='usecases.html#" + encoded + "'>在当前页进入</a>" +
+                      "<a class='gateway-link' href='usecases.html#" + encoded + "' target='_blank' rel='noopener noreferrer'>新窗口打开</a>" +
+                    "</div>" +
+                  "</section>";
+              }).join("") +
+            "</div>" +
+          "</article>";
+      }
+
+      function autoOverseasFocus(cat, product) {
+        if (!cat || !product) return null;
+
+        if (cat.id === "customer-chat") {
+          return {
+            title: "汽车营销服与出海场景（产品聚焦）",
+            bullets: [
+              "海外多语种营销内容本地化：基于 " + product.name_zh + " 生成同一车型在东南亚/中东/欧洲的渠道文案版本（官网、社媒、EDM、门店物料）。",
+              "跨国客服一致性：围绕交付、保养、质保政策生成标准回复模板，支持总部策略到区域市场的统一口径下发。",
+              "线索培育与转化：按国家/渠道/车型分层生成首触达与二次跟进话术，提高海外试驾预约与到店转化。",
+              "区域活动快速复用：把中国市场高转化 campaign 结构迁移到海外市场，自动重写语言、优惠表达和合规提示。"
+            ],
+            deliverables: [
+              "多区域营销文案矩阵（国家 x 渠道 x 车型）",
+              "海外客服 FAQ 与升级流转模板",
+              "出海市场线索分层触达脚本"
+            ]
+          };
+        }
+
+        if (cat.id === "search-answer") {
+          return {
+            title: "汽车营销服与出海场景（产品聚焦）",
+            bullets: [
+              "出海国家情报底座：基于 " + product.name_zh + " 聚合各国新能源补贴、关税、认证与竞品价格变化，形成周报证据链。",
+              "海外舆情与竞品监测：跟踪本地媒体、论坛、KOL 内容，沉淀车型口碑与异议主题，反哺营销与客服策略。",
+              "渠道与素材决策支持：输出不同市场的高效投放主题、关键词与内容框架，减少跨区域团队信息不对称。",
+              "售后知识检索增强：将服务手册、政策文档与历史工单组织成可追溯问答，提升海外服务网点响应效率。"
+            ],
+            deliverables: [
+              "出海市场政策/竞品周报（含来源引用）",
+              "海外舆情主题地图与风险清单",
+              "区域投放主题与话题建议表"
+            ]
+          };
+        }
+
+        if (cat.id === "coding-developer") {
+          return {
+            title: "汽车营销服与出海场景（产品聚焦）",
+            bullets: [
+              "出海数字营销工程化：使用 " + product.name_zh + " 构建多语言官网落地页模板、埋点方案和 A/B 实验脚本，缩短活动上线周期。",
+              "营销服系统集成开发：加速 CRM、CDP、工单系统、WhatsApp/邮件渠道连接器开发，支持线索-服务闭环自动化。",
+              "区域化运营自动化：按国家时区、渠道与库存策略生成自动化任务流，提升海外运营协同效率。",
+              "合规与质量保障：在代码与流程层引入数据合规检查、审计日志与回滚方案，降低出海运营风险。"
+            ],
+            deliverables: [
+              "多语言落地页与埋点模板仓库",
+              "线索分发与客服工单自动化脚本",
+              "出海营销服数据看板 SQL/ETL 模板"
+            ]
+          };
+        }
+
+        return null;
+      }
+
+      function renderCollapsibleSection(title, innerHtml, idSuffix) {
+        if (!innerHtml) return "";
+        return "" +
+          "<article class='section full collapsible is-collapsed' data-collapsible-id='" + idSuffix + "'>" +
+            "<h3>" + title + "</h3>" +
+            "<button class='collapse-toggle' type='button' data-collapse-target='" + idSuffix + "'>展开</button>" +
+            "<div class='collapsible-body'>" + innerHtml + "</div>" +
+          "</article>";
+      }
+
+      function bindCollapsibles() {
+        Array.from(panelEl.querySelectorAll(".collapse-toggle")).forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            const target = btn.getAttribute("data-collapse-target");
+            const box = panelEl.querySelector(".section.collapsible[data-collapsible-id='" + target + "']");
+            if (!box) return;
+            const collapsed = box.classList.toggle("is-collapsed");
+            btn.textContent = collapsed ? "展开" : "折叠";
+          });
+        });
+
+        const toggleAll = panelEl.querySelector("#toggleLongSections");
+        if (toggleAll) {
+          toggleAll.addEventListener("click", function () {
+            const sections = Array.from(panelEl.querySelectorAll(".section.collapsible"));
+            const hasCollapsed = sections.some(function (s) { return s.classList.contains("is-collapsed"); });
+            sections.forEach(function (s) {
+              s.classList.toggle("is-collapsed", !hasCollapsed);
+              const id = s.getAttribute("data-collapsible-id");
+              const btn = panelEl.querySelector(".collapse-toggle[data-collapse-target='" + id + "']");
+              if (btn) btn.textContent = hasCollapsed ? "折叠" : "展开";
+            });
+            toggleAll.textContent = hasCollapsed ? "折叠长内容" : "展开长内容";
+          });
+        }
+      }
+
+      function renderCategoryTabs() {
+        categoryTabsEl.innerHTML = (state.data.categories || []).map(function (cat) {
+          return "<button class='tab-category" + (cat.id === state.activeCategoryId ? " active" : "") + "' type='button' data-category-id='" + cat.id + "'>" + cat.title_zh + "</button>";
+        }).join("");
+
+        Array.from(categoryTabsEl.querySelectorAll(".tab-category")).forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            const id = btn.getAttribute("data-category-id");
+            state.activeCategoryId = id;
+            state.activeProductId = GENERAL_TAB_ID;
+            anchorNote.textContent = "当前分类总览：" + (activeCategory() ? activeCategory().title_zh : "");
+            renderCategoryTabs();
+            renderProductTabs();
+            renderPanel();
+            updateHash();
+          });
+        });
+      }
+
+      function renderProductTabs() {
+        const cat = activeCategory();
+        const products = (cat && cat.products) ? cat.products : [];
+        productTabsEl.innerHTML = "<button class='tab-product" + (state.activeProductId === GENERAL_TAB_ID ? " active" : "") + "' type='button' data-product-id='" + GENERAL_TAB_ID + "'>General</button>" +
+          products.map(function (p) {
+            return "<button class='tab-product" + (p.id === state.activeProductId ? " active" : "") + "' type='button' data-product-id='" + p.id + "'>" + p.name_zh + "</button>";
+          }).join("");
+
+        Array.from(productTabsEl.querySelectorAll(".tab-product")).forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            state.activeProductId = btn.getAttribute("data-product-id");
+            if (state.activeProductId === GENERAL_TAB_ID) {
+              anchorNote.textContent = "当前分类总览：" + (activeCategory() ? activeCategory().title_zh : "");
+            } else {
+              const product = activeProduct();
+              anchorNote.textContent = "当前已按产品锚点定位：" + (product ? product.name_zh : "");
+            }
+            renderProductTabs();
+            renderPanel();
+            updateHash();
+          });
+        });
+      }
+
+      function renderPanel() {
+        const cat = activeCategory();
+        const product = activeProduct();
+        if (!cat) {
+          panelEl.innerHTML = "<p>暂无数据</p>";
+          return;
+        }
+
+        if (state.activeProductId === GENERAL_TAB_ID || !product) {
+          panelEl.innerHTML = "" +
+            "<h2>" + cat.title_zh + " / General</h2>" +
+            "<p>" + (cat.overview && cat.overview.intro ? cat.overview.intro : "") + "</p>" +
+            "<div class='grid'>" +
+              "<article class='section'><h3>类别使用场景</h3><ul>" + list((cat.overview || {}).use_cases) + "</ul></article>" +
+              "<article class='section'><h3>市场表现</h3><ul>" + list((cat.overview || {}).market_performance) + "</ul></article>" +
+              "<article class='section'><h3>客户使用方式</h3><ul>" + list((cat.overview || {}).customer_usage) + "</ul></article>" +
+              "<article class='section'><h3>发展趋势</h3><ul>" + list((cat.overview || {}).trends) + "</ul></article>" +
+
+              (cat.specification && Array.isArray(cat.specification.market_players) && cat.specification.market_players.length ? "<article class='section full'><h3>市场主要玩家（尽量全面）</h3><div class='chips'>" + chips(cat.specification.market_players) + "</div></article>" : "") +
+              (cat.specification && cat.specification.coverage_statement ? "<article class='section full'><h3>厂商覆盖声明</h3><p class='emphasis'>" + cat.specification.coverage_statement + "</p></article>" : "") +
+              (cat.specification && cat.specification.last_reviewed ? "<article class='section full'><h3>更新日期</h3><p class='emphasis'>" + cat.specification.last_reviewed + "</p></article>" : "") +
+              (cat.specification && Array.isArray(cat.specification.watchlist) && cat.specification.watchlist.length ? "<article class='section full'><h3>待观察名单</h3><ul>" + list(cat.specification.watchlist) + "</ul></article>" : "") +
+              (cat.specification && Array.isArray(cat.specification.core_use_cases) && cat.specification.core_use_cases.length ? "<article class='section'><h3>核心用途清单</h3><ul>" + list(cat.specification.core_use_cases) + "</ul></article>" : "") +
+              (cat.specification && Array.isArray(cat.specification.selection_criteria) && cat.specification.selection_criteria.length ? "<article class='section'><h3>选型标准</h3><ul>" + list(cat.specification.selection_criteria) + "</ul></article>" : "") +
+              (cat.specification && Array.isArray(cat.specification.implementation_patterns) && cat.specification.implementation_patterns.length ? "<article class='section'><h3>落地模式</h3><ul>" + list(cat.specification.implementation_patterns) + "</ul></article>" : "") +
+              (cat.specification && Array.isArray(cat.specification.risks_and_controls) && cat.specification.risks_and_controls.length ? "<article class='section'><h3>风险与控制</h3><ul>" + list(cat.specification.risks_and_controls) + "</ul></article>" : "") +
+              (cat.specification && Array.isArray(cat.specification.comparison_matrix) && cat.specification.comparison_matrix.length ? "<article class='section full'><h3>管理层评审：产品对比矩阵</h3>" + renderMatrix(cat.specification.comparison_matrix) + "</article>" : "") +
+
+              renderProductGateway(cat) +
+            "</div>";
+          return;
+        }
+
+        const autoFocus = autoOverseasFocus(cat, product);
+        const deduped = dedupeFeaturesAndScenarios(product);
+        const usecaseCatalogHtml = (product.usecase_catalog ? "<div class='grid'>" +
+            "<section class='section'><h3>需求与规划</h3><ul>" + list(product.usecase_catalog.ideation_and_planning) + "</ul></section>" +
+            "<section class='section'><h3>编码与重构</h3><ul>" + list(product.usecase_catalog.coding_and_refactor) + "</ul></section>" +
+            "<section class='section'><h3>测试与质量</h3><ul>" + list(product.usecase_catalog.testing_and_quality) + "</ul></section>" +
+            "<section class='section'><h3>评审与安全</h3><ul>" + list(product.usecase_catalog.review_and_security) + "</ul></section>" +
+            "<section class='section'><h3>发布与运维</h3><ul>" + list(product.usecase_catalog.release_and_ops) + "</ul></section>" +
+            "<section class='section'><h3>数据与自动化</h3><ul>" + list(product.usecase_catalog.data_and_automation) + "</ul></section>" +
+          "</div>" : "");
+        const businessDetailsHtml = "" +
+          (product.business_details && Array.isArray(product.business_details.marketing_service) && product.business_details.marketing_service.length ? "<article class='section full'><h3>Marketing Service Detailed Cases</h3>" + renderBusinessCases(product.business_details.marketing_service) + "</article>" : "") +
+          (product.business_details && Array.isArray(product.business_details.rd) && product.business_details.rd.length ? "<article class='section full'><h3>R&D Detailed Cases</h3>" + renderBusinessCases(product.business_details.rd) + "</article>" : "");
+        const screenshotsHtml = (product.screenshots && product.screenshots.length ? "<div class='shots'>" +
+              product.screenshots.map(function (s) {
+                return "<div class='shot'><div><strong>" + s.label + "</strong><p>" + s.note + "</p></div><code>" + s.path + "</code></div>";
+              }).join("") +
+            "</div>" : "");
+
+        panelEl.innerHTML = "" +
+          "<h2>" + cat.title_zh + " / " + product.name_zh + "</h2>" +
+          "<p>产品页：聚焦该产品的差异化能力、适配团队与可交付内容。共有行业信息请切回 General。</p>" +
+          "<button id='toggleLongSections' class='collapse-control' type='button'>展开长内容</button>" +
+          "<div class='grid'>" +
+            renderProductSpotlight(product) +
+
+            (autoFocus ? "<article class='section full'><h3>" + autoFocus.title + "</h3><ul>" + list(autoFocus.bullets) + "</ul></article>" : "") +
+            (autoFocus && Array.isArray(autoFocus.deliverables) && autoFocus.deliverables.length ? "<article class='section'><h3>建议交付件（汽车营销服）</h3><ul>" + list(autoFocus.deliverables) + "</ul></article>" : "") +
+
+            "<article class='section full'><h3>产品介绍</h3><p>" + (product.product_intro || "") + "</p></article>" +
+            ((product.company || product.region) ? "<article class='section full'><h3>厂商与区域</h3><div class='emphasis'>" + (product.company ? ("Company: " + product.company) : "") + (product.company && product.region ? " | " : "") + (product.region ? ("Region: " + product.region) : "") + "</div></article>" : "") +
+            (deduped.features.length ? "<article class='section'><h3>性能与功能（去重）</h3><ul>" + list(deduped.features) + "</ul></article>" : "") +
+            (deduped.scenarios.length ? "<article class='section'><h3>产品可实现场景（去重）</h3><ul>" + list(deduped.scenarios) + "</ul></article>" : "") +
+            "<article class='section full'><h3>可交付 Demo</h3><ul>" + list(product.demo_deliverables) + "</ul></article>" +
+            (Array.isArray(product.evaluation_spec) && product.evaluation_spec.length ? "<article class='section'><h3>评估建议</h3><ul>" + list(product.evaluation_spec) + "</ul></article>" : "") +
+            (Array.isArray(product.common_gaps) && product.common_gaps.length ? "<article class='section'><h3>常见短板/注意点</h3><ul>" + list(product.common_gaps) + "</ul></article>" : "") +
+            renderCollapsibleSection("产品用途全景（Specification）", usecaseCatalogHtml, "usecase-catalog") +
+            renderCollapsibleSection("详细案例（Marketing / R&D）", businessDetailsHtml, "business-cases") +
+            (product.deep_dive ? ("<article class='section full collapsible is-collapsed' data-collapsible-id='deep-dive'><h3>Instrumentation Deep Dive</h3><button class='collapse-toggle' type='button' data-collapse-target='deep-dive'>展开</button><div class='collapsible-body'>" + renderDeepDive(product.deep_dive).replace("<article class='section full'>", "<div class='nested-deep'>").replace("</article>", "</div>") + "</div></article>") : "") +
+            renderCollapsibleSection("Screenshots (placeholders)", screenshotsHtml, "screenshots") +
+          "</div>";
+
+        bindCollapsibles();
+        renderMermaid();
+      }
+
+      function updateHash() {
+        const cat = activeCategory();
+        const product = activeProduct();
+        const targetId = (state.activeProductId === GENERAL_TAB_ID || !product) ? (cat ? cat.id : "") : product.id;
+        if (targetId) {
+          const url = new URL(window.location.href);
+          url.hash = encodeURIComponent(targetId);
+          history.replaceState(null, "", url.pathname + url.search + "#" + encodeURIComponent(targetId));
+        }
+      }
+
+      function resolveInitialState() {
+        const categories = state.data.categories || [];
+        const hash = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+
+        if (!categories.length) return;
+
+        if (hash) {
+          const catHit = categories.find(function (c) { return c.id === hash; });
+          if (catHit) {
+            state.activeCategoryId = catHit.id;
+            state.activeProductId = GENERAL_TAB_ID;
+            anchorNote.textContent = "当前分类总览：" + catHit.title_zh;
+            return;
+          }
+
+          for (let i = 0; i < categories.length; i += 1) {
+            const cat = categories[i];
+            const p = (cat.products || []).find(function (x) { return x.id === hash; });
+            if (p) {
+              state.activeCategoryId = cat.id;
+              state.activeProductId = p.id;
+              anchorNote.textContent = "当前已按产品锚点定位：" + p.name_zh;
+              return;
+            }
+          }
+        }
+
+        state.activeCategoryId = categories[0].id;
+        state.activeProductId = GENERAL_TAB_ID;
+        anchorNote.textContent = "当前分类总览：" + categories[0].title_zh;
+      }
+
+      fetch("data/usecases.json?v=2.3.0").then(function (r) { return r.json(); }).then(function (json) {
+        state.data = json;
+        metaEl.textContent = json.meta.version + " | " + json.meta.updated;
+        resolveInitialState();
+        renderCategoryTabs();
+        renderProductTabs();
+        renderPanel();
+      }).catch(function (err) {
+        panelEl.innerHTML = "<p>数据加载失败：" + String(err) + "</p>";
+      });
+    })();
+  </script>
+</body>
+</html>

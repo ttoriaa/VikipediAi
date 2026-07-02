@@ -125,6 +125,27 @@
       gap: 10px;
       margin-top: 16px;
     }
+    .subnav {
+      margin-top: 14px;
+      border: 1px solid rgba(17, 32, 24, 0.12);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.7);
+      padding: 12px;
+      display: none;
+    }
+    .subnav h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: var(--muted);
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+    .subnav .group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .subnav .group:last-child { margin-bottom: 0; }
 
     .btn {
       text-decoration: none;
@@ -168,7 +189,7 @@
 <body>
   <main class="shell">
     <div class="top">
-      <span class="badge" id="versionText">version v2.2.0</span>
+      <span class="badge" id="versionText">version v2.4.0</span>
       <button class="lang" id="langBtn">EN</button>
     </div>
 
@@ -189,8 +210,19 @@
 
     <div class="actions">
       <a class="btn primary" href="map.html" id="openMap">打开竞争关系图</a>
-      <a class="btn" href="data/graph.json" target="_blank" rel="noreferrer" id="openData">查看 graph.json</a>
+      <a class="btn primary" href="foundation_models.html" id="openFoundation">打开基座大模型性能页</a>
+      <a class="btn primary" href="usecases.html#copilot" id="openAppHub">打开应用层：分类入口</a>
+      <a class="btn primary" href="developer_coding_hub.html#overview" id="openDevHub">打开开发者与编程专题入口</a>
     </div>
+
+    <section class="subnav">
+      <h3 id="subnavTitle">开发者与编程专题入口</h3>
+      <div class="group">
+        <a class="btn" href="developer_coding_hub.html#overview" id="openCodingOverview">模型总览</a>
+        <a class="btn" href="developer_coding_hub.html#timeline" id="openCodingTimeline">发展进程</a>
+        <a class="btn" href="developer_coding_hub.html#performance" id="openCodingPerformance">性能表现</a>
+      </div>
+    </section>
 
     <p class="footer" id="footer">Maintained in repository ttoriaa/VikipediAi</p>
   </main>
@@ -199,25 +231,37 @@
     (function () {
       const i18n = {
         zh: {
-          version: "版本 v2.2.0",
+          version: "版本 v2.4.0",
           subtitle: "面向 AI 产品与产业链研究的一页式可视化入口。",
           card1Title: "中外 AI 竞争关系图",
           card1Desc: "查看国内与国外 AI 生态中的直接竞争关系、上下游依赖，以及中美对位竞争关系。",
           card2Title: "内容范围",
           card2Desc: "覆盖模型层、应用层、Agent 编排层与供给侧关系；支持投资视角、企业采购视角和 16:9 截图导出。",
           openMap: "打开竞争关系图",
-          openData: "查看 graph.json",
+          openFoundation: "打开基座大模型性能页",
+          openAppHub: "打开应用层：分类入口",
+          openDevHub: "打开开发者与编程专题入口",
+          subnavTitle: "开发者与编程专题入口",
+          openCodingOverview: "模型总览",
+          openCodingTimeline: "发展进程",
+          openCodingPerformance: "性能表现",
           footer: "维护仓库：ttoriaa/VikipediAi"
         },
         en: {
-          version: "version v2.2.0",
+          version: "version v2.4.0",
           subtitle: "A one-page visual entry point for AI product and value-chain research.",
           card1Title: "China vs Global AI Competition Map",
           card1Desc: "Explore direct competition, upstream dependencies, and China-US head-to-head rivalries in one map.",
           card2Title: "Coverage",
           card2Desc: "Includes model layer, app layer, agent orchestration, and supply-side links; with investor/procurement views and 16:9 export.",
           openMap: "Open Competition Map",
-          openData: "Open graph.json",
+          openFoundation: "Open Foundation LLM Performance Page",
+          openAppHub: "Open Application Layer Entry",
+          openDevHub: "Open Developer and Coding Topic Hub",
+          subnavTitle: "Developer and Coding Topic Entry",
+          openCodingOverview: "Model Overview",
+          openCodingTimeline: "Development Timeline",
+          openCodingPerformance: "Performance Snapshot",
           footer: "Maintained in repository: ttoriaa/VikipediAi"
         }
       };
@@ -231,7 +275,13 @@
       const card2Title = document.getElementById("card2Title");
       const card2Desc = document.getElementById("card2Desc");
       const openMap = document.getElementById("openMap");
-      const openData = document.getElementById("openData");
+      const openFoundation = document.getElementById("openFoundation");
+      const openAppHub = document.getElementById("openAppHub");
+      const openDevHub = document.getElementById("openDevHub");
+      const subnavTitle = document.getElementById("subnavTitle");
+      const openCodingOverview = document.getElementById("openCodingOverview");
+      const openCodingTimeline = document.getElementById("openCodingTimeline");
+      const openCodingPerformance = document.getElementById("openCodingPerformance");
       const footer = document.getElementById("footer");
 
       function apply() {
@@ -243,7 +293,13 @@
         card2Title.textContent = t.card2Title;
         card2Desc.textContent = t.card2Desc;
         openMap.textContent = t.openMap;
-        openData.textContent = t.openData;
+        openFoundation.textContent = t.openFoundation;
+        openAppHub.textContent = t.openAppHub;
+        openDevHub.textContent = t.openDevHub;
+        subnavTitle.textContent = t.subnavTitle;
+        openCodingOverview.textContent = t.openCodingOverview;
+        openCodingTimeline.textContent = t.openCodingTimeline;
+        openCodingPerformance.textContent = t.openCodingPerformance;
         footer.textContent = t.footer;
         langBtn.textContent = lang === "zh" ? "EN" : "中文";
         document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";

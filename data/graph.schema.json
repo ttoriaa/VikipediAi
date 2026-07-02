@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ttoriaa.github.io/VikipediAi/data/graph.schema.json",
+  "title": "AI Competition Graph Schema",
+  "type": "object",
+  "required": ["meta", "views", "nodes", "edges"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["title_zh", "title_en", "version", "updated"],
+      "additionalProperties": false,
+      "properties": {
+        "title_zh": { "type": "string", "minLength": 1 },
+        "title_en": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "updated": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+      }
+    },
+    "views": {
+      "type": "object",
+      "required": ["invest", "procure"],
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1 },
+        "uniqueItems": true
+      },
+      "properties": {
+        "invest": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "procure": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "column",
+          "lane",
+          "region",
+          "type",
+          "name_zh",
+          "name_en",
+          "role_zh",
+          "role_en"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "column": { "enum": ["domestic", "global", "cross"] },
+          "lane": { "enum": ["upstream", "model", "app", "agent"] },
+          "region": { "enum": ["domestic", "global", "cross"] },
+          "type": { "enum": ["upstream", "model", "app", "agent"] },
+          "name_zh": { "type": "string", "minLength": 1 },
+          "name_en": { "type": "string", "minLength": 1 },
+          "role_zh": { "type": "string", "minLength": 1 },
+          "role_en": { "type": "string", "minLength": 1 },
+          "representative_models": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "app_subcategory": {
+            "type": "string",
+            "enum": ["customer-chat", "search-answer", "coding-developer", "agent-runtime", "other"]
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "type"],
+        "additionalProperties": false,
+        "properties": {
+          "from": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "to": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "type": { "enum": ["dep", "comp"] },
+          "pair": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

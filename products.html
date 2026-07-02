@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI 产品能力与案例库</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg0: #f8faf8;
+      --bg1: #ecf3ef;
+      --ink: #0f2018;
+      --muted: #355347;
+      --card: rgba(255,255,255,0.88);
+      --line: rgba(15, 32, 24, 0.14);
+      --brand: #0f766e;
+      --brand2: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Noto Sans SC", sans-serif;
+      background:
+        radial-gradient(1100px 700px at 0% -5%, #dcefe4 0%, rgba(220,239,228,0) 58%),
+        radial-gradient(900px 600px at 100% 0%, #dce8ff 0%, rgba(220,232,255,0) 55%),
+        linear-gradient(165deg, var(--bg0), var(--bg1));
+      min-height: 100vh;
+    }
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 18px 36px;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .top a { color: var(--brand); text-decoration: none; }
+    h1 {
+      margin: 0;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0 16px;
+    }
+    .btn {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.95);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 8px 13px;
+      cursor: pointer;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-size: 13px;
+    }
+    .btn.active {
+      border-color: transparent;
+      color: #fff;
+      background: linear-gradient(120deg, var(--brand), var(--brand2));
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--card);
+      padding: 14px;
+    }
+    .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .name {
+      margin: 0;
+      font-size: 20px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+    .region {
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(255,255,255,0.85);
+    }
+    .section { margin-top: 8px; }
+    .section h3 {
+      margin: 0 0 5px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+    .section p, .section li {
+      margin: 0;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+    .section ul { margin: 0; padding-left: 17px; }
+    .dims {
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255,255,255,0.78);
+    }
+    .dims h2 {
+      margin: 0 0 7px;
+      font-size: 16px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+    .dims ul { margin: 0; padding-left: 18px; }
+    .dims li { line-height: 1.5; font-size: 14px; }
+
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="top">
+      <a href="index.html">返回导航页</a>
+      <span id="meta"></span>
+    </div>
+
+    <h1>国内外主流 AI 产品能力与应用案例库</h1>
+    <p class="subtitle">重点覆盖：定位、竞品、能力、应用场景（车企营销服与研发案例）、优势、短板、趋势。建议用本页做产品选型与业务共创讨论底稿。</p>
+
+    <div class="toolbar">
+      <button class="btn active" data-region="all" type="button">全部</button>
+      <button class="btn" data-region="domestic" type="button">仅国内</button>
+      <button class="btn" data-region="global" type="button">仅国外</button>
+    </div>
+
+    <section class="grid" id="grid"></section>
+
+    <section class="dims">
+      <h2>建议新增评估维度（用于下一版）</h2>
+      <ul id="dims"></ul>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const grid = document.getElementById("grid");
+      const dims = document.getElementById("dims");
+      const meta = document.getElementById("meta");
+      const buttons = Array.from(document.querySelectorAll(".btn[data-region]"));
+
+      const state = {
+        region: "all",
+        data: null
+      };
+
+      function liList(items) {
+        return (items || []).map(function (x) { return "<li>" + x + "</li>"; }).join("");
+      }
+
+      function render() {
+        if (!state.data) return;
+        const products = state.data.products.filter(function (p) {
+          return state.region === "all" ? true : p.region === state.region;
+        });
+
+        grid.innerHTML = products.map(function (p) {
+          const regionText = p.region === "domestic" ? "国内" : "国外";
+          return "" +
+            "<article class='card'>" +
+              "<div class='head'>" +
+                "<h2 class='name'>" + p.name + "</h2>" +
+                "<span class='region'>" + regionText + "</span>" +
+              "</div>" +
+              "<section class='section'><h3>定位</h3><p>" + p.positioning + "</p></section>" +
+              "<section class='section'><h3>主要竞品</h3><p>" + (p.competitors || []).join("、") + "</p></section>" +
+              "<section class='section'><h3>可提供能力</h3><ul>" + liList(p.capabilities) + "</ul></section>" +
+              "<section class='section'><h3>应用场景 - 车企营销服</h3><ul>" + liList(p.scenarios.marketing_service) + "</ul></section>" +
+              "<section class='section'><h3>应用场景 - 研发领域</h3><ul>" + liList(p.scenarios.rd) + "</ul></section>" +
+              "<section class='section'><h3>优势</h3><ul>" + liList(p.strengths) + "</ul></section>" +
+              "<section class='section'><h3>弱势与短板</h3><ul>" + liList(p.weaknesses) + "</ul></section>" +
+              "<section class='section'><h3>未来趋势</h3><p>" + p.trend + "</p></section>" +
+            "</article>";
+        }).join("");
+
+        dims.innerHTML = liList(state.data.suggested_dimensions || []);
+      }
+
+      function wire() {
+        buttons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            state.region = btn.getAttribute("data-region") || "all";
+            buttons.forEach(function (x) { x.classList.remove("active"); });
+            btn.classList.add("active");
+            render();
+          });
+        });
+      }
+
+      fetch("data/products.json?v=1.0.0").then(function (r) { return r.json(); }).then(function (json) {
+        state.data = json;
+        meta.textContent = json.meta.version + " | " + json.meta.updated;
+        render();
+      }).catch(function (err) {
+        grid.innerHTML = "<article class='card'><p>数据加载失败：" + String(err) + "</p></article>";
+      });
+
+      wire();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1063 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Foundation LLM Performance Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg0: #f6f8f6;
+      --bg1: #eaf1ed;
+      --ink: #112018;
+      --muted: #385247;
+      --panel: rgba(255, 255, 255, 0.9);
+      --line: rgba(17, 32, 24, 0.16);
+      --brandA: #115e59;
+      --brandB: #1d4ed8;
+      --shadow: 0 20px 50px rgba(17, 32, 24, 0.12);
+      --tag: rgba(17, 32, 24, 0.06);
+      --good: #065f46;
+      --warn: #b45309;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Noto Sans SC", sans-serif;
+      background:
+        radial-gradient(1000px 600px at 6% -10%, #d9efe4 0%, rgba(217, 239, 228, 0) 55%),
+        radial-gradient(900px 600px at 98% 8%, #dce8ff 0%, rgba(220, 232, 255, 0) 52%),
+        linear-gradient(165deg, var(--bg0) 0%, var(--bg1) 100%);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 24px 18px 32px;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .topline a {
+      color: #0f766e;
+      text-decoration: none;
+    }
+
+    .lang {
+      border-radius: 999px;
+      border: 1px solid rgba(17, 32, 24, 0.2);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      font-size: 12px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+      font-size: clamp(30px, 4.8vw, 50px);
+    }
+
+    .subtitle {
+      margin: 10px 0 14px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 16px;
+      max-width: 980px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tab {
+      border: 1px solid rgba(17, 32, 24, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      padding: 8px 13px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      border-color: transparent;
+      color: white;
+      background: linear-gradient(120deg, var(--brandA), var(--brandB));
+    }
+
+    .panel {
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.8));
+      padding: 14px;
+    }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .model-card {
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 12px;
+    }
+
+    .model-card h3 {
+      margin: 0;
+      font-size: 17px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    .model-sub {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .block-title {
+      margin: 10px 0 6px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tag {
+      border: 1px solid rgba(17, 32, 24, 0.14);
+      border-radius: 999px;
+      background: var(--tag);
+      color: var(--ink);
+      font-size: 12px;
+      padding: 4px 9px;
+    }
+
+    .model-card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .model-card li {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .section-head {
+      margin: 4px 0 10px;
+      font-size: 18px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--line);
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(17, 32, 24, 0.1);
+      text-align: left;
+      font-size: 13px;
+      vertical-align: top;
+    }
+
+    th {
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      background: rgba(17, 32, 24, 0.04);
+    }
+
+    .strength {
+      color: var(--good);
+      font-weight: 600;
+    }
+
+    .weakness {
+      color: var(--warn);
+      font-weight: 600;
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 960px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="topline">
+      <a href="index.html" id="backLink">返回导航页</a>
+      <div>
+        <span id="version">v1.1.0 | 2026-07-02</span>
+        <button class="lang" id="langBtn">EN</button>
+      </div>
+    </div>
+
+    <h1 id="title">基座大模型性能与应用图谱</h1>
+    <p class="subtitle" id="subtitle">逐模型展示代表模型、鲜明特点和适用场景；并提供模型对比，帮助判断“谁在哪些方面更强、哪些方面相对薄弱”。</p>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-tab="overview" id="tabOverview">模型总览</button>
+      <button class="tab" data-tab="china" id="tabChina">中国主流模型</button>
+      <button class="tab" data-tab="comparison" id="tabComparison">模型对比</button>
+      <button class="tab" data-tab="timeline" id="tabTimeline">发展进程</button>
+      <button class="tab" data-tab="scenarios" id="tabScenarios">场景选型</button>
+    </div>
+
+    <section class="panel">
+      <div class="section active" data-section="overview">
+        <h2 class="section-head" id="overviewHead">全球主流模型逐项介绍</h2>
+        <div class="grid" id="overviewGrid"></div>
+      </div>
+
+      <div class="section" data-section="china">
+        <h2 class="section-head" id="chinaHead">中国主流开源/商用模型逐项介绍</h2>
+        <div class="grid" id="chinaGrid"></div>
+      </div>
+
+      <div class="section" data-section="comparison">
+        <h2 class="section-head" id="comparisonHead">模型强弱项对比</h2>
+        <table>
+          <thead>
+            <tr>
+              <th id="cmpH1">模型</th>
+              <th id="cmpH2">更突出</th>
+              <th id="cmpH3">相对薄弱</th>
+              <th id="cmpH4">适配建议</th>
+            </tr>
+          </thead>
+          <tbody id="comparisonBody"></tbody>
+        </table>
+        <p class="note" id="comparisonNote">注：对比用于战略沟通和初筛，具体项目应结合你们任务集（代码、问答、工具调用、成本）做实测。</p>
+      </div>
+
+      <div class="section" data-section="timeline">
+        <table>
+          <thead>
+            <tr>
+              <th id="tlH1">阶段</th>
+              <th id="tlH2">行业变化</th>
+              <th id="tlH3">代表趋势</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="tl1a">2023: 能力爆发</td>
+              <td id="tl1b">从通用问答走向企业试点</td>
+              <td id="tl1c">模型 API 标准化、插件与工具初步成熟</td>
+            </tr>
+            <tr>
+              <td id="tl2a">2024: 成本与效率竞争</td>
+              <td id="tl2b">推理成本下降，开源模型快速追赶</td>
+              <td id="tl2c">多模型路由与混合部署成为主流架构</td>
+            </tr>
+            <tr>
+              <td id="tl3a">2025-2026: Agent 化落地</td>
+              <td id="tl3b">从“会回答”转向“会执行”</td>
+              <td id="tl3c">工作流自动化、代码代理、垂直行业系统集成</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section" data-section="scenarios">
+        <div class="grid">
+          <article class="model-card">
+            <h3 id="sc1Title">汽车研发：需求到代码交付加速</h3>
+            <ul id="sc1List">
+              <li>案例：座舱域控项目每两周需求变更，测试与文档始终滞后。</li>
+              <li>推荐模型：Claude 3.5 Sonnet（设计/重构）+ GPT-4o（测试与接口文档）+ DeepSeek-Coder（批量脚本修复）。</li>
+              <li>实施方式：接入 GitLab/Jira，在 PR 阶段自动输出代码建议、测试草稿与变更说明。</li>
+              <li>效果指标：关键模块缺陷率下降约 18%，迭代交付周期缩短约 22%。</li>
+            </ul>
+          </article>
+          <article class="model-card">
+            <h3 id="sc2Title">汽车采购：询价与供应商评审助手</h3>
+            <ul id="sc2List">
+              <li>案例：动力电池与芯片采购并行推进，RFQ 文件多、比价维度复杂。</li>
+              <li>推荐模型：OpenAI o3（多维比选推理）+ Qwen（中文合同条款抽取）+ GLM（本地知识对齐）。</li>
+              <li>实施方式：解析报价单、交付条款和历史绩效，自动生成评分卡与谈判建议。</li>
+              <li>效果指标：首轮供应商筛选效率提升约 35%，采购决策会准备时间缩短约 50%。</li>
+            </ul>
+          </article>
+          <article class="model-card">
+            <h3 id="sc3Title">汽车售后：客服与工单闭环优化</h3>
+            <ul id="sc3List">
+              <li>案例：新能源车型 OTA 后咨询量激增，热线与门店工单压力过大。</li>
+              <li>推荐模型：Qwen/DeepSeek（高并发首答）+ GLM（复杂中文投诉与升级工单）。</li>
+              <li>实施方式：三层路由（FAQ -> 故障诊断 -> 人工升级），并联动车主 App 与 DMS 工单系统。</li>
+              <li>效果指标：人工转接率下降约 20%，平均响应时长下降约 28%，峰值 SLA 稳定。</li>
+            </ul>
+          </article>
+          <article class="model-card">
+            <h3 id="sc4Title">汽车法务：合同审阅与合规风控</h3>
+            <ul id="sc4List">
+              <li>案例：跨境零部件采购合同与渠道协议并行审阅，条款风险识别依赖资深律师。</li>
+              <li>推荐模型：Claude 3.5 Sonnet（长合同结构化审阅）+ Qwen/GLM 私有部署（敏感条款比对）。</li>
+              <li>实施方式：建立条款知识库与红线规则，输出“风险等级 + 修订建议 + 依据条文”。</li>
+              <li>效果指标：首轮合同审阅时间缩短约 40%，高风险条款漏检率明显下降。</li>
+            </ul>
+          </article>
+          <article class="model-card">
+            <h3 id="sc5Title">汽车市场：内容生产与线索转化</h3>
+            <ul id="sc5List">
+              <li>案例：新车型上市周期短，区域市场需快速生成多版本投放素材与销售话术。</li>
+              <li>推荐模型：Gemini（图文多模态素材分析）+ GPT-4o（营销文案）+ MiniMax（语音/短视频脚本）。</li>
+              <li>实施方式：基于车型卖点库自动生成“内容包”，并按渠道 A/B 测试自动迭代。</li>
+              <li>效果指标：素材生产周期从周级降到天级，线索到店转化率提升约 12%-18%。</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const content = {
+        zh: {
+          backLink: "返回导航页",
+          title: "基座大模型性能与应用图谱",
+          subtitle: "逐模型展示代表模型、鲜明特点和适用场景；并提供模型对比，帮助判断“谁在哪些方面更强、哪些方面相对薄弱”。",
+          tabOverview: "模型总览",
+          tabChina: "中国主流模型",
+          tabComparison: "模型对比",
+          tabTimeline: "发展进程",
+          tabScenarios: "场景选型",
+          overviewHead: "全球主流模型逐项介绍",
+          chinaHead: "中国主流开源/商用模型逐项介绍",
+          comparisonHead: "模型强弱项对比",
+          cmpH1: "模型",
+          cmpH2: "更突出",
+          cmpH3: "相对薄弱",
+          cmpH4: "适配建议",
+          comparisonNote: "注：对比用于战略沟通和初筛，具体项目应结合你们任务集（代码、问答、工具调用、成本）做实测。",
+          tlH1: "阶段",
+          tlH2: "行业变化",
+          tlH3: "代表趋势",
+          tl1a: "2023: 能力爆发",
+          tl1b: "从通用问答走向企业试点",
+          tl1c: "模型 API 标准化、插件与工具初步成熟",
+          tl2a: "2024: 成本与效率竞争",
+          tl2b: "推理成本下降，开源模型快速追赶",
+          tl2c: "多模型路由与混合部署成为主流架构",
+          tl3a: "2025-2026: Agent 化落地",
+          tl3b: "从“会回答”转向“会执行”",
+          tl3c: "工作流自动化、代码代理、垂直行业系统集成",
+          sc1Title: "汽车研发：需求到代码交付加速",
+          sc1List: [
+            "案例：座舱域控项目每两周需求变更，测试与文档始终滞后。",
+            "推荐模型：Claude 3.5 Sonnet（设计/重构）+ GPT-4o（测试与接口文档）+ DeepSeek-Coder（批量脚本修复）。",
+            "实施方式：接入 GitLab/Jira，在 PR 阶段自动输出代码建议、测试草稿与变更说明。",
+            "效果指标：关键模块缺陷率下降约 18%，迭代交付周期缩短约 22%。"
+          ],
+          sc2Title: "汽车采购：询价与供应商评审助手",
+          sc2List: [
+            "案例：动力电池与芯片采购并行推进，RFQ 文件多、比价维度复杂。",
+            "推荐模型：OpenAI o3（多维比选推理）+ Qwen（中文合同条款抽取）+ GLM（本地知识对齐）。",
+            "实施方式：解析报价单、交付条款和历史绩效，自动生成评分卡与谈判建议。",
+            "效果指标：首轮供应商筛选效率提升约 35%，采购决策会准备时间缩短约 50%。"
+          ],
+          sc3Title: "汽车售后：客服与工单闭环优化",
+          sc3List: [
+            "案例：新能源车型 OTA 后咨询量激增，热线与门店工单压力过大。",
+            "推荐模型：Qwen/DeepSeek（高并发首答）+ GLM（复杂中文投诉与升级工单）。",
+            "实施方式：三层路由（FAQ -> 故障诊断 -> 人工升级），并联动车主 App 与 DMS 工单系统。",
+            "效果指标：人工转接率下降约 20%，平均响应时长下降约 28%，峰值 SLA 稳定。"
+          ],
+          sc4Title: "汽车法务：合同审阅与合规风控",
+          sc4List: [
+            "案例：跨境零部件采购合同与渠道协议并行审阅，条款风险识别依赖资深律师。",
+            "推荐模型：Claude 3.5 Sonnet（长合同结构化审阅）+ Qwen/GLM 私有部署（敏感条款比对）。",
+            "实施方式：建立条款知识库与红线规则，输出“风险等级 + 修订建议 + 依据条文”。",
+            "效果指标：首轮合同审阅时间缩短约 40%，高风险条款漏检率明显下降。"
+          ],
+          sc5Title: "汽车市场：内容生产与线索转化",
+          sc5List: [
+            "案例：新车型上市周期短，区域市场需快速生成多版本投放素材与销售话术。",
+            "推荐模型：Gemini（图文多模态素材分析）+ GPT-4o（营销文案）+ MiniMax（语音/短视频脚本）。",
+            "实施方式：基于车型卖点库自动生成“内容包”，并按渠道 A/B 测试自动迭代。",
+            "效果指标：素材生产周期从周级降到天级，线索到店转化率提升约 12%-18%。"
+          ],
+          globalModels: [
+            {
+              name: "OpenAI",
+              subtitle: "通用能力上限与生态完整度领先",
+              representatives: ["GPT-4o", "o3", "o4-mini"],
+              strengths: [
+                "复杂推理与多工具调用能力强，适合长链路任务",
+                "多模态成熟，文本/图像/语音协同能力突出",
+                "开发者生态完善，企业集成速度快"
+              ],
+              scenarios: [
+                "企业知识助手与管理分析",
+                "跨系统 Agent 编排",
+                "高要求内容与代码生成"
+              ]
+            },
+            {
+              name: "Anthropic",
+              subtitle: "长上下文、稳健输出与代码质量表现突出",
+              representatives: ["Claude 3.5 Sonnet", "Claude 3 Opus", "Claude 3 Haiku"],
+              strengths: [
+                "长文档理解和结构化输出稳定",
+                "代码解释、审阅与重构建议质量高",
+                "在企业场景中对“可控表达”友好"
+              ],
+              scenarios: [
+                "知识工程与文档生产",
+                "研发代码审阅与重构",
+                "法规/流程类问答助手"
+              ]
+            },
+            {
+              name: "Google Gemini",
+              subtitle: "多模态理解和 Google 生态联动优势明显",
+              representatives: ["Gemini 2.5 Pro", "Gemini 2.5 Flash", "Gemini 1.5 Pro"],
+              strengths: [
+                "图文理解、视频/视觉相关任务表现好",
+                "与 Google Workspace、搜索生态联动能力强",
+                "在实时与轻量场景有较好速度表现"
+              ],
+              scenarios: [
+                "视觉与多模态分析",
+                "搜索增强与办公协同",
+                "实时助手与内容生产"
+              ]
+            }
+          ],
+          chinaModels: [
+            {
+              name: "Qwen",
+              subtitle: "开源生态完整，通用与代码能力均衡",
+              representatives: ["Qwen2.5-Max", "Qwen2.5-72B-Instruct", "Qwen2.5-Coder"],
+              strengths: [
+                "中文和代码场景兼顾，社区生态活跃",
+                "企业私有化与混合部署友好",
+                "推理成本与效果平衡较好"
+              ],
+              scenarios: [
+                "企业知识助手",
+                "研发编码与自动化脚本",
+                "本地化智能客服"
+              ]
+            },
+            {
+              name: "DeepSeek",
+              subtitle: "高性价比与推理能力带来显著竞争力",
+              representatives: ["DeepSeek-R1", "DeepSeek-V3", "DeepSeek-Coder"],
+              strengths: [
+                "复杂推理性价比高",
+                "代码和数学任务表现突出",
+                "对成本敏感业务非常友好"
+              ],
+              scenarios: [
+                "高并发问答系统",
+                "代码与算法辅助",
+                "成本优先的大规模部署"
+              ]
+            },
+            {
+              name: "GLM",
+              subtitle: "中文能力与企业落地经验扎实",
+              representatives: ["GLM-4", "GLM-4-Air", "GLM-4-Flash"],
+              strengths: [
+                "中文语义理解和业务表达稳定",
+                "企业场景 API 接入经验丰富",
+                "在本地化业务流程中表现均衡"
+              ],
+              scenarios: [
+                "政企知识问答",
+                "行业流程助手",
+                "对中文质量要求高的内容生产"
+              ]
+            },
+            {
+              name: "Moonshot",
+              subtitle: "长上下文检索与研究型任务优势明显",
+              representatives: ["Moonshot-v1-8k", "Moonshot-v1-32k", "Moonshot-v1-128k"],
+              strengths: [
+                "长文阅读和证据链组织能力强",
+                "对研究型、检索型任务友好",
+                "复杂资料归纳能力较好"
+              ],
+              scenarios: [
+                "研究分析助手",
+                "投研/策略材料整理",
+                "长文档问答系统"
+              ]
+            },
+            {
+              name: "Baichuan",
+              subtitle: "行业知识与企业应用导向鲜明",
+              representatives: ["Baichuan4", "Baichuan2-Turbo", "Baichuan2-192k"],
+              strengths: [
+                "行业知识注入和垂直化能力较好",
+                "企业服务导向清晰",
+                "私有部署与行业定制可行性高"
+              ],
+              scenarios: [
+                "行业专属助手",
+                "企业知识中台",
+                "垂直领域内容生成"
+              ]
+            },
+            {
+              name: "MiniMax",
+              subtitle: "多模态与语音交互能力突出",
+              representatives: ["MiniMax-Text-01", "MiniMax-M1", "MiniMax-Voice-01"],
+              strengths: [
+                "语音和交互体验表现好",
+                "多模态能力适合前台应用",
+                "在对话体验层面有明显优势"
+              ],
+              scenarios: [
+                "语音助手",
+                "客服与营销交互机器人",
+                "多模态产品体验增强"
+              ]
+            },
+            {
+              name: "01.AI",
+              subtitle: "开源路线与高性能推理并重",
+              representatives: ["Yi-Large", "Yi-Lightning", "Yi-34B-Chat"],
+              strengths: [
+                "开源可控性较高",
+                "推理性能与可部署性平衡",
+                "适合需要自主可控的企业"
+              ],
+              scenarios: [
+                "本地化私有部署",
+                "企业内部知识应用",
+                "自研平台二次开发"
+              ]
+            }
+          ],
+          comparisons: [
+            {
+              model: "OpenAI",
+              strong: "复杂推理、工具调用、多模态综合能力",
+              weak: "成本压力相对更高，私有化灵活性一般",
+              fit: "高价值复杂任务、跨系统自动化"
+            },
+            {
+              model: "Anthropic",
+              strong: "长文理解、代码质量、稳健输出",
+              weak: "多模态生态广度略弱于顶级多模态路线",
+              fit: "文档密集型与研发质量场景"
+            },
+            {
+              model: "Gemini",
+              strong: "多模态能力、搜索与办公生态联动",
+              weak: "在部分高复杂推理任务稳定性波动",
+              fit: "视觉任务、办公协同、实时助手"
+            },
+            {
+              model: "Qwen",
+              strong: "中文+代码均衡、开源生态、部署灵活",
+              weak: "顶级复杂推理上限与最强闭源仍有差距",
+              fit: "企业本地化、研发辅助、成本平衡方案"
+            },
+            {
+              model: "DeepSeek",
+              strong: "推理性价比、算法与代码能力",
+              weak: "生态集成深度仍在快速补齐阶段",
+              fit: "成本敏感且追求效果的规模化应用"
+            },
+            {
+              model: "GLM",
+              strong: "中文业务理解与企业交付稳定",
+              weak: "国际生态广度相对有限",
+              fit: "中文为主的政企/行业应用"
+            },
+            {
+              model: "Moonshot",
+              strong: "长上下文检索与研究任务",
+              weak: "多模态广度和工具生态仍需扩展",
+              fit: "研究分析、长文档问答"
+            }
+          ]
+        },
+        en: {
+          backLink: "Back to Home",
+          title: "Foundation LLM Performance Hub",
+          subtitle: "Model-by-model coverage of representative models, distinct strengths, and fit-for-purpose scenarios, plus a direct comparison of where each model is stronger or relatively weaker.",
+          tabOverview: "Model Overview",
+          tabChina: "China Model Profiles",
+          tabComparison: "Model Comparison",
+          tabTimeline: "Development Timeline",
+          tabScenarios: "Scenario Selection",
+          overviewHead: "Global Leading Model Profiles",
+          chinaHead: "China Open/Commercial Model Profiles",
+          comparisonHead: "Strengths and Weaknesses Comparison",
+          cmpH1: "Model",
+          cmpH2: "Stands Out In",
+          cmpH3: "Relatively Weaker In",
+          cmpH4: "Best Fit",
+          comparisonNote: "Note: This comparison is for strategic communication and initial screening. Validate with your own benchmark tasks (coding, QA, tool use, cost) before production rollout.",
+          tlH1: "Stage",
+          tlH2: "Industry Shift",
+          tlH3: "Representative Trend",
+          tl1a: "2023: Capability breakout",
+          tl1b: "From chat demos to enterprise pilots",
+          tl1c: "API standardization and early tool/plugin ecosystems",
+          tl2a: "2024: Cost and efficiency race",
+          tl2b: "Inference costs dropped while open models caught up",
+          tl2c: "Model routing and hybrid deployment became mainstream",
+          tl3a: "2025-2026: Agentized execution",
+          tl3b: "From answering to executing",
+          tl3c: "Workflow automation, coding agents, vertical system integration",
+          sc1Title: "Automotive R&D: accelerate from requirements to code delivery",
+          sc1List: [
+            "Case: A cockpit domain-control program faced requirement changes every two weeks while tests and docs kept lagging.",
+            "Recommended stack: Claude 3.5 Sonnet (design/refactor) + GPT-4o (tests and API docs) + DeepSeek-Coder (batch script fixes).",
+            "Implementation: Integrate with GitLab/Jira to auto-generate code suggestions, test drafts, and change summaries during PR review.",
+            "Outcome: Defect rate in key modules dropped by about 18%; iteration delivery cycle shortened by about 22%."
+          ],
+          sc2Title: "Automotive procurement: RFQ and supplier evaluation assistant",
+          sc2List: [
+            "Case: Battery and chip sourcing ran in parallel with high RFQ volume and complex multi-factor comparisons.",
+            "Recommended stack: OpenAI o3 (multi-factor reasoning) + Qwen (Chinese contract clause extraction) + GLM (local knowledge alignment).",
+            "Implementation: Parse quotes, delivery terms, and historical supplier performance to produce scorecards and negotiation suggestions.",
+            "Outcome: First-round supplier screening efficiency improved by about 35%; sourcing decision prep time dropped by about 50%."
+          ],
+          sc3Title: "Automotive after-sales: optimize customer support and ticket closure",
+          sc3List: [
+            "Case: Post-OTA inquiry surges overloaded call centers and dealership service tickets for new EV models.",
+            "Recommended stack: Qwen/DeepSeek (high-concurrency first response) + GLM (complex Chinese complaints and escalation tickets).",
+            "Implementation: Three-tier routing (FAQ -> fault diagnosis -> human escalation) integrated with owner app and DMS ticketing.",
+            "Outcome: Human handoff rate decreased by about 20%; average response time improved by about 28% with stable peak SLA."
+          ],
+          sc4Title: "Automotive legal: contract review and compliance risk control",
+          sc4List: [
+            "Case: Cross-border parts contracts and channel agreements required parallel review, heavily relying on senior legal experts.",
+            "Recommended stack: Claude 3.5 Sonnet (long contract structuring) + private Qwen/GLM deployment (sensitive clause matching).",
+            "Implementation: Build a clause knowledge base and red-line rule engine to output risk level, revision suggestions, and legal references.",
+            "Outcome: First-pass contract review time reduced by about 40%; missed high-risk clauses declined significantly."
+          ],
+          sc5Title: "Automotive marketing: content production and lead conversion",
+          sc5List: [
+            "Case: New model launch cycles are short, and regional teams must produce multi-version campaign assets and sales scripts quickly.",
+            "Recommended stack: Gemini (multimodal asset analysis) + GPT-4o (campaign copywriting) + MiniMax (voice and short-video scripts).",
+            "Implementation: Auto-generate channel-specific content packs from vehicle value propositions and iterate via A/B feedback loops.",
+            "Outcome: Asset production cycle dropped from weekly to daily cadence; lead-to-showroom conversion increased by about 12%-18%."
+          ],
+          globalModels: [
+            {
+              name: "OpenAI",
+              subtitle: "Top-end general capability and complete ecosystem",
+              representatives: ["GPT-4o", "o3", "o4-mini"],
+              strengths: [
+                "Strong complex reasoning and tool orchestration for long task chains",
+                "Mature multimodal stack across text, vision, and voice",
+                "Fast enterprise integration through mature developer ecosystem"
+              ],
+              scenarios: [
+                "Enterprise knowledge assistants and decision support",
+                "Cross-system agent orchestration",
+                "High-quality content and code generation"
+              ]
+            },
+            {
+              name: "Anthropic",
+              subtitle: "Excellent long-context, reliability, and code quality",
+              representatives: ["Claude 3.5 Sonnet", "Claude 3 Opus", "Claude 3 Haiku"],
+              strengths: [
+                "Stable long-document understanding and structured writing",
+                "High-quality code explanation, review, and refactor guidance",
+                "Reliable and controlled outputs for enterprise workflows"
+              ],
+              scenarios: [
+                "Knowledge engineering and documentation workflows",
+                "Engineering code review and refactoring",
+                "Policy/process-oriented assistants"
+              ]
+            },
+            {
+              name: "Google Gemini",
+              subtitle: "Clear edge in multimodal workloads and ecosystem linkage",
+              representatives: ["Gemini 2.5 Pro", "Gemini 2.5 Flash", "Gemini 1.5 Pro"],
+              strengths: [
+                "Strong image-centric and multimodal interpretation",
+                "Deep connectivity with Google Workspace and Search ecosystem",
+                "Good latency profile for lightweight real-time scenarios"
+              ],
+              scenarios: [
+                "Vision and multimodal analysis",
+                "Search-augmented office collaboration",
+                "Real-time assistant experiences"
+              ]
+            }
+          ],
+          chinaModels: [
+            {
+              name: "Qwen",
+              subtitle: "Complete open ecosystem with balanced general and coding capability",
+              representatives: ["Qwen2.5-Max", "Qwen2.5-72B-Instruct", "Qwen2.5-Coder"],
+              strengths: [
+                "Balanced Chinese and coding capabilities with active community",
+                "Friendly for private and hybrid enterprise deployment",
+                "Good cost-effectiveness for broad enterprise use"
+              ],
+              scenarios: [
+                "Enterprise knowledge assistants",
+                "Coding copilots and automation scripts",
+                "Localized customer service systems"
+              ]
+            },
+            {
+              name: "DeepSeek",
+              subtitle: "Strong reasoning with standout cost-performance",
+              representatives: ["DeepSeek-R1", "DeepSeek-V3", "DeepSeek-Coder"],
+              strengths: [
+                "High reasoning performance per cost",
+                "Strong coding and math task performance",
+                "Well suited for cost-sensitive high-volume systems"
+              ],
+              scenarios: [
+                "High-concurrency QA systems",
+                "Coding and algorithm assistance",
+                "Large-scale deployments with tight budgets"
+              ]
+            },
+            {
+              name: "GLM",
+              subtitle: "Solid Chinese quality and enterprise delivery fit",
+              representatives: ["GLM-4", "GLM-4-Air", "GLM-4-Flash"],
+              strengths: [
+                "Stable Chinese semantic understanding and business expression",
+                "Strong enterprise integration track record",
+                "Balanced behavior in localized workflow scenarios"
+              ],
+              scenarios: [
+                "Government and enterprise knowledge QA",
+                "Industry workflow assistants",
+                "Chinese-first content generation"
+              ]
+            },
+            {
+              name: "Moonshot",
+              subtitle: "Clear strength in long-context retrieval and research tasks",
+              representatives: ["Moonshot-v1-8k", "Moonshot-v1-32k", "Moonshot-v1-128k"],
+              strengths: [
+                "Strong long-document reading and evidence organization",
+                "Effective in research-oriented and retrieval-heavy tasks",
+                "Good synthesis quality on complex materials"
+              ],
+              scenarios: [
+                "Research assistants",
+                "Investment/strategy material digestion",
+                "Long-document QA systems"
+              ]
+            },
+            {
+              name: "Baichuan",
+              subtitle: "Industry knowledge and enterprise orientation",
+              representatives: ["Baichuan4", "Baichuan2-Turbo", "Baichuan2-192k"],
+              strengths: [
+                "Good vertical knowledge adaptation",
+                "Clear enterprise-service orientation",
+                "Good feasibility for private deployment and customization"
+              ],
+              scenarios: [
+                "Industry-specific assistants",
+                "Enterprise knowledge middleware",
+                "Vertical content generation"
+              ]
+            },
+            {
+              name: "MiniMax",
+              subtitle: "Strong multimodal and voice interaction capability",
+              representatives: ["MiniMax-Text-01", "MiniMax-M1", "MiniMax-Voice-01"],
+              strengths: [
+                "Strong voice interaction quality",
+                "Suitable multimodal capability for front-end products",
+                "Competitive conversation experience"
+              ],
+              scenarios: [
+                "Voice assistants",
+                "Customer interaction bots",
+                "Multimodal UX enhancement"
+              ]
+            },
+            {
+              name: "01.AI",
+              subtitle: "Balanced open strategy and high-performance inference",
+              representatives: ["Yi-Large", "Yi-Lightning", "Yi-34B-Chat"],
+              strengths: [
+                "Higher controllability under open strategy",
+                "Balanced inference performance and deployability",
+                "Fits enterprises that require controllable stacks"
+              ],
+              scenarios: [
+                "Private local deployment",
+                "Internal enterprise knowledge applications",
+                "Second-stage development on self-built platforms"
+              ]
+            }
+          ],
+          comparisons: [
+            {
+              model: "OpenAI",
+              strong: "Complex reasoning, tool orchestration, multimodal integration",
+              weak: "Higher unit cost and less deployment flexibility",
+              fit: "High-value complex workflows and cross-system automation"
+            },
+            {
+              model: "Anthropic",
+              strong: "Long-context understanding, code quality, reliable outputs",
+              weak: "Multimodal ecosystem breadth is narrower than top multimodal stacks",
+              fit: "Document-heavy and engineering-quality scenarios"
+            },
+            {
+              model: "Gemini",
+              strong: "Multimodal capability and Search/Workspace linkage",
+              weak: "Stability can vary on some ultra-complex reasoning workloads",
+              fit: "Vision tasks, office collaboration, and real-time assistance"
+            },
+            {
+              model: "Qwen",
+              strong: "Balanced Chinese plus coding capability, open ecosystem, deployment flexibility",
+              weak: "Top-end complex reasoning ceiling can trail strongest closed models",
+              fit: "Localized enterprise and cost-balanced production systems"
+            },
+            {
+              model: "DeepSeek",
+              strong: "Reasoning cost-performance and coding/math strengths",
+              weak: "Enterprise ecosystem depth is still expanding",
+              fit: "Cost-sensitive production with strong performance needs"
+            },
+            {
+              model: "GLM",
+              strong: "Chinese business quality and stable enterprise delivery",
+              weak: "Global ecosystem reach is relatively narrower",
+              fit: "Chinese-first government and enterprise use"
+            },
+            {
+              model: "Moonshot",
+              strong: "Long-context retrieval and research workflows",
+              weak: "Multimodal breadth and tool ecosystem still growing",
+              fit: "Research and long-document intelligence"
+            }
+          ]
+        }
+      };
+
+      const tabs = Array.from(document.querySelectorAll(".tab"));
+      const sections = Array.from(document.querySelectorAll(".section"));
+      const langBtn = document.getElementById("langBtn");
+      const overviewGrid = document.getElementById("overviewGrid");
+      const chinaGrid = document.getElementById("chinaGrid");
+      const comparisonBody = document.getElementById("comparisonBody");
+      let lang = "zh";
+
+      function renderModelCards(container, models) {
+        container.innerHTML = "";
+        models.forEach(function (model) {
+          const article = document.createElement("article");
+          article.className = "model-card";
+
+          const h3 = document.createElement("h3");
+          h3.textContent = model.name;
+          article.appendChild(h3);
+
+          const sub = document.createElement("p");
+          sub.className = "model-sub";
+          sub.textContent = model.subtitle;
+          article.appendChild(sub);
+
+          const repTitle = document.createElement("p");
+          repTitle.className = "block-title";
+          repTitle.textContent = lang === "zh" ? "代表模型" : "Representative Models";
+          article.appendChild(repTitle);
+
+          const reps = document.createElement("ul");
+          reps.className = "tags";
+          model.representatives.forEach(function (item) {
+            const li = document.createElement("li");
+            li.className = "tag";
+            li.textContent = item;
+            reps.appendChild(li);
+          });
+          article.appendChild(reps);
+
+          const strengthTitle = document.createElement("p");
+          strengthTitle.className = "block-title";
+          strengthTitle.textContent = lang === "zh" ? "鲜明特点" : "Distinct Strengths";
+          article.appendChild(strengthTitle);
+
+          const strengthList = document.createElement("ul");
+          model.strengths.forEach(function (item) {
+            const li = document.createElement("li");
+            li.textContent = item;
+            strengthList.appendChild(li);
+          });
+          article.appendChild(strengthList);
+
+          const sceneTitle = document.createElement("p");
+          sceneTitle.className = "block-title";
+          sceneTitle.textContent = lang === "zh" ? "适合场景" : "Best-fit Scenarios";
+          article.appendChild(sceneTitle);
+
+          const sceneList = document.createElement("ul");
+          model.scenarios.forEach(function (item) {
+            const li = document.createElement("li");
+            li.textContent = item;
+            sceneList.appendChild(li);
+          });
+          article.appendChild(sceneList);
+
+          container.appendChild(article);
+        });
+      }
+
+      function renderComparisonRows(rows) {
+        comparisonBody.innerHTML = "";
+        rows.forEach(function (row) {
+          const tr = document.createElement("tr");
+
+          const model = document.createElement("td");
+          model.textContent = row.model;
+          tr.appendChild(model);
+
+          const strong = document.createElement("td");
+          strong.innerHTML = '<span class="strength">' + row.strong + '</span>';
+          tr.appendChild(strong);
+
+          const weak = document.createElement("td");
+          weak.innerHTML = '<span class="weakness">' + row.weak + '</span>';
+          tr.appendChild(weak);
+
+          const fit = document.createElement("td");
+          fit.textContent = row.fit;
+          tr.appendChild(fit);
+
+          comparisonBody.appendChild(tr);
+        });
+      }
+
+      function setList(id, items) {
+        const ul = document.getElementById(id);
+        ul.innerHTML = "";
+        items.forEach(function (text) {
+          const li = document.createElement("li");
+          li.textContent = text;
+          ul.appendChild(li);
+        });
+      }
+
+      function applyText() {
+        const t = content[lang];
+        document.getElementById("backLink").textContent = t.backLink;
+        document.getElementById("title").textContent = t.title;
+        document.getElementById("subtitle").textContent = t.subtitle;
+        document.getElementById("tabOverview").textContent = t.tabOverview;
+        document.getElementById("tabChina").textContent = t.tabChina;
+        document.getElementById("tabComparison").textContent = t.tabComparison;
+        document.getElementById("tabTimeline").textContent = t.tabTimeline;
+        document.getElementById("tabScenarios").textContent = t.tabScenarios;
+        document.getElementById("overviewHead").textContent = t.overviewHead;
+        document.getElementById("chinaHead").textContent = t.chinaHead;
+        document.getElementById("comparisonHead").textContent = t.comparisonHead;
+
+        [
+          "cmpH1", "cmpH2", "cmpH3", "cmpH4", "comparisonNote",
+          "tlH1", "tlH2", "tlH3", "tl1a", "tl1b", "tl1c", "tl2a", "tl2b", "tl2c", "tl3a", "tl3b", "tl3c",
+          "sc1Title", "sc2Title", "sc3Title", "sc4Title", "sc5Title"
+        ].forEach(function (id) {
+          document.getElementById(id).textContent = t[id];
+        });
+
+        setList("sc1List", t.sc1List);
+        setList("sc2List", t.sc2List);
+        setList("sc3List", t.sc3List);
+        setList("sc4List", t.sc4List);
+        setList("sc5List", t.sc5List);
+
+        renderModelCards(overviewGrid, t.globalModels);
+        renderModelCards(chinaGrid, t.chinaModels);
+        renderComparisonRows(t.comparisons);
+
+        langBtn.textContent = lang === "zh" ? "EN" : "中文";
+        document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+      }
+
+      function activateTab(tabName) {
+        tabs.forEach(function (tab) {
+          tab.classList.toggle("active", tab.getAttribute("data-tab") === tabName);
+        });
+        sections.forEach(function (section) {
+          section.classList.toggle("active", section.getAttribute("data-section") === tabName);
+        });
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          const tabName = tab.getAttribute("data-tab");
+          activateTab(tabName);
+          history.replaceState(null, "", "#" + tabName);
+        });
+      });
+
+      langBtn.addEventListener("click", function () {
+        lang = lang === "zh" ? "en" : "zh";
+        applyText();
+      });
+
+      const hash = (location.hash || "#overview").replace("#", "");
+      const valid = ["overview", "china", "comparison", "timeline", "scenarios"];
+      activateTab(valid.includes(hash) ? hash : "overview");
+      applyText();
+    })();
+  </script>
+</body>
+</html>

@@ -1,9 +1,10 @@
 {
+  "$schema": "./graph.schema.json",
   "meta": {
     "title_zh": "国内 vs 国外 AI 版图竞争关系图",
     "title_en": "China vs Global AI Competition Map",
-    "version": "v2.2.0",
-    "updated": "2026-07-01"
+    "version": "v2.9.0",
+    "updated": "2026-07-02"
   },
   "views": {
     "invest": [
@@ -11,10 +12,21 @@
       "global-cloud",
       "deepseek",
       "glm",
+      "qwen",
+      "moonshot-model",
+      "baichuan",
+      "minimax-model",
+      "zeroone-ai",
       "openai",
       "gemini",
       "anthropic",
       "openclaw",
+      "tongyi-lingma",
+      "marscode-trae",
+      "baidu-comate",
+      "amazon-q-developer",
+      "jetbrains-ai-assistant",
+      "windsurf",
       "cursor",
       "copilot"
     ],
@@ -23,9 +35,20 @@
       "global-cloud",
       "deepseek",
       "glm",
+      "qwen",
+      "moonshot-model",
+      "baichuan",
+      "minimax-model",
+      "zeroone-ai",
       "openai",
       "anthropic",
       "openclaw",
+      "tongyi-lingma",
+      "marscode-trae",
+      "baidu-comate",
+      "amazon-q-developer",
+      "jetbrains-ai-assistant",
+      "windsurf",
       "copilot",
       "cursor",
       "cn-channel",
@@ -42,7 +65,8 @@
       "name_zh": "国内云与算力",
       "name_en": "China Cloud & Compute",
       "role_zh": "推理托管、企业私有化、成本优化",
-      "role_en": "Inference hosting, private deployment, and cost optimization"
+      "role_en": "Inference hosting, private deployment, and cost optimization",
+      "representative_models": ["阿里云", "腾讯云", "华为云", "火山引擎"]
     },
     {
       "id": "cn-channel",
@@ -53,7 +77,8 @@
       "name_zh": "流量与分发入口",
       "name_en": "Distribution Channels",
       "role_zh": "超级 App、办公入口、终端生态",
-      "role_en": "Super apps, office entry points, and device ecosystems"
+      "role_en": "Super apps, office entry points, and device ecosystems",
+      "representative_models": ["抖音/今日头条", "微信/QQ", "百度搜索", "小米/华为终端"]
     },
     {
       "id": "deepseek",
@@ -64,7 +89,8 @@
       "name_zh": "DeepSeek",
       "name_en": "DeepSeek",
       "role_zh": "高性价比模型、开源生态影响力",
-      "role_en": "Cost-effective models with strong open ecosystem impact"
+      "role_en": "Cost-effective models with strong open ecosystem impact",
+      "representative_models": ["DeepSeek-R1", "DeepSeek-V3", "DeepSeek-Coder"]
     },
     {
       "id": "glm",
@@ -75,7 +101,68 @@
       "name_zh": "GLM",
       "name_en": "GLM",
       "role_zh": "中文能力与企业落地能力",
-      "role_en": "Strong Chinese capability and enterprise deployment fit"
+      "role_en": "Strong Chinese capability and enterprise deployment fit",
+      "representative_models": ["GLM-4", "GLM-4-Air", "GLM-4-Flash"]
+    },
+    {
+      "id": "qwen",
+      "column": "domestic",
+      "lane": "model",
+      "region": "domestic",
+      "type": "model",
+      "name_zh": "Qwen",
+      "name_en": "Qwen",
+      "role_zh": "开源生态完整、通用与代码能力均衡",
+      "role_en": "Strong open ecosystem with balanced general and coding capabilities",
+      "representative_models": ["Qwen2.5-Max", "Qwen2.5-72B-Instruct", "Qwen2.5-Coder"]
+    },
+    {
+      "id": "moonshot-model",
+      "column": "domestic",
+      "lane": "model",
+      "region": "domestic",
+      "type": "model",
+      "name_zh": "Moonshot",
+      "name_en": "Moonshot",
+      "role_zh": "长上下文与检索增强能力突出",
+      "role_en": "Strong long-context reasoning and retrieval-augmented capabilities",
+      "representative_models": ["Moonshot-v1-8k", "Moonshot-v1-32k", "Moonshot-v1-128k"]
+    },
+    {
+      "id": "baichuan",
+      "column": "domestic",
+      "lane": "model",
+      "region": "domestic",
+      "type": "model",
+      "name_zh": "Baichuan",
+      "name_en": "Baichuan",
+      "role_zh": "企业知识与行业应用导向明显",
+      "role_en": "Strong enterprise knowledge and industry-oriented model capabilities",
+      "representative_models": ["Baichuan4", "Baichuan2-Turbo", "Baichuan2-192k"]
+    },
+    {
+      "id": "minimax-model",
+      "column": "domestic",
+      "lane": "model",
+      "region": "domestic",
+      "type": "model",
+      "name_zh": "MiniMax",
+      "name_en": "MiniMax",
+      "role_zh": "多模态与语音交互能力突出",
+      "role_en": "Strong multimodal and voice-interaction model capabilities",
+      "representative_models": ["MiniMax-Text-01", "MiniMax-M1", "MiniMax-Voice-01"]
+    },
+    {
+      "id": "zeroone-ai",
+      "column": "domestic",
+      "lane": "model",
+      "region": "domestic",
+      "type": "model",
+      "name_zh": "01.AI",
+      "name_en": "01.AI",
+      "role_zh": "开源与高性能推理路线并重",
+      "role_en": "Balanced strategy across open-source models and high-performance inference",
+      "representative_models": ["Yi-Large", "Yi-Lightning", "Yi-34B-Chat"]
     },
     {
       "id": "doubao",
@@ -85,8 +172,10 @@
       "type": "app",
       "name_zh": "豆包",
       "name_en": "Doubao",
-      "role_zh": "消费级助手、生态分发能力强",
-      "role_en": "Consumer assistant with strong ecosystem distribution"
+      "role_zh": "消费级助手、生态分发能力强；短视频/资讯入口协同；多模态交互；Agent 化任务执行",
+      "role_en": "Consumer assistant with strong ecosystem distribution, multimodal interaction, and task-agent execution",
+      "app_subcategory": "customer-chat",
+      "representative_models": ["Doubao-1.5-Pro", "Doubao-1.5-Lite", "Seed-1.5-Vision"]
     },
     {
       "id": "kimi",
@@ -96,8 +185,49 @@
       "type": "app",
       "name_zh": "Kimi",
       "name_en": "Kimi",
-      "role_zh": "长文本、检索问答、知识组织",
-      "role_en": "Long context, search QA, and knowledge organization"
+      "role_zh": "长文本、检索问答、知识组织；网页/PDF 深度阅读；证据链引用；研究任务模式",
+      "role_en": "Long-context search QA and knowledge organization with deep document reading, citations, and research mode",
+      "app_subcategory": "search-answer",
+      "representative_models": ["Moonshot-v1-8k", "Moonshot-v1-32k", "Moonshot-v1-128k"]
+    },
+    {
+      "id": "tongyi-lingma",
+      "column": "domestic",
+      "lane": "app",
+      "region": "domestic",
+      "type": "app",
+      "name_zh": "通义灵码",
+      "name_en": "Tongyi Lingma",
+      "role_zh": "面向企业研发和云原生场景的 AI 编码助手",
+      "role_en": "AI coding assistant for enterprise development and cloud-native workflows",
+      "app_subcategory": "coding-developer",
+      "representative_models": ["Qwen2.5-Coder", "Qwen2.5", "Qwen-Long"]
+    },
+    {
+      "id": "marscode-trae",
+      "column": "domestic",
+      "lane": "app",
+      "region": "domestic",
+      "type": "app",
+      "name_zh": "Trae / MarsCode",
+      "name_en": "Trae / MarsCode",
+      "role_zh": "强调开发体验与协同效率的 AI Coding 助手",
+      "role_en": "AI coding assistant focused on developer experience and team collaboration",
+      "app_subcategory": "coding-developer",
+      "representative_models": ["Doubao-Seed-Coder", "Doubao-1.5-Pro", "DeepSeek-Coder"]
+    },
+    {
+      "id": "baidu-comate",
+      "column": "domestic",
+      "lane": "app",
+      "region": "domestic",
+      "type": "app",
+      "name_zh": "百度 Comate",
+      "name_en": "Baidu Comate",
+      "role_zh": "面向企业研发与 IDE 场景的智能编码助手",
+      "role_en": "AI coding assistant for enterprise development and IDE workflows",
+      "app_subcategory": "coding-developer",
+      "representative_models": ["Comate", "ERNIE Code", "Baidu DevOps"]
     },
     {
       "id": "global-cloud",
@@ -108,7 +238,8 @@
       "name_zh": "全球云与算力",
       "name_en": "Global Cloud & Compute",
       "role_zh": "大规模训练与全球推理服务",
-      "role_en": "Large-scale training and global inference services"
+      "role_en": "Large-scale training and global inference services",
+      "representative_models": ["AWS", "Google Cloud", "Microsoft Azure", "Oracle Cloud"]
     },
     {
       "id": "global-channel",
@@ -119,7 +250,8 @@
       "name_zh": "产品分发入口",
       "name_en": "Product Distribution Entrypoints",
       "role_zh": "搜索、办公套件、开发工具生态",
-      "role_en": "Search, office suites, and developer ecosystems"
+      "role_en": "Search, office suites, and developer ecosystems",
+      "representative_models": ["Google Search", "Microsoft 365", "Apple App Store", "Chrome/Edge"]
     },
     {
       "id": "openai",
@@ -130,7 +262,8 @@
       "name_zh": "OpenAI",
       "name_en": "OpenAI",
       "role_zh": "通用模型 + API + 应用协同",
-      "role_en": "General model + API + application synergy"
+      "role_en": "General model + API + application synergy",
+      "representative_models": ["GPT-4o", "o3", "o4-mini"]
     },
     {
       "id": "gemini",
@@ -141,7 +274,8 @@
       "name_zh": "Gemini",
       "name_en": "Gemini",
       "role_zh": "多模态 + 谷歌生态联动",
-      "role_en": "Multimodal capabilities with Google ecosystem linkage"
+      "role_en": "Multimodal capabilities with Google ecosystem linkage",
+      "representative_models": ["Gemini 2.5 Pro", "Gemini 2.5 Flash", "Gemini 1.5 Pro"]
     },
     {
       "id": "anthropic",
@@ -152,7 +286,8 @@
       "name_zh": "Anthropic",
       "name_en": "Anthropic",
       "role_zh": "企业级稳健输出与代码能力",
-      "role_en": "Enterprise-grade reliability and coding capability"
+      "role_en": "Enterprise-grade reliability and coding capability",
+      "representative_models": ["Claude 3.5 Sonnet", "Claude 3 Opus", "Claude 3 Haiku"]
     },
     {
       "id": "perplexity",
@@ -163,7 +298,8 @@
       "name_zh": "Perplexity",
       "name_en": "Perplexity",
       "role_zh": "AI 搜索与答案引擎",
-      "role_en": "AI search and answer engine"
+      "role_en": "AI search and answer engine",
+      "app_subcategory": "search-answer"
     },
     {
       "id": "chatgpt",
@@ -174,7 +310,8 @@
       "name_zh": "ChatGPT",
       "name_en": "ChatGPT",
       "role_zh": "通用助手，ToC 与轻办公入口",
-      "role_en": "General assistant for consumer and light productivity"
+      "role_en": "General assistant for consumer and light productivity",
+      "app_subcategory": "customer-chat"
     },
     {
       "id": "claude-app",
@@ -185,7 +322,8 @@
       "name_zh": "Claude",
       "name_en": "Claude",
       "role_zh": "对话与写作应用，强企业偏好",
-      "role_en": "Conversation and writing app with enterprise traction"
+      "role_en": "Conversation and writing app with enterprise traction",
+      "app_subcategory": "customer-chat"
     },
     {
       "id": "gemini-app",
@@ -196,7 +334,8 @@
       "name_zh": "Gemini App",
       "name_en": "Gemini App",
       "role_zh": "与 Google 生态联动的消费助手",
-      "role_en": "Consumer assistant integrated with Google ecosystem"
+      "role_en": "Consumer assistant integrated with Google ecosystem",
+      "app_subcategory": "customer-chat"
     },
     {
       "id": "cursor",
@@ -207,7 +346,8 @@
       "name_zh": "Cursor",
       "name_en": "Cursor",
       "role_zh": "AI Coding IDE",
-      "role_en": "AI coding IDE"
+      "role_en": "AI coding IDE",
+      "app_subcategory": "coding-developer"
     },
     {
       "id": "copilot",
@@ -218,7 +358,47 @@
       "name_zh": "GitHub Copilot",
       "name_en": "GitHub Copilot",
       "role_zh": "开发者工作流助手",
-      "role_en": "Developer workflow copilot"
+      "role_en": "Developer workflow copilot",
+      "app_subcategory": "coding-developer"
+    },
+    {
+      "id": "amazon-q-developer",
+      "column": "global",
+      "lane": "app",
+      "region": "global",
+      "type": "app",
+      "name_zh": "Amazon Q Developer",
+      "name_en": "Amazon Q Developer",
+      "role_zh": "AWS 生态内的开发与运维 AI 助手",
+      "role_en": "AI assistant for development and operations in AWS ecosystem",
+      "app_subcategory": "coding-developer",
+      "representative_models": ["Amazon Q Developer", "CodeWhisperer", "Bedrock"]
+    },
+    {
+      "id": "jetbrains-ai-assistant",
+      "column": "global",
+      "lane": "app",
+      "region": "global",
+      "type": "app",
+      "name_zh": "JetBrains AI Assistant",
+      "name_en": "JetBrains AI Assistant",
+      "role_zh": "深度嵌入 JetBrains IDE 的企业级编码助手",
+      "role_en": "Enterprise coding assistant deeply integrated into JetBrains IDEs",
+      "app_subcategory": "coding-developer",
+      "representative_models": ["JetBrains AI Assistant", "IntelliJ IDEA", "PyCharm"]
+    },
+    {
+      "id": "windsurf",
+      "column": "global",
+      "lane": "app",
+      "region": "global",
+      "type": "app",
+      "name_zh": "Windsurf",
+      "name_en": "Windsurf",
+      "role_zh": "强调 Agent 化协作与全流程编码体验的 AI IDE",
+      "role_en": "AI IDE focused on agentic collaboration and full-flow coding experience",
+      "app_subcategory": "coding-developer",
+      "representative_models": ["Windsurf Editor", "Cascade", "Codeium Models"]
     },
     {
       "id": "openclaw",
@@ -235,10 +415,28 @@
   "edges": [
     { "from": "cn-cloud", "to": "deepseek", "type": "dep" },
     { "from": "cn-cloud", "to": "glm", "type": "dep" },
+    { "from": "cn-cloud", "to": "qwen", "type": "dep" },
+    { "from": "cn-cloud", "to": "moonshot-model", "type": "dep" },
+    { "from": "cn-cloud", "to": "baichuan", "type": "dep" },
+    { "from": "cn-cloud", "to": "minimax-model", "type": "dep" },
+    { "from": "cn-cloud", "to": "zeroone-ai", "type": "dep" },
     { "from": "cn-channel", "to": "doubao", "type": "dep" },
     { "from": "cn-channel", "to": "kimi", "type": "dep" },
+    { "from": "cn-channel", "to": "tongyi-lingma", "type": "dep" },
+    { "from": "cn-channel", "to": "marscode-trae", "type": "dep" },
+    { "from": "cn-channel", "to": "baidu-comate", "type": "dep" },
+    { "from": "cn-cloud", "to": "tongyi-lingma", "type": "dep" },
+    { "from": "cn-cloud", "to": "marscode-trae", "type": "dep" },
+    { "from": "cn-cloud", "to": "baidu-comate", "type": "dep" },
     { "from": "deepseek", "to": "doubao", "type": "dep" },
     { "from": "glm", "to": "kimi", "type": "dep" },
+    { "from": "qwen", "to": "tongyi-lingma", "type": "dep" },
+    { "from": "moonshot-model", "to": "kimi", "type": "dep" },
+    { "from": "baichuan", "to": "kimi", "type": "dep" },
+    { "from": "minimax-model", "to": "doubao", "type": "dep" },
+    { "from": "zeroone-ai", "to": "marscode-trae", "type": "dep" },
+    { "from": "glm", "to": "tongyi-lingma", "type": "dep" },
+    { "from": "deepseek", "to": "marscode-trae", "type": "dep" },
     { "from": "global-cloud", "to": "openai", "type": "dep" },
     { "from": "global-cloud", "to": "gemini", "type": "dep" },
     { "from": "global-cloud", "to": "anthropic", "type": "dep" },
@@ -248,10 +446,16 @@
     { "from": "global-channel", "to": "gemini-app", "type": "dep" },
     { "from": "global-channel", "to": "cursor", "type": "dep" },
     { "from": "global-channel", "to": "copilot", "type": "dep" },
+    { "from": "global-channel", "to": "amazon-q-developer", "type": "dep" },
+    { "from": "global-channel", "to": "jetbrains-ai-assistant", "type": "dep" },
+    { "from": "global-channel", "to": "windsurf", "type": "dep" },
+    { "from": "global-cloud", "to": "amazon-q-developer", "type": "dep" },
     { "from": "openai", "to": "perplexity", "type": "dep" },
     { "from": "openai", "to": "chatgpt", "type": "dep" },
     { "from": "anthropic", "to": "cursor", "type": "dep" },
+    { "from": "anthropic", "to": "windsurf", "type": "dep" },
     { "from": "anthropic", "to": "claude-app", "type": "dep" },
+    { "from": "openai", "to": "jetbrains-ai-assistant", "type": "dep" },
     { "from": "gemini", "to": "gemini-app", "type": "dep" },
     { "from": "deepseek", "to": "openclaw", "type": "dep" },
     { "from": "glm", "to": "openclaw", "type": "dep" },
@@ -260,6 +464,16 @@
     { "from": "deepseek", "to": "anthropic", "type": "comp" },
     { "from": "glm", "to": "gemini", "type": "comp", "pair": true },
     { "from": "glm", "to": "openai", "type": "comp" },
+    { "from": "qwen", "to": "gemini", "type": "comp", "pair": true },
+    { "from": "qwen", "to": "openai", "type": "comp" },
+    { "from": "moonshot-model", "to": "openai", "type": "comp", "pair": true },
+    { "from": "moonshot-model", "to": "anthropic", "type": "comp" },
+    { "from": "baichuan", "to": "openai", "type": "comp" },
+    { "from": "baichuan", "to": "anthropic", "type": "comp" },
+    { "from": "minimax-model", "to": "gemini", "type": "comp", "pair": true },
+    { "from": "minimax-model", "to": "openai", "type": "comp" },
+    { "from": "zeroone-ai", "to": "anthropic", "type": "comp", "pair": true },
+    { "from": "zeroone-ai", "to": "openai", "type": "comp" },
     { "from": "doubao", "to": "gemini", "type": "comp" },
     { "from": "doubao", "to": "openai", "type": "comp" },
     { "from": "doubao", "to": "chatgpt", "type": "comp", "pair": true },
@@ -268,6 +482,20 @@
     { "from": "kimi", "to": "openai", "type": "comp" },
     { "from": "kimi", "to": "chatgpt", "type": "comp", "pair": true },
     { "from": "kimi", "to": "claude-app", "type": "comp" },
+    { "from": "tongyi-lingma", "to": "copilot", "type": "comp", "pair": true },
+    { "from": "tongyi-lingma", "to": "cursor", "type": "comp" },
+    { "from": "baidu-comate", "to": "tongyi-lingma", "type": "comp", "pair": true },
+    { "from": "baidu-comate", "to": "marscode-trae", "type": "comp" },
+    { "from": "baidu-comate", "to": "copilot", "type": "comp" },
+    { "from": "baidu-comate", "to": "cursor", "type": "comp" },
+    { "from": "marscode-trae", "to": "cursor", "type": "comp", "pair": true },
+    { "from": "marscode-trae", "to": "copilot", "type": "comp" },
+    { "from": "amazon-q-developer", "to": "copilot", "type": "comp", "pair": true },
+    { "from": "amazon-q-developer", "to": "cursor", "type": "comp" },
+    { "from": "jetbrains-ai-assistant", "to": "copilot", "type": "comp" },
+    { "from": "jetbrains-ai-assistant", "to": "cursor", "type": "comp" },
+    { "from": "windsurf", "to": "cursor", "type": "comp", "pair": true },
+    { "from": "windsurf", "to": "copilot", "type": "comp" },
     { "from": "cursor", "to": "copilot", "type": "comp" }
   ]
 }

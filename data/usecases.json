@@ -1,0 +1,1043 @@
+﻿{
+  "meta": {
+    "title": "AI Application Layer Use Cases",
+    "version": "v2.2.0",
+    "updated": "2026-07-01"
+  },
+  "categories": [
+    {
+      "id": "customer-chat",
+      "title_zh": "客户与通用对话",
+      "title_en": "Customer and General Chat",
+      "overview": {
+        "intro": "该分类产品主要承担用户沟通、内容生成与客服支持，是企业对外触点中最容易规模化落地的 AI 能力层。",
+        "use_cases": [
+          "新车上市 campaign 多渠道内容生成（官网/社媒/短信/门店）",
+          "售后客服 FAQ 标准回复与知识库增强",
+          "线索运营中的人群分层话术生成与跟进建议"
+        ],
+        "market_performance": [
+          "该赛道产品渗透快，企业采购通常从客服和营销文案场景切入",
+          "评估重点从模型能力转向稳定性、集成能力与合规审计能力",
+          "具备行业模板和多系统连接能力的产品更易获得长期预算"
+        ],
+        "customer_usage": [
+          "市场团队用于内容矩阵生成与 A/B 文案迭代",
+          "客服团队用于标准回复、复杂工单摘要与知识推荐",
+          "销售运营用于生成线索触达策略与门店沟通脚本"
+        ],
+        "trends": [
+          "从单轮问答升级为可执行工作流（内容生成 -> 审核 -> 发布）",
+          "从通用能力向行业知识增强与组织记忆演进",
+          "以可审计、可回溯为核心的企业治理能力成为标配"
+        ]
+      },
+      "products": [
+        {
+          "id": "chatgpt",
+          "name_zh": "ChatGPT",
+          "name_en": "ChatGPT",
+          "company": "OpenAI",
+          "product_intro": "通用对话与内容生成平台，适合快速搭建跨团队协同的营销与客服共创流程。",
+          "performance_and_features": [
+            "长文本理解与结构化输出能力稳定",
+            "多语言与多风格文案生成效率高",
+            "可通过 API 接入企业内部系统形成半自动化流程"
+          ],
+          "scenarios": [
+            "新车上市内容矩阵：同一卖点生成多渠道版本并保持品牌语气一致",
+            "售后 FAQ 优化：对高频投诉问题生成标准答案和升级流转建议",
+            "线索触达策略：按人群标签生成首触达与二次跟进脚本"
+          ],
+          "demo_deliverables": [
+            "内容策略 Brief -> 文案矩阵 Markdown 模板",
+            "FAQ 草案生成 Prompt 模板",
+            "活动周报结论摘要模板"
+          ]
+        },
+        {
+          "id": "doubao",
+          "name_zh": "豆包",
+          "name_en": "Doubao",
+          "company": "ByteDance",
+          "product_intro": "面向高频业务沟通的通用助手，适合用于运营与客服场景中的轻量化内容生产。",
+          "performance_and_features": [
+            "消费级交互体验友好，上手成本低",
+            "在高频短文本生成场景迭代效率较高",
+            "适合与现有内容流程组合使用"
+          ],
+          "scenarios": [
+            "门店活动海报文案与短视频脚本快速生成",
+            "客服常见问题回复模板批量生成",
+            "销售日常跟进话术优化"
+          ],
+          "demo_deliverables": [
+            "门店活动文案包（标题/正文/CTA）",
+            "客服回复模板库 v1",
+            "销售日常话术清单"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coding-developer",
+      "title_zh": "开发者与编码",
+      "title_en": "Developer and Coding",
+      "overview": {
+        "intro": "该分类聚焦 AI Coding/AI SDLC 助手，覆盖从需求澄清、编码、测试、代码评审、发布运维到文档沉淀的完整软件交付生命周期。",
+        "use_cases": [
+          "需求转技术方案：PRD 解析、架构建议、任务拆分与工时估算",
+          "编码与重构：脚手架生成、跨文件修改、技术债治理",
+          "测试与质量：单测/集成测试生成、回归覆盖补齐、静态检查修复",
+          "审查与安全：PR 风险摘要、漏洞修复建议、依赖升级影响分析",
+          "运维与发布：CI/CD 脚本更新、发布检查清单、回滚方案草拟",
+          "数据与自动化：SQL/ETL 脚本生成、指标查询、分析脚本工程化"
+        ],
+        "market_performance": [
+          "工具形态从‘代码补全’升级到‘任务代理（agentic coding）’",
+          "企业采购从个人效率评估升级到团队治理、权限控制与审计追踪",
+          "头部产品开始绑定代码托管、项目管理和安全扫描形成平台护城河",
+          "私有化部署和模型可替换能力成为金融、汽车、制造等行业核心决策点"
+        ],
+        "customer_usage": [
+          "研发团队用于需求到 PR 全链路提效，缩短 lead time",
+          "平台团队用于统一工程规范、模板仓库和质量门禁",
+          "数据团队用于分析脚本生成和指标复盘自动化",
+          "业务技术团队用于活动页面、小工具、自动化工作流快速交付"
+        ],
+        "trends": [
+          "IDE 内辅助 -> 多代理并行执行（编码、测试、评审分工）",
+          "单仓库上下文 -> 跨仓库/跨服务拓扑级理解",
+          "Prompt 驱动 -> 策略与规则驱动（policy as code）",
+          "仅生成代码 -> 可验证交付（含测试证据、风险解释、回滚策略）"
+        ]
+      },
+      "specification": {
+        "market_players": [
+          "OpenAI: Codex / ChatGPT for coding",
+          "GitHub + Microsoft: GitHub Copilot",
+          "Anthropic: Claude Code",
+          "Cursor Team: Cursor",
+          "Google: Gemini Code Assist",
+          "Amazon AWS: Amazon Q Developer",
+          "JetBrains: JetBrains AI Assistant",
+          "Sourcegraph: Cody",
+          "Codeium: Windsurf",
+          "Tabnine: Tabnine Enterprise",
+          "Cognition: Devin",
+          "Replit: Replit Agent",
+          "Alibaba Cloud: Tongyi Lingma (通义灵码)",
+          "ByteDance: Trae / MarsCode"
+        ],
+        "core_use_cases": [
+          "需求理解与任务拆分",
+          "新功能开发与样板代码生成",
+          "跨模块重构与依赖迁移",
+          "测试生成、失败定位与修复建议",
+          "代码评审摘要与高风险变更预警",
+          "安全修复与依赖漏洞处置",
+          "文档与知识库同步更新",
+          "运维脚本与发布流程自动化"
+        ],
+        "selection_criteria": [
+          "代码上下文深度：单文件、仓库级、跨仓库",
+          "执行能力：建议模式还是可执行 agent 模式",
+          "质量能力：测试生成、静态检查、lint/fix 一致性",
+          "治理能力：审计日志、权限模型、策略配置",
+          "集成能力：GitHub/GitLab/Bitbucket、Jira、CI/CD、安全扫描",
+          "部署模式：SaaS、VPC、私有化、模型可替换",
+          "成本模型：按 seat、按 token、按任务、混合计费",
+          "合规能力：数据驻留、PII 处理、企业条款"
+        ],
+        "implementation_patterns": [
+          "Pattern A: IDE 即时辅助（低门槛，适合快速普及）",
+          "Pattern B: PR 审查代理（对质量和安全收益明显）",
+          "Pattern C: 测试代理（适合遗留系统补测试）",
+          "Pattern D: 发布前质量关卡（结合 CI 统一门禁）",
+          "Pattern E: 多代理流水线（需求到发布端到端）"
+        ],
+        "risks_and_controls": [
+          "风险：幻觉或不符合架构约束 -> 控制：规则库 + 单测 + 评审强制",
+          "风险：敏感代码泄露 -> 控制：私有化部署 + 数据策略 + 访问隔离",
+          "风险：代码风格漂移 -> 控制：统一模板 + lint + pre-commit",
+          "风险：过度依赖导致能力空心化 -> 控制：关键模块人工 owner 制度"
+        ],
+        "coverage_statement": "覆盖范围基于 2026-07 的主流企业级与高活跃 AI Coding 产品，优先纳入具备公开商业化路径、企业落地案例或开发者社区活跃度较高的平台。本清单用于管理层评审与选型初筛，不构成唯一名单，建议每月复核。",
+        "last_reviewed": "2026-07-01",
+        "watchlist": [
+          "Aider / OpenHands 等开源代理型工具的企业化演进",
+          "GitLab Duo、Bitbucket 生态内 AI Coding 能力增强",
+          "Apple/Xcode 生态 AI 编码助手的商业化节奏",
+          "中国厂商在私有化部署和合规审计能力上的新版本",
+          "多代理协同平台（需求-编码-测试-发布）一体化产品"
+        ],
+        "comparison_matrix": [
+          {
+            "product": "GitHub Copilot",
+            "vendor": "GitHub/Microsoft",
+            "fit": "大型工程团队与 GitHub 体系",
+            "strengths": "仓库上下文、PR 协同、生态集成",
+            "governance": "高（企业策略、权限、审计较完善）",
+            "deployment": "SaaS/Enterprise",
+            "risk_note": "私有框架理解需规则补充"
+          },
+          {
+            "product": "Cursor",
+            "vendor": "Cursor Team",
+            "fit": "中小到中大型敏捷产品团队",
+            "strengths": "多文件改造、迭代速度、IDE 体验",
+            "governance": "中（需外部平台补治理）",
+            "deployment": "SaaS",
+            "risk_note": "企业审计与权限模型需专项评估"
+          },
+          {
+            "product": "Claude Code",
+            "vendor": "Anthropic",
+            "fit": "复杂系统梳理与技术债治理",
+            "strengths": "长上下文分析、复杂逻辑解释",
+            "governance": "中高（取决于企业接入方案）",
+            "deployment": "SaaS/API",
+            "risk_note": "需结合企业仓库访问策略"
+          },
+          {
+            "product": "Gemini Code Assist",
+            "vendor": "Google",
+            "fit": "GCP 主栈团队",
+            "strengths": "云原生联动、云运维辅助",
+            "governance": "中高",
+            "deployment": "SaaS/Enterprise",
+            "risk_note": "跨云兼容性需验证"
+          },
+          {
+            "product": "Amazon Q Developer",
+            "vendor": "AWS",
+            "fit": "AWS 主栈研发与运维团队",
+            "strengths": "IaC、云诊断、运维场景",
+            "governance": "中高",
+            "deployment": "SaaS/Enterprise",
+            "risk_note": "混合云场景需额外整合"
+          },
+          {
+            "product": "JetBrains AI Assistant",
+            "vendor": "JetBrains",
+            "fit": "JVM/Kotlin 和强类型后端团队",
+            "strengths": "IDE 深度集成、重构链路",
+            "governance": "中",
+            "deployment": "SaaS/Enterprise",
+            "risk_note": "跨 IDE 协作一致性需治理"
+          },
+          {
+            "product": "Tabnine Enterprise",
+            "vendor": "Tabnine",
+            "fit": "高合规、数据边界敏感行业",
+            "strengths": "私有化与安全隔离",
+            "governance": "高（私有化优势）",
+            "deployment": "Private/SaaS",
+            "risk_note": "复杂 agent 任务能力需实测"
+          },
+          {
+            "product": "Sourcegraph Cody",
+            "vendor": "Sourcegraph",
+            "fit": "多仓库大型组织",
+            "strengths": "跨仓库检索与代码理解",
+            "governance": "中高",
+            "deployment": "Enterprise",
+            "risk_note": "端到端执行需结合其他代理"
+          },
+          {
+            "product": "通义灵码",
+            "vendor": "Alibaba Cloud",
+            "fit": "中国区本地化研发团队",
+            "strengths": "中文语境、本地生态",
+            "governance": "中高（本地化可控）",
+            "deployment": "SaaS/Enterprise",
+            "risk_note": "跨境协同能力需验证"
+          },
+          {
+            "product": "Trae / MarsCode",
+            "vendor": "ByteDance",
+            "fit": "追求迭代速度的业务团队",
+            "strengths": "任务驱动、实战导向",
+            "governance": "中",
+            "deployment": "SaaS",
+            "risk_note": "超大规模治理能力待持续观察"
+          }
+        ]
+      },
+      "products": [
+        {
+          "id": "copilot",
+          "name_zh": "GitHub Copilot",
+          "name_en": "GitHub Copilot",
+          "company": "GitHub / Microsoft",
+          "region": "Global",
+          "differentiators": [
+            "与 GitHub 平台深度耦合，Issue/PR/Code Review 全链路协同明显",
+            "企业治理能力成熟（审计、策略、权限、组织管理）",
+            "支持多模型与第三方 agent 接入，便于组织级标准化"
+          ],
+          "best_for": [
+            "已在 GitHub 生态沉淀较深的中大型研发组织",
+            "需要把 AI 编码纳入治理与审计流程的企业",
+            "强调 PR 质量门禁与工程一致性的团队"
+          ],
+          "not_ideal_for": [
+            "短期快速试验、几乎不需要治理的轻量项目",
+            "完全不依赖 GitHub 工作流的团队"
+          ],
+          "product_intro": "与 VS Code 和代码仓库深度整合的研发助手，适合企业级开发流程中的协作、评审与交付提效。",
+          "performance_and_features": [
+            "仓库上下文感知能力强，适合团队协作开发",
+            "可生成代码、测试、文档并辅助 PR 风险识别",
+            "支持规则化开发流程，易于纳入企业治理框架",
+            "支持多模型策略与企业级身份权限管理"
+          ],
+          "scenarios": [
+            "营销漏斗看板工程化交付：数据接入、指标 API、前端联动",
+            "销售 AI Assistant 规则发布流水线：脚本、测试、灰度发布",
+            "数据埋点工作流：事件字典、前后端埋点实现与自动分析",
+            "PR 合并前自动生成风险摘要与测试建议"
+          ],
+          "demo_deliverables": [
+            "埋点工作流脚手架（事件字典 + SDK 封装）",
+            "FastAPI 埋点接收接口示例",
+            "漏斗分析 SQL 与复盘报告模板",
+            "PR 评审模板与风险检查清单"
+          ],
+          "usecase_catalog": {
+            "ideation_and_planning": [
+              "将业务需求拆分为可执行技术任务并生成 issue 草案",
+              "根据既有代码结构生成实施方案和影响范围说明"
+            ],
+            "coding_and_refactor": [
+              "多文件联动修改并保持接口契约一致",
+              "围绕架构约束进行重构建议和 patch 生成"
+            ],
+            "testing_and_quality": [
+              "按函数和分支生成单测样例",
+              "对失败测试给出最小修复建议"
+            ],
+            "review_and_security": [
+              "PR 差异摘要与高风险区域标注",
+              "敏感数据处理与鉴权逻辑检查建议"
+            ],
+            "release_and_ops": [
+              "辅助更新 CI 脚本和部署清单",
+              "生成回滚步骤和验证检查项"
+            ],
+            "data_and_automation": [
+              "生成漏斗分析 SQL",
+              "批量脚本模板化和任务调度脚本生成"
+            ]
+          },
+          "evaluation_spec": [
+            "适合已有 GitHub 体系和中大型工程团队",
+            "重点评估 Copilot for Business 的治理与权限策略",
+            "将质量门禁接入 CI 才能放大长期收益"
+          ],
+          "common_gaps": [
+            "对非标准私有框架的理解需补充项目规则",
+            "关键业务口径仍需人工最终签署"
+          ],
+          "deep_dive": {
+            "topic": "营销服场景：数据埋点（Data Instrumentation）",
+            "purpose": [
+              "建立从曝光到成交的可追踪漏斗，定位营销投放与门店转化瓶颈。",
+              "统一跨系统口径（广告平台、CRM、DMS、小程序），减少复盘争议。",
+              "把活动效果评估从经验判断升级为基于证据的迭代机制。"
+            ],
+            "trackable_data": [
+              "流量侧：曝光量、点击率、落地页停留时长、跳出率。",
+              "线索侧：留资提交率、无效率、首呼接通率、线索分发时延。",
+              "门店侧：到店率、试驾预约率、试驾完成率、成交转化率。",
+              "成本侧：CPC、CPA、单条有效线索成本、单台成交获客成本。",
+              "人群侧：城市/渠道/车型/价格带/客户画像分层表现。"
+            ],
+            "decision_support": [
+              "预算决策：将预算从低质量渠道迁移到高转化渠道。",
+              "策略决策：调整活动素材、投放时段、触达话术与跟进频率。",
+              "运营决策：识别响应慢或转化弱的门店并触发运营干预。",
+              "产品决策：发现用户在留资表单、预约流程中的流失点并优化流程。"
+            ],
+            "copilot_scope": {
+              "can_deliver": [
+                "埋点工作流脚手架：事件字典模板、埋点 SDK 调用封装、前后端埋点代码片段。",
+                "自动化分析产物：漏斗分析 SQL、异常检测脚本、周报图表生成脚本。",
+                "可直接复用的报告骨架：复盘报告 Markdown/PPT 数据段落模板（含关键结论字段）。"
+              ],
+              "requires_human": [
+                "业务口径最终确认（例如有效线索定义、成交归因窗口）。",
+                "高影响策略发布审批（预算调整、政策调整、门店考核变更）。",
+                "对异常结论进行业务解释与线下验证。"
+              ]
+            },
+            "workflow": [
+              "Step 1 需求定义：确定活动目标、漏斗阶段、核心 KPI。",
+              "Step 2 埋点设计：产出事件命名规范、属性字典与校验规则。",
+              "Step 3 代码落地：Copilot 生成前后端埋点代码与测试样例。",
+              "Step 4 数据入仓：构建 ETL 与主题宽表，统一指标计算口径。",
+              "Step 5 自动分析：运行漏斗分析、渠道对比、异常检测任务。",
+              "Step 6 报告生成：输出决策建议草案并进入人工复核。"
+            ],
+            "flow_diagram_mermaid": "flowchart TD\n  A[Campaign Goal and KPI Definition] --> B[Event Taxonomy and Property Schema]\n  B --> C[Copilot Generates Tracking Code and Tests]\n  C --> D[Data Pipeline ETL and Unified Model]\n  D --> E[Automated Funnel and Channel Analysis]\n  E --> F[Draft Decision Report Generated]\n  F --> G[Business Review and Action Plan]",
+            "demo": {
+              "event_schema": {
+                "event": "lead_form_submitted",
+                "required_properties": [
+                  "event_time",
+                  "user_id",
+                  "session_id",
+                  "channel",
+                  "campaign_id",
+                  "vehicle_model",
+                  "city",
+                  "store_id",
+                  "is_valid_lead"
+                ]
+              },
+              "frontend_snippet": "// frontend/tracking.ts\nexport function track(event, props = {}) {\n  const payload = {\n    event,\n    event_time: new Date().toISOString(),\n    page_url: window.location.href,\n    session_id: window.__SESSION_ID__,\n    user_id: window.__USER_ID__ || null,\n    ...props\n  };\n  navigator.sendBeacon('/api/track', JSON.stringify(payload));\n}\n\ntrack('lead_form_submitted', {\n  channel: 'douyin_ads',\n  campaign_id: 'camp_q3_new_ev',\n  vehicle_model: 'iX3',\n  city: 'Shanghai',\n  store_id: 'SH_021',\n  is_valid_lead: true\n});",
+              "backend_snippet": "# backend/tracking_api.py (FastAPI demo)\nfrom fastapi import FastAPI, Request\nfrom datetime import datetime\n\napp = FastAPI()\nREQUIRED = {'event', 'event_time', 'session_id', 'channel', 'campaign_id', 'vehicle_model', 'city', 'store_id'}\n\n@app.post('/api/track')\nasync def track(request: Request):\n    payload = await request.json()\n    missing = [k for k in REQUIRED if k not in payload]\n    if missing:\n        return {'ok': False, 'error': f'missing fields: {missing}'}\n    payload['server_time'] = datetime.utcnow().isoformat()\n    print('[TRACK_EVENT]', payload)\n    return {'ok': True}",
+              "analysis_sql": "-- funnel demo: from landing to valid lead by campaign\nWITH base AS (\n  SELECT campaign_id, session_id,\n         MAX(CASE WHEN event = 'landing_view' THEN 1 ELSE 0 END) AS viewed,\n         MAX(CASE WHEN event = 'lead_form_started' THEN 1 ELSE 0 END) AS started,\n         MAX(CASE WHEN event = 'lead_form_submitted' AND is_valid_lead = 1 THEN 1 ELSE 0 END) AS valid_submit\n  FROM dwd_marketing_events\n  WHERE event_date BETWEEN '2026-07-01' AND '2026-07-31'\n  GROUP BY campaign_id, session_id\n)\nSELECT campaign_id,\n       SUM(viewed) AS uv_viewed,\n       SUM(started) AS uv_started,\n       SUM(valid_submit) AS uv_valid_submit,\n       ROUND(SUM(started) * 1.0 / NULLIF(SUM(viewed), 0), 4) AS start_rate,\n       ROUND(SUM(valid_submit) * 1.0 / NULLIF(SUM(started), 0), 4) AS valid_submit_rate\nFROM base\nGROUP BY campaign_id\nORDER BY uv_viewed DESC;"
+            }
+          }
+        },
+        {
+          "id": "cursor",
+          "name_zh": "Cursor",
+          "name_en": "Cursor",
+          "company": "Cursor Team",
+          "region": "Global",
+          "differentiators": [
+            "AI 原生 IDE 体验，跨文件改造与交互式迭代非常顺滑",
+            "适合高频产品迭代中的代码重写、重构和快速验证",
+            "开发者个体效率提升明显，上手成本较低"
+          ],
+          "best_for": [
+            "迭代节奏快、需求变化频繁的产品团队",
+            "前后端混合开发且强调速度的中小团队",
+            "需要高频做代码探索与重构试验的团队"
+          ],
+          "not_ideal_for": [
+            "把审计和组织管控作为首要诉求的超大企业",
+            "高度定制的安全合规环境且无法接入额外治理层"
+          ],
+          "product_intro": "AI 原生 IDE，擅长在多文件上下文中完成重构、测试补齐与工程级修改。",
+          "performance_and_features": [
+            "项目级上下文理解能力强",
+            "复杂重构任务处理效率高",
+            "Agent 模式适合中等复杂度开发任务"
+          ],
+          "scenarios": [
+            "活动落地页 + 线索表单组件快速交付",
+            "CRM 线索分发脚本迭代提效",
+            "营销埋点与数据接口联调",
+            "遗留前端模块现代化重构"
+          ],
+          "demo_deliverables": [
+            "活动页面模板与埋点调用封装",
+            "规则脚本回归测试集",
+            "发布与回滚 SOP"
+          ],
+          "evaluation_spec": [
+            "适合中小到中大型产品团队的高频迭代",
+            "重点评估团队知识共享与审计能力是否满足企业要求"
+          ],
+          "common_gaps": [
+            "企业级权限和审计能力需结合外部平台补齐"
+          ]
+        },
+        {
+          "id": "claude-code",
+          "name_zh": "Claude Code",
+          "name_en": "Claude Code",
+          "company": "Anthropic",
+          "region": "Global",
+          "differentiators": [
+            "长上下文理解和复杂代码解释能力突出",
+            "更适合复杂系统分析、方案推演与高风险变更前评估",
+            "在技术说明与架构取舍阐释方面优势明显"
+          ],
+          "best_for": [
+            "大型遗留系统梳理和技术债治理任务",
+            "架构师与高级工程师主导的复杂改造项目",
+            "需要高质量技术解释输出的组织"
+          ],
+          "not_ideal_for": [
+            "主要诉求是低门槛 IDE 内快速补全的团队",
+            "极端强调端到端自动执行而非分析推演的场景"
+          ],
+          "product_intro": "偏终端/工程任务流的代码助手，擅长长上下文分析与复杂代码解释。",
+          "performance_and_features": [
+            "长上下文阅读能力强，适合大型代码库分析",
+            "对重构思路和设计取舍解释较完整",
+            "适合复杂迁移与疑难问题定位"
+          ],
+          "scenarios": [
+            "单体服务拆分前影响面分析",
+            "复杂业务逻辑代码解释与文档补齐",
+            "高风险改造前的实施方案评估"
+          ],
+          "demo_deliverables": [
+            "架构变更影响面报告",
+            "关键模块重构建议书",
+            "疑难缺陷定位清单"
+          ],
+          "evaluation_spec": [
+            "适合复杂系统梳理与技术债治理阶段",
+            "建议与代码执行代理组合，以提升端到端落地效率"
+          ],
+          "common_gaps": [
+            "需要配合企业内部仓库访问与权限治理策略"
+          ]
+        },
+        {
+          "id": "codex",
+          "name_zh": "Codex / ChatGPT Coding",
+          "name_en": "Codex / ChatGPT Coding",
+          "company": "OpenAI",
+          "region": "Global",
+          "differentiators": [
+            "通用编程覆盖广，适合多语言快速起步",
+            "原型开发与通用脚本生成效率高",
+            "适配探索型任务和创新试验"
+          ],
+          "best_for": [
+            "创新试验、PoC 和跨技术栈快速验证",
+            "需要通用能力且不绑定单一生态的团队"
+          ],
+          "not_ideal_for": [
+            "要求深度组织治理与平台级审计闭环的场景",
+            "强依赖企业内部框架知识注入的复杂环境"
+          ],
+          "product_intro": "以模型能力为核心的编码与解释助手，适合快速原型和通用工程任务。",
+          "performance_and_features": [
+            "通用编码能力覆盖面广",
+            "对多语言样例生成速度快",
+            "适合快速 PoC 和技术验证"
+          ],
+          "scenarios": [
+            "快速原型开发",
+            "脚本自动化与数据清洗工具生成",
+            "接口联调与 mock 服务生成"
+          ],
+          "demo_deliverables": [
+            "PoC 代码包",
+            "自动化脚本模板",
+            "API mock 工具"
+          ],
+          "evaluation_spec": [
+            "适合探索期和创新任务",
+            "企业落地时需重点看安全边界与数据策略"
+          ],
+          "common_gaps": [
+            "缺少强绑定工程工作流时，团队规范一致性需额外治理"
+          ]
+        },
+        {
+          "id": "gemini-code-assist",
+          "name_zh": "Gemini Code Assist",
+          "name_en": "Gemini Code Assist",
+          "company": "Google",
+          "region": "Global",
+          "differentiators": [
+            "Google Cloud 生态耦合度高，云开发链路自然",
+            "对 GCP 运维与云服务脚本场景支持更强",
+            "适合云原生主栈组织做统一提效"
+          ],
+          "best_for": [
+            "GCP 主栈应用团队和云平台团队",
+            "云原生开发与运维一体化团队"
+          ],
+          "not_ideal_for": [
+            "多云且不以 GCP 为中心的组织",
+            "本地私有基础设施占比极高的团队"
+          ],
+          "product_intro": "与 Google 生态集成度高的编码助手，适合 GCP 体系团队。",
+          "performance_and_features": [
+            "与云原生工具链结合紧密",
+            "适合云端应用开发与运维脚本生成",
+            "企业管理能力逐步完善"
+          ],
+          "scenarios": [
+            "GCP 服务开发与基础设施脚本维护",
+            "日志分析与运维自动化",
+            "云资源治理脚本生成"
+          ],
+          "demo_deliverables": [
+            "云原生项目模板",
+            "运维自动化脚本",
+            "资源巡检清单"
+          ],
+          "evaluation_spec": [
+            "适合云平台绑定度高的企业",
+            "跨云场景需评估生态兼容性"
+          ],
+          "common_gaps": [
+            "非 Google 主栈团队的迁移成本较高"
+          ]
+        },
+        {
+          "id": "amazon-q-developer",
+          "name_zh": "Amazon Q Developer",
+          "name_en": "Amazon Q Developer",
+          "company": "AWS",
+          "region": "Global",
+          "differentiators": [
+            "AWS 服务和 IaC 场景知识深度更强",
+            "云侧排障与运维脚本自动化价值明显",
+            "适合把 AI 编码与云运维统一推进"
+          ],
+          "best_for": [
+            "AWS 为主的研发与 SRE 团队",
+            "强调 IaC、云治理和成本优化的组织"
+          ],
+          "not_ideal_for": [
+            "非 AWS 主栈且跨云复杂度极高的团队",
+            "主要需求集中在桌面 IDE 编码体验的组织"
+          ],
+          "product_intro": "面向 AWS 开发与运维体系的企业助手，适合云侧工程效率优化。",
+          "performance_and_features": [
+            "AWS 服务知识覆盖深",
+            "适合 IaC、运维脚本与云服务诊断",
+            "对企业权限与组织管理友好"
+          ],
+          "scenarios": [
+            "IaC 模板生成与优化",
+            "云服务故障诊断和修复建议",
+            "成本优化脚本和告警规则生成"
+          ],
+          "demo_deliverables": [
+            "IaC 基础模板库",
+            "云运维 Runbook",
+            "成本巡检脚本"
+          ],
+          "evaluation_spec": [
+            "适合 AWS 为主的企业研发组织",
+            "评估点在于与现有 DevSecOps 流程的耦合程度"
+          ],
+          "common_gaps": [
+            "跨云或本地混合架构需额外整合"
+          ]
+        },
+        {
+          "id": "jetbrains-ai-assistant",
+          "name_zh": "JetBrains AI Assistant",
+          "name_en": "JetBrains AI Assistant",
+          "company": "JetBrains",
+          "region": "Global",
+          "differentiators": [
+            "与 JetBrains IDE 深度融合，重构链路自然",
+            "在 JVM/Kotlin/.NET 等强类型工程中体验突出",
+            "强调可选模型与平台开放性"
+          ],
+          "best_for": [
+            "JetBrains IDE 占主导的企业研发团队",
+            "后端复杂工程和重构频繁的组织"
+          ],
+          "not_ideal_for": [
+            "主要使用 VS Code 且不计划统一 IDE 的团队",
+            "只追求低成本轻量补全、不关注工程深度的场景"
+          ],
+          "product_intro": "与 JetBrains IDE 深度集成，适合 JVM、Kotlin、企业后端场景。",
+          "performance_and_features": [
+            "IDE 内工作流顺滑",
+            "与重构工具链结合良好",
+            "适合强类型后端工程"
+          ],
+          "scenarios": [
+            "企业中台服务开发",
+            "大型后端代码重构",
+            "数据库访问层代码生成"
+          ],
+          "demo_deliverables": [
+            "服务层脚手架",
+            "重构执行计划",
+            "代码评审规则"
+          ],
+          "evaluation_spec": [
+            "适合 JetBrains 为主的研发团队",
+            "需评估跨 IDE 协作时的一致性"
+          ],
+          "common_gaps": [
+            "跨工具链统一治理能力依赖外部平台"
+          ]
+        },
+        {
+          "id": "tabnine",
+          "name_zh": "Tabnine Enterprise",
+          "name_en": "Tabnine Enterprise",
+          "company": "Tabnine",
+          "region": "Global",
+          "differentiators": [
+            "强调私有化与合规隔离，企业数据边界清晰",
+            "多 IDE 支持，适合异构开发工具团队",
+            "在受监管行业更容易获得合规认可"
+          ],
+          "best_for": [
+            "金融、汽车、政企等高合规行业",
+            "需要私有部署和数据可控的组织"
+          ],
+          "not_ideal_for": [
+            "追求最强 agent 自动执行能力的场景",
+            "只看极致生成速度、较少关注治理的团队"
+          ],
+          "product_intro": "强调私有化与企业合规的代码助手，适合对数据边界敏感的行业。",
+          "performance_and_features": [
+            "支持私有化部署与企业知识训练",
+            "多 IDE 兼容",
+            "有利于满足数据安全要求"
+          ],
+          "scenarios": [
+            "受监管行业代码生成",
+            "企业内部框架知识注入",
+            "多 IDE 团队统一辅助能力"
+          ],
+          "demo_deliverables": [
+            "私有部署方案草案",
+            "知识注入样例",
+            "合规评估清单"
+          ],
+          "evaluation_spec": [
+            "适合强调数据驻留与隔离的组织",
+            "重点评估生成质量与上下文深度"
+          ],
+          "common_gaps": [
+            "复杂 agent 任务能力相对头部平台需实测"
+          ]
+        },
+        {
+          "id": "sourcegraph-cody",
+          "name_zh": "Sourcegraph Cody",
+          "name_en": "Sourcegraph Cody",
+          "company": "Sourcegraph",
+          "region": "Global",
+          "differentiators": [
+            "跨仓库检索与代码导航能力强",
+            "适合大型多服务架构的上下文理解",
+            "在知识传承和系统排障中优势明显"
+          ],
+          "best_for": [
+            "多仓库、大规模服务组织",
+            "需要加速 onboarding 和依赖排查的团队"
+          ],
+          "not_ideal_for": [
+            "单仓库、小体量项目",
+            "仅关注端到端代码自动执行而非代码理解的团队"
+          ],
+          "product_intro": "以代码搜索与跨仓库理解见长，适合大型多仓库组织。",
+          "performance_and_features": [
+            "跨仓库语义检索能力强",
+            "适合大型遗留系统和多服务拓扑",
+            "在代码导航和解释场景价值高"
+          ],
+          "scenarios": [
+            "跨仓库依赖排查",
+            "大型系统问题定位",
+            "知识传承与 onboarding 加速"
+          ],
+          "demo_deliverables": [
+            "跨仓库影响面报告",
+            "架构知识问答手册",
+            "新成员 onboarding 包"
+          ],
+          "evaluation_spec": [
+            "适合代码资产规模大、服务众多的企业",
+            "应验证与现有代码平台集成细节"
+          ],
+          "common_gaps": [
+            "端到端自动执行能力需与其它 agent 结合"
+          ]
+        },
+        {
+          "id": "windsurf",
+          "name_zh": "Windsurf",
+          "name_en": "Windsurf",
+          "company": "Codeium",
+          "region": "Global",
+          "differentiators": [
+            "强调 agent 化开发体验和任务推进速度",
+            "适合从需求到代码的快速闭环",
+            "对全栈试错和 MVP 迭代友好"
+          ],
+          "best_for": [
+            "创新产品团队和创业团队",
+            "MVP 验证和高频功能迭代场景"
+          ],
+          "not_ideal_for": [
+            "高度合规和强审计约束的大型组织",
+            "需要深度私有化可控能力的场景"
+          ],
+          "product_intro": "强调 agent 化开发体验的 AI IDE，适合快速迭代团队。",
+          "performance_and_features": [
+            "任务驱动体验明确",
+            "端到端生成能力较强",
+            "适合产品快速试错"
+          ],
+          "scenarios": [
+            "MVP 快速开发",
+            "中小团队全栈功能交付",
+            "高频需求迭代"
+          ],
+          "demo_deliverables": [
+            "MVP 功能包",
+            "自动测试草案",
+            "迭代计划模板"
+          ],
+          "evaluation_spec": [
+            "适合创新型团队",
+            "企业级治理能力需结合组织要求评估"
+          ],
+          "common_gaps": [
+            "复杂企业合规场景需补充外部治理系统"
+          ]
+        },
+        {
+          "id": "replit-agent",
+          "name_zh": "Replit Agent",
+          "name_en": "Replit Agent",
+          "company": "Replit",
+          "region": "Global",
+          "differentiators": [
+            "云端环境即开即用，从构建到部署链路短",
+            "适合教学、黑客松和原型展示",
+            "对低基础团队快速交付帮助明显"
+          ],
+          "best_for": [
+            "教育训练营与创新实验项目",
+            "需要快速在线演示的产品验证团队"
+          ],
+          "not_ideal_for": [
+            "核心生产系统与严格内网环境",
+            "复杂企业合规与私有网络要求较高的组织"
+          ],
+          "product_intro": "云端一体化开发代理，适合快速原型和教学/创业场景。",
+          "performance_and_features": [
+            "云端环境开箱即用",
+            "任务到部署链路短",
+            "适合低基础团队快速交付"
+          ],
+          "scenarios": [
+            "Demo 与实验项目快速上线",
+            "教学与训练营实战项目",
+            "内部工具验证"
+          ],
+          "demo_deliverables": [
+            "在线演示应用",
+            "部署脚本模板",
+            "项目说明文档"
+          ],
+          "evaluation_spec": [
+            "适合快速试验和产品验证",
+            "企业核心系统建议配合本地工程体系"
+          ],
+          "common_gaps": [
+            "大型企业私有网络与治理接入需要额外设计"
+          ]
+        },
+        {
+          "id": "devin",
+          "name_zh": "Devin",
+          "name_en": "Devin",
+          "company": "Cognition",
+          "region": "Global",
+          "differentiators": [
+            "强调任务代理执行，适配标准化工程任务",
+            "在批量重复任务和流程化交付中价值突出",
+            "更像可调度的工程执行体而非单点补全工具"
+          ],
+          "best_for": [
+            "有明确任务边界和审批流的工程组织",
+            "批量 bugfix、测试补齐等重复任务场景"
+          ],
+          "not_ideal_for": [
+            "需求模糊、变化频繁且探索性极高的项目",
+            "缺乏流程治理与人工复核机制的团队"
+          ],
+          "product_intro": "强调自主任务执行的 AI 软件工程代理，适合标准化任务流水线。",
+          "performance_and_features": [
+            "任务代理定位清晰",
+            "适合定义明确的工程任务自动化",
+            "可用于提高重复性开发效率"
+          ],
+          "scenarios": [
+            "批量 bugfix 与低风险任务",
+            "测试补齐和样板工程维护",
+            "自动化技术债清理"
+          ],
+          "demo_deliverables": [
+            "任务自动执行模板",
+            "质量回归报告",
+            "批处理任务配置"
+          ],
+          "evaluation_spec": [
+            "适合任务标准化程度高的组织",
+            "必须定义清晰边界和人工审批节点"
+          ],
+          "common_gaps": [
+            "开放式复杂需求仍需高级工程师主导"
+          ]
+        },
+        {
+          "id": "tongyi-lingma",
+          "name_zh": "通义灵码",
+          "name_en": "Tongyi Lingma",
+          "company": "Alibaba Cloud",
+          "region": "China",
+          "differentiators": [
+            "中文语境和本地生态适配能力强",
+            "支持企业私域知识与安全合规能力建设",
+            "对国内云环境和本地化研发流程更友好"
+          ],
+          "best_for": [
+            "中国区研发团队和本地化协同组织",
+            "关注合规和私有知识接入的企业"
+          ],
+          "not_ideal_for": [
+            "主要服务全球化跨语种协作且全球工具链绑定很深的团队",
+            "仅追求国际生态统一而不考虑本地化优势的场景"
+          ],
+          "product_intro": "面向中文开发生态的编码助手，适合国内云与企业研发场景。",
+          "performance_and_features": [
+            "中文技术语境理解友好",
+            "与国内开发生态集成较好",
+            "适合本地化研发协作"
+          ],
+          "scenarios": [
+            "企业内部系统功能迭代",
+            "中文文档与代码双语生成",
+            "国内云环境脚本维护"
+          ],
+          "demo_deliverables": [
+            "本地化代码模板",
+            "中文技术文档骨架",
+            "国内云运维脚本示例"
+          ],
+          "evaluation_spec": [
+            "适合中国区团队与本地化需求",
+            "评估时关注跨国协作与多语言能力"
+          ],
+          "common_gaps": [
+            "跨境合规与全球工具链衔接需专项评估"
+          ]
+        },
+        {
+          "id": "marscode-trae",
+          "name_zh": "Trae / MarsCode",
+          "name_en": "Trae / MarsCode",
+          "company": "ByteDance",
+          "region": "China",
+          "differentiators": [
+            "任务驱动和开发效率导向明显",
+            "在常见业务前后端场景中落地速度快",
+            "更偏向产品迭代型团队的实战提效"
+          ],
+          "best_for": [
+            "需要快速交付业务功能的中小团队",
+            "高频迭代的产品工程团队"
+          ],
+          "not_ideal_for": [
+            "对超大规模组织治理和跨境合规要求极高的团队",
+            "需要深度跨平台统一审计控制的场景"
+          ],
+          "product_intro": "面向新一代 AI 编码工作流的产品组合，强调开发效率与实战可用性。",
+          "performance_and_features": [
+            "任务驱动和生成效率较高",
+            "适合前后端常见场景",
+            "对中文技术表达支持较好"
+          ],
+          "scenarios": [
+            "业务页面和 API 快速搭建",
+            "常规工程任务自动化",
+            "中小团队迭代提效"
+          ],
+          "demo_deliverables": [
+            "业务功能初版代码",
+            "自动化脚本示例",
+            "迭代开发模板"
+          ],
+          "evaluation_spec": [
+            "适合追求开发速度的产品团队",
+            "需验证企业级治理与审计覆盖"
+          ],
+          "common_gaps": [
+            "超大规模工程下的组织治理能力需进一步验证"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "search-answer",
+      "title_zh": "搜索与知识问答",
+      "title_en": "Search and Answer",
+      "overview": {
+        "intro": "该分类产品用于高效率检索、证据化回答与知识组织，常用于竞品研究、政策追踪和企业知识问答。",
+        "use_cases": [
+          "竞品活动与市场动态情报汇总",
+          "政策法规与行业标准快速检索",
+          "企业知识库问答与文档摘要"
+        ],
+        "market_performance": [
+          "用户关注点从答案速度扩展到答案可信度和来源可追溯",
+          "企业采购重视私有知识接入和权限控制能力",
+          "具备研究工作流能力的平台更容易形成黏性"
+        ],
+        "customer_usage": [
+          "市场研究团队用于日报/周报情报整理",
+          "产品团队用于需求前置调研",
+          "法务与合规团队用于政策变化跟踪"
+        ],
+        "trends": [
+          "从单条问答向研究任务工作台演进",
+          "从公域检索向公私域混合知识问答演进",
+          "引用可验证与结论可审计成为标准能力"
+        ]
+      },
+      "products": [
+        {
+          "id": "perplexity",
+          "name_zh": "Perplexity",
+          "name_en": "Perplexity",
+          "company": "Perplexity",
+          "product_intro": "以检索增强和来源引用为核心，适用于高频研究与事实核验场景。",
+          "performance_and_features": [
+            "检索-总结链路短，响应快",
+            "来源链接明确，便于追溯",
+            "适合情报收集和研究初稿生成"
+          ],
+          "scenarios": [
+            "竞品活动与舆情研究速报",
+            "行业政策与技术趋势跟踪",
+            "市场对比分析初稿生成"
+          ],
+          "demo_deliverables": [
+            "竞品研究周报模板",
+            "来源引用清单",
+            "主题洞察摘要页"
+          ]
+        },
+        {
+          "id": "kimi",
+          "name_zh": "Kimi",
+          "name_en": "Kimi",
+          "company": "Moonshot AI",
+          "product_intro": "偏长文本与知识组织的问答助手，适合文档密集型研究与知识复盘场景。",
+          "performance_and_features": [
+            "长文档理解与摘要能力稳定",
+            "对资料整合和脉络梳理友好",
+            "适合团队知识沉淀与复盘"
+          ],
+          "scenarios": [
+            "项目资料包总结与要点提炼",
+            "售后政策更新对比分析",
+            "跨部门会议纪要统一整理"
+          ],
+          "demo_deliverables": [
+            "文档摘要模板",
+            "政策变更对照表",
+            "会议行动项清单"
+          ]
+        }
+      ]
+    }
+  ]
+}
