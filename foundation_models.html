@@ -315,7 +315,7 @@
             <h3 id="sc1Title">汽车研发：需求到代码交付加速</h3>
             <ul id="sc1List">
               <li>案例：座舱域控项目每两周需求变更，测试与文档始终滞后。</li>
-              <li>推荐模型：Claude 3.5 Sonnet（设计/重构）+ GPT-4o（测试与接口文档）+ DeepSeek-Coder（批量脚本修复）。</li>
+              <li>推荐模型：Claude 3.5 Sonnet（设计/重构）+ GPT-5.5 / Codex（测试与接口文档）+ DeepSeek-Coder（批量脚本修复）。</li>
               <li>实施方式：接入 GitLab/Jira，在 PR 阶段自动输出代码建议、测试草稿与变更说明。</li>
               <li>效果指标：关键模块缺陷率下降约 18%，迭代交付周期缩短约 22%。</li>
             </ul>
@@ -324,7 +324,7 @@
             <h3 id="sc2Title">汽车采购：询价与供应商评审助手</h3>
             <ul id="sc2List">
               <li>案例：动力电池与芯片采购并行推进，RFQ 文件多、比价维度复杂。</li>
-              <li>推荐模型：OpenAI o3（多维比选推理）+ Qwen（中文合同条款抽取）+ GLM（本地知识对齐）。</li>
+              <li>推荐模型：OpenAI o3 / GPT-5.4（多维比选推理）+ Qwen（中文合同条款抽取）+ GLM（本地知识对齐）。</li>
               <li>实施方式：解析报价单、交付条款和历史绩效，自动生成评分卡与谈判建议。</li>
               <li>效果指标：首轮供应商筛选效率提升约 35%，采购决策会准备时间缩短约 50%。</li>
             </ul>
@@ -351,7 +351,7 @@
             <h3 id="sc5Title">汽车市场：内容生产与线索转化</h3>
             <ul id="sc5List">
               <li>案例：新车型上市周期短，区域市场需快速生成多版本投放素材与销售话术。</li>
-              <li>推荐模型：Gemini（图文多模态素材分析）+ GPT-4o（营销文案）+ MiniMax（语音/短视频脚本）。</li>
+              <li>推荐模型：Gemini（图文多模态素材分析）+ GPT-5.5（营销文案）+ MiniMax（语音/短视频脚本）。</li>
               <li>实施方式：基于车型卖点库自动生成“内容包”，并按渠道 A/B 测试自动迭代。</li>
               <li>效果指标：素材生产周期从周级降到天级，线索到店转化率提升约 12%-18%。</li>
             </ul>
@@ -396,14 +396,14 @@
           sc1Title: "汽车研发：需求到代码交付加速",
           sc1List: [
             "案例：座舱域控项目每两周需求变更，测试与文档始终滞后。",
-            "推荐模型：Claude 3.5 Sonnet（设计/重构）+ GPT-4o（测试与接口文档）+ DeepSeek-Coder（批量脚本修复）。",
+            "推荐模型：Claude 3.5 Sonnet（设计/重构）+ GPT-5.5 / Codex（测试与接口文档）+ DeepSeek-Coder（批量脚本修复）。",
             "实施方式：接入 GitLab/Jira，在 PR 阶段自动输出代码建议、测试草稿与变更说明。",
             "效果指标：关键模块缺陷率下降约 18%，迭代交付周期缩短约 22%。"
           ],
           sc2Title: "汽车采购：询价与供应商评审助手",
           sc2List: [
             "案例：动力电池与芯片采购并行推进，RFQ 文件多、比价维度复杂。",
-            "推荐模型：OpenAI o3（多维比选推理）+ Qwen（中文合同条款抽取）+ GLM（本地知识对齐）。",
+            "推荐模型：OpenAI o3 / GPT-5.4（多维比选推理）+ Qwen（中文合同条款抽取）+ GLM（本地知识对齐）。",
             "实施方式：解析报价单、交付条款和历史绩效，自动生成评分卡与谈判建议。",
             "效果指标：首轮供应商筛选效率提升约 35%，采购决策会准备时间缩短约 50%。"
           ],
@@ -424,19 +424,20 @@
           sc5Title: "汽车市场：内容生产与线索转化",
           sc5List: [
             "案例：新车型上市周期短，区域市场需快速生成多版本投放素材与销售话术。",
-            "推荐模型：Gemini（图文多模态素材分析）+ GPT-4o（营销文案）+ MiniMax（语音/短视频脚本）。",
+            "推荐模型：Gemini（图文多模态素材分析）+ GPT-5.5（营销文案）+ MiniMax（语音/短视频脚本）。",
             "实施方式：基于车型卖点库自动生成“内容包”，并按渠道 A/B 测试自动迭代。",
             "效果指标：素材生产周期从周级降到天级，线索到店转化率提升约 12%-18%。"
           ],
           globalModels: [
             {
               name: "OpenAI",
-              subtitle: "通用能力上限与生态完整度领先",
-              representatives: ["GPT-4o", "o3", "o4-mini"],
+              subtitle: "通用能力上限与生态完整度领先（含 GPT-5.x/6.x 与 Codex 编程代理）",
+              representatives: ["GPT-4o", "o3", "o4-mini", "GPT-5.4", "GPT-5.5", "GPT-6.5", "Codex"],
               strengths: [
                 "复杂推理与多工具调用能力强，适合长链路任务",
                 "多模态成熟，文本/图像/语音协同能力突出",
-                "开发者生态完善，企业集成速度快"
+                "开发者生态完善，企业集成速度快",
+                "Codex 在工程任务自动执行、补全与重构协同上更贴近开发流程"
               ],
               scenarios: [
                 "企业知识助手与管理分析",
@@ -585,7 +586,7 @@
           comparisons: [
             {
               model: "OpenAI",
-              strong: "复杂推理、工具调用、多模态综合能力",
+              strong: "复杂推理、工具调用、多模态综合能力（含 GPT-5.4/5.5/6.5 与 Codex 工程能力）",
               weak: "成本压力相对更高，私有化灵活性一般",
               fit: "高价值复杂任务、跨系统自动化"
             },
@@ -659,14 +660,14 @@
           sc1Title: "Automotive R&D: accelerate from requirements to code delivery",
           sc1List: [
             "Case: A cockpit domain-control program faced requirement changes every two weeks while tests and docs kept lagging.",
-            "Recommended stack: Claude 3.5 Sonnet (design/refactor) + GPT-4o (tests and API docs) + DeepSeek-Coder (batch script fixes).",
+            "Recommended stack: Claude 3.5 Sonnet (design/refactor) + GPT-5.5 / Codex (tests and API docs) + DeepSeek-Coder (batch script fixes).",
             "Implementation: Integrate with GitLab/Jira to auto-generate code suggestions, test drafts, and change summaries during PR review.",
             "Outcome: Defect rate in key modules dropped by about 18%; iteration delivery cycle shortened by about 22%."
           ],
           sc2Title: "Automotive procurement: RFQ and supplier evaluation assistant",
           sc2List: [
             "Case: Battery and chip sourcing ran in parallel with high RFQ volume and complex multi-factor comparisons.",
-            "Recommended stack: OpenAI o3 (multi-factor reasoning) + Qwen (Chinese contract clause extraction) + GLM (local knowledge alignment).",
+            "Recommended stack: OpenAI o3 / GPT-5.4 (multi-factor reasoning) + Qwen (Chinese contract clause extraction) + GLM (local knowledge alignment).",
             "Implementation: Parse quotes, delivery terms, and historical supplier performance to produce scorecards and negotiation suggestions.",
             "Outcome: First-round supplier screening efficiency improved by about 35%; sourcing decision prep time dropped by about 50%."
           ],
@@ -687,19 +688,20 @@
           sc5Title: "Automotive marketing: content production and lead conversion",
           sc5List: [
             "Case: New model launch cycles are short, and regional teams must produce multi-version campaign assets and sales scripts quickly.",
-            "Recommended stack: Gemini (multimodal asset analysis) + GPT-4o (campaign copywriting) + MiniMax (voice and short-video scripts).",
+            "Recommended stack: Gemini (multimodal asset analysis) + GPT-5.5 (campaign copywriting) + MiniMax (voice and short-video scripts).",
             "Implementation: Auto-generate channel-specific content packs from vehicle value propositions and iterate via A/B feedback loops.",
             "Outcome: Asset production cycle dropped from weekly to daily cadence; lead-to-showroom conversion increased by about 12%-18%."
           ],
           globalModels: [
             {
               name: "OpenAI",
-              subtitle: "Top-end general capability and complete ecosystem",
-              representatives: ["GPT-4o", "o3", "o4-mini"],
+              subtitle: "Top-end general capability and complete ecosystem (including GPT-5.x/6.x and Codex agent)",
+              representatives: ["GPT-4o", "o3", "o4-mini", "GPT-5.4", "GPT-5.5", "GPT-6.5", "Codex"],
               strengths: [
                 "Strong complex reasoning and tool orchestration for long task chains",
                 "Mature multimodal stack across text, vision, and voice",
-                "Fast enterprise integration through mature developer ecosystem"
+                "Fast enterprise integration through mature developer ecosystem",
+                "Codex adds engineering-native task execution for coding-intensive workflows"
               ],
               scenarios: [
                 "Enterprise knowledge assistants and decision support",
@@ -848,7 +850,7 @@
           comparisons: [
             {
               model: "OpenAI",
-              strong: "Complex reasoning, tool orchestration, multimodal integration",
+              strong: "Complex reasoning, tool orchestration, multimodal integration (including GPT-5.4/5.5/6.5 and Codex engineering depth)",
               weak: "Higher unit cost and less deployment flexibility",
               fit: "High-value complex workflows and cross-system automation"
             },
