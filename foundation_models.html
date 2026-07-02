@@ -215,6 +215,52 @@
       font-weight: 600;
     }
 
+    .metric-title {
+      margin: 2px 0 6px;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .metric-grid {
+      display: grid;
+      gap: 6px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: 56px 1fr 34px;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-name {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .metric-bars {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 4px;
+    }
+
+    .metric-bar {
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(17, 32, 24, 0.12);
+    }
+
+    .metric-bar.active {
+      background: linear-gradient(120deg, var(--brandA), var(--brandB));
+    }
+
+    .metric-score {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
     .section-head {
       margin: 4px 0 10px;
       font-size: 18px;
@@ -270,7 +316,7 @@
     <div class="topline">
       <a href="index.html" id="backLink">返回导航页</a>
       <div>
-        <span id="version">v1.2.0 | 2026-07-02</span>
+        <span id="version">v1.3.0 | 2026-07-02</span>
         <button class="lang" id="langBtn">EN</button>
       </div>
     </div>
@@ -484,27 +530,32 @@
                 {
                   name: "GPT-4o",
                   fit: "实时多模态助手、语音/图像交互、前台客服与销售演示。",
-                  performance: "速度快、交互顺滑、多模态成熟；复杂长链推理通常弱于 GPT-5.5 与 o3，但更适合高频用户交互。"
+                  performance: "速度快、交互顺滑、多模态成熟；复杂长链推理通常弱于 GPT-5.5 与 o3，但更适合高频用户交互。",
+                  metrics: { speed: 5, cost: 3, reasoning: 3, multimodal: 5, coding: 3 }
                 },
                 {
                   name: "o3",
                   fit: "复杂决策、方案比较、跨文档分析、需要较强推理严谨性的任务。",
-                  performance: "深度推理和多步拆解能力强，适合难题分析；通常比 GPT-4o 更慢、更贵，但结论质量更稳。"
+                  performance: "深度推理和多步拆解能力强，适合难题分析；通常比 GPT-4o 更慢、更贵，但结论质量更稳。",
+                  metrics: { speed: 2, cost: 2, reasoning: 5, multimodal: 2, coding: 4 }
                 },
                 {
                   name: "o4-mini",
                   fit: "轻量自动化、批量分类、低成本助手、需要大规模并发的内部工具。",
-                  performance: "成本和时延表现更友好，适合中等复杂度任务；在高难推理、写作精细度上不如 GPT-5.5。"
+                  performance: "成本和时延表现更友好，适合中等复杂度任务；在高难推理、写作精细度上不如 GPT-5.5。",
+                  metrics: { speed: 4, cost: 5, reasoning: 3, multimodal: 3, coding: 3 }
                 },
                 {
                   name: "GPT-5.5",
                   fit: "高质量写作、企业知识助理、复杂分析、Agent 中枢、需要稳定工具调用的工作流。",
-                  performance: "综合推理、结构化表达和工具调用成功率更强；质量上明显高于 GPT-4o，但时延和成本也更高。"
+                  performance: "综合推理、结构化表达和工具调用成功率更强；质量上明显高于 GPT-4o，但时延和成本也更高。",
+                  metrics: { speed: 3, cost: 2, reasoning: 5, multimodal: 4, coding: 4 }
                 },
                 {
                   name: "Codex",
                   fit: "代码补全、重构、测试生成、仓库级修复、PR 辅助和工程自动执行。",
-                  performance: "工程任务分解、补丁生成、文件与命令级协同更强；不是通用前台对话主模型，通常与 GPT-5.5 配合使用。"
+                  performance: "工程任务分解、补丁生成、文件与命令级协同更强；不是通用前台对话主模型，通常与 GPT-5.5 配合使用。",
+                  metrics: { speed: 4, cost: 3, reasoning: 4, multimodal: 1, coding: 5 }
                 }
               ]
             },
@@ -529,17 +580,20 @@
                 {
                   name: "Claude 3.5 Sonnet",
                   fit: "企业知识问答、文档起草、代码审阅、需要质量与速度平衡的主力模型。",
-                  performance: "综合能力最均衡，长文理解、代码解释、结构化输出稳定；通常是 Anthropic 体系里最实用的默认选择。"
+                  performance: "综合能力最均衡，长文理解、代码解释、结构化输出稳定；通常是 Anthropic 体系里最实用的默认选择。",
+                  metrics: { speed: 4, cost: 3, reasoning: 4, multimodal: 2, coding: 5 }
                 },
                 {
                   name: "Claude 3 Opus",
                   fit: "高复杂分析、深度写作、需要更强抽象能力和推理耐力的任务。",
-                  performance: "质量上限更高，适合更难的思考型任务；但成本和时延通常高于 Sonnet，不适合高频大规模调用。"
+                  performance: "质量上限更高，适合更难的思考型任务；但成本和时延通常高于 Sonnet，不适合高频大规模调用。",
+                  metrics: { speed: 2, cost: 2, reasoning: 5, multimodal: 2, coding: 4 }
                 },
                 {
                   name: "Claude 3 Haiku",
                   fit: "轻量总结、快速分类、FAQ 首答、低成本批处理。",
-                  performance: "响应更快、成本更低，适合简单稳定任务；复杂推理、代码质量和长文一致性不如 Sonnet/Opus。"
+                  performance: "响应更快、成本更低，适合简单稳定任务；复杂推理、代码质量和长文一致性不如 Sonnet/Opus。",
+                  metrics: { speed: 5, cost: 5, reasoning: 2, multimodal: 1, coding: 2 }
                 }
               ]
             },
@@ -564,17 +618,20 @@
                 {
                   name: "Gemini 2.5 Pro",
                   fit: "复杂多模态分析、长文理解、需要与搜索或 Workspace 深度联动的高价值任务。",
-                  performance: "综合能力最强，视觉理解、长上下文和复杂任务表现更稳；相应地成本和时延也更高。"
+                  performance: "综合能力最强，视觉理解、长上下文和复杂任务表现更稳；相应地成本和时延也更高。",
+                  metrics: { speed: 3, cost: 2, reasoning: 4, multimodal: 5, coding: 3 }
                 },
                 {
                   name: "Gemini 2.5 Flash",
                   fit: "实时助手、轻量多模态交互、快速内容生成和高并发应用。",
-                  performance: "速度和成本更友好，适合大规模在线交互；在深度推理和复杂长任务上通常弱于 Pro。"
+                  performance: "速度和成本更友好，适合大规模在线交互；在深度推理和复杂长任务上通常弱于 Pro。",
+                  metrics: { speed: 5, cost: 4, reasoning: 3, multimodal: 4, coding: 2 }
                 },
                 {
                   name: "Gemini 1.5 Pro",
                   fit: "需要超长上下文处理的资料归纳、会议纪要、长视频或长文档问答。",
-                  performance: "长上下文能力仍然有价值，但代际上通常不如 2.5 Pro 全面；适合特定长输入场景。"
+                  performance: "长上下文能力仍然有价值，但代际上通常不如 2.5 Pro 全面；适合特定长输入场景。",
+                  metrics: { speed: 3, cost: 3, reasoning: 3, multimodal: 4, coding: 2 }
                 }
               ]
             }
@@ -601,17 +658,20 @@
                 {
                   name: "Qwen2.5-Max",
                   fit: "中文主力助手、复杂业务问答、企业知识库、需要更高上限的通用任务。",
-                  performance: "整体能力上限更高，中文表达和复杂任务更稳；通常是 Qwen 家族中面向高质量输出的优先选择。"
+                  performance: "整体能力上限更高，中文表达和复杂任务更稳；通常是 Qwen 家族中面向高质量输出的优先选择。",
+                  metrics: { speed: 3, cost: 3, reasoning: 4, multimodal: 2, coding: 4 }
                 },
                 {
                   name: "Qwen2.5-72B-Instruct",
                   fit: "私有部署、成本受控的企业通用助手、流程问答与文档处理。",
-                  performance: "能力、部署可行性和成本较平衡，适合做企业内网主模型；顶级推理和代码深度弱于最强闭源。"
+                  performance: "能力、部署可行性和成本较平衡，适合做企业内网主模型；顶级推理和代码深度弱于最强闭源。",
+                  metrics: { speed: 3, cost: 4, reasoning: 3, multimodal: 2, coding: 3 }
                 },
                 {
                   name: "Qwen2.5-Coder",
                   fit: "代码补全、脚本生成、研发自动化、小型工程 Copilot 场景。",
-                  performance: "代码相关任务表现更专门，性价比高；通用写作和复杂业务分析通常不如 Max。"
+                  performance: "代码相关任务表现更专门，性价比高；通用写作和复杂业务分析通常不如 Max。",
+                  metrics: { speed: 4, cost: 4, reasoning: 3, multimodal: 1, coding: 5 }
                 }
               ]
             },
@@ -628,6 +688,29 @@
                 "高并发问答系统",
                 "代码与算法辅助",
                 "成本优先的大规模部署"
+              ],
+              profilesTitle: "DeepSeek 子模型怎么选",
+              profilesFitLabel: "适合场景",
+              profilesPerfLabel: "性能画像",
+              profiles: [
+                {
+                  name: "DeepSeek-R1",
+                  fit: "复杂推理、数学证明、算法分析、需要高推理性价比的核心任务。",
+                  performance: "推理上限突出，尤其适合思考型任务；速度和交互体验通常不如偏轻量模型，但单位成本优势明显。",
+                  metrics: { speed: 2, cost: 5, reasoning: 5, multimodal: 1, coding: 4 }
+                },
+                {
+                  name: "DeepSeek-V3",
+                  fit: "通用问答、企业助手、成本受控的主力模型和大规模在线服务。",
+                  performance: "通用能力均衡，成本表现突出，适合大规模部署；极难推理通常弱于 R1，代码专门性弱于 Coder。",
+                  metrics: { speed: 4, cost: 5, reasoning: 4, multimodal: 2, coding: 3 }
+                },
+                {
+                  name: "DeepSeek-Coder",
+                  fit: "代码补全、调试建议、脚本生成、研发辅助与算法题场景。",
+                  performance: "代码和算法任务更强，性价比高；通用业务写作和复杂知识问答通常不如 V3 或 R1。",
+                  metrics: { speed: 4, cost: 5, reasoning: 3, multimodal: 1, coding: 5 }
+                }
               ]
             },
             {
@@ -643,6 +726,29 @@
                 "政企知识问答",
                 "行业流程助手",
                 "对中文质量要求高的内容生产"
+              ],
+              profilesTitle: "GLM 子模型怎么选",
+              profilesFitLabel: "适合场景",
+              profilesPerfLabel: "性能画像",
+              profiles: [
+                {
+                  name: "GLM-4",
+                  fit: "中文主力问答、流程助手、行业知识库和对表达稳定性要求高的企业应用。",
+                  performance: "中文语义和业务表达较稳，是 GLM 家族里的综合主力；在全球生态与顶级复杂推理上不占优。",
+                  metrics: { speed: 3, cost: 3, reasoning: 3, multimodal: 2, coding: 2 }
+                },
+                {
+                  name: "GLM-4-Air",
+                  fit: "成本敏感的企业知识问答、内部助手、较高并发的日常业务场景。",
+                  performance: "在速度与成本上更友好，适合作为大规模业务入口；复杂分析与精细生成通常弱于 GLM-4。",
+                  metrics: { speed: 4, cost: 4, reasoning: 3, multimodal: 2, coding: 2 }
+                },
+                {
+                  name: "GLM-4-Flash",
+                  fit: "实时客服首答、快速摘要、轻量分类和低时延交互。",
+                  performance: "时延最低、成本最低，适合简单高频任务；高复杂推理、长文一致性和代码能力相对较弱。",
+                  metrics: { speed: 5, cost: 5, reasoning: 2, multimodal: 1, coding: 1 }
+                }
               ]
             },
             {
@@ -658,6 +764,29 @@
                 "研究分析助手",
                 "投研/策略材料整理",
                 "长文档问答系统"
+              ],
+              profilesTitle: "Moonshot 子模型怎么选",
+              profilesFitLabel: "适合场景",
+              profilesPerfLabel: "性能画像",
+              profiles: [
+                {
+                  name: "Moonshot-v1-8k",
+                  fit: "日常问答、轻量研究助手、成本较敏感的短文任务。",
+                  performance: "速度和成本更友好，适合常规任务；长文档吞吐和复杂资料整合不如 32k/128k。",
+                  metrics: { speed: 4, cost: 4, reasoning: 3, multimodal: 1, coding: 2 }
+                },
+                {
+                  name: "Moonshot-v1-32k",
+                  fit: "中长文档问答、研究综述、会议纪要整合和策略材料阅读。",
+                  performance: "上下文长度与成本平衡较好，是研究型场景的主力规格；处理超长证据链时不如 128k 从容。",
+                  metrics: { speed: 3, cost: 3, reasoning: 4, multimodal: 1, coding: 2 }
+                },
+                {
+                  name: "Moonshot-v1-128k",
+                  fit: "超长报告、尽调材料、法规包、长视频转录和跨章节证据梳理。",
+                  performance: "长上下文能力最强，适合超长输入整合；速度和成本压力更高，不适合简单高频任务。",
+                  metrics: { speed: 2, cost: 2, reasoning: 4, multimodal: 1, coding: 2 }
+                }
               ]
             },
             {
@@ -688,6 +817,29 @@
                 "语音助手",
                 "客服与营销交互机器人",
                 "多模态产品体验增强"
+              ],
+              profilesTitle: "MiniMax 子模型怎么选",
+              profilesFitLabel: "适合场景",
+              profilesPerfLabel: "性能画像",
+              profiles: [
+                {
+                  name: "MiniMax-Text-01",
+                  fit: "通用对话、文案生成、营销内容和偏前台交互的文本助手。",
+                  performance: "文本交互体验较好，适合通用内容任务；复杂推理和代码深度通常不是主卖点。",
+                  metrics: { speed: 4, cost: 3, reasoning: 3, multimodal: 2, coding: 2 }
+                },
+                {
+                  name: "MiniMax-M1",
+                  fit: "多模态产品原型、图文理解、互动式内容生成和前台体验增强。",
+                  performance: "多模态和交互体验更强，适合产品侧应用；深度分析和工程代码任务通常不如专门模型。",
+                  metrics: { speed: 4, cost: 3, reasoning: 3, multimodal: 4, coding: 2 }
+                },
+                {
+                  name: "MiniMax-Voice-01",
+                  fit: "语音助手、呼叫中心、语音营销机器人和语音驱动的人机交互。",
+                  performance: "语音交互是核心优势，适合高频音频场景；纯文本复杂推理和代码任务并非其重点。",
+                  metrics: { speed: 5, cost: 3, reasoning: 2, multimodal: 4, coding: 1 }
+                }
               ]
             },
             {
@@ -838,27 +990,32 @@
                 {
                   name: "GPT-4o",
                   fit: "Real-time multimodal assistants, voice and image interaction, front-line support, and live demos.",
-                  performance: "Fast, smooth, and mature in multimodal interaction; typically weaker than GPT-5.5 and o3 on long-chain reasoning, but better suited for high-frequency user-facing flows."
+                  performance: "Fast, smooth, and mature in multimodal interaction; typically weaker than GPT-5.5 and o3 on long-chain reasoning, but better suited for high-frequency user-facing flows.",
+                  metrics: { speed: 5, cost: 3, reasoning: 3, multimodal: 5, coding: 3 }
                 },
                 {
                   name: "o3",
                   fit: "Complex decisions, option comparison, cross-document analysis, and tasks that need rigorous reasoning.",
-                  performance: "Strong deep reasoning and multi-step decomposition; usually slower and more expensive than GPT-4o, but more reliable on hard analytical tasks."
+                  performance: "Strong deep reasoning and multi-step decomposition; usually slower and more expensive than GPT-4o, but more reliable on hard analytical tasks.",
+                  metrics: { speed: 2, cost: 2, reasoning: 5, multimodal: 2, coding: 4 }
                 },
                 {
                   name: "o4-mini",
                   fit: "Lightweight automation, batch classification, low-cost assistants, and high-concurrency internal tools.",
-                  performance: "More favorable on latency and cost, good for medium-complexity work; weaker than GPT-5.5 on difficult reasoning and premium writing quality."
+                  performance: "More favorable on latency and cost, good for medium-complexity work; weaker than GPT-5.5 on difficult reasoning and premium writing quality.",
+                  metrics: { speed: 4, cost: 5, reasoning: 3, multimodal: 3, coding: 3 }
                 },
                 {
                   name: "GPT-5.5",
                   fit: "High-quality writing, enterprise knowledge assistants, complex analysis, agent orchestration, and workflows needing stable tool use.",
-                  performance: "Stronger overall reasoning, structured expression, and tool-call reliability; clearly higher quality than GPT-4o, with higher latency and cost."
+                  performance: "Stronger overall reasoning, structured expression, and tool-call reliability; clearly higher quality than GPT-4o, with higher latency and cost.",
+                  metrics: { speed: 3, cost: 2, reasoning: 5, multimodal: 4, coding: 4 }
                 },
                 {
                   name: "Codex",
                   fit: "Code completion, refactoring, test generation, repo-scale fixes, PR assistance, and engineering automation.",
-                  performance: "Stronger at engineering task breakdown, patch generation, and file/command-level execution; not the primary choice for general customer-facing chat, and best paired with GPT-5.5."
+                  performance: "Stronger at engineering task breakdown, patch generation, and file/command-level execution; not the primary choice for general customer-facing chat, and best paired with GPT-5.5.",
+                  metrics: { speed: 4, cost: 3, reasoning: 4, multimodal: 1, coding: 5 }
                 }
               ]
             },
@@ -883,17 +1040,20 @@
                 {
                   name: "Claude 3.5 Sonnet",
                   fit: "Enterprise knowledge assistants, document drafting, code review, and default production use where quality and speed both matter.",
-                  performance: "The most balanced option overall, with stable long-context understanding, code explanation, and structured output; typically the practical default inside the Anthropic family."
+                  performance: "The most balanced option overall, with stable long-context understanding, code explanation, and structured output; typically the practical default inside the Anthropic family.",
+                  metrics: { speed: 4, cost: 3, reasoning: 4, multimodal: 2, coding: 5 }
                 },
                 {
                   name: "Claude 3 Opus",
                   fit: "High-complexity analysis, deeper writing, and tasks that need stronger abstraction and reasoning endurance.",
-                  performance: "Higher quality ceiling for difficult thinking-heavy tasks, but usually with higher cost and latency than Sonnet, making it less suitable for high-volume traffic."
+                  performance: "Higher quality ceiling for difficult thinking-heavy tasks, but usually with higher cost and latency than Sonnet, making it less suitable for high-volume traffic.",
+                  metrics: { speed: 2, cost: 2, reasoning: 5, multimodal: 2, coding: 4 }
                 },
                 {
                   name: "Claude 3 Haiku",
                   fit: "Light summaries, rapid classification, first-response FAQ, and low-cost batch processing.",
-                  performance: "Faster and cheaper for simple stable tasks, but weaker than Sonnet and Opus on difficult reasoning, code quality, and long-form consistency."
+                  performance: "Faster and cheaper for simple stable tasks, but weaker than Sonnet and Opus on difficult reasoning, code quality, and long-form consistency.",
+                  metrics: { speed: 5, cost: 5, reasoning: 2, multimodal: 1, coding: 2 }
                 }
               ]
             },
@@ -918,17 +1078,20 @@
                 {
                   name: "Gemini 2.5 Pro",
                   fit: "Complex multimodal analysis, long-context understanding, and high-value workflows tied to Search or Workspace.",
-                  performance: "The strongest all-around option in the Gemini line, with steadier visual reasoning, long-context handling, and difficult task performance, at higher latency and cost."
+                  performance: "The strongest all-around option in the Gemini line, with steadier visual reasoning, long-context handling, and difficult task performance, at higher latency and cost.",
+                  metrics: { speed: 3, cost: 2, reasoning: 4, multimodal: 5, coding: 3 }
                 },
                 {
                   name: "Gemini 2.5 Flash",
                   fit: "Real-time assistants, lightweight multimodal interaction, quick content generation, and high-concurrency products.",
-                  performance: "More favorable on speed and cost, making it well suited for scaled interactive usage; generally weaker than Pro on deep reasoning and long difficult tasks."
+                  performance: "More favorable on speed and cost, making it well suited for scaled interactive usage; generally weaker than Pro on deep reasoning and long difficult tasks.",
+                  metrics: { speed: 5, cost: 4, reasoning: 3, multimodal: 4, coding: 2 }
                 },
                 {
                   name: "Gemini 1.5 Pro",
                   fit: "Very long-context digestion, meeting synthesis, and Q&A over long documents or video transcripts.",
-                  performance: "Still valuable for extra-long inputs, but usually less complete overall than 2.5 Pro; best used for specific long-input workloads."
+                  performance: "Still valuable for extra-long inputs, but usually less complete overall than 2.5 Pro; best used for specific long-input workloads.",
+                  metrics: { speed: 3, cost: 3, reasoning: 3, multimodal: 4, coding: 2 }
                 }
               ]
             }
@@ -955,17 +1118,20 @@
                 {
                   name: "Qwen2.5-Max",
                   fit: "Chinese-first primary assistants, complex business QA, enterprise knowledge bases, and general tasks that need a higher ceiling.",
-                  performance: "Higher overall ceiling with stronger Chinese expression and better stability on harder tasks; usually the preferred Qwen option when output quality matters most."
+                  performance: "Higher overall ceiling with stronger Chinese expression and better stability on harder tasks; usually the preferred Qwen option when output quality matters most.",
+                  metrics: { speed: 3, cost: 3, reasoning: 4, multimodal: 2, coding: 4 }
                 },
                 {
                   name: "Qwen2.5-72B-Instruct",
                   fit: "Private deployment, cost-controlled enterprise assistants, workflow QA, and document processing.",
-                  performance: "A strong balance of capability, deployability, and cost for internal enterprise usage, though still behind the strongest closed models on frontier reasoning and code depth."
+                  performance: "A strong balance of capability, deployability, and cost for internal enterprise usage, though still behind the strongest closed models on frontier reasoning and code depth.",
+                  metrics: { speed: 3, cost: 4, reasoning: 3, multimodal: 2, coding: 3 }
                 },
                 {
                   name: "Qwen2.5-Coder",
                   fit: "Code completion, script generation, engineering automation, and lightweight coding copilot use cases.",
-                  performance: "More specialized and cost-effective for coding tasks, while general writing and complex business analysis are usually weaker than Max."
+                  performance: "More specialized and cost-effective for coding tasks, while general writing and complex business analysis are usually weaker than Max.",
+                  metrics: { speed: 4, cost: 4, reasoning: 3, multimodal: 1, coding: 5 }
                 }
               ]
             },
@@ -982,6 +1148,29 @@
                 "High-concurrency QA systems",
                 "Coding and algorithm assistance",
                 "Large-scale deployments with tight budgets"
+              ],
+              profilesTitle: "How to pick among DeepSeek sub-models",
+              profilesFitLabel: "Best-fit scenarios",
+              profilesPerfLabel: "Performance profile",
+              profiles: [
+                {
+                  name: "DeepSeek-R1",
+                  fit: "Complex reasoning, math-heavy tasks, algorithm analysis, and core workloads that prioritize reasoning per dollar.",
+                  performance: "Outstanding reasoning ceiling for thought-intensive tasks; interaction speed is usually lower than lighter models, but value per cost is a major advantage.",
+                  metrics: { speed: 2, cost: 5, reasoning: 5, multimodal: 1, coding: 4 }
+                },
+                {
+                  name: "DeepSeek-V3",
+                  fit: "General assistants, enterprise QA, cost-controlled primary model usage, and large-scale online services.",
+                  performance: "Balanced general capability with standout cost efficiency for scaled deployment; usually weaker than R1 on frontier reasoning and less coding-specialized than Coder.",
+                  metrics: { speed: 4, cost: 5, reasoning: 4, multimodal: 2, coding: 3 }
+                },
+                {
+                  name: "DeepSeek-Coder",
+                  fit: "Code completion, debugging suggestions, script generation, engineering support, and algorithm practice tasks.",
+                  performance: "More specialized and efficient for coding and algorithm tasks, while general business writing and deeper knowledge tasks are usually weaker than V3 or R1.",
+                  metrics: { speed: 4, cost: 5, reasoning: 3, multimodal: 1, coding: 5 }
+                }
               ]
             },
             {
@@ -997,6 +1186,29 @@
                 "Government and enterprise knowledge QA",
                 "Industry workflow assistants",
                 "Chinese-first content generation"
+              ],
+              profilesTitle: "How to pick among GLM sub-models",
+              profilesFitLabel: "Best-fit scenarios",
+              profilesPerfLabel: "Performance profile",
+              profiles: [
+                {
+                  name: "GLM-4",
+                  fit: "Primary Chinese QA, workflow assistants, industry knowledge bases, and enterprise apps that value expression stability.",
+                  performance: "A steady all-around choice for Chinese business usage; it does not lead on global ecosystem breadth or frontier reasoning, but is dependable in local enterprise flows.",
+                  metrics: { speed: 3, cost: 3, reasoning: 3, multimodal: 2, coding: 2 }
+                },
+                {
+                  name: "GLM-4-Air",
+                  fit: "Cost-sensitive enterprise assistants, internal knowledge workflows, and mid-to-high concurrency daily business tasks.",
+                  performance: "More favorable on speed and cost, making it practical as a scaled business entry model; complex analysis and refined generation are usually weaker than GLM-4.",
+                  metrics: { speed: 4, cost: 4, reasoning: 3, multimodal: 2, coding: 2 }
+                },
+                {
+                  name: "GLM-4-Flash",
+                  fit: "First-response support, fast summaries, lightweight classification, and low-latency interaction flows.",
+                  performance: "Lowest latency and lowest cost in the family, best for simple repetitive tasks; difficult reasoning, long-form consistency, and coding ability are relatively limited.",
+                  metrics: { speed: 5, cost: 5, reasoning: 2, multimodal: 1, coding: 1 }
+                }
               ]
             },
             {
@@ -1012,6 +1224,29 @@
                 "Research assistants",
                 "Investment/strategy material digestion",
                 "Long-document QA systems"
+              ],
+              profilesTitle: "How to pick among Moonshot sub-models",
+              profilesFitLabel: "Best-fit scenarios",
+              profilesPerfLabel: "Performance profile",
+              profiles: [
+                {
+                  name: "Moonshot-v1-8k",
+                  fit: "Daily QA, lightweight research help, and short-document work where cost matters.",
+                  performance: "Faster and cheaper for routine tasks, but clearly weaker than 32k and 128k on long-document throughput and evidence-chain synthesis.",
+                  metrics: { speed: 4, cost: 4, reasoning: 3, multimodal: 1, coding: 2 }
+                },
+                {
+                  name: "Moonshot-v1-32k",
+                  fit: "Mid-to-long document QA, research synthesis, meeting-note consolidation, and strategy material reading.",
+                  performance: "A good balance of context length and cost, making it the practical default for research-heavy workflows; less comfortable than 128k on extremely long evidence chains.",
+                  metrics: { speed: 3, cost: 3, reasoning: 4, multimodal: 1, coding: 2 }
+                },
+                {
+                  name: "Moonshot-v1-128k",
+                  fit: "Very long reports, diligence packs, regulation bundles, long transcripts, and cross-section evidence mapping.",
+                  performance: "Best for ultra-long context integration, but with higher latency and cost, so it is not the best default for simple high-frequency workloads.",
+                  metrics: { speed: 2, cost: 2, reasoning: 4, multimodal: 1, coding: 2 }
+                }
               ]
             },
             {
@@ -1042,6 +1277,29 @@
                 "Voice assistants",
                 "Customer interaction bots",
                 "Multimodal UX enhancement"
+              ],
+              profilesTitle: "How to pick among MiniMax sub-models",
+              profilesFitLabel: "Best-fit scenarios",
+              profilesPerfLabel: "Performance profile",
+              profiles: [
+                {
+                  name: "MiniMax-Text-01",
+                  fit: "General chat, copywriting, campaign content, and text-first front-end assistant experiences.",
+                  performance: "Good conversational text experience for general content tasks, but deep reasoning and coding depth are usually not its main advantage.",
+                  metrics: { speed: 4, cost: 3, reasoning: 3, multimodal: 2, coding: 2 }
+                },
+                {
+                  name: "MiniMax-M1",
+                  fit: "Multimodal product prototypes, image-text understanding, interactive content generation, and front-end experience enhancement.",
+                  performance: "Stronger on multimodal and product interaction than on deep analysis or engineering-heavy code tasks.",
+                  metrics: { speed: 4, cost: 3, reasoning: 3, multimodal: 4, coding: 2 }
+                },
+                {
+                  name: "MiniMax-Voice-01",
+                  fit: "Voice assistants, call-center workflows, speech-driven marketing bots, and audio-first user interaction.",
+                  performance: "Voice interaction is the core advantage, making it well suited for high-frequency audio scenarios; pure text reasoning and coding are not its focus.",
+                  metrics: { speed: 5, cost: 3, reasoning: 2, multimodal: 4, coding: 1 }
+                }
               ]
             },
             {
@@ -1114,6 +1372,24 @@
       const chinaGrid = document.getElementById("chinaGrid");
       const comparisonBody = document.getElementById("comparisonBody");
       let lang = "zh";
+
+      function getMetricDefinitions() {
+        return lang === "zh"
+          ? [
+              { key: "speed", label: "速度" },
+              { key: "cost", label: "成本" },
+              { key: "reasoning", label: "推理" },
+              { key: "multimodal", label: "多模态" },
+              { key: "coding", label: "代码" }
+            ]
+          : [
+              { key: "speed", label: "Speed" },
+              { key: "cost", label: "Cost" },
+              { key: "reasoning", label: "Reasoning" },
+              { key: "multimodal", label: "Multimodal" },
+              { key: "coding", label: "Coding" }
+            ];
+      }
 
       function renderModelCards(container, models) {
         container.innerHTML = "";
@@ -1197,6 +1473,49 @@
               perf.className = "profile-line";
               perf.innerHTML = '<span class="profile-label">' + (model.profilesPerfLabel || (lang === "zh" ? "性能画像" : "Performance profile")) + ':</span> ' + profile.performance;
               profileCard.appendChild(perf);
+
+              if (profile.metrics) {
+                const metricTitle = document.createElement("p");
+                metricTitle.className = "metric-title";
+                metricTitle.textContent = lang === "zh" ? "五维对比" : "Five-dimension view";
+                profileCard.appendChild(metricTitle);
+
+                const metricGrid = document.createElement("div");
+                metricGrid.className = "metric-grid";
+
+                getMetricDefinitions().forEach(function (metric) {
+                  const value = profile.metrics[metric.key];
+                  if (!value) {
+                    return;
+                  }
+
+                  const row = document.createElement("div");
+                  row.className = "metric-row";
+
+                  const name = document.createElement("span");
+                  name.className = "metric-name";
+                  name.textContent = metric.label;
+                  row.appendChild(name);
+
+                  const bars = document.createElement("div");
+                  bars.className = "metric-bars";
+                  for (let index = 1; index <= 5; index += 1) {
+                    const bar = document.createElement("span");
+                    bar.className = "metric-bar" + (index <= value ? " active" : "");
+                    bars.appendChild(bar);
+                  }
+                  row.appendChild(bars);
+
+                  const score = document.createElement("span");
+                  score.className = "metric-score";
+                  score.textContent = value + "/5";
+                  row.appendChild(score);
+
+                  metricGrid.appendChild(row);
+                });
+
+                profileCard.appendChild(metricGrid);
+              }
 
               profileGrid.appendChild(profileCard);
             });
