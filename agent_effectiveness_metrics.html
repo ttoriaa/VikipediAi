@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>智能体效能指标体系</title>
+  <style>
+    :root {
+      --bg0: #f4f8fb;
+      --bg1: #eaf2f7;
+      --ink: #0f1c2b;
+      --muted: #3f5268;
+      --line: rgba(15, 28, 43, 0.16);
+      --panel: rgba(255, 255, 255, 0.9);
+      --brand-a: #0f766e;
+      --brand-b: #1d4ed8;
+      --ok: #0d9488;
+      --warn: #b45309;
+      --risk: #b91c1c;
+      --shadow: 0 18px 42px rgba(15, 28, 43, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(900px 500px at 8% -8%, #d8efe8 0%, rgba(216, 239, 232, 0) 56%),
+        radial-gradient(920px 520px at 96% 0%, #dfe9ff 0%, rgba(223, 233, 255, 0) 55%),
+        linear-gradient(165deg, var(--bg0), var(--bg1));
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 24px 18px 36px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .back {
+      text-decoration: none;
+      color: #0f766e;
+      font-weight: 700;
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 28, 43, 0.16);
+      background: #fff;
+      color: #1f2937;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      padding: 5px 10px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4.5vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+      max-width: 960px;
+    }
+
+    .section-title {
+      margin: 16px 0 10px;
+      font-size: 20px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .card {
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 12px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 2px 8px;
+      margin-bottom: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid rgba(15, 28, 43, 0.16);
+      background: #fff;
+      color: #334155;
+    }
+
+    .card ul { margin: 0; padding-left: 18px; }
+    .card li { color: var(--muted); line-height: 1.55; font-size: 14px; }
+
+    .pyramid-wrap {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 10px;
+    }
+
+    .pyramid {
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.8));
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .layer {
+      border-radius: 12px;
+      border: 1px solid rgba(15, 28, 43, 0.14);
+      background: #fff;
+      padding: 10px;
+      margin-top: 8px;
+    }
+
+    .layer:first-child { margin-top: 0; }
+    .layer h4 { margin: 0 0 6px; font-size: 14px; }
+    .layer p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+    .l1 { border-left: 5px solid var(--ok); }
+    .l2 { border-left: 5px solid var(--warn); }
+    .l3 { border-left: 5px solid var(--risk); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(15, 28, 43, 0.12);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    th {
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      background: rgba(15, 28, 43, 0.04);
+      font-size: 13px;
+    }
+
+    .loop {
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px dashed rgba(15, 28, 43, 0.24);
+      background: rgba(255,255,255,0.72);
+      padding: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .pyramid-wrap { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .grid-4 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="topbar">
+      <a class="back" href="index.html">返回首页</a>
+      <div>v1.0 · 智能体效能指标体系页</div>
+    </div>
+
+    <section class="hero">
+      <div class="tag">Agent Effectiveness Metrics</div>
+      <h1>四维度智能体效能指标体系</h1>
+      <p class="subtitle">用于把智能体项目从“技术尝鲜”转成“可持续经营”。核心分为四个维度，并通过指标金字塔把行为数据逐层映射到业务与财务结果。</p>
+    </section>
+
+    <h2 class="section-title">3.1 四维度指标</h2>
+    <section class="grid-4" aria-label="四维度指标卡片">
+      <article class="card">
+        <span class="pill">维度 1</span>
+        <h3>业务结果</h3>
+        <ul>
+          <li>收入：转化率、客单价、复购率</li>
+          <li>成本：运营成本、人力成本</li>
+          <li>风险：坏账率、欺诈事件、罚款</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="pill">维度 2</span>
+        <h3>生产力与效率</h3>
+        <ul>
+          <li>AHT、处理时长、交付周期</li>
+          <li>自动化率、返工率、重试率</li>
+          <li>人均处理量与吞吐效率</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="pill">维度 3</span>
+        <h3>体验与质量</h3>
+        <ul>
+          <li>CSAT、NPS、一次解决率 FCR</li>
+          <li>答非所问率、投诉率、错误率</li>
+          <li>专业场景输出质量（法务/医疗/投研）</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="pill">维度 4</span>
+        <h3>可靠性与合规</h3>
+        <ul>
+          <li>可用性、故障率、超时率</li>
+          <li>人工接管率、回退次数</li>
+          <li>越权/泄露事件与审计可追溯性</li>
+        </ul>
+      </article>
+    </section>
+
+    <h2 class="section-title">指标金字塔（漏斗模型）</h2>
+    <section class="pyramid-wrap">
+      <article class="pyramid">
+        <div class="layer l1">
+          <h4>底层：行为与技术层数据</h4>
+          <p>请求量、会话量、工具调用次数、成功率、时延、Token 成本。用于回答“智能体做了什么、怎么做的”。</p>
+        </div>
+        <div class="layer l2">
+          <h4>中层：流程级表现</h4>
+          <p>流程成功率、重试率、人工介入点、瓶颈环节。用于判断“智能体是否真正推动流程改善”。</p>
+        </div>
+        <div class="layer l3">
+          <h4>顶层：业务与财务结果</h4>
+          <p>成本率、净收入、利润率、客诉率、坏账率等，直接对应经营 KPI 与资源配置决策。</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>责任分工</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>层级</th>
+              <th>责任团队</th>
+              <th>管理目标</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>底层（行为与技术）</td>
+              <td>技术平台团队</td>
+              <td>可观测、可运维、可解释</td>
+            </tr>
+            <tr>
+              <td>中层（流程级）</td>
+              <td>业务线团队</td>
+              <td>流程效率与质量提升</td>
+            </tr>
+            <tr>
+              <td>顶层（业务与财务）</td>
+              <td>业务线 + 管理层</td>
+              <td>投入产出、经营效果、战略决策</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="loop">管理层以顶层指标做决策，同时通过中层和底层指标追溯“为什么好/不好”。将这套指标金字塔落到日常管理后，通常能在较短周期内形成可持续的智能体投入-产出闭环。</div>
+      </article>
+    </section>
+
+    <h2 class="section-title">推荐落地步骤</h2>
+    <section class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>阶段</th>
+            <th>动作</th>
+            <th>交付物</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>第 1 周</td>
+            <td>定义四维度口径与指标字典</td>
+            <td>指标字典 v1（Owner、频率、口径）</td>
+          </tr>
+          <tr>
+            <td>第 2-3 周</td>
+            <td>打通底层日志和流程看板</td>
+            <td>底层与中层仪表盘</td>
+          </tr>
+          <tr>
+            <td>第 4-6 周</td>
+            <td>将顶层经营指标挂接到业务看板</td>
+            <td>智能体投入-产出周报</td>
+          </tr>
+          <tr>
+            <td>持续迭代</td>
+            <td>按业务优先级优化模型、流程、治理策略</td>
+            <td>季度复盘与下一阶段路线图</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <p class="footer">说明：该页面用于管理层汇报与项目落地对齐，可继续扩展为可筛选指标看板。</p>
+  </main>
+</body>
+</html>
