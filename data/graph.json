@@ -3,8 +3,8 @@
   "meta": {
     "title_zh": "国内 vs 国外 AI 版图竞争关系图",
     "title_en": "China vs Global AI Competition Map",
-    "version": "v2.9.0",
-    "updated": "2026-07-02"
+    "version": "v2.10.0",
+    "updated": "2026-07-03"
   },
   "views": {
     "invest": [
@@ -28,7 +28,9 @@
       "jetbrains-ai-assistant",
       "windsurf",
       "cursor",
-      "copilot"
+      "copilot",
+      "codex",
+      "claude-code"
     ],
     "procure": [
       "cn-cloud",
@@ -51,6 +53,8 @@
       "windsurf",
       "copilot",
       "cursor",
+      "codex",
+      "claude-code",
       "cn-channel",
       "global-channel"
     ]
@@ -401,6 +405,32 @@
       "representative_models": ["Windsurf Editor", "Cascade", "Codeium Models"]
     },
     {
+      "id": "codex",
+      "column": "global",
+      "lane": "app",
+      "region": "global",
+      "type": "app",
+      "name_zh": "Codex / ChatGPT Coding",
+      "name_en": "Codex / ChatGPT Coding",
+      "role_zh": "OpenAI 代码助手与任务执行入口，适合快速原型和通用工程任务",
+      "role_en": "OpenAI coding assistant and task-execution entry point for prototyping and general engineering tasks",
+      "app_subcategory": "coding-developer",
+      "representative_models": ["Codex", "GPT-4o", "o4-mini"]
+    },
+    {
+      "id": "claude-code",
+      "column": "global",
+      "lane": "app",
+      "region": "global",
+      "type": "app",
+      "name_zh": "Claude Code",
+      "name_en": "Claude Code",
+      "role_zh": "Anthropic 面向工程团队的代码助手，强调长上下文理解与复杂系统改造",
+      "role_en": "Anthropic coding assistant for engineering teams with long-context understanding and complex-system refactoring",
+      "app_subcategory": "coding-developer",
+      "representative_models": ["Claude 3.5 Sonnet", "Claude 3 Opus", "Claude 3 Haiku"]
+    },
+    {
       "id": "openclaw",
       "column": "cross",
       "lane": "agent",
@@ -449,13 +479,17 @@
     { "from": "global-channel", "to": "amazon-q-developer", "type": "dep" },
     { "from": "global-channel", "to": "jetbrains-ai-assistant", "type": "dep" },
     { "from": "global-channel", "to": "windsurf", "type": "dep" },
+    { "from": "global-channel", "to": "codex", "type": "dep" },
+    { "from": "global-channel", "to": "claude-code", "type": "dep" },
     { "from": "global-cloud", "to": "amazon-q-developer", "type": "dep" },
     { "from": "openai", "to": "perplexity", "type": "dep" },
     { "from": "openai", "to": "chatgpt", "type": "dep" },
     { "from": "anthropic", "to": "cursor", "type": "dep" },
     { "from": "anthropic", "to": "windsurf", "type": "dep" },
     { "from": "anthropic", "to": "claude-app", "type": "dep" },
+    { "from": "anthropic", "to": "claude-code", "type": "dep" },
     { "from": "openai", "to": "jetbrains-ai-assistant", "type": "dep" },
+    { "from": "openai", "to": "codex", "type": "dep" },
     { "from": "gemini", "to": "gemini-app", "type": "dep" },
     { "from": "deepseek", "to": "openclaw", "type": "dep" },
     { "from": "glm", "to": "openclaw", "type": "dep" },
@@ -496,6 +530,14 @@
     { "from": "jetbrains-ai-assistant", "to": "cursor", "type": "comp" },
     { "from": "windsurf", "to": "cursor", "type": "comp", "pair": true },
     { "from": "windsurf", "to": "copilot", "type": "comp" },
-    { "from": "cursor", "to": "copilot", "type": "comp" }
+    { "from": "cursor", "to": "copilot", "type": "comp" },
+    { "from": "codex", "to": "copilot", "type": "comp" },
+    { "from": "codex", "to": "cursor", "type": "comp" },
+    { "from": "codex", "to": "windsurf", "type": "comp" },
+    { "from": "claude-code", "to": "copilot", "type": "comp" },
+    { "from": "claude-code", "to": "cursor", "type": "comp" },
+    { "from": "claude-code", "to": "codex", "type": "comp" },
+    { "from": "tongyi-lingma", "to": "codex", "type": "comp", "pair": true },
+    { "from": "marscode-trae", "to": "claude-code", "type": "comp", "pair": true }
   ]
 }
