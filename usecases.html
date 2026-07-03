@@ -838,6 +838,45 @@
         return 3.5;
       }
 
+      function inferDefaultDeployment(product) {
+        const region = String((product || {}).region || "").toLowerCase();
+        if (region.includes("china") || region.includes("cn")) return "SaaS/API";
+        if (region.includes("global")) return "SaaS/Enterprise";
+        return "SaaS/API";
+      }
+
+      function buildCompleteComparisonRows(cat, rows) {
+        const sourceRows = Array.isArray(rows) ? rows.slice() : [];
+        const products = (cat && Array.isArray(cat.products)) ? cat.products : [];
+        if (!products.length) return sourceRows;
+
+        const existing = {};
+        sourceRows.forEach(function (r) {
+          const key = String((r || {}).product || "").trim().toLowerCase();
+          if (key) existing[key] = true;
+        });
+
+        products.forEach(function (p) {
+          const name = String((p || {}).name_zh || "").trim();
+          const key = name.toLowerCase();
+          if (!key || existing[key]) return;
+          sourceRows.push({
+            product: name,
+            vendor: p.company || "",
+            fit: (Array.isArray(p.best_for) && p.best_for[0]) ? p.best_for[0] : "待补充",
+            strengths: (Array.isArray(p.differentiators) && p.differentiators[0])
+              ? p.differentiators[0]
+              : ((Array.isArray(p.performance_and_features) && p.performance_and_features[0]) ? p.performance_and_features[0] : "待补充"),
+            governance: "中（待补充）",
+            deployment: inferDefaultDeployment(p),
+            risk_note: (Array.isArray(p.common_gaps) && p.common_gaps[0]) ? p.common_gaps[0] : "需结合企业策略进一步评估"
+          });
+          existing[key] = true;
+        });
+
+        return sourceRows;
+      }
+
       function buildMarketBubbleData(rows) {
         return (rows || []).map(function (r) {
           const governance = scoreByKeywords(r.governance, ["高", "成熟", "完善", "high", "mature"], ["低", "弱", "不足", "low"], ["中", "一般", "medium"]);
@@ -864,9 +903,10 @@
         });
       }
 
-      function renderMarketBubble(rows) {
-        if (!Array.isArray(rows) || !rows.length) return "";
-        const bubbles = buildMarketBubbleData(rows);
+      function renderMarketBubble(cat, rows) {
+        const completedRows = buildCompleteComparisonRows(cat, rows);
+        if (!Array.isArray(completedRows) || !completedRows.length) return "";
+        const bubbles = buildMarketBubbleData(completedRows);
         return "" +
           "<article class='section full'>" +
             "<h3>市场全景泡泡图（产品一眼总览）</h3>" +
@@ -1138,7 +1178,7 @@
               (cat.specification && Array.isArray(cat.specification.selection_criteria) && cat.specification.selection_criteria.length ? "<article class='section'><h3>选型标准</h3><ul>" + list(cat.specification.selection_criteria) + "</ul></article>" : "") +
               (cat.specification && Array.isArray(cat.specification.implementation_patterns) && cat.specification.implementation_patterns.length ? "<article class='section'><h3>落地模式</h3><ul>" + list(cat.specification.implementation_patterns) + "</ul></article>" : "") +
               (cat.specification && Array.isArray(cat.specification.risks_and_controls) && cat.specification.risks_and_controls.length ? "<article class='section'><h3>风险与控制</h3><ul>" + list(cat.specification.risks_and_controls) + "</ul></article>" : "") +
-              (cat.specification && Array.isArray(cat.specification.comparison_matrix) && cat.specification.comparison_matrix.length ? renderMarketBubble(cat.specification.comparison_matrix) : "") +
+              renderMarketBubble(cat, (cat.specification && Array.isArray(cat.specification.comparison_matrix)) ? cat.specification.comparison_matrix : []) +
               (cat.specification && Array.isArray(cat.specification.comparison_matrix) && cat.specification.comparison_matrix.length ? "<article class='section full'><h3>管理层评审：产品对比矩阵</h3>" + renderMatrix(cat.specification.comparison_matrix) + "</article>" : "") +
 
               renderProductGateway(cat) +
