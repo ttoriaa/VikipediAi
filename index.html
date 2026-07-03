@@ -258,6 +258,7 @@
           <a class="shimai-btn primary" href="map.html" id="openMap">打开竞争关系图</a>
           <a class="shimai-btn primary" href="foundation_models.html" id="openFoundation">打开基座大模型性能页</a>
           <a class="shimai-btn primary" href="usecases.html#copilot" id="openAppHub">打开应用层：分类入口</a>
+          <a class="shimai-btn primary" href="developer_coding_hub.html#overview" id="openDevHub">打开开发者与编程专题入口</a>
         </div>
       </div>
     </section>
@@ -290,6 +291,7 @@
           openMap: "打开竞争关系图",
           openFoundation: "打开基座大模型性能页",
           openAppHub: "打开应用层：分类入口",
+          openDevHub: "打开开发者与编程专题入口",
           footer: "维护仓库：ttoriaa/VikipediAi"
         },
         en: {
@@ -302,6 +304,7 @@
           openMap: "Open Competition Map",
           openFoundation: "Open Foundation LLM Performance Page",
           openAppHub: "Open Application Layer Entry",
+          openDevHub: "Open Developer and Coding Topic Hub",
           footer: "Maintained in repository: ttoriaa/VikipediAi"
         }
       };
@@ -317,6 +320,7 @@
       const openMap = document.getElementById("openMap");
       const openFoundation = document.getElementById("openFoundation");
       const openAppHub = document.getElementById("openAppHub");
+      const openDevHub = document.getElementById("openDevHub");
       const footer = document.getElementById("footer");
 
       function apply() {
@@ -330,6 +334,7 @@
         openMap.textContent = t.openMap;
         openFoundation.textContent = t.openFoundation;
         openAppHub.textContent = t.openAppHub;
+        openDevHub.textContent = t.openDevHub;
         footer.textContent = t.footer;
         langBtn.textContent = lang === "zh" ? "EN" : "中文";
         document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
