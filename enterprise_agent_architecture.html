@@ -98,6 +98,26 @@
       line-height: 1.7;
     }
 
+    .layer-summary {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .layer-note {
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: #0f172a;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .layer-note strong {
+      color: #1d4ed8;
+    }
+
     .architecture {
       margin-top: 24px;
       display: grid;
@@ -152,6 +172,19 @@
       font-size: 13px;
       font-weight: 500;
       letter-spacing: 0.02em;
+    }
+
+    .layer-badge {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid #c9b79d;
+      background: #fff;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 8px;
     }
 
     .position {
@@ -294,10 +327,15 @@
         目标是把 AI 能力从“会回答”升级到“会办事”：由上层负责识别与编排，由中层负责业务执行，
         由底层负责受控动作执行，形成可观测、可治理、可规模化的智能体体系。
       </p>
+      <div class="layer-summary" aria-label="分层说明">
+        <div class="layer-note"><strong>智能体层：</strong>前三个角色（总入口、调度、领域）都属于智能体层，负责理解目标、任务编排与业务结果。</div>
+        <div class="layer-note"><strong>能力层：</strong>最后一个角色（工具与连接器）属于能力层，负责把内外部系统能力以“受管控动作”暴露给上层智能体调用。</div>
+      </div>
     </section>
 
     <section class="architecture" aria-label="四类 Agent 分层">
       <article class="agent super">
+        <div class="layer-badge">智能体层</div>
         <h2 class="role">总入口智能体 <small>Super Agent</small></h2>
         <p class="position">识别 + 分发 + 编排触发，而不是替代领域执行。</p>
         <ul class="bullets">
@@ -308,6 +346,7 @@
       </article>
 
       <article class="agent orchestrator">
+        <div class="layer-badge">智能体层</div>
         <h2 class="role">调度智能体 <small>Orchestrator Agent</small></h2>
         <p class="position highlight">定位：多智能体系统中的“项目经理/调度中心”。</p>
         <ul class="bullets">
@@ -318,6 +357,7 @@
       </article>
 
       <article class="agent domain">
+        <div class="layer-badge">智能体层</div>
         <h2 class="role">领域智能体 <small>Domain Agent</small></h2>
         <p class="position highlight">定位：对具体业务结果负责的“业务执行主体”。</p>
         <ul class="bullets">
@@ -328,6 +368,7 @@
       </article>
 
       <article class="agent tool">
+        <div class="layer-badge">能力层</div>
         <h2 class="role">工具与连接器 <small>Tool / Connector</small></h2>
         <p class="position highlight">定位：把企业内外系统能力封装成“受管控动作”的执行层。</p>
         <ul class="bullets">
