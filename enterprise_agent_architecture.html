@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>企业级四类 Agent 架构</title>
+  <style>
+    :root {
+      --bg-0: #f4efe6;
+      --bg-1: #fffaf0;
+      --text-0: #1f2933;
+      --text-1: #475569;
+      --line: #d9cbb6;
+      --super: #005f73;
+      --orchestrator: #ca6702;
+      --domain: #2b9348;
+      --tool: #7f5539;
+      --panel: rgba(255, 255, 255, 0.82);
+      --shadow: 0 18px 40px rgba(40, 32, 17, 0.12);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--text-0);
+      background:
+        radial-gradient(1000px 600px at -10% -10%, #f9d8a9 0%, transparent 55%),
+        radial-gradient(900px 500px at 110% 0%, #c8e6d2 0%, transparent 50%),
+        linear-gradient(160deg, var(--bg-0), var(--bg-1));
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 38px 20px 64px;
+    }
+
+    .hero {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 6px);
+      box-shadow: var(--shadow);
+      padding: 28px 26px;
+      backdrop-filter: blur(8px);
+      animation: fadeUp 540ms ease;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #0f172a;
+      border: 1px solid #bfa58a;
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: #fff;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.15;
+    }
+
+    .lead {
+      margin: 14px 0 0;
+      color: var(--text-1);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .architecture {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      position: relative;
+    }
+
+    .agent {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: rise 520ms ease forwards;
+    }
+
+    .agent:nth-child(1) { animation-delay: 90ms; }
+    .agent:nth-child(2) { animation-delay: 180ms; }
+    .agent:nth-child(3) { animation-delay: 270ms; }
+    .agent:nth-child(4) { animation-delay: 360ms; }
+
+    .agent::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 7px;
+    }
+
+    .super::before { background: var(--super); }
+    .orchestrator::before { background: var(--orchestrator); }
+    .domain::before { background: var(--domain); }
+    .tool::before { background: var(--tool); }
+
+    .role {
+      margin: 0;
+      font-size: 22px;
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+
+    .role small {
+      color: var(--text-1);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .position {
+      margin: 8px 0 10px;
+      color: #0f172a;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .position.highlight {
+      color: #7c2d12;
+    }
+
+    .bullets {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text-1);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .flow {
+      margin-top: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      animation: fadeUp 640ms ease;
+    }
+
+    .flow-title {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .chain {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .step {
+      border: 1px dashed #cbb59a;
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: #fff;
+      font-weight: 600;
+    }
+
+    .step span {
+      color: var(--text-1);
+      font-weight: 500;
+      margin-left: 6px;
+    }
+
+    .arrow {
+      text-align: center;
+      color: #9a7b5d;
+      font-size: 18px;
+    }
+
+    .checklist {
+      margin-top: 24px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .checklist h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .checklist ol {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--text-1);
+      line-height: 1.7;
+    }
+
+    .footer {
+      margin-top: 14px;
+      color: #6b7280;
+      font-size: 13px;
+      text-align: right;
+    }
+
+    @media (min-width: 900px) {
+      .architecture {
+        grid-template-columns: 1fr 1fr;
+      }
+      .architecture .agent:nth-child(1),
+      .architecture .agent:nth-child(2) {
+        min-height: 245px;
+      }
+      .architecture .agent:nth-child(3),
+      .architecture .agent:nth-child(4) {
+        min-height: 245px;
+      }
+
+      .chain {
+        grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+        align-items: center;
+      }
+
+      .arrow {
+        font-size: 20px;
+      }
+    }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="tag">Enterprise Agent Architecture</div>
+      <h1>企业级四类 Agent 架构</h1>
+      <p class="lead">
+        目标是把 AI 能力从“会回答”升级到“会办事”：由上层负责识别与编排，由中层负责业务执行，
+        由底层负责受控动作执行，形成可观测、可治理、可规模化的智能体体系。
+      </p>
+    </section>
+
+    <section class="architecture" aria-label="四类 Agent 分层">
+      <article class="agent super">
+        <h2 class="role">总入口智能体 <small>Super Agent</small></h2>
+        <p class="position">识别 + 分发 + 编排触发，而不是替代领域执行。</p>
+        <ul class="bullets">
+          <li>统一用户入口与对话体验，收集上下文。</li>
+          <li>识别用户意图并分发至合适下游。</li>
+          <li>触发后续流程，但不直接承担深业务决策。</li>
+        </ul>
+      </article>
+
+      <article class="agent orchestrator">
+        <h2 class="role">调度智能体 <small>Orchestrator Agent</small></h2>
+        <p class="position highlight">定位：多智能体系统中的“项目经理/调度中心”。</p>
+        <ul class="bullets">
+          <li>将复杂目标拆解为可执行子任务。</li>
+          <li>规划执行顺序、并行关系与依赖。</li>
+          <li>处理异常、回退、重试和人工接管。</li>
+        </ul>
+      </article>
+
+      <article class="agent domain">
+        <h2 class="role">领域智能体 <small>Domain Agent</small></h2>
+        <p class="position highlight">定位：对具体业务结果负责的“业务执行主体”。</p>
+        <ul class="bullets">
+          <li>理解专业语境与业务规则，完成端到端任务。</li>
+          <li>直接对结果 KPI 负责，如转化率、AHT、FCR 等。</li>
+          <li>协同多个系统执行，形成业务闭环。</li>
+        </ul>
+      </article>
+
+      <article class="agent tool">
+        <h2 class="role">工具与连接器 <small>Tool / Connector</small></h2>
+        <p class="position highlight">定位：把企业内外系统能力封装成“受管控动作”的执行层。</p>
+        <ul class="bullets">
+          <li>封装受控动作：查询、创建、更新、提交。</li>
+          <li>统一权限控制、审计日志与高风险拦截。</li>
+          <li>只执行，不决策，不规划。</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="flow" aria-label="协同链路">
+      <h3 class="flow-title">协同链路</h3>
+      <div class="chain">
+        <div class="step">Super <span>识别与分发</span></div>
+        <div class="arrow">→</div>
+        <div class="step">Orchestrator <span>拆解与调度</span></div>
+        <div class="arrow">→</div>
+        <div class="step">Domain <span>业务执行与结果负责</span></div>
+        <div class="arrow">→</div>
+        <div class="step">Tool/Connector <span>受控动作执行</span></div>
+      </div>
+    </section>
+
+    <section class="checklist" aria-label="落地检查点">
+      <h3>落地检查点</h3>
+      <ol>
+        <li>是否有统一入口，避免多个孤立 AI 系统并存。</li>
+        <li>是否有独立调度层来管理复杂流程与异常回退。</li>
+        <li>每个领域智能体是否绑定清晰业务 KPI 和责任人。</li>
+        <li>高风险动作是否全部下沉到 Tool/Connector 做统一治理。</li>
+        <li>四层日志是否可追溯到同一任务链路。</li>
+      </ol>
+    </section>
+
+    <div class="footer">v1.0 · 企业级四类 Agent 架构页面</div>
+  </main>
+</body>
+</html>
