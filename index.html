@@ -260,6 +260,7 @@
           <a class="shimai-btn primary" href="usecases.html#copilot" id="openAppHub">打开应用层：分类入口</a>
           <a class="shimai-btn primary" href="developer_coding_hub.html#overview" id="openDevHub">打开开发者与编程专题入口</a>
           <a class="shimai-btn primary" href="enterprise_agent_architecture.html" id="openAgentArch">Agent Arch</a>
+          <a class="shimai-btn primary" href="agent_effectiveness_metrics.html" id="openAgentMetrics">打开智能体效能指标体系页</a>
         </div>
       </div>
     </section>
@@ -294,6 +295,7 @@
           openAppHub: "打开应用层：分类入口",
           openDevHub: "打开开发者与编程专题入口",
           openAgentArch: "打开企业级四类 Agent 架构页",
+          openAgentMetrics: "打开智能体效能指标体系页",
           footer: "维护仓库：ttoriaa/VikipediAi"
         },
         en: {
@@ -308,6 +310,7 @@
           openAppHub: "Open Application Layer Entry",
           openDevHub: "Open Developer and Coding Topic Hub",
           openAgentArch: "Open Enterprise Four-Agent Architecture Page",
+          openAgentMetrics: "Open Agent Effectiveness Metrics Page",
           footer: "Maintained in repository: ttoriaa/VikipediAi"
         }
       };
@@ -325,6 +328,7 @@
       const openAppHub = document.getElementById("openAppHub");
       const openDevHub = document.getElementById("openDevHub");
       const openAgentArch = document.getElementById("openAgentArch");
+      const openAgentMetrics = document.getElementById("openAgentMetrics");
       const footer = document.getElementById("footer");
 
       function apply() {
@@ -340,6 +344,7 @@
         openAppHub.textContent = t.openAppHub;
         openDevHub.textContent = t.openDevHub;
         openAgentArch.textContent = t.openAgentArch;
+        openAgentMetrics.textContent = t.openAgentMetrics;
         footer.textContent = t.footer;
         langBtn.textContent = lang === "zh" ? "EN" : "中文";
         document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
