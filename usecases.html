@@ -685,6 +685,94 @@
         return /^https?:\/\//i.test(String(url || "")) && /\.(png|jpg|jpeg|webp|gif)(\?.*)?$/i.test(String(url || ""));
       }
 
+      function buildSitePreviewUrl(url) {
+        if (!/^https?:\/\//i.test(String(url || ""))) return "";
+        return "https://image.thum.io/get/width/1200/noanimate/" + encodeURIComponent(url);
+      }
+
+      const productScreenshotCatalog = {
+        "chatgpt": [
+          { label: "ChatGPT 官网", path: "https://chatgpt.com/", note: "产品入口与能力总览", image_url: buildSitePreviewUrl("https://chatgpt.com/") },
+          { label: "OpenAI 产品页", path: "https://openai.com/chatgpt/", note: "官方功能说明与版本入口", image_url: buildSitePreviewUrl("https://openai.com/chatgpt/") }
+        ],
+        "doubao": [
+          { label: "豆包官网", path: "https://www.doubao.com/", note: "产品入口与核心能力", image_url: buildSitePreviewUrl("https://www.doubao.com/") },
+          { label: "豆包帮助中心", path: "https://www.doubao.com/help", note: "使用说明与常见问题", image_url: buildSitePreviewUrl("https://www.doubao.com/help") }
+        ],
+        "copilot": [
+          { label: "GitHub Copilot 官网", path: "https://github.com/features/copilot", note: "官方能力与套餐说明", image_url: buildSitePreviewUrl("https://github.com/features/copilot") },
+          { label: "Copilot Docs", path: "https://docs.github.com/en/copilot", note: "IDE 集成与企业治理文档", image_url: buildSitePreviewUrl("https://docs.github.com/en/copilot") }
+        ],
+        "cursor": [
+          { label: "Cursor 官网", path: "https://www.cursor.com/", note: "IDE 与 Agent 能力入口", image_url: buildSitePreviewUrl("https://www.cursor.com/") },
+          { label: "Cursor Docs", path: "https://docs.cursor.com/", note: "配置与团队使用文档", image_url: buildSitePreviewUrl("https://docs.cursor.com/") }
+        ],
+        "claude-code": [
+          { label: "Claude Code 官网", path: "https://www.anthropic.com/claude-code", note: "Anthropic 开发者编码产品页", image_url: buildSitePreviewUrl("https://www.anthropic.com/claude-code") },
+          { label: "Anthropic Docs", path: "https://docs.anthropic.com/", note: "开发文档与平台说明", image_url: buildSitePreviewUrl("https://docs.anthropic.com/") }
+        ],
+        "codex": [
+          { label: "OpenAI Codex 介绍", path: "https://openai.com/index/introducing-codex/", note: "官方 Codex 发布与定位", image_url: buildSitePreviewUrl("https://openai.com/index/introducing-codex/") },
+          { label: "OpenAI 平台文档", path: "https://platform.openai.com/docs", note: "编码与 API 能力参考", image_url: buildSitePreviewUrl("https://platform.openai.com/docs") }
+        ],
+        "gemini-code-assist": [
+          { label: "Gemini Code Assist", path: "https://cloud.google.com/products/gemini/code-assist", note: "Google 官方产品页", image_url: buildSitePreviewUrl("https://cloud.google.com/products/gemini/code-assist") },
+          { label: "Gemini for Developers", path: "https://ai.google.dev/", note: "开发者文档与示例", image_url: buildSitePreviewUrl("https://ai.google.dev/") }
+        ],
+        "amazon-q-developer": [
+          { label: "Amazon Q Developer", path: "https://aws.amazon.com/q/developer/", note: "AWS 官方产品页", image_url: buildSitePreviewUrl("https://aws.amazon.com/q/developer/") },
+          { label: "Amazon Q Docs", path: "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/", note: "IDE 插件与企业接入文档", image_url: buildSitePreviewUrl("https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/") }
+        ],
+        "jetbrains-ai-assistant": [
+          { label: "JetBrains AI Assistant", path: "https://www.jetbrains.com/ai/", note: "JetBrains 产品介绍页", image_url: buildSitePreviewUrl("https://www.jetbrains.com/ai/") },
+          { label: "JetBrains AI 文档", path: "https://www.jetbrains.com/help/ai-assistant/", note: "IDE 内功能说明", image_url: buildSitePreviewUrl("https://www.jetbrains.com/help/ai-assistant/") }
+        ],
+        "tabnine": [
+          { label: "Tabnine 官网", path: "https://www.tabnine.com/", note: "企业编码助手产品页", image_url: buildSitePreviewUrl("https://www.tabnine.com/") },
+          { label: "Tabnine Docs", path: "https://docs.tabnine.com/", note: "配置、部署与治理指南", image_url: buildSitePreviewUrl("https://docs.tabnine.com/") }
+        ],
+        "sourcegraph-cody": [
+          { label: "Sourcegraph Cody", path: "https://sourcegraph.com/cody", note: "产品能力与入口", image_url: buildSitePreviewUrl("https://sourcegraph.com/cody") },
+          { label: "Cody Docs", path: "https://sourcegraph.com/docs/cody", note: "代码检索与助手文档", image_url: buildSitePreviewUrl("https://sourcegraph.com/docs/cody") }
+        ],
+        "windsurf": [
+          { label: "Windsurf 官网", path: "https://windsurf.com/", note: "IDE 与 Agent 入口", image_url: buildSitePreviewUrl("https://windsurf.com/") },
+          { label: "Windsurf Docs", path: "https://docs.windsurf.com/", note: "开发文档与团队配置", image_url: buildSitePreviewUrl("https://docs.windsurf.com/") }
+        ],
+        "replit-agent": [
+          { label: "Replit 官网", path: "https://replit.com/", note: "在线开发平台与 Agent 能力", image_url: buildSitePreviewUrl("https://replit.com/") },
+          { label: "Replit Docs", path: "https://docs.replit.com/", note: "工作流与团队协作文档", image_url: buildSitePreviewUrl("https://docs.replit.com/") }
+        ],
+        "devin": [
+          { label: "Devin 官网", path: "https://devin.ai/", note: "Cognition 产品入口", image_url: buildSitePreviewUrl("https://devin.ai/") },
+          { label: "Devin 更新与公告", path: "https://cognition.ai/blog", note: "产品动态与案例", image_url: buildSitePreviewUrl("https://cognition.ai/blog") }
+        ],
+        "tongyi-lingma": [
+          { label: "通义灵码官网", path: "https://tongyi.aliyun.com/lingma", note: "阿里云编码助手入口", image_url: buildSitePreviewUrl("https://tongyi.aliyun.com/lingma") },
+          { label: "通义灵码文档", path: "https://help.aliyun.com/zh/lingma/", note: "插件接入与企业实践", image_url: buildSitePreviewUrl("https://help.aliyun.com/zh/lingma/") }
+        ],
+        "marscode-trae": [
+          { label: "MarsCode 官网", path: "https://www.marscode.com/", note: "字节开发者 AI 编码入口", image_url: buildSitePreviewUrl("https://www.marscode.com/") },
+          { label: "Trae 官网", path: "https://www.trae.ai/", note: "产品入口与能力概览", image_url: buildSitePreviewUrl("https://www.trae.ai/") }
+        ],
+        "perplexity": [
+          { label: "Perplexity 官网", path: "https://www.perplexity.ai/", note: "搜索问答产品入口", image_url: buildSitePreviewUrl("https://www.perplexity.ai/") },
+          { label: "Perplexity Hub", path: "https://www.perplexity.ai/hub", note: "官方说明与产品更新", image_url: buildSitePreviewUrl("https://www.perplexity.ai/hub") }
+        ],
+        "kimi": [
+          { label: "Kimi 官网", path: "https://kimi.moonshot.cn/", note: "Moonshot 搜索问答入口", image_url: buildSitePreviewUrl("https://kimi.moonshot.cn/") },
+          { label: "Moonshot AI 官网", path: "https://www.moonshot.cn/", note: "厂商主页与产品信息", image_url: buildSitePreviewUrl("https://www.moonshot.cn/") }
+        ]
+      };
+
+      function getScreenshotsForProduct(product) {
+        if (product && Array.isArray(product.screenshots) && product.screenshots.length) {
+          return product.screenshots;
+        }
+        if (!product || !product.id) return [];
+        return productScreenshotCatalog[product.id] || [];
+      }
+
       function renderScreenshots(shots) {
         if (!Array.isArray(shots) || !shots.length) return "";
         return "<div class='shots'>" + shots.map(function (s) {
@@ -1071,7 +1159,7 @@
         const businessDetailsHtml = "" +
           (product.business_details && Array.isArray(product.business_details.marketing_service) && product.business_details.marketing_service.length ? "<article class='section full'><h3>Marketing Service Detailed Cases</h3>" + renderBusinessCases(product.business_details.marketing_service) + "</article>" : "") +
           (product.business_details && Array.isArray(product.business_details.rd) && product.business_details.rd.length ? "<article class='section full'><h3>R&D Detailed Cases</h3>" + renderBusinessCases(product.business_details.rd) + "</article>" : "");
-        const screenshotsHtml = renderScreenshots(product.screenshots || []);
+        const screenshotsHtml = renderScreenshots(getScreenshotsForProduct(product));
 
         panelEl.innerHTML = "" +
           "<h2>" + cat.title_zh + " / " + product.name_zh + "</h2>" +
