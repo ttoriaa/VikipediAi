@@ -195,6 +195,10 @@
       font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
     }
 
+    .shimai-card:hover {
+      box-shadow: 0 18px 40px rgba(26, 122, 134, 0.18);
+    }
+
     .shimai-mark {
       display: inline-flex;
       align-items: center;
@@ -219,6 +223,40 @@
 
     .shimai-card p {
       color: #2a6267;
+    }
+
+    .shimai-collage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 86px 86px;
+      gap: 8px;
+      width: 210px;
+      min-width: 210px;
+    }
+
+    .shimai-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid rgba(26, 122, 134, 0.16);
+      box-shadow: 0 8px 20px rgba(26, 122, 134, 0.15);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .shimai-photo.main {
+      grid-row: 1 / span 2;
+      height: 180px;
+      border-radius: 16px;
+    }
+
+    .shimai-card:hover .shimai-photo.main {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 12px 24px rgba(26, 122, 134, 0.22);
+    }
+
+    .shimai-card:hover .shimai-photo.sub {
+      transform: translateY(-1px);
     }
 
     .jump-btn {
@@ -331,6 +369,11 @@
     @media (max-width: 900px) {
       .grid { grid-template-columns: 1fr; }
       .mini-grid { grid-template-columns: 1fr; }
+      .shimai-collage {
+        width: 100%;
+        min-width: 0;
+        max-width: 340px;
+      }
     }
   </style>
 </head>
@@ -507,6 +550,11 @@
                 <span class="shimai-mark" id="ccSiteBadge">新一季上线</span>
                 <h3 id="ccSiteTitle">时髦小姨网站名片</h3>
                 <p id="ccSiteDesc">用于承载 RSS 驱动的内容更新与专题聚合，作为 Copilot + GLM 实战的线上样板站。</p>
+              </div>
+              <div class="shimai-collage" aria-label="Shimai visual collage">
+                <img class="shimai-photo main" src="https://ttoriaa.github.io/shimai-podcast-site/images/photo1.jpg" alt="Shimai visual 1" loading="lazy" referrerpolicy="no-referrer" />
+                <img class="shimai-photo sub" src="https://ttoriaa.github.io/shimai-podcast-site/images/photo2.jpg" alt="Shimai visual 2" loading="lazy" referrerpolicy="no-referrer" />
+                <img class="shimai-photo sub" src="https://ttoriaa.github.io/shimai-podcast-site/images/photo3.jpg" alt="Shimai visual 3" loading="lazy" referrerpolicy="no-referrer" />
               </div>
               <div class="shimai-actions">
                 <a class="shimai-btn primary" id="ccSiteLink" target="_blank" rel="noopener noreferrer" href="https://ttoriaa.github.io/shimai-podcast-site/">打开时髦小姨网站</a>
