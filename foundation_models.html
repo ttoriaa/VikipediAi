@@ -305,6 +305,16 @@
       color: var(--muted);
     }
 
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    .subsection-head {
+      margin: 18px 0 10px;
+      font-size: 16px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
     @media (max-width: 960px) {
       .grid { grid-template-columns: 1fr; }
       .profile-grid { grid-template-columns: 1fr; }
@@ -345,6 +355,7 @@
 
       <div class="section" data-section="comparison">
         <h2 class="section-head" id="comparisonHead">模型强弱项对比</h2>
+        <div class="table-wrap">
         <table>
           <thead>
             <tr>
@@ -356,7 +367,28 @@
           </thead>
           <tbody id="comparisonBody"></tbody>
         </table>
+        </div>
         <p class="note" id="comparisonNote">注：对比用于战略沟通和初筛，具体项目应结合你们任务集（代码、问答、工具调用、成本）做实测。</p>
+
+        <h3 class="subsection-head" id="submodelMatrixHead">子模型横向快比矩阵</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th id="smH1">模型家族</th>
+                <th id="smH2">子模型</th>
+                <th id="smH3">典型场景</th>
+                <th id="smH4">速度</th>
+                <th id="smH5">成本</th>
+                <th id="smH6">推理</th>
+                <th id="smH7">多模态</th>
+                <th id="smH8">代码</th>
+              </tr>
+            </thead>
+            <tbody id="submodelMatrixBody"></tbody>
+          </table>
+        </div>
+        <p class="note" id="submodelMatrixNote">注：五维评分为页面内相对定位，用于快速选型，不等同于正式基准测试分数。</p>
       </div>
 
       <div class="section" data-section="timeline">
@@ -455,11 +487,21 @@
           overviewHead: "全球主流模型逐项介绍",
           chinaHead: "中国主流开源/商用模型逐项介绍",
           comparisonHead: "模型强弱项对比",
+          submodelMatrixHead: "子模型横向快比矩阵",
           cmpH1: "模型",
           cmpH2: "更突出",
           cmpH3: "相对薄弱",
           cmpH4: "适配建议",
           comparisonNote: "注：对比用于战略沟通和初筛，具体项目应结合你们任务集（代码、问答、工具调用、成本）做实测。",
+          smH1: "模型家族",
+          smH2: "子模型",
+          smH3: "典型场景",
+          smH4: "速度",
+          smH5: "成本",
+          smH6: "推理",
+          smH7: "多模态",
+          smH8: "代码",
+          submodelMatrixNote: "注：五维评分为页面内相对定位，用于快速选型，不等同于正式基准测试分数。",
           tlH1: "阶段",
           tlH2: "行业变化",
           tlH3: "代表趋势",
@@ -802,6 +844,29 @@
                 "行业专属助手",
                 "企业知识中台",
                 "垂直领域内容生成"
+              ],
+              profilesTitle: "Baichuan 子模型怎么选",
+              profilesFitLabel: "适合场景",
+              profilesPerfLabel: "性能画像",
+              profiles: [
+                {
+                  name: "Baichuan4",
+                  fit: "行业知识助手、企业内部问答、需要更强业务表达和行业语义贴合的任务。",
+                  performance: "综合能力更均衡，适合作为企业垂直场景主力模型；开放生态广度和前沿推理上限通常不是最强。",
+                  metrics: { speed: 3, cost: 3, reasoning: 3, multimodal: 2, coding: 2 }
+                },
+                {
+                  name: "Baichuan2-Turbo",
+                  fit: "成本敏感的企业助手、日常流程问答、较高并发的知识中台服务。",
+                  performance: "速度和成本更友好，适合规模化企业应用；复杂分析和精细长文生成通常弱于 Baichuan4。",
+                  metrics: { speed: 4, cost: 4, reasoning: 3, multimodal: 1, coding: 2 }
+                },
+                {
+                  name: "Baichuan2-192k",
+                  fit: "超长文档问答、行业资料整合、法规和产品文档阅读。",
+                  performance: "长上下文更有优势，适合长材料处理；速度和成本压力更高，不适合高频轻量任务。",
+                  metrics: { speed: 2, cost: 2, reasoning: 3, multimodal: 1, coding: 2 }
+                }
               ]
             },
             {
@@ -855,6 +920,29 @@
                 "本地化私有部署",
                 "企业内部知识应用",
                 "自研平台二次开发"
+              ],
+              profilesTitle: "01.AI 子模型怎么选",
+              profilesFitLabel: "适合场景",
+              profilesPerfLabel: "性能画像",
+              profiles: [
+                {
+                  name: "Yi-Large",
+                  fit: "通用企业助手、知识问答、需要更高质量输出的自研平台主力模型。",
+                  performance: "整体能力更均衡，适合需要开源可控与较高质量兼顾的场景；全球闭源顶级能力仍有差距。",
+                  metrics: { speed: 3, cost: 3, reasoning: 4, multimodal: 2, coding: 3 }
+                },
+                {
+                  name: "Yi-Lightning",
+                  fit: "低时延助手、快速响应服务、成本更敏感的在线交互。",
+                  performance: "速度优势更明显，适合实时业务入口；复杂推理和长文稳定性通常弱于 Yi-Large。",
+                  metrics: { speed: 5, cost: 4, reasoning: 3, multimodal: 1, coding: 2 }
+                },
+                {
+                  name: "Yi-34B-Chat",
+                  fit: "本地私有部署、二次开发、需要较高可控性的企业内部场景。",
+                  performance: "部署灵活性和可控性较好，适合作为自建底座；综合能力上限通常弱于更大更新代模型。",
+                  metrics: { speed: 3, cost: 4, reasoning: 3, multimodal: 1, coding: 3 }
+                }
               ]
             }
           ],
@@ -915,11 +1003,21 @@
           overviewHead: "Global Leading Model Profiles",
           chinaHead: "China Open/Commercial Model Profiles",
           comparisonHead: "Strengths and Weaknesses Comparison",
+          submodelMatrixHead: "Cross-model submodel quick matrix",
           cmpH1: "Model",
           cmpH2: "Stands Out In",
           cmpH3: "Relatively Weaker In",
           cmpH4: "Best Fit",
           comparisonNote: "Note: This comparison is for strategic communication and initial screening. Validate with your own benchmark tasks (coding, QA, tool use, cost) before production rollout.",
+          smH1: "Family",
+          smH2: "Submodel",
+          smH3: "Typical fit",
+          smH4: "Speed",
+          smH5: "Cost",
+          smH6: "Reasoning",
+          smH7: "Multimodal",
+          smH8: "Coding",
+          submodelMatrixNote: "Note: The five-dimension scores are relative positioning signals within this page and are not formal benchmark scores.",
           tlH1: "Stage",
           tlH2: "Industry Shift",
           tlH3: "Representative Trend",
@@ -1262,6 +1360,29 @@
                 "Industry-specific assistants",
                 "Enterprise knowledge middleware",
                 "Vertical content generation"
+              ],
+              profilesTitle: "How to pick among Baichuan sub-models",
+              profilesFitLabel: "Best-fit scenarios",
+              profilesPerfLabel: "Performance profile",
+              profiles: [
+                {
+                  name: "Baichuan4",
+                  fit: "Industry knowledge assistants, enterprise internal QA, and tasks that need stronger business expression and vertical semantic fit.",
+                  performance: "A more balanced all-around choice for enterprise vertical scenarios, though it is usually not the strongest on global ecosystem breadth or frontier reasoning ceilings.",
+                  metrics: { speed: 3, cost: 3, reasoning: 3, multimodal: 2, coding: 2 }
+                },
+                {
+                  name: "Baichuan2-Turbo",
+                  fit: "Cost-sensitive enterprise assistants, daily workflow QA, and higher-concurrency knowledge middleware services.",
+                  performance: "More favorable on speed and cost for scaled enterprise use, while difficult analysis and refined long-form generation are usually weaker than Baichuan4.",
+                  metrics: { speed: 4, cost: 4, reasoning: 3, multimodal: 1, coding: 2 }
+                },
+                {
+                  name: "Baichuan2-192k",
+                  fit: "Very long document QA, industry material consolidation, and reading-heavy regulation or product documentation tasks.",
+                  performance: "Better suited to long-context reading, but with higher latency and cost, making it less suitable for lightweight high-frequency usage.",
+                  metrics: { speed: 2, cost: 2, reasoning: 3, multimodal: 1, coding: 2 }
+                }
               ]
             },
             {
@@ -1315,6 +1436,29 @@
                 "Private local deployment",
                 "Internal enterprise knowledge applications",
                 "Second-stage development on self-built platforms"
+              ],
+              profilesTitle: "How to pick among 01.AI sub-models",
+              profilesFitLabel: "Best-fit scenarios",
+              profilesPerfLabel: "Performance profile",
+              profiles: [
+                {
+                  name: "Yi-Large",
+                  fit: "General enterprise assistants, knowledge QA, and self-built platforms that need better output quality under an open strategy.",
+                  performance: "A balanced higher-ceiling choice for open and controllable stacks, though still behind the strongest closed models on overall frontier capability.",
+                  metrics: { speed: 3, cost: 3, reasoning: 4, multimodal: 2, coding: 3 }
+                },
+                {
+                  name: "Yi-Lightning",
+                  fit: "Low-latency assistants, quick-response services, and cost-sensitive interactive workloads.",
+                  performance: "Stronger on speed for real-time business entry points, while difficult reasoning and long-form stability are usually weaker than Yi-Large.",
+                  metrics: { speed: 5, cost: 4, reasoning: 3, multimodal: 1, coding: 2 }
+                },
+                {
+                  name: "Yi-34B-Chat",
+                  fit: "Private deployment, second-stage development, and internal enterprise use cases that value controllability.",
+                  performance: "Good deployability and controllability for self-hosted stacks, while the overall capability ceiling is usually below larger and newer-generation models.",
+                  metrics: { speed: 3, cost: 4, reasoning: 3, multimodal: 1, coding: 3 }
+                }
               ]
             }
           ],
@@ -1371,6 +1515,7 @@
       const overviewGrid = document.getElementById("overviewGrid");
       const chinaGrid = document.getElementById("chinaGrid");
       const comparisonBody = document.getElementById("comparisonBody");
+      const submodelMatrixBody = document.getElementById("submodelMatrixBody");
       let lang = "zh";
 
       function getMetricDefinitions() {
@@ -1552,6 +1697,45 @@
         });
       }
 
+      function getSubmodelMatrixRows(models) {
+        const rows = [];
+        models.forEach(function (model) {
+          if (!model.profiles) {
+            return;
+          }
+          model.profiles.forEach(function (profile) {
+            rows.push({
+              family: model.name,
+              submodel: profile.name,
+              fit: profile.fit,
+              metrics: profile.metrics || {}
+            });
+          });
+        });
+        return rows;
+      }
+
+      function renderSubmodelMatrix(rows) {
+        submodelMatrixBody.innerHTML = "";
+        rows.forEach(function (row) {
+          const tr = document.createElement("tr");
+
+          [row.family, row.submodel, row.fit].forEach(function (value) {
+            const td = document.createElement("td");
+            td.textContent = value;
+            tr.appendChild(td);
+          });
+
+          ["speed", "cost", "reasoning", "multimodal", "coding"].forEach(function (key) {
+            const td = document.createElement("td");
+            td.textContent = (row.metrics[key] || 0) + "/5";
+            tr.appendChild(td);
+          });
+
+          submodelMatrixBody.appendChild(tr);
+        });
+      }
+
       function setList(id, items) {
         const ul = document.getElementById(id);
         ul.innerHTML = "";
@@ -1577,7 +1761,8 @@
         document.getElementById("comparisonHead").textContent = t.comparisonHead;
 
         [
-          "cmpH1", "cmpH2", "cmpH3", "cmpH4", "comparisonNote",
+          "cmpH1", "cmpH2", "cmpH3", "cmpH4", "comparisonNote", "submodelMatrixHead",
+          "smH1", "smH2", "smH3", "smH4", "smH5", "smH6", "smH7", "smH8", "submodelMatrixNote",
           "tlH1", "tlH2", "tlH3", "tl1a", "tl1b", "tl1c", "tl2a", "tl2b", "tl2c", "tl3a", "tl3b", "tl3c",
           "sc1Title", "sc2Title", "sc3Title", "sc4Title", "sc5Title"
         ].forEach(function (id) {
@@ -1593,6 +1778,7 @@
         renderModelCards(overviewGrid, t.globalModels);
         renderModelCards(chinaGrid, t.chinaModels);
         renderComparisonRows(t.comparisons);
+        renderSubmodelMatrix(getSubmodelMatrixRows(t.globalModels.concat(t.chinaModels)));
 
         langBtn.textContent = lang === "zh" ? "EN" : "中文";
         document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
