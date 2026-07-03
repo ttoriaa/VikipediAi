@@ -243,7 +243,9 @@
       box-shadow: 0 8px 20px rgba(26, 122, 134, 0.15);
       transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
       opacity: 0;
-      transform: translateY(10px) rotate(-0.6deg) scale(0.995);
+      --shimai-enter-y: 10px;
+      --shimai-enter-rot: -0.6deg;
+      transform: translateY(var(--shimai-enter-y)) rotate(var(--shimai-enter-rot)) scale(0.995);
       animation: shimaiPhotoIn 0.5s ease forwards;
     }
 
@@ -256,12 +258,16 @@
 
     .shimai-photo.sub:nth-of-type(2) {
       animation-delay: 0.12s;
-      transform: translateY(12px) rotate(0.6deg) scale(0.995);
+      --shimai-enter-y: 12px;
+      --shimai-enter-rot: 0.6deg;
+      transform: translateY(var(--shimai-enter-y)) rotate(var(--shimai-enter-rot)) scale(0.995);
     }
 
     .shimai-photo.sub:nth-of-type(3) {
       animation-delay: 0.2s;
-      transform: translateY(12px) rotate(-0.5deg) scale(0.995);
+      --shimai-enter-y: 12px;
+      --shimai-enter-rot: -0.5deg;
+      transform: translateY(var(--shimai-enter-y)) rotate(var(--shimai-enter-rot)) scale(0.995);
     }
 
     .shimai-card:hover .shimai-photo.main {
@@ -331,7 +337,7 @@
     @keyframes shimaiPhotoIn {
       0% {
         opacity: 0;
-        transform: translateY(10px) rotate(-0.6deg) scale(0.995);
+        transform: translateY(var(--shimai-enter-y)) rotate(var(--shimai-enter-rot)) scale(0.995);
       }
       100% {
         opacity: 1;
@@ -414,6 +420,18 @@
     @media (max-width: 900px) {
       .grid { grid-template-columns: 1fr; }
       .mini-grid { grid-template-columns: 1fr; }
+      .shimai-photo {
+        --shimai-enter-y: 8.8px;
+        --shimai-enter-rot: -0.5deg;
+      }
+      .shimai-photo.sub:nth-of-type(2) {
+        --shimai-enter-y: 10.5px;
+        --shimai-enter-rot: 0.5deg;
+      }
+      .shimai-photo.sub:nth-of-type(3) {
+        --shimai-enter-y: 10.5px;
+        --shimai-enter-rot: -0.44deg;
+      }
       .shimai-collage {
         width: 100%;
         min-width: 0;
