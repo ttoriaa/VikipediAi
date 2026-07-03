@@ -241,13 +241,27 @@
       border-radius: 14px;
       border: 1px solid rgba(26, 122, 134, 0.16);
       box-shadow: 0 8px 20px rgba(26, 122, 134, 0.15);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      opacity: 0;
+      transform: translateY(10px) rotate(-0.6deg) scale(0.995);
+      animation: shimaiPhotoIn 0.5s ease forwards;
     }
 
     .shimai-photo.main {
       grid-row: 1 / span 2;
       height: 180px;
       border-radius: 16px;
+      animation-delay: 0.04s;
+    }
+
+    .shimai-photo.sub:nth-of-type(2) {
+      animation-delay: 0.12s;
+      transform: translateY(12px) rotate(0.6deg) scale(0.995);
+    }
+
+    .shimai-photo.sub:nth-of-type(3) {
+      animation-delay: 0.2s;
+      transform: translateY(12px) rotate(-0.5deg) scale(0.995);
     }
 
     .shimai-card:hover .shimai-photo.main {
@@ -287,7 +301,7 @@
       font-weight: 700;
       font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
       padding: 12px 20px;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
     }
 
     .shimai-btn:hover {
@@ -297,13 +311,44 @@
     .shimai-btn.primary {
       background: linear-gradient(120deg, #1a7a86, #2b98a5);
       color: #fff;
-      box-shadow: 0 8px 22px rgba(26, 122, 134, 0.25);
+      box-shadow: 0 18px 32px rgba(44, 168, 181, 0.2);
+    }
+
+    .shimai-btn.primary:hover {
+      box-shadow: 0 20px 34px rgba(44, 168, 181, 0.26);
     }
 
     .shimai-btn.secondary {
       background: #fff;
       color: #1a7a86;
       border: 1px solid rgba(26, 122, 134, 0.28);
+    }
+
+    .shimai-btn.secondary:hover {
+      background: rgba(44, 168, 181, 0.1);
+    }
+
+    @keyframes shimaiPhotoIn {
+      0% {
+        opacity: 0;
+        transform: translateY(10px) rotate(-0.6deg) scale(0.995);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .shimai-photo {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+      .shimai-btn,
+      .shimai-photo {
+        transition: none;
+      }
     }
 
     .mini-grid {
@@ -382,7 +427,7 @@
     <div class="topline">
       <a href="index.html" id="backLink">返回导航页</a>
       <div>
-        <span id="version">v1.2.0 | 2026-07-03</span>
+        <span id="version">v1.2.1 | 2026-07-03</span>
         <button class="lang" id="langBtn">EN</button>
       </div>
     </div>
