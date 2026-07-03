@@ -214,6 +214,24 @@
       align-content: space-between;
       gap: 10px;
     }
+    .shot-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.75);
+    }
+    .shot-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #0e5f58;
+      text-decoration: none;
+      font-size: 12px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+    .shot-link:hover { text-decoration: underline; }
     .shot strong { font-size: 13px; }
     .shot code {
       display: inline-block;
@@ -317,6 +335,94 @@
       border: 1px solid var(--line);
       border-radius: 12px;
       background: rgba(255,255,255,0.95);
+    }
+    .storyline-block {
+      border: 1px solid rgba(15, 118, 110, 0.24);
+      border-radius: 14px;
+      background: linear-gradient(160deg, rgba(220, 242, 236, 0.55), rgba(225, 235, 255, 0.45));
+      padding: 12px;
+      grid-column: 1 / -1;
+    }
+    .storyline-block h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: #0e5f58;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      text-transform: none;
+      letter-spacing: 0.02em;
+    }
+    .market-map {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.95);
+      padding: 10px;
+    }
+    .market-stage {
+      position: relative;
+      min-height: 360px;
+      border: 1px dashed rgba(15, 32, 24, 0.24);
+      border-radius: 12px;
+      background:
+        linear-gradient(to right, rgba(15, 32, 24, 0.04) 1px, transparent 1px) 0 0 / 20% 100%,
+        linear-gradient(to top, rgba(15, 32, 24, 0.04) 1px, transparent 1px) 0 0 / 100% 20%;
+      overflow: hidden;
+    }
+    .market-axis-x,
+    .market-axis-y {
+      position: absolute;
+      color: var(--muted);
+      font-size: 11px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 8px;
+    }
+    .market-axis-x { right: 8px; bottom: 8px; }
+    .market-axis-y {
+      left: 8px;
+      top: 8px;
+      transform: rotate(-90deg);
+      transform-origin: left top;
+    }
+    .bubble {
+      position: absolute;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 32, 24, 0.2);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 6px;
+      color: #0f2018;
+      font-size: 11px;
+      line-height: 1.25;
+      box-shadow: 0 8px 20px rgba(15, 32, 24, 0.15);
+      pointer-events: auto;
+    }
+    .bubble strong {
+      display: block;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-size: 11px;
+    }
+    .bubble small { font-size: 10px; color: #244437; }
+    .market-legend {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 32, 24, 0.2);
     }
     table.matrix {
       width: 100%;
@@ -575,6 +681,127 @@
         }).join("");
       }
 
+      function looksLikeImageUrl(url) {
+        return /^https?:\/\//i.test(String(url || "")) && /\.(png|jpg|jpeg|webp|gif)(\?.*)?$/i.test(String(url || ""));
+      }
+
+      function renderScreenshots(shots) {
+        if (!Array.isArray(shots) || !shots.length) return "";
+        return "<div class='shots'>" + shots.map(function (s) {
+          const path = String(s.path || "");
+          const imageUrl = String(s.image_url || (looksLikeImageUrl(path) ? path : ""));
+          const link = /^https?:\/\//i.test(path) ? path : imageUrl;
+          return "<div class='shot'>" +
+            "<div><strong>" + (s.label || "Case") + "</strong><p>" + (s.note || "") + "</p></div>" +
+            (imageUrl ? "<img class='shot-img' loading='lazy' referrerpolicy='no-referrer' src='" + escapeHtml(imageUrl) + "' alt='" + escapeHtml(s.label || "case preview") + "' />" : "") +
+            (link ? "<a class='shot-link' target='_blank' rel='noopener noreferrer' href='" + escapeHtml(link) + "'>打开案例链接</a>" : "") +
+            "<code>" + escapeHtml(path || "可填 image_url 或 URL") + "</code>" +
+          "</div>";
+        }).join("") + "</div>";
+      }
+
+      function sanitizeMermaidLabel(text) {
+        return String(text || "").replace(/["<>]/g, "").replace(/\s+/g, " ").trim().slice(0, 24);
+      }
+
+      function buildStorylineMermaid(product) {
+        const firstCase = (((product || {}).business_details || {}).marketing_service || [])[0];
+        let steps = [];
+        if (firstCase && Array.isArray(firstCase.workflow) && firstCase.workflow.length) {
+          steps = firstCase.workflow;
+        } else if (product && product.deep_dive && Array.isArray(product.deep_dive.workflow) && product.deep_dive.workflow.length) {
+          steps = product.deep_dive.workflow;
+        } else if (product && Array.isArray(product.scenarios) && product.scenarios.length) {
+          steps = product.scenarios;
+        }
+
+        steps = dedupeBySemantic(steps).slice(0, 5).map(sanitizeMermaidLabel).filter(Boolean);
+        if (steps.length < 2) return "";
+
+        const nodeIds = ["A", "B", "C", "D", "E", "F"];
+        const lines = ["graph LR", "S[触发场景]"];
+        steps.forEach(function (step, idx) {
+          lines.push(nodeIds[idx] + "[" + step + "]");
+        });
+        lines.push("R[业务结果]");
+        lines.push("S --> " + nodeIds[0]);
+        for (let i = 0; i < steps.length - 1; i += 1) {
+          lines.push(nodeIds[i] + " --> " + nodeIds[i + 1]);
+        }
+        lines.push(nodeIds[steps.length - 1] + " --> R");
+        return lines.join("\n");
+      }
+
+      function renderStoryline(product) {
+        const flow = buildStorylineMermaid(product);
+        if (!flow) return "";
+        return "" +
+          "<article class='storyline-block'>" +
+            "<h3>产品故事线流程图（从触达到业务结果）</h3>" +
+            "<div class='mermaid-wrap'><pre class='mermaid'>" + flow + "</pre></div>" +
+          "</article>";
+      }
+
+      function scoreByKeywords(text, highWords, lowWords, midWords) {
+        const src = String(text || "").toLowerCase();
+        if (highWords.some(function (w) { return src.includes(w); })) return 4.5;
+        if (lowWords.some(function (w) { return src.includes(w); })) return 2.2;
+        if (midWords.some(function (w) { return src.includes(w); })) return 3.3;
+        return 3.5;
+      }
+
+      function buildMarketBubbleData(rows) {
+        return (rows || []).map(function (r) {
+          const governance = scoreByKeywords(r.governance, ["高", "成熟", "完善", "high", "mature"], ["低", "弱", "不足", "low"], ["中", "一般", "medium"]);
+          const deployment = scoreByKeywords(r.deployment, ["混合", "私有", "on-prem", "hybrid", "local"], ["单一", "locked"], ["云", "cloud"]);
+          const risk = scoreByKeywords(r.risk_note, ["低", "可控", "low"], ["高", "重大", "high"], ["中", "medium"]);
+          const size = 34 + governance * 5 + (5 - risk) * 3;
+          const x = 8 + ((governance - 1) / 4) * 82;
+          const y = 88 - ((deployment - 1) / 4) * 72;
+          let color = "rgba(163, 230, 53, 0.55)";
+          const dep = String(r.deployment || "").toLowerCase();
+          if (dep.includes("cloud") || dep.includes("云")) color = "rgba(96, 165, 250, 0.55)";
+          if (dep.includes("混合") || dep.includes("hybrid")) color = "rgba(52, 211, 153, 0.55)";
+          if (dep.includes("私有") || dep.includes("local") || dep.includes("on-prem")) color = "rgba(250, 204, 21, 0.55)";
+          return {
+            product: r.product || "",
+            vendor: r.vendor || "",
+            x: x,
+            y: y,
+            size: size,
+            color: color,
+            governance: governance,
+            deployment: deployment
+          };
+        });
+      }
+
+      function renderMarketBubble(rows) {
+        if (!Array.isArray(rows) || !rows.length) return "";
+        const bubbles = buildMarketBubbleData(rows);
+        return "" +
+          "<article class='section full'>" +
+            "<h3>市场全景泡泡图（产品一眼总览）</h3>" +
+            "<div class='market-map'>" +
+              "<div class='market-stage'>" +
+                "<span class='market-axis-y'>部署灵活度</span>" +
+                "<span class='market-axis-x'>治理成熟度</span>" +
+                bubbles.map(function (b) {
+                  return "<div class='bubble' title='" + escapeHtml(b.product + " | " + b.vendor + " | 治理:" + b.governance.toFixed(1) + " 部署:" + b.deployment.toFixed(1)) + "' style='left:" + b.x.toFixed(1) + "%;top:" + b.y.toFixed(1) + "%;width:" + b.size.toFixed(0) + "px;height:" + b.size.toFixed(0) + "px;background:" + b.color + ";transform:translate(-50%,-50%);'>" +
+                    "<span><strong>" + escapeHtml(b.product) + "</strong><small>" + escapeHtml(b.vendor) + "</small></span>" +
+                  "</div>";
+                }).join("") +
+              "</div>" +
+              "<div class='market-legend'>" +
+                "<span class='legend-item'><span class='legend-dot' style='background:rgba(96, 165, 250, 0.55)'></span>Cloud 侧</span>" +
+                "<span class='legend-item'><span class='legend-dot' style='background:rgba(52, 211, 153, 0.55)'></span>Hybrid 侧</span>" +
+                "<span class='legend-item'><span class='legend-dot' style='background:rgba(250, 204, 21, 0.55)'></span>Private/Local 侧</span>" +
+                "<span class='legend-item'>气泡大小: 机会体量（治理成熟 + 风险可控）</span>" +
+              "</div>" +
+            "</div>" +
+          "</article>";
+      }
+
       function renderDeepDive(deep) {
         if (!deep) return "";
         return "" +
@@ -823,6 +1050,7 @@
               (cat.specification && Array.isArray(cat.specification.selection_criteria) && cat.specification.selection_criteria.length ? "<article class='section'><h3>选型标准</h3><ul>" + list(cat.specification.selection_criteria) + "</ul></article>" : "") +
               (cat.specification && Array.isArray(cat.specification.implementation_patterns) && cat.specification.implementation_patterns.length ? "<article class='section'><h3>落地模式</h3><ul>" + list(cat.specification.implementation_patterns) + "</ul></article>" : "") +
               (cat.specification && Array.isArray(cat.specification.risks_and_controls) && cat.specification.risks_and_controls.length ? "<article class='section'><h3>风险与控制</h3><ul>" + list(cat.specification.risks_and_controls) + "</ul></article>" : "") +
+              (cat.specification && Array.isArray(cat.specification.comparison_matrix) && cat.specification.comparison_matrix.length ? renderMarketBubble(cat.specification.comparison_matrix) : "") +
               (cat.specification && Array.isArray(cat.specification.comparison_matrix) && cat.specification.comparison_matrix.length ? "<article class='section full'><h3>管理层评审：产品对比矩阵</h3>" + renderMatrix(cat.specification.comparison_matrix) + "</article>" : "") +
 
               renderProductGateway(cat) +
@@ -843,11 +1071,7 @@
         const businessDetailsHtml = "" +
           (product.business_details && Array.isArray(product.business_details.marketing_service) && product.business_details.marketing_service.length ? "<article class='section full'><h3>Marketing Service Detailed Cases</h3>" + renderBusinessCases(product.business_details.marketing_service) + "</article>" : "") +
           (product.business_details && Array.isArray(product.business_details.rd) && product.business_details.rd.length ? "<article class='section full'><h3>R&D Detailed Cases</h3>" + renderBusinessCases(product.business_details.rd) + "</article>" : "");
-        const screenshotsHtml = (product.screenshots && product.screenshots.length ? "<div class='shots'>" +
-              product.screenshots.map(function (s) {
-                return "<div class='shot'><div><strong>" + s.label + "</strong><p>" + s.note + "</p></div><code>" + s.path + "</code></div>";
-              }).join("") +
-            "</div>" : "");
+        const screenshotsHtml = renderScreenshots(product.screenshots || []);
 
         panelEl.innerHTML = "" +
           "<h2>" + cat.title_zh + " / " + product.name_zh + "</h2>" +
@@ -860,6 +1084,7 @@
             (autoFocus && Array.isArray(autoFocus.deliverables) && autoFocus.deliverables.length ? "<article class='section'><h3>建议交付件（汽车营销服）</h3><ul>" + list(autoFocus.deliverables) + "</ul></article>" : "") +
 
             "<article class='section full'><h3>产品介绍</h3><p>" + (product.product_intro || "") + "</p></article>" +
+            renderStoryline(product) +
             ((product.company || product.region) ? "<article class='section full'><h3>厂商与区域</h3><div class='emphasis'>" + (product.company ? ("Company: " + product.company) : "") + (product.company && product.region ? " | " : "") + (product.region ? ("Region: " + product.region) : "") + "</div></article>" : "") +
             (deduped.features.length ? "<article class='section'><h3>性能与功能（去重）</h3><ul>" + list(deduped.features) + "</ul></article>" : "") +
             (deduped.scenarios.length ? "<article class='section'><h3>产品可实现场景（去重）</h3><ul>" + list(deduped.scenarios) + "</ul></article>" : "") +
@@ -869,7 +1094,7 @@
             renderCollapsibleSection("产品用途全景（Specification）", usecaseCatalogHtml, "usecase-catalog") +
             renderCollapsibleSection("详细案例（Marketing / R&D）", businessDetailsHtml, "business-cases") +
             (product.deep_dive ? ("<article class='section full collapsible is-collapsed' data-collapsible-id='deep-dive'><h3>Instrumentation Deep Dive</h3><button class='collapse-toggle' type='button' data-collapse-target='deep-dive'>展开</button><div class='collapsible-body'>" + renderDeepDive(product.deep_dive).replace("<article class='section full'>", "<div class='nested-deep'>").replace("</article>", "</div>") + "</div></article>") : "") +
-            renderCollapsibleSection("Screenshots (placeholders)", screenshotsHtml, "screenshots") +
+            renderCollapsibleSection("案例截图 / 网站与IDE参考", screenshotsHtml, "screenshots") +
           "</div>";
 
         bindCollapsibles();
