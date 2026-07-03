@@ -182,7 +182,7 @@
     <div class="topline">
       <a href="index.html" id="backLink">返回导航页</a>
       <div>
-        <span id="version">v1.0.0 | 2026-07-02</span>
+        <span id="version">v1.1.0 | 2026-07-03</span>
         <button class="lang" id="langBtn">EN</button>
       </div>
     </div>
@@ -195,6 +195,7 @@
       <button class="tab" data-tab="timeline" id="tabTimeline">发展进程</button>
       <button class="tab" data-tab="performance" id="tabPerformance">性能表现</button>
       <button class="tab" data-tab="scenarios" id="tabScenarios">适用场景</button>
+      <button class="tab" data-tab="copilot-case" id="tabCopilotCase">GitHub Copilot 实战案例</button>
     </div>
 
     <section class="panel">
@@ -340,6 +341,90 @@
           </article>
         </div>
       </div>
+
+      <div class="section" data-section="copilot-case">
+        <div class="grid">
+          <article class="card">
+            <h3 id="cc1Title">案例范围与目标</h3>
+            <ul id="cc1List">
+              <li>场景：以本网站建设 + “时髦小姨”RSS 实时更新 + GLM 大模型接入为一个完整工程案例。</li>
+              <li>目标：把内容生产、自动更新、模型问答能力串成可持续运行的产品化流程。</li>
+              <li>约束：要支持快速迭代、可审计修改记录、可回滚发布和低运维负担。</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 id="cc2Title">GitHub Copilot 交互模式（实际怎么用）</h3>
+            <ul id="cc2List">
+              <li>Inline 补全：用于 HTML/CSS/JS 的细节编写，提升页面搭建与重构速度。</li>
+              <li>Chat 驱动改造：通过“描述目标 -> 生成改动 -> 校验”循环完成跨文件更新。</li>
+              <li>Agent 化任务：一次性下达“新增 tab + i18n + 数据接入 + 验证”这类多步骤任务。</li>
+              <li>PR 审查辅助：自动产出变更摘要、风险点与测试建议，缩短 review 周期。</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 id="cc3Title">实现蓝图（网站、RSS、GLM）</h3>
+            <ul id="cc3List">
+              <li>网站层：用静态页面承载专题内容，按 tab 组织“总览/性能/场景/案例”。</li>
+              <li>数据层：通过 RSS 拉取最新内容，标准化为结构化条目并写入前端可消费数据源。</li>
+              <li>模型层：接入 GLM 做摘要、分类、标签提取与问答草稿生成。</li>
+              <li>发布层：Git 提交 + GitHub Pages 自动部署，保证每次更新可追溯。</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 id="cc4Title">结果与可交付产物</h3>
+            <ul id="cc4List">
+              <li>交付 1：可持续维护的专题网站结构与统一样式规范。</li>
+              <li>交付 2：RSS 到页面的数据更新链路（含失败重试与人工复核点）。</li>
+              <li>交付 3：GLM 赋能的内容处理模块（摘要、标签、场景归类）。</li>
+              <li>交付 4：可复用的 Copilot 提示模板与开发流程清单。</li>
+            </ul>
+          </article>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th id="ccH1">阶段</th>
+              <th id="ccH2">Copilot 可做的事</th>
+              <th id="ccH3">实现方式</th>
+              <th id="ccH4">产出结果</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="cc1a">Step 1: 需求澄清与页面骨架</td>
+              <td id="cc1b">生成页面结构、tab 交互、双语文案草稿</td>
+              <td id="cc1c">在现有 HTML 中增量改造，保持风格一致</td>
+              <td id="cc1d">快速形成可演示版本，支持多轮迭代</td>
+            </tr>
+            <tr>
+              <td id="cc2a">Step 2: RSS 实时更新链路</td>
+              <td id="cc2b">生成拉取脚本、解析逻辑、去重与容错代码</td>
+              <td id="cc2c">定时任务触发拉取，写入统一数据结构</td>
+              <td id="cc2d">内容可持续刷新，降低人工搬运成本</td>
+            </tr>
+            <tr>
+              <td id="cc3a">Step 3: GLM 能力接入</td>
+              <td id="cc3b">封装 API 调用、Prompt 模板、失败回退逻辑</td>
+              <td id="cc3c">将 GLM 输出落入摘要/标签/问答字段</td>
+              <td id="cc3d">内容结构化程度提升，检索与阅读效率更高</td>
+            </tr>
+            <tr>
+              <td id="cc4a">Step 4: 联调与质量保障</td>
+              <td id="cc4b">辅助生成测试用例、边界场景与回归检查清单</td>
+              <td id="cc4c">在 PR 与部署前执行自动化验证</td>
+              <td id="cc4d">缺陷前置发现，线上回滚概率下降</td>
+            </tr>
+            <tr>
+              <td id="cc5a">Step 5: 发布与运营复盘</td>
+              <td id="cc5b">生成变更说明、发布公告与后续优化建议</td>
+              <td id="cc5c">GitHub Pages 自动发布 + 指标复盘</td>
+              <td id="cc5d">形成“开发-发布-复盘”闭环，提高迭代节奏</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note" id="ccNote">建议把 Copilot 作为“人机协作加速器”而非“全自动替代者”：关键架构决策、合规判断与上线审批仍需人工 owner 负责。</p>
+      </div>
     </section>
   </main>
 
@@ -354,6 +439,7 @@
           tabTimeline: "发展进程",
           tabPerformance: "性能表现",
           tabScenarios: "适用场景",
+          tabCopilotCase: "GitHub Copilot 实战案例",
           ov1Title: "国际主流产品",
           ov1List: [
             "代表：GitHub Copilot / Cursor / Windsurf / Amazon Q Developer / JetBrains AI Assistant",
@@ -434,7 +520,59 @@
             "推荐组合：通义灵码/Comate + 私有化模型（Qwen/DeepSeek/GLM）。",
             "实施方式：部署内网推理网关，启用敏感代码脱敏与访问留痕。",
             "效果指标：在合规前提下保持研发提效，安全审计通过率提升。"
-          ]
+          ],
+          cc1Title: "案例范围与目标",
+          cc1List: [
+            "场景：以本网站建设 + “时髦小姨”RSS 实时更新 + GLM 大模型接入为一个完整工程案例。",
+            "目标：把内容生产、自动更新、模型问答能力串成可持续运行的产品化流程。",
+            "约束：要支持快速迭代、可审计修改记录、可回滚发布和低运维负担。"
+          ],
+          cc2Title: "GitHub Copilot 交互模式（实际怎么用）",
+          cc2List: [
+            "Inline 补全：用于 HTML/CSS/JS 的细节编写，提升页面搭建与重构速度。",
+            "Chat 驱动改造：通过“描述目标 -> 生成改动 -> 校验”循环完成跨文件更新。",
+            "Agent 化任务：一次性下达“新增 tab + i18n + 数据接入 + 验证”这类多步骤任务。",
+            "PR 审查辅助：自动产出变更摘要、风险点与测试建议，缩短 review 周期。"
+          ],
+          cc3Title: "实现蓝图（网站、RSS、GLM）",
+          cc3List: [
+            "网站层：用静态页面承载专题内容，按 tab 组织“总览/性能/场景/案例”。",
+            "数据层：通过 RSS 拉取最新内容，标准化为结构化条目并写入前端可消费数据源。",
+            "模型层：接入 GLM 做摘要、分类、标签提取与问答草稿生成。",
+            "发布层：Git 提交 + GitHub Pages 自动部署，保证每次更新可追溯。"
+          ],
+          cc4Title: "结果与可交付产物",
+          cc4List: [
+            "交付 1：可持续维护的专题网站结构与统一样式规范。",
+            "交付 2：RSS 到页面的数据更新链路（含失败重试与人工复核点）。",
+            "交付 3：GLM 赋能的内容处理模块（摘要、标签、场景归类）。",
+            "交付 4：可复用的 Copilot 提示模板与开发流程清单。"
+          ],
+          ccH1: "阶段",
+          ccH2: "Copilot 可做的事",
+          ccH3: "实现方式",
+          ccH4: "产出结果",
+          cc1a: "Step 1: 需求澄清与页面骨架",
+          cc1b: "生成页面结构、tab 交互、双语文案草稿",
+          cc1c: "在现有 HTML 中增量改造，保持风格一致",
+          cc1d: "快速形成可演示版本，支持多轮迭代",
+          cc2a: "Step 2: RSS 实时更新链路",
+          cc2b: "生成拉取脚本、解析逻辑、去重与容错代码",
+          cc2c: "定时任务触发拉取，写入统一数据结构",
+          cc2d: "内容可持续刷新，降低人工搬运成本",
+          cc3a: "Step 3: GLM 能力接入",
+          cc3b: "封装 API 调用、Prompt 模板、失败回退逻辑",
+          cc3c: "将 GLM 输出落入摘要/标签/问答字段",
+          cc3d: "内容结构化程度提升，检索与阅读效率更高",
+          cc4a: "Step 4: 联调与质量保障",
+          cc4b: "辅助生成测试用例、边界场景与回归检查清单",
+          cc4c: "在 PR 与部署前执行自动化验证",
+          cc4d: "缺陷前置发现，线上回滚概率下降",
+          cc5a: "Step 5: 发布与运营复盘",
+          cc5b: "生成变更说明、发布公告与后续优化建议",
+          cc5c: "GitHub Pages 自动发布 + 指标复盘",
+          cc5d: "形成“开发-发布-复盘”闭环，提高迭代节奏",
+          ccNote: "建议把 Copilot 作为“人机协作加速器”而非“全自动替代者”：关键架构决策、合规判断与上线审批仍需人工 owner 负责。"
         },
         en: {
           backLink: "Back to Home",
@@ -444,6 +582,7 @@
           tabTimeline: "Development Timeline",
           tabPerformance: "Performance Snapshot",
           tabScenarios: "Scenario Fit",
+          tabCopilotCase: "GitHub Copilot Case Study",
           ov1Title: "Leading Global Products",
           ov1List: [
             "Examples: GitHub Copilot / Cursor / Windsurf / Amazon Q Developer / JetBrains AI Assistant",
@@ -524,7 +663,59 @@
             "Recommended stack: Tongyi Lingma/Comate with private models such as Qwen/DeepSeek/GLM.",
             "Implementation: Deploy an internal inference gateway with sensitive-code masking and access traceability.",
             "Outcome: Engineering productivity is preserved under compliance constraints, with higher security audit pass rates."
-          ]
+          ],
+          cc1Title: "Case scope and goals",
+          cc1List: [
+            "Scenario: a full-stack case built around this website, real-time RSS updates for 'Trendy Auntie', and GLM integration.",
+            "Goal: connect content production, auto-refresh, and model-powered Q&A into a continuously operating workflow.",
+            "Constraints: fast iteration, auditable change history, rollback-safe release, and low ops overhead."
+          ],
+          cc2Title: "GitHub Copilot interaction modes in practice",
+          cc2List: [
+            "Inline completion: accelerates detailed HTML/CSS/JS authoring and refactoring.",
+            "Chat-driven refactor loop: describe target -> generate edits -> validate across files.",
+            "Agent-style tasks: issue one multi-step objective (new tab + i18n + data integration + verification).",
+            "PR assistance: auto-generate change summaries, risk points, and test suggestions."
+          ],
+          cc3Title: "Implementation blueprint (website, RSS, GLM)",
+          cc3List: [
+            "Website layer: static pages with tabbed information architecture for overview, performance, scenarios, and case details.",
+            "Data layer: pull RSS updates, normalize into structured records, and expose a frontend-ready data shape.",
+            "Model layer: integrate GLM for summarization, classification, tagging, and draft Q&A generation.",
+            "Release layer: Git commits plus GitHub Pages deployment for full traceability."
+          ],
+          cc4Title: "Outcomes and deliverables",
+          cc4List: [
+            "Deliverable 1: maintainable topic-site structure with consistent design tokens.",
+            "Deliverable 2: RSS-to-page update pipeline with retry and human-review checkpoints.",
+            "Deliverable 3: GLM-powered content processing module (summary, tags, scenario grouping).",
+            "Deliverable 4: reusable Copilot prompt templates and engineering playbooks."
+          ],
+          ccH1: "Phase",
+          ccH2: "What Copilot can do",
+          ccH3: "How it is implemented",
+          ccH4: "Observed outcome",
+          cc1a: "Step 1: requirement framing and page skeleton",
+          cc1b: "Generate page structure, tab interaction, and bilingual copy drafts",
+          cc1c: "Apply incremental HTML changes while preserving current visual language",
+          cc1d: "Deliver a demo-ready baseline quickly for iterative refinement",
+          cc2a: "Step 2: real-time RSS update pipeline",
+          cc2b: "Generate fetch scripts, parser logic, dedup, and fault-tolerance handling",
+          cc2c: "Trigger scheduled pulls and write normalized records",
+          cc2d: "Keep content fresh with reduced manual operations",
+          cc3a: "Step 3: GLM integration",
+          cc3b: "Scaffold API wrappers, prompt templates, and fallback behavior",
+          cc3c: "Persist GLM outputs into summary/tag/Q&A fields",
+          cc3d: "Increase content structure quality and retrieval/readability efficiency",
+          cc4a: "Step 4: integration and quality gates",
+          cc4b: "Assist with test generation, edge-case coverage, and regression checklists",
+          cc4c: "Run automated validation before PR merge and deployment",
+          cc4d: "Find defects earlier and reduce rollback probability",
+          cc5a: "Step 5: release and operational review",
+          cc5b: "Draft release notes, change announcements, and optimization proposals",
+          cc5c: "GitHub Pages auto-release plus KPI review",
+          cc5d: "Form a development-release-retrospective closed loop with faster cadence",
+          ccNote: "Treat Copilot as a human-in-the-loop accelerator, not a full replacement: architecture decisions, compliance judgments, and go-live approvals should stay with accountable owners."
         }
       };
 
@@ -552,6 +743,7 @@
         document.getElementById("tabTimeline").textContent = t.tabTimeline;
         document.getElementById("tabPerformance").textContent = t.tabPerformance;
         document.getElementById("tabScenarios").textContent = t.tabScenarios;
+        document.getElementById("tabCopilotCase").textContent = t.tabCopilotCase;
 
         document.getElementById("ov1Title").textContent = t.ov1Title;
         document.getElementById("ov2Title").textContent = t.ov2Title;
@@ -565,7 +757,11 @@
         [
           "tlH1","tlH2","tlH3","tl1a","tl1b","tl1c","tl2a","tl2b","tl2c","tl3a","tl3b","tl3c",
           "pfH1","pfH2","pfH3","pfH4","pfH5","pfH6","pf1","pf2","pf3","pf4","pf5","pf6","pf7","pf8","pf9","pf10","pf11","pf12","pf13","pf14","pf15",
-          "perfNote","sc1Title","sc2Title","sc3Title","sc4Title","sc5Title"
+          "perfNote","sc1Title","sc2Title","sc3Title","sc4Title","sc5Title",
+          "cc1Title","cc2Title","cc3Title","cc4Title",
+          "ccH1","ccH2","ccH3","ccH4",
+          "cc1a","cc1b","cc1c","cc1d","cc2a","cc2b","cc2c","cc2d","cc3a","cc3b","cc3c","cc3d","cc4a","cc4b","cc4c","cc4d","cc5a","cc5b","cc5c","cc5d",
+          "ccNote"
         ].forEach(function (id) {
           document.getElementById(id).textContent = t[id];
         });
@@ -575,6 +771,10 @@
         setList("sc3List", t.sc3List);
         setList("sc4List", t.sc4List);
         setList("sc5List", t.sc5List);
+        setList("cc1List", t.cc1List);
+        setList("cc2List", t.cc2List);
+        setList("cc3List", t.cc3List);
+        setList("cc4List", t.cc4List);
 
         langBtn.textContent = lang === "zh" ? "EN" : "中文";
         document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
@@ -603,7 +803,7 @@
       });
 
       const hash = (location.hash || "#overview").replace("#", "");
-      activateTab(["overview", "timeline", "performance", "scenarios"].includes(hash) ? hash : "overview");
+      activateTab(["overview", "timeline", "performance", "scenarios", "copilot-case"].includes(hash) ? hash : "overview");
       applyText();
     })();
   </script>
