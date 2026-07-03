@@ -626,6 +626,19 @@
             </div>
           </article>
 
+          <article class="card wide shimai-card">
+            <div class="link-card">
+              <div>
+                <span class="shimai-mark" id="ccLandingBadge">案例站首页</span>
+                <h3 id="ccLandingTitle">VikipediAi Landing Page 名片</h3>
+                <p id="ccLandingDesc">用于快速跳转到 VikipediAi 首页，集中查看竞争图、基座模型性能页与应用层分类入口。</p>
+              </div>
+              <div class="shimai-actions">
+                <a class="shimai-btn primary" id="ccLandingLink" target="_blank" rel="noopener noreferrer" href="https://ttoriaa.github.io/VikipediAi/index.html">打开 VikipediAi 首页</a>
+              </div>
+            </div>
+          </article>
+
           <article class="card">
             <h3 id="cc1Title">案例范围与目标</h3>
             <ul id="cc1List">
@@ -770,6 +783,7 @@
           tabScenarios: "适用场景",
           tabCopilotCase: "GitHub Copilot 实战案例",
           ccSiteBadge: "新一季上线",
+          ccLandingBadge: "案例站首页",
           copyBtn: "复制",
           copiedBtn: "已复制",
           ov1Title: "国际主流产品",
@@ -858,6 +872,9 @@
           ccSiteDesc: "用于承载 RSS 驱动的内容更新与专题聚合，作为 Copilot + GLM 实战的线上样板站。",
           ccSiteLink: "打开时髦小姨网站",
           ccSiteAbout: "认识小姨",
+          ccLandingTitle: "VikipediAi Landing Page 名片",
+          ccLandingDesc: "用于快速跳转到 VikipediAi 首页，集中查看竞争图、基座模型性能页与应用层分类入口。",
+          ccLandingLink: "打开 VikipediAi 首页",
           cc1List: [
             "场景：以本网站建设 + “时髦小姨”RSS 实时更新 + GLM 大模型接入为一个完整工程案例。",
             "目标：把内容生产、自动更新、模型问答能力串成可持续运行的产品化流程。",
@@ -932,6 +949,7 @@
           tabScenarios: "Scenario Fit",
           tabCopilotCase: "GitHub Copilot Case Study",
           ccSiteBadge: "New Season Live",
+          ccLandingBadge: "Landing Entry",
           copyBtn: "Copy",
           copiedBtn: "Copied",
           ov1Title: "Leading Global Products",
@@ -1020,6 +1038,9 @@
           ccSiteDesc: "A live sample site for RSS-driven content updates and topic aggregation in the Copilot + GLM workflow.",
           ccSiteLink: "Open Shimai Website",
           ccSiteAbout: "Meet the Host",
+          ccLandingTitle: "VikipediAi Landing Page Card",
+          ccLandingDesc: "Use this quick entry to open the VikipediAi homepage and navigate to map, foundation model performance, and app-layer pages.",
+          ccLandingLink: "Open VikipediAi Homepage",
           cc1List: [
             "Scenario: a full-stack case built around this website, real-time RSS updates for 'Trendy Auntie', and GLM integration.",
             "Goal: connect content production, auto-refresh, and model-powered Q&A into a continuously operating workflow.",
@@ -1168,10 +1189,14 @@
         document.getElementById("tabScenarios").textContent = t.tabScenarios;
         document.getElementById("tabCopilotCase").textContent = t.tabCopilotCase;
         document.getElementById("ccSiteBadge").textContent = t.ccSiteBadge;
+        document.getElementById("ccLandingBadge").textContent = t.ccLandingBadge;
         document.getElementById("ccSiteTitle").textContent = t.ccSiteTitle;
         document.getElementById("ccSiteDesc").textContent = t.ccSiteDesc;
         document.getElementById("ccSiteLink").textContent = t.ccSiteLink;
         document.getElementById("ccSiteAbout").textContent = t.ccSiteAbout;
+        document.getElementById("ccLandingTitle").textContent = t.ccLandingTitle;
+        document.getElementById("ccLandingDesc").textContent = t.ccLandingDesc;
+        document.getElementById("ccLandingLink").textContent = t.ccLandingLink;
 
         Array.from(document.querySelectorAll(".copy-btn")).forEach(function (btn) {
           btn.textContent = t.copyBtn;
