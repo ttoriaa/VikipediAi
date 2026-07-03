@@ -51,6 +51,27 @@
       animation: fadeUp 540ms ease;
     }
 
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .back-home:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(40, 32, 17, 0.12);
+    }
+
     .tag {
       display: inline-block;
       font-size: 12px;
@@ -265,6 +286,7 @@
 </head>
 <body>
   <main class="wrap">
+    <a class="back-home" href="index.html" aria-label="返回首页">← 返回首页 Home</a>
     <section class="hero">
       <div class="tag">Enterprise Agent Architecture</div>
       <h1>企业级四类 Agent 架构</h1>
