@@ -9,87 +9,152 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg0: #f6f8f6;
-      --bg1: #eaf1ed;
-      --ink: #112018;
-      --muted: #385247;
-      --card: rgba(255, 255, 255, 0.84);
-      --brandA: #115e59;
-      --brandB: #1d4ed8;
-      --shadow: 0 20px 50px rgba(17, 32, 24, 0.12);
+      --bg: #f2fbf8;
+      --ink: #1a4d51;
+      --muted: #2a6267;
+      --line: rgba(26, 122, 134, 0.2);
+      --panel: rgba(255, 255, 255, 0.92);
+      --brandA: #1a7a86;
+      --brandB: #2b98a5;
+      --shadow: 0 20px 42px rgba(26, 122, 134, 0.14);
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      color: var(--ink);
-      font-family: "Noto Sans SC", sans-serif;
+      color: #0f373a;
+      font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
       background:
-        radial-gradient(1200px 700px at 0% 0%, #d9efe4 0%, rgba(217, 239, 228, 0) 56%),
-        radial-gradient(900px 600px at 100% 0%, #dce8ff 0%, rgba(220, 232, 255, 0) 52%),
-        linear-gradient(165deg, var(--bg0) 0%, var(--bg1) 100%);
+        radial-gradient(560px 240px at 12% 0%, rgba(218, 248, 243, 0.94), rgba(218, 248, 243, 0) 66%),
+        radial-gradient(420px 220px at 88% -2%, rgba(231, 250, 245, 0.88), rgba(231, 250, 245, 0) 64%),
+        linear-gradient(170deg, #effaf7 0%, var(--bg) 52%, #edf8f4 100%);
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 20px;
+      padding: 22px;
     }
 
-    .shell {
-      width: min(980px, 100%);
-      border-radius: 28px;
-      border: 1px solid rgba(17, 32, 24, 0.14);
+    .page {
+      width: min(1040px, 100%);
+      margin: 0 auto;
+      border-radius: 30px;
+      border: 1px solid var(--line);
       box-shadow: var(--shadow);
-      background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.78));
-      padding: 24px;
+      background:
+        radial-gradient(500px 240px at -12% 0%, rgba(225, 250, 247, 0.96), rgba(225, 250, 247, 0) 66%),
+        linear-gradient(165deg, rgba(246, 255, 253, 0.98), rgba(239, 251, 248, 0.95));
+      padding: 24px 24px 20px;
     }
 
-    .top {
+    .topline {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
+      gap: 12px;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       border-radius: 999px;
-      border: 1px solid rgba(17, 32, 24, 0.2);
-      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--line);
+      background: #e7f8f5;
       color: var(--muted);
       font-size: 12px;
-      padding: 6px 10px;
-      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-weight: 700;
+      padding: 6px 11px;
+      letter-spacing: 0.01em;
     }
 
     .lang {
       border-radius: 999px;
-      border: 1px solid rgba(17, 32, 24, 0.2);
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--ink);
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #1a7a86;
       font-size: 12px;
-      padding: 7px 12px;
+      font-weight: 700;
+      padding: 7px 13px;
       cursor: pointer;
-      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    }
+
+    .lang:hover {
+      transform: translateY(-1px);
+      background: rgba(44, 168, 181, 0.1);
+      box-shadow: 0 12px 24px rgba(44, 168, 181, 0.16);
+    }
+
+    .hero {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(230px, 280px);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--panel);
+      padding: 20px;
+      box-shadow: 0 12px 26px rgba(26, 122, 134, 0.1);
+    }
+
+    .hero-mark {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: #e7f8f5;
+      color: #1a7a86;
+      border: 1px solid var(--line);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 10px;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(34px, 6vw, 60px);
-      line-height: 1.06;
-      letter-spacing: -0.02em;
-      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-size: clamp(34px, 5.5vw, 58px);
+      line-height: 1.03;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      font-family: "Space Grotesk", "Helvetica Neue", "PingFang SC", sans-serif;
     }
 
     .subtitle {
       margin: 10px 0 0;
-      font-size: 17px;
+      font-size: 16px;
       color: var(--muted);
-      max-width: 760px;
       line-height: 1.55;
+    }
+
+    .hero-collage {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(250, 255, 253, 0.9);
+      padding: 12px;
+      box-shadow: 0 12px 26px rgba(26, 122, 134, 0.1);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 94px 94px;
+      gap: 8px;
+    }
+
+    .hero-collage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid rgba(26, 122, 134, 0.16);
+      box-shadow: 0 8px 20px rgba(26, 122, 134, 0.14);
+    }
+
+    .hero-collage img.main {
+      grid-row: 1 / span 2;
+      height: 196px;
+      border-radius: 16px;
     }
 
     .cards {
@@ -100,16 +165,17 @@
     }
 
     .card {
-      border-radius: 18px;
-      border: 1px solid rgba(17, 32, 24, 0.12);
-      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: var(--panel);
       padding: 14px;
     }
 
     .card h2 {
       margin: 0 0 8px;
       font-size: 18px;
-      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      color: #1a4d51;
+      font-family: "Space Grotesk", "Helvetica Neue", "PingFang SC", sans-serif;
     }
 
     .card p {
@@ -125,14 +191,16 @@
       gap: 10px;
       margin-top: 16px;
     }
+
     .subnav {
       margin-top: 14px;
-      border: 1px solid rgba(17, 32, 24, 0.12);
+      border: 1px solid var(--line);
       border-radius: 16px;
-      background: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.75);
       padding: 12px;
-      display: none;
+      display: block;
     }
+
     .subnav h3 {
       margin: 0 0 8px;
       font-size: 14px;
@@ -147,27 +215,38 @@
     }
     .subnav .group:last-child { margin-bottom: 0; }
 
-    .btn {
+    .btn,
+    .shimai-btn {
       text-decoration: none;
       border-radius: 999px;
-      padding: 10px 16px;
-      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      padding: 11px 17px;
+      font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-weight: 700;
       font-size: 14px;
-      border: 1px solid rgba(17, 32, 24, 0.18);
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--ink);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #1a7a86;
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+      display: inline-block;
     }
 
-    .btn:hover {
+    .btn:hover,
+    .shimai-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 10px 18px rgba(17, 32, 24, 0.09);
+      box-shadow: 0 16px 28px rgba(44, 168, 181, 0.18);
     }
 
-    .btn.primary {
+    .btn.primary,
+    .shimai-btn.primary {
       color: #fff;
       border-color: transparent;
       background: linear-gradient(120deg, var(--brandA), var(--brandB));
+      box-shadow: 0 18px 32px rgba(44, 168, 181, 0.2);
+    }
+
+    .btn.primary:hover,
+    .shimai-btn.primary:hover {
+      box-shadow: 0 20px 34px rgba(44, 168, 181, 0.26);
     }
 
     .footer {
@@ -177,24 +256,49 @@
     }
 
     @media (max-width: 820px) {
+      body { padding: 12px; }
+      .hero {
+        grid-template-columns: 1fr;
+      }
       .cards {
         grid-template-columns: 1fr;
       }
-      .shell {
+      .page {
         padding: 18px;
+      }
+      .hero-collage {
+        max-width: 360px;
       }
     }
   </style>
 </head>
 <body>
-  <main class="shell">
-    <div class="top">
+  <main class="page">
+    <div class="topline">
       <span class="badge" id="versionText">version v2.4.0</span>
       <button class="lang" id="langBtn">EN</button>
     </div>
 
-    <h1 id="title">VikipediAi</h1>
-    <p class="subtitle" id="subtitle">面向 AI 产品与产业链研究的一页式可视化入口。</p>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="hero-mark">Research Dashboard</span>
+        <h1 id="title">VikipediAi</h1>
+        <p class="subtitle" id="subtitle">面向 AI 产品与产业链研究的一页式可视化入口。</p>
+
+        <div class="actions">
+          <a class="shimai-btn primary" href="map.html" id="openMap">打开竞争关系图</a>
+          <a class="shimai-btn primary" href="foundation_models.html" id="openFoundation">打开基座大模型性能页</a>
+          <a class="shimai-btn primary" href="usecases.html#copilot" id="openAppHub">打开应用层：分类入口</a>
+          <a class="shimai-btn primary" href="developer_coding_hub.html#overview" id="openDevHub">打开开发者与编程专题入口</a>
+        </div>
+      </div>
+
+      <aside class="hero-collage" aria-label="Landing visual collage">
+        <img class="main" src="https://ttoriaa.github.io/shimai-podcast-site/assets/images/avatar-main.jpg" alt="Shimai visual 1" loading="lazy" />
+        <img src="https://ttoriaa.github.io/shimai-podcast-site/assets/images/avatar-creative.jpg" alt="Shimai visual 2" loading="lazy" />
+        <img src="https://ttoriaa.github.io/shimai-podcast-site/assets/images/avatar-airpods.jpg" alt="Shimai visual 3" loading="lazy" />
+      </aside>
+    </section>
 
     <section class="cards">
       <article class="card">
@@ -207,13 +311,6 @@
         <p id="card2Desc">覆盖模型层、应用层、Agent 编排层与供给侧关系；支持投资视角、企业采购视角和 16:9 截图导出。</p>
       </article>
     </section>
-
-    <div class="actions">
-      <a class="btn primary" href="map.html" id="openMap">打开竞争关系图</a>
-      <a class="btn primary" href="foundation_models.html" id="openFoundation">打开基座大模型性能页</a>
-      <a class="btn primary" href="usecases.html#copilot" id="openAppHub">打开应用层：分类入口</a>
-      <a class="btn primary" href="developer_coding_hub.html#overview" id="openDevHub">打开开发者与编程专题入口</a>
-    </div>
 
     <section class="subnav">
       <h3 id="subnavTitle">开发者与编程专题入口</h3>
@@ -231,7 +328,7 @@
     (function () {
       const i18n = {
         zh: {
-          version: "版本 v2.4.0",
+          version: "版本 v2.5.0",
           subtitle: "面向 AI 产品与产业链研究的一页式可视化入口。",
           card1Title: "中外 AI 竞争关系图",
           card1Desc: "查看国内与国外 AI 生态中的直接竞争关系、上下游依赖，以及中美对位竞争关系。",
@@ -248,7 +345,7 @@
           footer: "维护仓库：ttoriaa/VikipediAi"
         },
         en: {
-          version: "version v2.4.0",
+          version: "version v2.5.0",
           subtitle: "A one-page visual entry point for AI product and value-chain research.",
           card1Title: "China vs Global AI Competition Map",
           card1Desc: "Explore direct competition, upstream dependencies, and China-US head-to-head rivalries in one map.",
