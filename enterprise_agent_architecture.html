@@ -763,6 +763,14 @@
           pageTitle.textContent = "企业级四类 Agent 架构";
           pageLead.textContent = "目标是把 AI 能力从“会回答”升级到“会办事”：由上层负责识别与编排，由中层负责业务执行，由底层负责受控动作执行，形成可观测、可治理、可规模化的智能体体系。";
         }
+
+        if (targetId === "panel-six") {
+          window.location.hash = "six-layer";
+        } else {
+          if (window.location.hash) {
+            history.replaceState(null, "", window.location.pathname + window.location.search);
+          }
+        }
       }
 
       tabLinks.forEach((link) => {
@@ -775,6 +783,11 @@
         backButton.addEventListener("click", function () {
           setActiveTab("panel-four");
         });
+      }
+
+      // Support direct links like enterprise_agent_architecture.html#six-layer
+      if (window.location.hash === "#six-layer") {
+        setActiveTab("panel-six");
       }
     })();
   </script>
