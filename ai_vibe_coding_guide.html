@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Vibe Coding 完全指南</title>
+  <style>
+    :root {
+      --bg-1: #f7f3eb;
+      --bg-2: #fffdf8;
+      --text: #1f2937;
+      --muted: #5b6472;
+      --line: #d9c8b0;
+      --card: rgba(255, 255, 255, 0.84);
+      --brand: #a14f20;
+      --brand-2: #0d6b78;
+      --stage-1: #8a6a42;
+      --stage-2: #2563eb;
+      --stage-3: #0f766e;
+      --shadow: 0 16px 36px rgba(48, 38, 26, 0.12);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "IBM Plex Sans SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(900px 580px at 0% -10%, #f3d9b2 0%, transparent 52%),
+        radial-gradient(760px 500px at 105% 2%, #c8e4df 0%, transparent 50%),
+        linear-gradient(155deg, var(--bg-1), var(--bg-2));
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 36px 20px 72px;
+    }
+
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 8px);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding: 28px 24px;
+      animation: fadeUp 500ms ease;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid #c39d7e;
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: #fff;
+      margin-bottom: 12px;
+      color: #7c2d12;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4.2vw, 50px);
+      line-height: 1.12;
+    }
+
+    .lead {
+      margin: 14px 0 0;
+      font-size: 16px;
+      line-height: 1.72;
+      color: var(--muted);
+      max-width: 980px;
+    }
+
+    .hero-links {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #d4bc9f;
+      border-radius: 999px;
+      padding: 8px 14px;
+      text-decoration: none;
+      color: #6f3b16;
+      background: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .chip:hover {
+      border-color: #b67f54;
+      transform: translateY(-1px);
+    }
+
+    .section {
+      margin-top: 26px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 20px;
+      animation: fadeUp 620ms ease;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .section p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 15px;
+    }
+
+    .definition {
+      margin-top: 14px;
+      border-left: 6px solid var(--brand);
+      padding: 12px 14px;
+      background: #fff;
+      border-radius: 10px;
+      line-height: 1.7;
+      color: #243041;
+      font-size: 15px;
+    }
+
+    .timeline {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .stage {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 7px;
+    }
+
+    .stage.stage-1::before { background: var(--stage-1); }
+    .stage.stage-2::before { background: var(--stage-2); }
+    .stage.stage-3::before { background: var(--stage-3); }
+
+    .stage-title {
+      margin: 0;
+      font-size: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: baseline;
+    }
+
+    .stage-title span {
+      font-size: 13px;
+      color: #687284;
+      font-weight: 600;
+    }
+
+    .stage ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+      color: #4a5566;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .signal {
+      margin-top: 14px;
+      border-radius: 12px;
+      border: 1px dashed #c9ad91;
+      background: #fffbf5;
+      padding: 12px 14px;
+      color: #6f3b16;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .tools-grid {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    .tool-card {
+      border: 1px solid #d8c8b2;
+      border-radius: 14px;
+      background: #fff;
+      padding: 14px;
+    }
+
+    .tool-head {
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+      flex-wrap: wrap;
+      font-size: 17px;
+    }
+
+    .tool-type {
+      font-size: 12px;
+      color: #4f5d70;
+      border: 1px solid #d4dde7;
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: #f6f9fc;
+      white-space: nowrap;
+    }
+
+    .tool-card ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: #4c596b;
+      line-height: 1.68;
+      font-size: 14px;
+    }
+
+    .path {
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    .path-box {
+      border: 1px solid #d6e5e3;
+      border-radius: 12px;
+      padding: 12px;
+      background: linear-gradient(145deg, #ffffff, #f6fbfa);
+    }
+
+    .path-box h3 {
+      margin: 0;
+      font-size: 16px;
+      color: var(--brand-2);
+    }
+
+    .path-box p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      color: #4d5f66;
+      line-height: 1.7;
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      color: #6b7280;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .back {
+      margin-top: 20px;
+      display: inline-block;
+      text-decoration: none;
+      border: 1px solid #cfb291;
+      border-radius: 999px;
+      padding: 8px 14px;
+      color: #7c2d12;
+      background: #fff;
+      font-weight: 600;
+    }
+
+    .back:hover {
+      border-color: #ac6d40;
+      transform: translateY(-1px);
+    }
+
+    @media (min-width: 880px) {
+      .tools-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .path {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <span class="eyebrow">AI Coding Landscape 2026</span>
+      <h1>AI Vibe Coding: 从补全到 Agentic Coding</h1>
+      <p class="lead">
+        AI 编程工具已经完成从“试试看”到“生产可用”的转折。团队真正关心的，不再只是会不会补全代码，而是是否能理解代码库、持续协作、稳定交付、可控上线。
+      </p>
+      <div class="hero-links">
+        <a class="chip" href="#definition">定义</a>
+        <a class="chip" href="#timeline">三阶段演进</a>
+        <a class="chip" href="#tools">工具地图</a>
+        <a class="chip" href="#paths">发展路径</a>
+      </div>
+    </section>
+
+    <section class="section" id="definition">
+      <h2>什么是 AI Vibe Coding</h2>
+      <div class="definition">
+        AI Vibe Coding 指的是一种以意图驱动、人与 AI 协作迭代的开发方式。开发者不再只逐行写代码，而是通过目标、约束和反馈来驱动 AI 生成、修改、验证和重构。核心价值在于把“写代码”升级为“管理实现过程”。
+      </div>
+      <p>
+        与传统辅助编程不同，Vibe Coding 更强调上下文理解、跨文件操作、执行验证和多轮协作，目标是把效率红利转化为真实交付能力。
+      </p>
+    </section>
+
+    <section class="section" id="timeline">
+      <h2>三阶段发展路径</h2>
+      <div class="timeline">
+        <article class="stage stage-1">
+          <h3 class="stage-title">第一阶段：代码补全时期 <span>2022-2024</span></h3>
+          <ul>
+            <li>代表性产品：GitHub Copilot 初代。</li>
+            <li>典型体验：行内补全、函数级建议、模板化提速。</li>
+            <li>工作模式：开发者主导，AI 作为副驾驶。</li>
+            <li>价值边界：提高编码速度，但对项目级上下文理解有限。</li>
+          </ul>
+        </article>
+
+        <article class="stage stage-2">
+          <h3 class="stage-title">第二阶段：对话式编程时代 <span>2024-2025</span></h3>
+          <ul>
+            <li>代表性产品：Cursor 早期版本。</li>
+            <li>典型体验：通过对话描述需求，AI 执行多文件修改。</li>
+            <li>工作模式：从“写代码”过渡到“描述目标并审查结果”。</li>
+            <li>价值边界：能完成更复杂任务，但稳定性与可控性仍依赖人工监督。</li>
+          </ul>
+        </article>
+
+        <article class="stage stage-3">
+          <h3 class="stage-title">第三阶段：Agentic Coding 时代 <span>2025-至今</span></h3>
+          <ul>
+            <li>代表性产品：Claude Code、Cursor、CodeBuddy 等。</li>
+            <li>典型体验：任务拆解、跨文件改动、命令执行、测试验证的闭环协作。</li>
+            <li>工作模式：AI 从“建议者”升级为“可调度执行代理”。</li>
+            <li>核心结果：AI 编程工具进入生产环境，成为工程流程的一部分。</li>
+          </ul>
+        </article>
+      </div>
+      <div class="signal">
+        关键变化：评价标准从“写得快不快”变成“能不能稳定完成真实工程任务”。
+      </div>
+    </section>
+
+    <section class="section" id="tools">
+      <h2>工具地图：Cursor / Claude Code / Copilot / OpenCode / CodeBuddy</h2>
+      <p>
+        以下定位用于选型讨论，不是绝对排名。建议结合团队语言栈、合规要求和交付节奏做二次评估。
+      </p>
+
+      <div class="tools-grid">
+        <article class="tool-card">
+          <h3 class="tool-head">Claude Code <span class="tool-type">CLI Agent</span></h3>
+          <ul>
+            <li>核心特点：CLI 工作流，强调项目级理解与执行闭环。</li>
+            <li>适配场景：复杂代码库改造、故障排查、自动化修复。</li>
+            <li>典型印象：更像工程代理，不只是聊天助手。</li>
+          </ul>
+        </article>
+
+        <article class="tool-card">
+          <h3 class="tool-head">Cursor <span class="tool-type">AI IDE</span></h3>
+          <ul>
+            <li>核心特点：交互流畅、上下文联动强，AI IDE 体验突出。</li>
+            <li>适配场景：高频迭代、重构密集、多文件联动开发。</li>
+            <li>典型印象：从编辑器层把 AI 协作做成主流程。</li>
+          </ul>
+        </article>
+
+        <article class="tool-card">
+          <h3 class="tool-head">CodeBuddy <span class="tool-type">Plugin + IDE + CLI</span></h3>
+          <ul>
+            <li>核心特点：插件、IDE、CLI 三端协同，打通端到端流程。</li>
+            <li>适配场景：需要统一协作入口与组织级流程衔接的团队。</li>
+            <li>典型印象：强调从个人编码到团队交付的完整链路。</li>
+          </ul>
+        </article>
+
+        <article class="tool-card">
+          <h3 class="tool-head">OpenCode <span class="tool-type">Open Source / Multi-Model</span></h3>
+          <ul>
+            <li>核心特点：完全开源，支持多模型自由切换与自定义。</li>
+            <li>适配场景：偏好开源、希望深度定制能力边界的开发者与团队。</li>
+            <li>典型印象：控制权更高，维护复杂度也更高。</li>
+          </ul>
+        </article>
+
+        <article class="tool-card">
+          <h3 class="tool-head">GitHub Copilot 企业版 <span class="tool-type">Enterprise Copilot</span></h3>
+          <ul>
+            <li>核心特点：微软生态联动强，企业治理和安全方案成熟。</li>
+            <li>适配场景：大规模组织部署、合规审计要求高的企业团队。</li>
+            <li>典型印象：通用性高，落地路径清晰稳定。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="paths">
+      <h2>三条常见落地路径</h2>
+      <div class="path">
+        <article class="path-box">
+          <h3>路径 A：效率优先</h3>
+          <p>从代码补全起步，先提高个人开发速度，再逐步引入对话式改造能力，最后进入 Agent 协作与自动验证。</p>
+        </article>
+
+        <article class="path-box">
+          <h3>路径 B：工程化优先</h3>
+          <p>从可执行代理切入，先解决复杂任务和交付瓶颈，再补齐团队规范、测试门禁和发布流程，形成生产闭环。</p>
+        </article>
+
+        <article class="path-box">
+          <h3>路径 C：合规优先</h3>
+          <p>从企业级平台落地，先满足安全、审计和权限治理，再按团队成熟度逐步升级到多 Agent 协同开发。</p>
+        </article>
+      </div>
+      <p>
+        选型建议：工具不是一次性替换关系，通常是“基础补全 + 对话改造 + Agent 执行”并存。目标是让 AI 参与更多高价值环节，同时保持可审计和可回滚。
+      </p>
+    </section>
+
+    <p class="footer-note">
+      信息整理参考：知乎《2026年AI编程工具完全指南：Cursor、Claude Code、Copilot、OpenCode、CodeBuddy 到底选哪个？》以及公开产品能力描述。建议在采购或团队推广前做一次真实项目试点验证。
+    </p>
+
+    <a class="back" href="index.html">返回首页</a>
+  </main>
+</body>
+</html>

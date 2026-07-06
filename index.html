@@ -268,6 +268,7 @@
           <a class="shimai-btn primary" href="foundation_models.html" id="openFoundation">打开基座大模型性能页</a>
           <a class="shimai-btn primary" href="usecases.html#copilot" id="openAppHub">打开应用层：分类入口</a>
           <a class="shimai-btn primary" href="developer_coding_hub.html#overview" id="openDevHub">打开开发者与编程专题入口</a>
+          <a class="shimai-btn primary" href="ai_vibe_coding_guide.html" id="openVibeCoding">打开 AI Vibe Coding 指南页</a>
           <a class="shimai-btn primary" href="enterprise_agent_architecture.html" id="openAgentArch">Agent Arch</a>
           <a class="shimai-btn primary" href="agent_effectiveness_metrics.html" id="openAgentMetrics">打开智能体效能指标体系页</a>
         </div>
@@ -304,6 +305,7 @@
           openFoundation: "打开基座大模型性能页",
           openAppHub: "打开应用层：分类入口",
           openDevHub: "打开开发者与编程专题入口",
+          openVibeCoding: "打开 AI Vibe Coding 指南页",
           openAgentArch: "打开企业级四类 Agent 架构页",
           openAgentMetrics: "打开智能体效能指标体系页",
           footer: "维护仓库：ttoriaa/VikipediAi"
@@ -319,6 +321,7 @@
           openFoundation: "Open Foundation LLM Performance Page",
           openAppHub: "Open Application Layer Entry",
           openDevHub: "Open Developer and Coding Topic Hub",
+          openVibeCoding: "Open AI Vibe Coding Guide",
           openAgentArch: "Open Enterprise Four-Agent Architecture Page",
           openAgentMetrics: "Open Agent Effectiveness Metrics Page",
           footer: "Maintained in repository: ttoriaa/VikipediAi"
@@ -337,6 +340,7 @@
       const openFoundation = document.getElementById("openFoundation");
       const openAppHub = document.getElementById("openAppHub");
       const openDevHub = document.getElementById("openDevHub");
+      const openVibeCoding = document.getElementById("openVibeCoding");
       const openAgentArch = document.getElementById("openAgentArch");
       const openAgentMetrics = document.getElementById("openAgentMetrics");
       const syncedActions = document.getElementById("syncedActions");
@@ -354,6 +358,7 @@
           "foundation_models.html",
           "usecases.html#copilot",
           "developer_coding_hub.html#overview",
+          "ai_vibe_coding_guide.html",
           "enterprise_agent_architecture.html",
           "agent_effectiveness_metrics.html"
         ]);
@@ -416,6 +421,7 @@
         openFoundation.textContent = t.openFoundation;
         openAppHub.textContent = t.openAppHub;
         openDevHub.textContent = t.openDevHub;
+        openVibeCoding.textContent = t.openVibeCoding;
         openAgentArch.textContent = t.openAgentArch;
         openAgentMetrics.textContent = t.openAgentMetrics;
         syncedActions.querySelectorAll("a").forEach(function (a) {
