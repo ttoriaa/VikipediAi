@@ -1134,7 +1134,8 @@
         setPageCopy(active ? active.id : "panel-four");
       });
 
-      applyStructuredCopy(currentLang());
+      const initialActive = document.querySelector(".tab-panel.active");
+      setPageCopy(initialActive ? initialActive.id : "panel-four");
     })();
   </script>
   <script src="assets/global-ui.js"></script>
