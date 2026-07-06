@@ -358,6 +358,163 @@
 
     <p class="footer">说明：该页面用于管理层汇报与项目落地对齐，可继续扩展为可筛选指标看板。</p>
   </main>
+  <script>
+    (function () {
+      const STORE_KEY = "vp-site-lang";
+
+      function getLang() {
+        return (localStorage.getItem(STORE_KEY) === "en") ? "en" : "zh";
+      }
+
+      function setText(selector, text) {
+        const el = document.querySelector(selector);
+        if (el) el.textContent = text;
+      }
+
+      function setList(selector, items) {
+        const list = document.querySelector(selector);
+        if (!list) return;
+        list.innerHTML = items.map(function (item) { return "<li>" + item + "</li>"; }).join("");
+      }
+
+      function apply(lang) {
+        const isEn = lang === "en";
+        setText(".back", isEn ? "Back Home" : "返回首页");
+        setText(".topbar div", isEn ? "v1.0 · Agent Effectiveness Metrics" : "v1.0 · 智能体效能指标体系页");
+        setText("h1", isEn ? "Four-Dimension Agent Effectiveness Metrics" : "四维度智能体效能指标体系");
+        setText(".subtitle", isEn
+          ? "This framework turns agent initiatives from technical pilots into sustainable operations. It uses four dimensions and a metrics pyramid to map behavior data to business and financial outcomes."
+          : "用于把智能体项目从“技术尝鲜”转成“可持续经营”。核心分为四个维度，并通过指标金字塔把行为数据逐层映射到业务与财务结果。");
+
+        const sectionTitles = Array.from(document.querySelectorAll(".section-title"));
+        if (sectionTitles[0]) sectionTitles[0].textContent = isEn ? "3.1 Four Dimensions" : "3.1 四维度指标";
+        if (sectionTitles[1]) sectionTitles[1].textContent = isEn ? "Metrics Pyramid (Funnel Model)" : "指标金字塔（漏斗模型）";
+        if (sectionTitles[2]) sectionTitles[2].textContent = isEn ? "Recommended Rollout Steps" : "推荐落地步骤";
+
+        const pills = Array.from(document.querySelectorAll(".grid-4 .pill"));
+        const pillZh = ["维度 1", "维度 2", "维度 3", "维度 4"];
+        const pillEn = ["Dimension 1", "Dimension 2", "Dimension 3", "Dimension 4"];
+        pills.forEach(function (p, i) { p.textContent = isEn ? pillEn[i] : pillZh[i]; });
+
+        const cardTitles = Array.from(document.querySelectorAll(".grid-4 .card h3"));
+        const cardZh = ["业务结果", "生产力与效率", "体验与质量", "可靠性与合规"];
+        const cardEn = ["Business Outcome", "Productivity and Efficiency", "Experience and Quality", "Reliability and Compliance"];
+        cardTitles.forEach(function (n, i) { n.textContent = isEn ? cardEn[i] : cardZh[i]; });
+
+        setList(".grid-4 .card:nth-child(1) ul", isEn ? [
+          "Revenue: conversion rate, average order value, repurchase rate",
+          "Cost: operating cost, labor cost",
+          "Risk: bad debt rate, fraud incidents, penalties"
+        ] : [
+          "收入：转化率、客单价、复购率",
+          "成本：运营成本、人力成本",
+          "风险：坏账率、欺诈事件、罚款"
+        ]);
+        setList(".grid-4 .card:nth-child(2) ul", isEn ? [
+          "AHT, handling duration, delivery cycle",
+          "Automation rate, rework rate, retry rate",
+          "Per-capita throughput and processing efficiency"
+        ] : [
+          "AHT、处理时长、交付周期",
+          "自动化率、返工率、重试率",
+          "人均处理量与吞吐效率"
+        ]);
+        setList(".grid-4 .card:nth-child(3) ul", isEn ? [
+          "CSAT, NPS, first-contact resolution (FCR)",
+          "Irrelevant-answer rate, complaint rate, error rate",
+          "Output quality in professional domains (legal, medical, investment research)"
+        ] : [
+          "CSAT、NPS、一次解决率 FCR",
+          "答非所问率、投诉率、错误率",
+          "专业场景输出质量（法务/医疗/投研）"
+        ]);
+        setList(".grid-4 .card:nth-child(4) ul", isEn ? [
+          "Availability, failure rate, timeout rate",
+          "Human takeover rate, rollback count",
+          "Privilege abuse/data leak incidents and audit traceability"
+        ] : [
+          "可用性、故障率、超时率",
+          "人工接管率、回退次数",
+          "越权/泄露事件与审计可追溯性"
+        ]);
+
+        const layerTitles = Array.from(document.querySelectorAll(".pyramid .layer h4"));
+        const layerPs = Array.from(document.querySelectorAll(".pyramid .layer p"));
+        const lTitleZh = ["底层：行为与技术层数据", "中层：流程级表现", "顶层：业务与财务结果"];
+        const lTitleEn = ["Base Layer: Behavioral and Technical Data", "Middle Layer: Process Performance", "Top Layer: Business and Financial Outcomes"];
+        const lBodyZh = [
+          "请求量、会话量、工具调用次数、成功率、时延、Token 成本。用于回答“智能体做了什么、怎么做的”。",
+          "流程成功率、重试率、人工介入点、瓶颈环节。用于判断“智能体是否真正推动流程改善”。",
+          "成本率、净收入、利润率、客诉率、坏账率等，直接对应经营 KPI 与资源配置决策。"
+        ];
+        const lBodyEn = [
+          "Request volume, session volume, tool invocations, success rate, latency, and token cost. This answers what the agent did and how it did it.",
+          "Process success rate, retry rate, human intervention points, and bottlenecks. This evaluates whether the agent really improved the process.",
+          "Cost ratio, net revenue, margin, complaint rate, and bad debt rate, directly linked to management KPI and resource allocation decisions."
+        ];
+        layerTitles.forEach(function (n, i) { n.textContent = isEn ? lTitleEn[i] : lTitleZh[i]; });
+        layerPs.forEach(function (n, i) { n.textContent = isEn ? lBodyEn[i] : lBodyZh[i]; });
+
+        setText(".pyramid-wrap .card h3", isEn ? "Ownership Model" : "责任分工");
+        const ownershipTh = Array.from(document.querySelectorAll(".pyramid-wrap .card thead th"));
+        const ownershipThZh = ["层级", "责任团队", "管理目标"];
+        const ownershipThEn = ["Level", "Owner Team", "Management Objective"];
+        ownershipTh.forEach(function (n, i) { n.textContent = isEn ? ownershipThEn[i] : ownershipThZh[i]; });
+
+        const ownerRows = Array.from(document.querySelectorAll(".pyramid-wrap .card tbody tr"));
+        const ownerZh = [
+          ["底层（行为与技术）", "技术平台团队", "可观测、可运维、可解释"],
+          ["中层（流程级）", "业务线团队", "流程效率与质量提升"],
+          ["顶层（业务与财务）", "业务线 + 管理层", "投入产出、经营效果、战略决策"]
+        ];
+        const ownerEn = [
+          ["Base (Behavior and Technology)", "Platform Engineering Team", "Observable, operable, explainable"],
+          ["Middle (Process)", "Business Line Team", "Process efficiency and quality improvement"],
+          ["Top (Business and Finance)", "Business Line + Management", "ROI, business impact, strategic decisions"]
+        ];
+        ownerRows.forEach(function (row, rIdx) {
+          const tds = row.querySelectorAll("td");
+          tds.forEach(function (td, cIdx) { td.textContent = (isEn ? ownerEn : ownerZh)[rIdx][cIdx]; });
+        });
+
+        setText(".loop", isEn
+          ? "Management makes decisions with top-level metrics and traces root causes through middle and base metrics. Once this pyramid enters daily operations, teams usually form a sustainable agent input-output loop within a short cycle."
+          : "管理层以顶层指标做决策，同时通过中层和底层指标追溯“为什么好/不好”。将这套指标金字塔落到日常管理后，通常能在较短周期内形成可持续的智能体投入-产出闭环。");
+
+        const stepTh = Array.from(document.querySelectorAll("main > .card thead th"));
+        const stepThZh = ["阶段", "动作", "交付物"];
+        const stepThEn = ["Phase", "Action", "Deliverable"];
+        stepTh.forEach(function (n, i) { n.textContent = isEn ? stepThEn[i] : stepThZh[i]; });
+
+        const stepRows = Array.from(document.querySelectorAll("main > .card tbody tr"));
+        const stepZh = [
+          ["第 1 周", "定义四维度口径与指标字典", "指标字典 v1（Owner、频率、口径）"],
+          ["第 2-3 周", "打通底层日志和流程看板", "底层与中层仪表盘"],
+          ["第 4-6 周", "将顶层经营指标挂接到业务看板", "智能体投入-产出周报"],
+          ["持续迭代", "按业务优先级优化模型、流程、治理策略", "季度复盘与下一阶段路线图"]
+        ];
+        const stepEn = [
+          ["Week 1", "Define four-dimension metric definitions and metric dictionary", "Metric Dictionary v1 (owner, cadence, definition)"],
+          ["Week 2-3", "Connect base logs with process dashboards", "Base and middle-layer dashboards"],
+          ["Week 4-6", "Attach top-level business metrics to business dashboards", "Agent ROI weekly report"],
+          ["Continuous", "Optimize models, process, and governance by business priority", "Quarterly review and next-phase roadmap"]
+        ];
+        stepRows.forEach(function (row, rIdx) {
+          const tds = row.querySelectorAll("td");
+          tds.forEach(function (td, cIdx) { td.textContent = (isEn ? stepEn : stepZh)[rIdx][cIdx]; });
+        });
+
+        setText(".footer", isEn
+          ? "Note: this page is for management reporting and project alignment, and can be extended into a filterable metrics dashboard."
+          : "说明：该页面用于管理层汇报与项目落地对齐，可继续扩展为可筛选指标看板。");
+      }
+
+      apply(getLang());
+      window.addEventListener("vp:langchange", function (ev) {
+        apply((ev && ev.detail && ev.detail.lang === "en") ? "en" : "zh");
+      });
+    })();
+  </script>
   <script src="assets/global-ui.js"></script>
 </body>
 </html>

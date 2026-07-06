@@ -488,6 +488,140 @@
 
     <a class="back" href="index.html">返回首页</a>
   </main>
+  <script>
+    (function () {
+      const STORE_KEY = "vp-site-lang";
+
+      function getLang() {
+        return (localStorage.getItem(STORE_KEY) === "en") ? "en" : "zh";
+      }
+
+      function setText(selector, text) {
+        const el = document.querySelector(selector);
+        if (el) el.textContent = text;
+      }
+
+      function setList(selector, items) {
+        const list = document.querySelector(selector);
+        if (!list) return;
+        list.innerHTML = items.map(function (item) { return "<li>" + item + "</li>"; }).join("");
+      }
+
+      function setPathParagraphs(items) {
+        const nodes = Array.from(document.querySelectorAll("#paths .path-box p"));
+        nodes.forEach(function (node, idx) {
+          if (items[idx]) node.textContent = items[idx];
+        });
+      }
+
+      function apply(lang) {
+        const isEn = lang === "en";
+
+        setText(".back-top", isEn ? "Back Home" : "Back to Homepage");
+        setText(".hero h1", isEn ? "AI Vibe Coding: From Completion to Agentic Coding" : "AI Vibe Coding: 从补全到 Agentic Coding");
+        setText(".lead", isEn
+          ? "AI coding tools have moved from trial to production readiness. Teams now care less about completion speed and more about repository understanding, collaboration continuity, delivery stability, and controlled releases."
+          : "AI 编程工具已经完成从“试试看”到“生产可用”的转折。团队真正关心的，不再只是会不会补全代码，而是是否能理解代码库、持续协作、稳定交付、可控上线。");
+
+        const chips = Array.from(document.querySelectorAll(".hero-links .chip"));
+        const chipZh = ["定义", "三阶段演进", "工具地图", "发展路径"];
+        const chipEn = ["Definition", "Three Stages", "Tool Map", "Adoption Paths"];
+        chips.forEach(function (chip, idx) {
+          chip.textContent = isEn ? chipEn[idx] : chipZh[idx];
+        });
+
+        setText("#definition h2", isEn ? "What Is AI Vibe Coding" : "什么是 AI Vibe Coding");
+        setText("#definition .definition", isEn
+          ? "AI Vibe Coding is an intent-driven, human-and-AI collaborative development approach. Developers no longer write only line by line. They drive AI through goals, constraints, and feedback to generate, modify, validate, and refactor solutions. The core value is upgrading from writing code to managing implementation."
+          : "AI Vibe Coding 指的是一种以意图驱动、人与 AI 协作迭代的开发方式。开发者不再只逐行写代码，而是通过目标、约束和反馈来驱动 AI 生成、修改、验证和重构。核心价值在于把“写代码”升级为“管理实现过程”。");
+        setText("#definition p", isEn
+          ? "Unlike traditional coding assistance, Vibe Coding emphasizes context understanding, cross-file operations, execution validation, and multi-round collaboration to convert productivity gains into real delivery outcomes."
+          : "与传统辅助编程不同，Vibe Coding 更强调上下文理解、跨文件操作、执行验证和多轮协作，目标是把效率红利转化为真实交付能力。");
+
+        setText("#timeline h2", isEn ? "Three-Stage Evolution" : "三阶段发展路径");
+        const stageTitles = Array.from(document.querySelectorAll(".stage-title"));
+        const stageSpans = Array.from(document.querySelectorAll(".stage-title span"));
+        if (stageTitles[0]) stageTitles[0].childNodes[0].nodeValue = isEn ? "Stage 1: Code Completion Era " : "第一阶段：代码补全时期 ";
+        if (stageTitles[1]) stageTitles[1].childNodes[0].nodeValue = isEn ? "Stage 2: Conversational Coding Era " : "第二阶段：对话式编程时代 ";
+        if (stageTitles[2]) stageTitles[2].childNodes[0].nodeValue = isEn ? "Stage 3: Agentic Coding Era " : "第三阶段：Agentic Coding 时代 ";
+        if (stageSpans[0]) stageSpans[0].textContent = "2022-2024";
+        if (stageSpans[1]) stageSpans[1].textContent = "2024-2025";
+        if (stageSpans[2]) stageSpans[2].textContent = isEn ? "2025-Present" : "2025-至今";
+
+        setList(".stage.stage-1 ul", isEn ? [
+          "Representative product: first-generation GitHub Copilot.",
+          "Typical experience: inline completion, function-level suggestions, and template acceleration.",
+          "Work mode: developer-led, AI as a copilot.",
+          "Boundary: improves coding speed but has limited project-level context understanding."
+        ] : [
+          "代表性产品：GitHub Copilot 初代。",
+          "典型体验：行内补全、函数级建议、模板化提速。",
+          "工作模式：开发者主导，AI 作为副驾驶。",
+          "价值边界：提高编码速度，但对项目级上下文理解有限。"
+        ]);
+        setList(".stage.stage-2 ul", isEn ? [
+          "Representative product: early versions of Cursor.",
+          "Typical experience: describe requirements via chat and let AI modify multiple files.",
+          "Work mode: shifts from writing code to describing objectives and reviewing outputs.",
+          "Boundary: can solve more complex tasks, but stability and controllability still depend on human supervision."
+        ] : [
+          "代表性产品：Cursor 早期版本。",
+          "典型体验：通过对话描述需求，AI 执行多文件修改。",
+          "工作模式：从“写代码”过渡到“描述目标并审查结果”。",
+          "价值边界：能完成更复杂任务，但稳定性与可控性仍依赖人工监督。"
+        ]);
+        setList(".stage.stage-3 ul", isEn ? [
+          "Representative products: Claude Code, Cursor, CodeBuddy, and others.",
+          "Typical experience: closed-loop collaboration across task decomposition, cross-file edits, command execution, and test validation.",
+          "Work mode: AI upgrades from advisor to schedulable execution agent.",
+          "Core outcome: AI coding tools enter production environments as part of engineering workflows."
+        ] : [
+          "代表性产品：Claude Code、Cursor、CodeBuddy 等。",
+          "典型体验：任务拆解、跨文件改动、命令执行、测试验证的闭环协作。",
+          "工作模式：AI 从“建议者”升级为“可调度执行代理”。",
+          "核心结果：AI 编程工具进入生产环境，成为工程流程的一部分。"
+        ]);
+        setText("#timeline .signal", isEn
+          ? "Key shift: evaluation criteria moved from coding speed to reliable completion of real engineering tasks."
+          : "关键变化：评价标准从“写得快不快”变成“能不能稳定完成真实工程任务”。");
+
+        setText("#tools h2", isEn ? "Tool Map: Cursor / Claude Code / Copilot / OpenCode / CodeBuddy" : "工具地图：Cursor / Claude Code / Copilot / OpenCode / CodeBuddy");
+        setText("#tools > p", isEn
+          ? "This positioning is for selection discussion, not absolute ranking. Re-evaluate with your language stack, compliance constraints, and delivery cadence."
+          : "以下定位用于选型讨论，不是绝对排名。建议结合团队语言栈、合规要求和交付节奏做二次评估。");
+
+        setText("#paths h2", isEn ? "Three Common Adoption Paths" : "三条常见落地路径");
+        const pathTitles = Array.from(document.querySelectorAll("#paths .path-box h3"));
+        const pathTitleZh = ["路径 A：效率优先", "路径 B：工程化优先", "路径 C：合规优先"];
+        const pathTitleEn = ["Path A: Efficiency First", "Path B: Engineering First", "Path C: Compliance First"];
+        pathTitles.forEach(function (n, i) { n.textContent = isEn ? pathTitleEn[i] : pathTitleZh[i]; });
+        setPathParagraphs(isEn ? [
+          "Start with code completion to raise individual speed, then introduce conversational refactoring, and finally evolve to agent collaboration with automated validation.",
+          "Start from executable agents to remove delivery bottlenecks, then complete team standards, test gates, and release workflows for a production loop.",
+          "Start from enterprise platforms to satisfy security, audit, and permission governance, then gradually move to multi-agent collaboration based on team maturity."
+        ] : [
+          "从代码补全起步，先提高个人开发速度，再逐步引入对话式改造能力，最后进入 Agent 协作与自动验证。",
+          "从可执行代理切入，先解决复杂任务和交付瓶颈，再补齐团队规范、测试门禁和发布流程，形成生产闭环。",
+          "从企业级平台落地，先满足安全、审计和权限治理，再按团队成熟度逐步升级到多 Agent 协同开发。"
+        ]);
+
+        const tailPs = Array.from(document.querySelectorAll("#paths > p, .footer-note"));
+        if (tailPs[0]) tailPs[0].textContent = isEn
+          ? "Selection recommendation: tools are usually not a one-time replacement. A practical setup often combines baseline completion, conversational refactoring, and agent execution, while keeping auditability and rollback readiness."
+          : "选型建议：工具不是一次性替换关系，通常是“基础补全 + 对话改造 + Agent 执行”并存。目标是让 AI 参与更多高价值环节，同时保持可审计和可回滚。";
+        if (tailPs[1]) tailPs[1].textContent = isEn
+          ? "Reference sources include the Zhihu guide on 2026 AI coding tools and public product documentation. Run a real project pilot before procurement or organization-wide rollout."
+          : "信息整理参考：知乎《2026年AI编程工具完全指南：Cursor、Claude Code、Copilot、OpenCode、CodeBuddy 到底选哪个？》以及公开产品能力描述。建议在采购或团队推广前做一次真实项目试点验证。";
+
+        setText("a.back", isEn ? "Back Home" : "返回首页");
+      }
+
+      apply(getLang());
+      window.addEventListener("vp:langchange", function (ev) {
+        apply((ev && ev.detail && ev.detail.lang === "en") ? "en" : "zh");
+      });
+    })();
+  </script>
   <script src="assets/global-ui.js"></script>
 </body>
 </html>

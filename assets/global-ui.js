@@ -18,7 +18,16 @@
       "定义": "Definition",
       "三阶段演进": "Three Stages",
       "工具地图": "Tool Map",
-      "发展路径": "Adoption Paths"
+      "发展路径": "Adoption Paths",
+      "Back to Homepage": "Back Home",
+      "AI Vibe Coding: 从补全到 Agentic Coding": "AI Vibe Coding: From Completion to Agentic Coding",
+      "第一阶段：代码补全时期": "Stage 1: Code Completion Era",
+      "第二阶段：对话式编程时代": "Stage 2: Conversational Coding Era",
+      "第三阶段：Agentic Coding 时代": "Stage 3: Agentic Coding Era",
+      "路径 A：效率优先": "Path A: Efficiency First",
+      "路径 B：工程化优先": "Path B: Engineering First",
+      "路径 C：合规优先": "Path C: Compliance First",
+      "返回首页": "Back Home"
     },
     "enterprise_agent_architecture.html": {
       "企业级四类 Agent 架构": "Enterprise Four-Agent Architecture",
@@ -27,13 +36,44 @@
       "四维度智能体效能指标体系": "Four-Dimension Agent Effectiveness Metrics",
       "返回首页": "Back Home",
       "返回首页 Home": "Back Home",
-      "企业级 Agent Dashboard": "Enterprise Agent Dashboard"
+      "企业级 Agent Dashboard": "Enterprise Agent Dashboard",
+      "总入口智能体": "Super Entry Agent",
+      "调度智能体": "Orchestrator Agent",
+      "领域智能体": "Domain Agent",
+      "工具与连接器": "Tool and Connector",
+      "协同链路": "Collaboration Chain",
+      "落地检查点": "Implementation Checklist",
+      "智能体层": "Agent Layer",
+      "能力层": "Capability Layer",
+      "全市场产品映射（示例）": "Market Product Mapping (Examples)",
+      "同一产品可跨层覆盖，下表按“主要能力重心”归类，便于你做架构讨论时快速定位。": "A single product can span multiple layers. The table groups products by primary capability focus for faster architecture discussions.",
+      "区域": "Region",
+      "层级": "Layer",
+      "代表产品": "Representative Products",
+      "定位": "Positioning",
+      "国内": "China",
+      "全球": "Global",
+      "新开指标体系原页面": "Open Metrics Page"
     },
     "agent_effectiveness_metrics.html": {
       "返回首页": "Back Home",
       "四维度智能体效能指标体系": "Four-Dimension Agent Effectiveness Metrics",
       "推荐落地步骤": "Recommended Rollout Steps",
-      "指标金字塔（漏斗模型）": "Metrics Pyramid (Funnel Model)"
+      "指标金字塔（漏斗模型）": "Metrics Pyramid (Funnel Model)",
+      "业务结果": "Business Outcome",
+      "生产力与效率": "Productivity and Efficiency",
+      "体验与质量": "Experience and Quality",
+      "可靠性与合规": "Reliability and Compliance",
+      "责任分工": "Ownership Model",
+      "层级": "Level",
+      "责任团队": "Owner Team",
+      "管理目标": "Management Objective",
+      "阶段": "Phase",
+      "动作": "Action",
+      "交付物": "Deliverable",
+      "底层：行为与技术层数据": "Base Layer: Behavioral and Technical Data",
+      "中层：流程级表现": "Middle Layer: Process Performance",
+      "顶层：业务与财务结果": "Top Layer: Business and Financial Outcomes"
     },
     "products.html": {
       "返回导航页": "Back Home",
@@ -139,6 +179,10 @@
     if (btn) {
       btn.textContent = safe === "en" ? "中文" : "EN";
     }
+
+    window.dispatchEvent(new CustomEvent("vp:langchange", {
+      detail: { lang: safe }
+    }));
   }
 
   function observeDomForDynamicContent() {

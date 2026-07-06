@@ -830,10 +830,269 @@
 
   <script>
     (function () {
+      const STORE_KEY = "vp-site-lang";
       const tabLinks = Array.from(document.querySelectorAll(".tab-link"));
       const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
       const pageTitle = document.querySelector("h1");
       const pageLead = document.querySelector(".lead");
+
+      function currentLang() {
+        return (localStorage.getItem(STORE_KEY) === "en") ? "en" : "zh";
+      }
+
+      const pageCopy = {
+        zh: {
+          panelFour: {
+            title: "企业级四类 Agent 架构",
+            lead: "目标是把 AI 能力从“会回答”升级到“会办事”：由上层负责识别与编排，由中层负责业务执行，由底层负责受控动作执行，形成可观测、可治理、可规模化的智能体体系。"
+          },
+          panelSix: {
+            title: "智能体六层架构与全市场产品映射",
+            lead: "在同一页面中查看图形化六层结构、市场映射和四类 Agent 架构，支持快速来回切换。"
+          },
+          panelMetrics: {
+            title: "四维度智能体效能指标体系",
+            lead: "在同一页面查看指标体系、维度定义和评估框架，并可随时切回架构 tab。"
+          }
+        },
+        en: {
+          panelFour: {
+            title: "Enterprise Four-Agent Architecture",
+            lead: "Upgrade AI from answering to executing: upper layers identify and orchestrate, middle layers execute business tasks, and lower layers perform controlled actions with observability and governance."
+          },
+          panelSix: {
+            title: "Six-Layer Agent Architecture and Market Mapping",
+            lead: "View the six-layer stack, market mapping, and four-agent architecture on one page and switch quickly across architecture perspectives."
+          },
+          panelMetrics: {
+            title: "Four-Dimension Agent Effectiveness Metrics",
+            lead: "Review the metric framework, dimension definitions, and evaluation structure in one place, then switch back to architecture at any time."
+          }
+        }
+      };
+
+      function setText(selector, text) {
+        const el = document.querySelector(selector);
+        if (el) el.textContent = text;
+      }
+
+      function setList(selector, items) {
+        const list = document.querySelector(selector);
+        if (!list) return;
+        list.innerHTML = items.map(function (item) { return "<li>" + item + "</li>"; }).join("");
+      }
+
+      function applyStructuredCopy(lang) {
+        const isEn = lang === "en";
+
+        setText(".back-home", isEn ? "← Back Home" : "← 返回首页 Home");
+        const tabBtns = Array.from(document.querySelectorAll(".tab-link"));
+        const tabZh = ["四类 Agent 架构", "智能体六层架构与全市场产品映射", "四维度智能体效能指标体系"];
+        const tabEn = ["Four-Agent Architecture", "Six-Layer Architecture and Market Map", "Four-Dimension Effectiveness Metrics"];
+        tabBtns.forEach(function (btn, i) { btn.textContent = isEn ? tabEn[i] : tabZh[i]; });
+        setText(".tag", isEn ? "Enterprise Agent Dashboard" : "企业级 Agent Dashboard");
+
+        const layerNotes = Array.from(document.querySelectorAll(".layer-note"));
+        if (layerNotes[0]) {
+          layerNotes[0].innerHTML = isEn
+            ? "<strong>Agent Layer:</strong> The first three roles (entry, orchestration, domain) belong to the agent layer and handle goal understanding, task planning, and business outcomes."
+            : "<strong>智能体层：</strong>前三个角色（总入口、调度、领域）都属于智能体层，负责理解目标、任务编排与业务结果。";
+        }
+        if (layerNotes[1]) {
+          layerNotes[1].innerHTML = isEn
+            ? "<strong>Capability Layer:</strong> The final role (tool and connector) belongs to the capability layer and exposes internal/external system capabilities as governed actions for upper-layer agents."
+            : "<strong>能力层：</strong>最后一个角色（工具与连接器）属于能力层，负责把内外部系统能力以“受管控动作”暴露给上层智能体调用。";
+        }
+
+        const roleEls = Array.from(document.querySelectorAll(".architecture .role"));
+        const roleZh = [
+          "总入口智能体 <small>Super Agent</small>",
+          "调度智能体 <small>Orchestrator Agent</small>",
+          "领域智能体 <small>Domain Agent</small>",
+          "工具与连接器 <small>Tool / Connector</small>"
+        ];
+        const roleEn = [
+          "Super Entry Agent <small>Super Agent</small>",
+          "Orchestration Agent <small>Orchestrator Agent</small>",
+          "Domain Execution Agent <small>Domain Agent</small>",
+          "Tools and Connectors <small>Tool / Connector</small>"
+        ];
+        roleEls.forEach(function (el, i) { el.innerHTML = (isEn ? roleEn : roleZh)[i]; });
+
+        const layerBadges = Array.from(document.querySelectorAll(".architecture .layer-badge"));
+        const badgeZh = ["智能体层", "智能体层", "智能体层", "能力层"];
+        const badgeEn = ["Agent Layer", "Agent Layer", "Agent Layer", "Capability Layer"];
+        layerBadges.forEach(function (el, i) { el.textContent = (isEn ? badgeEn : badgeZh)[i]; });
+
+        const positions = Array.from(document.querySelectorAll(".architecture .position"));
+        const posZh = [
+          "识别 + 分发 + 编排触发，而不是替代领域执行。",
+          "定位：多智能体系统中的“项目经理/调度中心”。",
+          "定位：对具体业务结果负责的“业务执行主体”。",
+          "定位：把企业内外系统能力封装成“受管控动作”的执行层。"
+        ];
+        const posEn = [
+          "Identify, route, and trigger orchestration rather than replacing domain execution.",
+          "Role: project-manager and dispatch center of a multi-agent system.",
+          "Role: business execution owner accountable for concrete business outcomes.",
+          "Role: execution layer that packages enterprise capabilities as governed actions."
+        ];
+        positions.forEach(function (el, i) { el.textContent = (isEn ? posEn : posZh)[i]; });
+
+        setList(".architecture .agent:nth-child(1) .bullets", isEn ? [
+          "Unify user entry and conversational experience with shared context.",
+          "Identify intent and route to the right downstream agent.",
+          "Trigger follow-up flow without taking deep domain decisions."
+        ] : [
+          "统一用户入口与对话体验，收集上下文。",
+          "识别用户意图并分发至合适下游。",
+          "触发后续流程，但不直接承担深业务决策。"
+        ]);
+        setList(".architecture .agent:nth-child(2) .bullets", isEn ? [
+          "Decompose complex goals into executable subtasks.",
+          "Plan order, parallelism, and dependencies.",
+          "Handle exceptions, rollback, retries, and human takeover."
+        ] : [
+          "将复杂目标拆解为可执行子任务。",
+          "规划执行顺序、并行关系与依赖。",
+          "处理异常、回退、重试和人工接管。"
+        ]);
+        setList(".architecture .agent:nth-child(3) .bullets", isEn ? [
+          "Understand professional context and business rules to complete end-to-end tasks.",
+          "Own result KPI such as conversion, AHT, and FCR.",
+          "Coordinate multiple systems to complete business loops."
+        ] : [
+          "理解专业语境与业务规则，完成端到端任务。",
+          "直接对结果 KPI 负责，如转化率、AHT、FCR 等。",
+          "协同多个系统执行，形成业务闭环。"
+        ]);
+        setList(".architecture .agent:nth-child(4) .bullets", isEn ? [
+          "Encapsulate governed actions: query, create, update, submit.",
+          "Unify permission control, audit logs, and high-risk blocking.",
+          "Execute only, without planning or decision ownership."
+        ] : [
+          "封装受控动作：查询、创建、更新、提交。",
+          "统一权限控制、审计日志与高风险拦截。",
+          "只执行，不决策，不规划。"
+        ]);
+
+        setText(".flow-title", isEn ? "Collaboration Chain" : "协同链路");
+        const steps = Array.from(document.querySelectorAll(".chain .step"));
+        const stepZh = [
+          "Super <span>识别与分发</span>",
+          "Orchestrator <span>拆解与调度</span>",
+          "Domain <span>业务执行与结果负责</span>",
+          "Tool/Connector <span>受控动作执行</span>"
+        ];
+        const stepEn = [
+          "Super <span>identify and route</span>",
+          "Orchestrator <span>decompose and schedule</span>",
+          "Domain <span>execute and own outcomes</span>",
+          "Tool/Connector <span>perform governed actions</span>"
+        ];
+        steps.forEach(function (el, i) { el.innerHTML = (isEn ? stepEn : stepZh)[i]; });
+
+        setText(".checklist h3", isEn ? "Implementation Checklist" : "落地检查点");
+        const checklist = Array.from(document.querySelectorAll(".checklist ol li"));
+        const checkZh = [
+          "是否有统一入口，避免多个孤立 AI 系统并存。",
+          "是否有独立调度层来管理复杂流程与异常回退。",
+          "每个领域智能体是否绑定清晰业务 KPI 和责任人。",
+          "高风险动作是否全部下沉到 Tool/Connector 做统一治理。",
+          "四层日志是否可追溯到同一任务链路。"
+        ];
+        const checkEn = [
+          "Is there one unified entry to avoid isolated AI silos?",
+          "Is there an independent orchestration layer for complex flow and exception rollback?",
+          "Is each domain agent bound to clear KPI and ownership?",
+          "Are high-risk actions fully sunk into Tool/Connector for unified governance?",
+          "Can logs from all four layers be traced to the same task chain?"
+        ];
+        checklist.forEach(function (el, i) { el.textContent = (isEn ? checkEn : checkZh)[i]; });
+
+        setText("#panel-six .panel-intro h3", isEn ? "Six-Layer Agent Architecture and Market Mapping" : "智能体六层架构与全市场产品映射");
+        setText("#panel-six .panel-intro p", isEn
+          ? "The six-layer structure is presented as a stacked view from user connectivity to infrastructure, making each layer's responsibilities and boundaries explicit."
+          : "你要的“图样式结构”我做成了分层堆叠图：从用户连接到基础设施，层层下沉，清晰展示每层职责与上下游边界。");
+        setText(".stack-title", isEn ? "Six-Layer Visual Stack" : "六层可视化结构图（Layered Stack）");
+
+        const stackH4 = Array.from(document.querySelectorAll(".stack .layer h4"));
+        const stackP = Array.from(document.querySelectorAll(".stack .layer p"));
+        const stackTitleZh = [
+          "L1 用户连接层 <small>User Connectivity</small>",
+          "L2 智能体层 <small>Agent Planning</small>",
+          "L3 Skill 层 <small>Capability Modules</small>",
+          "L4 Harness 层 <small>Runtime & Governance</small>",
+          "L5 模型服务层 <small>Model Service</small>",
+          "L6 Infra 层 <small>Infrastructure</small>"
+        ];
+        const stackTitleEn = [
+          "L1 User Connectivity <small>User Connectivity</small>",
+          "L2 Agent Planning <small>Agent Planning</small>",
+          "L3 Skill Modules <small>Capability Modules</small>",
+          "L4 Harness Runtime <small>Runtime & Governance</small>",
+          "L5 Model Service <small>Model Service</small>",
+          "L6 Infrastructure <small>Infrastructure</small>"
+        ];
+        stackH4.forEach(function (el, i) { el.innerHTML = (isEn ? stackTitleEn : stackTitleZh)[i]; });
+
+        const stackBodyZh = [
+          "统一入口、身份认证、会话上下文。代表：企业微信、飞书、钉钉、Teams、Slack。",
+          "任务理解、规划分解、多智能体协作。代表：OpenAI Agents、Bedrock Agents、Coze、百炼 Agent。",
+          "可复用业务能力封装。代表：LangChain Tools、Zapier、Workato、企业内部 Skill 市场。",
+          "运行编排、策略门禁、审计回放、成本治理。代表：LangGraph、Semantic Kernel、企业自建 Runtime。",
+          "模型推理与路由。代表：OpenAI、Anthropic、Gemini、Qwen、DeepSeek、GLM。",
+          "算力、网络、存储、安全底座。代表：AWS、Azure、GCP、阿里云、腾讯云、华为云。"
+        ];
+        const stackBodyEn = [
+          "Unified entry, identity, and session context. Examples: WeCom, Feishu, DingTalk, Teams, Slack.",
+          "Task understanding, planning, decomposition, and multi-agent collaboration. Examples: OpenAI Agents, Bedrock Agents, Coze, Bailian Agent.",
+          "Reusable business capability modules. Examples: LangChain Tools, Zapier, Workato, and internal skill marketplaces.",
+          "Runtime orchestration, policy gates, audit replay, and cost governance. Examples: LangGraph, Semantic Kernel, custom enterprise runtime.",
+          "Model inference and routing. Examples: OpenAI, Anthropic, Gemini, Qwen, DeepSeek, GLM.",
+          "Compute, network, storage, and security foundation. Examples: AWS, Azure, GCP, Alibaba Cloud, Tencent Cloud, Huawei Cloud."
+        ];
+        stackP.forEach(function (el, i) { el.textContent = (isEn ? stackBodyEn : stackBodyZh)[i]; });
+
+        setText(".mapping h3", isEn ? "Market Product Mapping (Examples)" : "全市场产品映射（示例）");
+        setText(".mapping p", isEn
+          ? "A single product may span multiple layers. This table classifies by primary capability focus to speed up architecture discussions."
+          : "同一产品可跨层覆盖，下表按“主要能力重心”归类，便于你做架构讨论时快速定位。");
+
+        const mapTh = Array.from(document.querySelectorAll(".mapping-table thead th"));
+        const mapThZh = ["区域", "层级", "代表产品", "定位"];
+        const mapThEn = ["Region", "Layer", "Representative Products", "Positioning"];
+        mapTh.forEach(function (el, i) { el.textContent = (isEn ? mapThEn : mapThZh)[i]; });
+
+        const regionPills = Array.from(document.querySelectorAll(".pill-region"));
+        regionPills.forEach(function (el) {
+          if (el.textContent.trim() === "国内" || el.textContent.trim() === "China") el.textContent = isEn ? "China" : "国内";
+          if (el.textContent.trim() === "全球" || el.textContent.trim() === "Global") el.textContent = isEn ? "Global" : "全球";
+        });
+
+        setText(".metrics-panel h3", isEn ? "Four-Dimension Agent Effectiveness Metrics" : "四维度智能体效能指标体系");
+        setText(".metrics-panel p", isEn
+          ? "This tab embeds the original metrics page so architecture and effectiveness can be reviewed together. You can still open the metrics page in a dedicated tab."
+          : "本 tab 内嵌原有指标页面，便于在同一页面下查看“架构层”和“效能层”。如需独立查看，也可以用下方按钮新开原页面。"
+        );
+        setText(".metrics-link", isEn ? "↗ Open Metrics Page" : "↗ 新开指标体系原页面");
+      }
+
+      function setPageCopy(targetId) {
+        const lang = currentLang();
+        const copy = (pageCopy[lang] || pageCopy.zh);
+        if (targetId === "panel-six") {
+          pageTitle.textContent = copy.panelSix.title;
+          pageLead.textContent = copy.panelSix.lead;
+        } else if (targetId === "panel-metrics") {
+          pageTitle.textContent = copy.panelMetrics.title;
+          pageLead.textContent = copy.panelMetrics.lead;
+        } else {
+          pageTitle.textContent = copy.panelFour.title;
+          pageLead.textContent = copy.panelFour.lead;
+        }
+        applyStructuredCopy(lang);
+      }
 
       function setActiveTab(targetId) {
         tabLinks.forEach((link) => {
@@ -844,16 +1103,7 @@
           panel.classList.toggle("active", panel.id === targetId);
         });
 
-        if (targetId === "panel-six") {
-          pageTitle.textContent = "智能体六层架构与全市场产品映射";
-          pageLead.textContent = "在同一页面中查看图形化六层结构、市场映射和四类 Agent 架构，支持快速来回切换。";
-        } else if (targetId === "panel-metrics") {
-          pageTitle.textContent = "四维度智能体效能指标体系";
-          pageLead.textContent = "在同一页面查看指标体系、维度定义和评估框架，并可随时切回架构 tab。";
-        } else {
-          pageTitle.textContent = "企业级四类 Agent 架构";
-          pageLead.textContent = "目标是把 AI 能力从“会回答”升级到“会办事”：由上层负责识别与编排，由中层负责业务执行，由底层负责受控动作执行，形成可观测、可治理、可规模化的智能体体系。";
-        }
+        setPageCopy(targetId);
 
         if (targetId === "panel-six") {
           window.location.hash = "six-layer";
@@ -878,6 +1128,13 @@
       } else if (window.location.hash === "#metrics") {
         setActiveTab("panel-metrics");
       }
+
+      window.addEventListener("vp:langchange", function () {
+        const active = document.querySelector(".tab-panel.active");
+        setPageCopy(active ? active.id : "panel-four");
+      });
+
+      applyStructuredCopy(currentLang());
     })();
   </script>
   <script src="assets/global-ui.js"></script>
