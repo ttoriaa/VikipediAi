@@ -590,6 +590,56 @@
           ? "This positioning is for selection discussion, not absolute ranking. Re-evaluate with your language stack, compliance constraints, and delivery cadence."
           : "以下定位用于选型讨论，不是绝对排名。建议结合团队语言栈、合规要求和交付节奏做二次评估。");
 
+        const toolHead5 = document.querySelector(".tool-card:nth-child(5) .tool-head");
+        if (toolHead5 && toolHead5.childNodes && toolHead5.childNodes[0]) {
+          toolHead5.childNodes[0].nodeValue = isEn ? "GitHub Copilot Enterprise " : "GitHub Copilot 企业版 ";
+        }
+        setList(".tool-card:nth-child(1) ul", isEn ? [
+          "Core trait: CLI workflow with strong project-level understanding and execution loop.",
+          "Best fit: complex codebase refactor, troubleshooting, and automated repair.",
+          "Typical impression: more like an engineering agent than a chat assistant."
+        ] : [
+          "核心特点：CLI 工作流，强调项目级理解与执行闭环。",
+          "适配场景：复杂代码库改造、故障排查、自动化修复。",
+          "典型印象：更像工程代理，不只是聊天助手。"
+        ]);
+        setList(".tool-card:nth-child(2) ul", isEn ? [
+          "Core trait: smooth interaction with strong context linking and standout AI IDE experience.",
+          "Best fit: high-frequency iteration, refactor-heavy work, and multi-file development.",
+          "Typical impression: AI collaboration as a first-class editor workflow."
+        ] : [
+          "核心特点：交互流畅、上下文联动强，AI IDE 体验突出。",
+          "适配场景：高频迭代、重构密集、多文件联动开发。",
+          "典型印象：从编辑器层把 AI 协作做成主流程。"
+        ]);
+        setList(".tool-card:nth-child(3) ul", isEn ? [
+          "Core trait: plugin, IDE, and CLI coordination across one end-to-end flow.",
+          "Best fit: teams that need a unified collaboration entry and organizational workflow alignment.",
+          "Typical impression: complete path from individual coding to team delivery."
+        ] : [
+          "核心特点：插件、IDE、CLI 三端协同，打通端到端流程。",
+          "适配场景：需要统一协作入口与组织级流程衔接的团队。",
+          "典型印象：强调从个人编码到团队交付的完整链路。"
+        ]);
+        setList(".tool-card:nth-child(4) ul", isEn ? [
+          "Core trait: fully open source with flexible multi-model switching and deep customization.",
+          "Best fit: developers and teams preferring open source and custom control boundaries.",
+          "Typical impression: higher control with higher maintenance complexity."
+        ] : [
+          "核心特点：完全开源，支持多模型自由切换与自定义。",
+          "适配场景：偏好开源、希望深度定制能力边界的开发者与团队。",
+          "典型印象：控制权更高，维护复杂度也更高。"
+        ]);
+        setList(".tool-card:nth-child(5) ul", isEn ? [
+          "Core trait: strong Microsoft ecosystem integration with mature enterprise governance and security.",
+          "Best fit: large-scale deployments and teams with strict compliance and audit requirements.",
+          "Typical impression: high generality with a clear and stable rollout path."
+        ] : [
+          "核心特点：微软生态联动强，企业治理和安全方案成熟。",
+          "适配场景：大规模组织部署、合规审计要求高的企业团队。",
+          "典型印象：通用性高，落地路径清晰稳定。"
+        ]);
+
         setText("#paths h2", isEn ? "Three Common Adoption Paths" : "三条常见落地路径");
         const pathTitles = Array.from(document.querySelectorAll("#paths .path-box h3"));
         const pathTitleZh = ["路径 A：效率优先", "路径 B：工程化优先", "路径 C：合规优先"];
