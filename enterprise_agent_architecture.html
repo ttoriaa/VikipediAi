@@ -72,6 +72,38 @@
       box-shadow: 0 10px 22px rgba(40, 32, 17, 0.12);
     }
 
+    .tab-nav {
+      margin: 0 0 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tab-link {
+      text-decoration: none;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      color: #0f172a;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .tab-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(40, 32, 17, 0.12);
+    }
+
+    .tab-link.active {
+      background: #0f172a;
+      border-color: #0f172a;
+      color: #fff;
+      box-shadow: none;
+      pointer-events: none;
+    }
+
     .tag {
       display: inline-block;
       font-size: 12px;
@@ -321,6 +353,10 @@
   <main class="wrap">
     <a class="back-home" href="index.html" aria-label="返回首页">← 返回首页 Home</a>
     <section class="hero">
+      <nav class="tab-nav" aria-label="页面导航标签">
+        <a class="tab-link active" href="enterprise_agent_architecture.html">四类 Agent 架构</a>
+        <a class="tab-link" href="agent_stack_6_layers_market_map.html">六层架构与全市场映射</a>
+      </nav>
       <div class="tag">Enterprise Agent Architecture</div>
       <h1>企业级四类 Agent 架构</h1>
       <p class="lead">
