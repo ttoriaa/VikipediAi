@@ -128,13 +128,12 @@
     .tag {
       display: inline-block;
       font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #0f172a;
-      border: 1px solid #bfa58a;
+      letter-spacing: 0.02em;
+      color: #5f4a34;
+      border: 1px dashed #c8b49a;
       border-radius: 999px;
-      padding: 5px 10px;
-      background: #fff;
+      padding: 5px 11px;
+      background: #fffaf3;
       margin-bottom: 12px;
     }
 
@@ -622,7 +621,7 @@
         <button class="tab-link" type="button" data-target="panel-six">智能体六层架构与全市场产品映射</button>
         <button class="tab-link" type="button" data-target="panel-metrics">四维度智能体效能指标体系</button>
       </nav>
-      <div class="tag">Enterprise Agent Architecture</div>
+      <div class="tag">企业级 Agent Dashboard</div>
       <h1>企业级四类 Agent 架构</h1>
       <p class="lead">
         目标是把 AI 能力从“会回答”升级到“会办事”：由上层负责识别与编排，由中层负责业务执行，
@@ -710,7 +709,6 @@
       </div>
 
       <div class="tab-panel" id="panel-six">
-        <button class="back-tab-btn" type="button" id="back-to-four">← 返回企业级四类 Agent 架构</button>
 
         <section class="panel-intro" aria-label="六层总览">
           <h3>智能体六层架构与全市场产品映射</h3>
@@ -811,7 +809,6 @@
       </div>
 
       <div class="tab-panel" id="panel-metrics">
-        <button class="back-tab-btn" type="button" id="back-metrics-to-four">← 返回企业级四类 Agent 架构</button>
         <section class="metrics-panel" aria-label="四维度智能体效能指标体系">
           <h3>四维度智能体效能指标体系</h3>
           <p>本 tab 内嵌原有指标页面，便于在同一页面下查看“架构层”和“效能层”。如需独立查看，也可以用下方按钮新开原页面。</p>
@@ -836,8 +833,6 @@
       const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
       const pageTitle = document.querySelector("h1");
       const pageLead = document.querySelector(".lead");
-      const backButton = document.getElementById("back-to-four");
-      const backMetricsButton = document.getElementById("back-metrics-to-four");
 
       function setActiveTab(targetId) {
         tabLinks.forEach((link) => {
@@ -875,18 +870,6 @@
           setActiveTab(this.dataset.target);
         });
       });
-
-      if (backButton) {
-        backButton.addEventListener("click", function () {
-          setActiveTab("panel-four");
-        });
-      }
-
-      if (backMetricsButton) {
-        backMetricsButton.addEventListener("click", function () {
-          setActiveTab("panel-four");
-        });
-      }
 
       // Support direct links like enterprise_agent_architecture.html#six-layer
       if (window.location.hash === "#six-layer") {
