@@ -165,6 +165,15 @@
       margin-top: 16px;
     }
 
+    .synced-actions {
+      margin-top: 10px;
+      display: none;
+    }
+
+    .synced-actions.ready {
+      display: flex;
+    }
+
     .btn,
     .shimai-btn {
       text-decoration: none;
@@ -262,6 +271,7 @@
           <a class="shimai-btn primary" href="enterprise_agent_architecture.html" id="openAgentArch">Agent Arch</a>
           <a class="shimai-btn primary" href="agent_effectiveness_metrics.html" id="openAgentMetrics">打开智能体效能指标体系页</a>
         </div>
+        <div class="actions synced-actions" id="syncedActions"></div>
       </div>
     </section>
 
@@ -329,7 +339,70 @@
       const openDevHub = document.getElementById("openDevHub");
       const openAgentArch = document.getElementById("openAgentArch");
       const openAgentMetrics = document.getElementById("openAgentMetrics");
+      const syncedActions = document.getElementById("syncedActions");
       const footer = document.getElementById("footer");
+
+      function renderSyncedActions(buttons) {
+        if (!Array.isArray(buttons) || !buttons.length) {
+          syncedActions.classList.remove("ready");
+          syncedActions.innerHTML = "";
+          return;
+        }
+
+        const coreHrefs = new Set([
+          "map.html",
+          "foundation_models.html",
+          "usecases.html#copilot",
+          "developer_coding_hub.html#overview",
+          "enterprise_agent_architecture.html",
+          "agent_effectiveness_metrics.html"
+        ]);
+
+        syncedActions.innerHTML = "";
+        let rendered = 0;
+        buttons.forEach(function (button) {
+          if (!button || typeof button !== "object") {
+            return;
+          }
+
+          const href = String(button.href || "").trim();
+          if (!href || coreHrefs.has(href)) {
+            return;
+          }
+
+          const a = document.createElement("a");
+          a.className = "shimai-btn";
+          a.href = href;
+          a.target = button.target || "_blank";
+          a.rel = button.rel || "noopener";
+          const zh = String(button.label_zh || button.name || href).trim();
+          const en = String(button.label_en || button.name || href).trim();
+          a.textContent = lang === "zh" ? zh : en;
+          a.setAttribute("data-label-zh", zh);
+          a.setAttribute("data-label-en", en);
+          syncedActions.appendChild(a);
+          rendered += 1;
+        });
+
+        if (rendered > 0) {
+          syncedActions.classList.add("ready");
+        } else {
+          syncedActions.classList.remove("ready");
+        }
+      }
+
+      async function loadSyncedActions() {
+        try {
+          const response = await fetch("assets/right-buttons.json", { cache: "no-store" });
+          if (!response.ok) {
+            return;
+          }
+          const payload = await response.json();
+          renderSyncedActions(payload && payload.buttons ? payload.buttons : []);
+        } catch (_err) {
+          // Keep static buttons as fallback when feed is unavailable.
+        }
+      }
 
       function apply() {
         const t = i18n[lang];
@@ -345,6 +418,11 @@
         openDevHub.textContent = t.openDevHub;
         openAgentArch.textContent = t.openAgentArch;
         openAgentMetrics.textContent = t.openAgentMetrics;
+        syncedActions.querySelectorAll("a").forEach(function (a) {
+          const zh = a.getAttribute("data-label-zh") || a.textContent;
+          const en = a.getAttribute("data-label-en") || a.textContent;
+          a.textContent = lang === "zh" ? zh : en;
+        });
         footer.textContent = t.footer;
         langBtn.textContent = lang === "zh" ? "EN" : "中文";
         document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
@@ -356,6 +434,7 @@
       });
 
       apply();
+      loadSyncedActions();
     })();
   </script>
 </body>

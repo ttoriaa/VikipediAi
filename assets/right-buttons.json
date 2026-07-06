@@ -1,0 +1,61 @@
+{
+  "generated_at": "2026-07-06T02:32:28.260051+00:00",
+  "source_feed_url": "data/source-github-projects.json",
+  "button_count": 6,
+  "buttons": [
+    {
+      "id": "site-vikipedia",
+      "name": "vikipedia",
+      "label_zh": "打开 vikipedia",
+      "label_en": "Open vikipedia",
+      "href": "https://ttoriaa.github.io/vikipedia/",
+      "target": "_blank",
+      "rel": "noopener"
+    },
+    {
+      "id": "site-vikipediai",
+      "name": "VikipediAi",
+      "label_zh": "打开 VikipediAi",
+      "label_en": "Open VikipediAi",
+      "href": "https://ttoriaa.github.io/VikipediAi/",
+      "target": "_blank",
+      "rel": "noopener"
+    },
+    {
+      "id": "site-shimai-podcast-site",
+      "name": "shimai-podcast-site",
+      "label_zh": "打开 shimai-podcast-site",
+      "label_en": "Open shimai-podcast-site",
+      "href": "https://ttoriaa.github.io/shimai-podcast-site/",
+      "target": "_blank",
+      "rel": "noopener"
+    },
+    {
+      "id": "site-c7-ota-hub",
+      "name": "C7-OTA-Hub",
+      "label_zh": "打开 C7-OTA-Hub",
+      "label_en": "Open C7-OTA-Hub",
+      "href": "https://ttoriaa.github.io/C7-OTA-Hub/",
+      "target": "_blank",
+      "rel": "noopener"
+    },
+    {
+      "id": "site-automotive-benchmarking",
+      "name": "automotive-benchmarking",
+      "label_zh": "打开 automotive-benchmarking",
+      "label_en": "Open automotive-benchmarking",
+      "href": "https://ttoriaa.github.io/automotive-benchmarking/",
+      "target": "_blank",
+      "rel": "noopener"
+    },
+    {
+      "id": "site-market-research",
+      "name": "market-research",
+      "label_zh": "打开 market-research",
+      "label_en": "Open market-research",
+      "href": "https://ttoriaa.github.io/market-research/",
+      "target": "_blank",
+      "rel": "noopener"
+    }
+  ]
+}
