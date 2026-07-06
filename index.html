@@ -133,7 +133,7 @@
     .cards {
       margin-top: 18px;
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
+      grid-template-columns: 1.2fr 1fr 1fr;
       gap: 12px;
     }
 
@@ -286,6 +286,11 @@
         <h2 id="card2Title">What is included</h2>
         <p id="card2Desc">覆盖模型层、应用层、Agent 编排层与供给侧关系；支持投资视角、企业采购视角和 16:9 截图导出。</p>
       </article>
+
+      <article class="card">
+        <h2 id="card3Title">什么是 Agent 编排区？</h2>
+        <p id="card3Desc">Agent 编排区是负责“任务分配、执行顺序、工具调用、状态跟踪、失败重试”的控制层。它让多个 Agent 能按规则协同，而不是各自独立运行。</p>
+      </article>
     </section>
 
     <p class="footer" id="footer">Maintained in repository ttoriaa/VikipediAi</p>
@@ -301,6 +306,8 @@
           card1Desc: "查看国内与国外 AI 生态中的直接竞争关系、上下游依赖和中美对位竞争关系。",
           card2Title: "内容范围",
           card2Desc: "覆盖模型层、应用层、Agent 编排层与供给侧关系；支持投资视角、企业采购视角和 16:9 截图导出。",
+          card3Title: "什么是 Agent 编排区？",
+          card3Desc: "Agent 编排区是负责“任务分配、执行顺序、工具调用、状态跟踪、失败重试”的控制层。它让多个 Agent 能按规则协同，而不是各自独立运行。",
           openMap: "打开竞争关系图",
           openFoundation: "打开基座大模型性能页",
           openAppHub: "打开应用层：分类入口",
@@ -317,6 +324,8 @@
           card1Desc: "Explore direct competition, upstream dependencies, and China-US head-to-head rivalries in one map.",
           card2Title: "Coverage",
           card2Desc: "Includes model layer, app layer, agent orchestration, and supply-side links; with investor/procurement views and 16:9 export.",
+          card3Title: "What Is the Agent Orchestration Layer?",
+          card3Desc: "It is the control layer for task routing, execution order, tool use, state tracking, and retries. It enables multiple agents to collaborate under shared rules instead of working in isolation.",
           openMap: "Open Competition Map",
           openFoundation: "Open Foundation LLM Performance Page",
           openAppHub: "Open Application Layer Entry",
@@ -336,6 +345,8 @@
       const card1Desc = document.getElementById("card1Desc");
       const card2Title = document.getElementById("card2Title");
       const card2Desc = document.getElementById("card2Desc");
+      const card3Title = document.getElementById("card3Title");
+      const card3Desc = document.getElementById("card3Desc");
       const openMap = document.getElementById("openMap");
       const openFoundation = document.getElementById("openFoundation");
       const openAppHub = document.getElementById("openAppHub");
@@ -417,6 +428,8 @@
         card1Desc.textContent = t.card1Desc;
         card2Title.textContent = t.card2Title;
         card2Desc.textContent = t.card2Desc;
+        card3Title.textContent = t.card3Title;
+        card3Desc.textContent = t.card3Desc;
         openMap.textContent = t.openMap;
         openFoundation.textContent = t.openFoundation;
         openAppHub.textContent = t.openAppHub;
