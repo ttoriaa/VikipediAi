@@ -764,44 +764,7 @@
                   <th>定位</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td><span class="pill-region">国内</span></td>
-                  <td>L1 用户连接</td>
-                  <td>企业微信 / 飞书 / 钉钉</td>
-                  <td>组织入口与统一身份、审批、消息交互。</td>
-                </tr>
-                <tr>
-                  <td><span class="pill-region">全球</span></td>
-                  <td>L2 智能体</td>
-                  <td>OpenAI Agents / Bedrock Agents</td>
-                  <td>任务分解与多步决策执行。</td>
-                </tr>
-                <tr>
-                  <td><span class="pill-region">国内</span></td>
-                  <td>L2 智能体</td>
-                  <td>Coze / 百炼 Agent / 千帆 Agent</td>
-                  <td>低门槛或企业级智能体构建平台。</td>
-                </tr>
-                <tr>
-                  <td><span class="pill-region">全球</span></td>
-                  <td>L4 Harness</td>
-                  <td>LangGraph / Semantic Kernel</td>
-                  <td>编排、容错、可观测、治理控制。</td>
-                </tr>
-                <tr>
-                  <td><span class="pill-region">国内</span></td>
-                  <td>L5 模型服务</td>
-                  <td>Qwen / 文心 / 混元 / DeepSeek</td>
-                  <td>多场景推理能力与企业接口服务。</td>
-                </tr>
-                <tr>
-                  <td><span class="pill-region">全球</span></td>
-                  <td>L6 Infra</td>
-                  <td>AWS / Azure / GCP</td>
-                  <td>算力、网络、存储与安全基础设施。</td>
-                </tr>
-              </tbody>
+              <tbody id="mappingRows"></tbody>
             </table>
           </div>
         </section>
@@ -880,6 +843,167 @@
         const list = document.querySelector(selector);
         if (!list) return;
         list.innerHTML = items.map(function (item) { return "<li>" + item + "</li>"; }).join("");
+      }
+
+      function renderMappingRows(lang) {
+        const tbody = document.getElementById("mappingRows");
+        if (!tbody) return;
+        const isEn = lang === "en";
+        const rows = [
+          {
+            regionZh: "国内", regionEn: "China",
+            layerZh: "L1 用户连接", layerEn: "L1 User Connectivity",
+            productsZh: "企业微信 / 飞书 / 钉钉 / 腾讯会议 / 微信客服",
+            productsEn: "WeCom / Feishu / DingTalk / Tencent Meeting / WeChat Service",
+            positioningZh: "组织入口与统一身份、审批、消息交互。",
+            positioningEn: "Unified enterprise entry for identity, approval, and messaging collaboration."
+          },
+          {
+            regionZh: "全球", regionEn: "Global",
+            layerZh: "L1 用户连接", layerEn: "L1 User Connectivity",
+            productsZh: "Microsoft Teams / Slack / Google Workspace / ServiceNow",
+            productsEn: "Microsoft Teams / Slack / Google Workspace / ServiceNow",
+            positioningZh: "全球组织协作入口与流程集成层。",
+            positioningEn: "Global collaboration front door with workflow integration."
+          },
+          {
+            regionZh: "全球", regionEn: "Global",
+            layerZh: "L2 智能体", layerEn: "L2 Agent Planning",
+            productsZh: "OpenAI Agents / Bedrock Agents / Azure AI Agent Service / Google Agentspace",
+            productsEn: "OpenAI Agents / Bedrock Agents / Azure AI Agent Service / Google Agentspace",
+            positioningZh: "任务分解、工具选择与多步执行决策。",
+            positioningEn: "Task decomposition, tool selection, and multi-step execution planning."
+          },
+          {
+            regionZh: "国内", regionEn: "China",
+            layerZh: "L2 智能体", layerEn: "L2 Agent Planning",
+            productsZh: "Coze / 百炼 Agent / 千帆 Agent / 火山方舟 Agent",
+            productsEn: "Coze / Bailian Agent / Qianfan Agent / Volcano Ark Agent",
+            positioningZh: "低门槛到企业级智能体搭建与编排平台。",
+            positioningEn: "Low-code to enterprise-grade platforms for agent building and orchestration."
+          },
+          {
+            regionZh: "全球", regionEn: "Global",
+            layerZh: "L3 Skill", layerEn: "L3 Skill Modules",
+            productsZh: "LangChain / LlamaIndex / Zapier / Workato / Pipedream",
+            productsEn: "LangChain / LlamaIndex / Zapier / Workato / Pipedream",
+            positioningZh: "可复用能力封装、连接器与自动化动作编排。",
+            positioningEn: "Reusable skills, connectors, and automation action composition."
+          },
+          {
+            regionZh: "国内", regionEn: "China",
+            layerZh: "L3 Skill", layerEn: "L3 Skill Modules",
+            productsZh: "Dify / FastGPT / 魔搭工具生态 / 企业内 Skill 市场",
+            productsEn: "Dify / FastGPT / ModelScope Tooling / Internal Skill Marketplaces",
+            positioningZh: "本地化场景能力封装与企业知识结合。",
+            positioningEn: "Localized capability packaging with enterprise knowledge integration."
+          },
+          {
+            regionZh: "全球", regionEn: "Global",
+            layerZh: "L4 Harness", layerEn: "L4 Harness Runtime",
+            productsZh: "LangGraph / Semantic Kernel / Temporal / Argo Workflows / Camunda",
+            productsEn: "LangGraph / Semantic Kernel / Temporal / Argo Workflows / Camunda",
+            positioningZh: "编排、容错、状态管理、可观测与治理控制。",
+            positioningEn: "Orchestration, fault tolerance, state management, observability, and governance."
+          },
+          {
+            regionZh: "国内", regionEn: "China",
+            layerZh: "L4 Harness", layerEn: "L4 Harness Runtime",
+            productsZh: "阿里云工作流 / 腾讯云 Serverless Workflow / 华为云 Astro / 企业自建 Runtime",
+            productsEn: "Alibaba Cloud Workflow / Tencent Serverless Workflow / Huawei Astro / Custom Runtime",
+            positioningZh: "企业流程编排与策略管控落地层。",
+            positioningEn: "Execution layer for enterprise workflow orchestration and policy control."
+          },
+          {
+            regionZh: "全球", regionEn: "Global",
+            layerZh: "L5 模型服务", layerEn: "L5 Model Service",
+            productsZh: "OpenAI GPT-4.1/o3 / Anthropic Claude / Gemini 2.5 / Llama / Grok",
+            productsEn: "OpenAI GPT-4.1/o3 / Anthropic Claude / Gemini 2.5 / Llama / Grok",
+            positioningZh: "前沿推理模型与 API 生态能力中心。",
+            positioningEn: "Frontier model inference and API ecosystem capability center."
+          },
+          {
+            regionZh: "国内", regionEn: "China",
+            layerZh: "L5 模型服务", layerEn: "L5 Model Service",
+            productsZh: "Qwen / DeepSeek / GLM / Kimi K2 / 文心 / 混元 / 豆包",
+            productsEn: "Qwen / DeepSeek / GLM / Kimi K2 / ERNIE / Hunyuan / Doubao",
+            positioningZh: "多场景推理能力与企业 API 服务。",
+            positioningEn: "Multi-scenario reasoning capabilities and enterprise model APIs."
+          },
+          {
+            regionZh: "全球", regionEn: "Global",
+            layerZh: "L6 Infra", layerEn: "L6 Infrastructure",
+            productsZh: "AWS / Azure / GCP / Cloudflare / Databricks",
+            productsEn: "AWS / Azure / GCP / Cloudflare / Databricks",
+            positioningZh: "算力、网络、存储、安全与数据平台底座。",
+            positioningEn: "Compute, network, storage, security, and data-platform foundation."
+          },
+          {
+            regionZh: "国内", regionEn: "China",
+            layerZh: "L6 Infra", layerEn: "L6 Infrastructure",
+            productsZh: "阿里云 / 腾讯云 / 华为云 / 火山引擎 / 百度智能云",
+            productsEn: "Alibaba Cloud / Tencent Cloud / Huawei Cloud / Volcano Engine / Baidu AI Cloud",
+            positioningZh: "本地化基础设施与行业合规支持。",
+            positioningEn: "Localized infrastructure with industry compliance support."
+          },
+          {
+            regionZh: "全球", regionEn: "Global",
+            layerZh: "L3 开发者与编码", layerEn: "L3 Developer and Coding",
+            productsZh: "GitHub Copilot / Cursor / Claude Code / Amazon Q Developer / JetBrains AI / Windsurf / Cody / Tabnine / Replit Agent",
+            productsEn: "GitHub Copilot / Cursor / Claude Code / Amazon Q Developer / JetBrains AI / Windsurf / Cody / Tabnine / Replit Agent",
+            positioningZh: "研发效率与工程交付自动化主战场。",
+            positioningEn: "Primary battleground for engineering productivity and delivery automation."
+          },
+          {
+            regionZh: "国内", regionEn: "China",
+            layerZh: "L3 开发者与编码", layerEn: "L3 Developer and Coding",
+            productsZh: "通义灵码 / Trae(MarsCode) / 百度 Comate / CodeGeeX / CodeBuddy",
+            productsEn: "Tongyi Lingma / Trae (MarsCode) / Baidu Comate / CodeGeeX / CodeBuddy",
+            positioningZh: "中文工程场景与企业研发流程适配。",
+            positioningEn: "Adaptation for Chinese engineering contexts and enterprise R&D workflows."
+          },
+          {
+            regionZh: "全球", regionEn: "Global",
+            layerZh: "L3 搜索与知识", layerEn: "L3 Search and Knowledge",
+            productsZh: "Perplexity / Glean / Notion AI / Confluence AI",
+            productsEn: "Perplexity / Glean / Notion AI / Confluence AI",
+            positioningZh: "知识检索、引用溯源与研究工作流。",
+            positioningEn: "Knowledge retrieval, cited answers, and research workflow acceleration."
+          },
+          {
+            regionZh: "国内", regionEn: "China",
+            layerZh: "L3 搜索与知识", layerEn: "L3 Search and Knowledge",
+            productsZh: "Kimi / 秘塔 AI 搜索 / 腾讯元宝 / 知乎直答",
+            productsEn: "Kimi / Metaso AI Search / Tencent Yuanbao / Zhihu Direct Answer",
+            positioningZh: "中文知识问答与信息组织效率层。",
+            positioningEn: "Chinese knowledge Q&A and information organization efficiency layer."
+          },
+          {
+            regionZh: "全球", regionEn: "Global",
+            layerZh: "L3 客户与通用对话", layerEn: "L3 Customer and General Chat",
+            productsZh: "ChatGPT / Claude / Gemini App / Character.AI",
+            productsEn: "ChatGPT / Claude / Gemini App / Character.AI",
+            positioningZh: "消费级入口、品牌触达与用户留存竞争。",
+            positioningEn: "Consumer entry point for engagement, brand touchpoint, and retention competition."
+          },
+          {
+            regionZh: "国内", regionEn: "China",
+            layerZh: "L3 客户与通用对话", layerEn: "L3 Customer and General Chat",
+            productsZh: "豆包 / Kimi App / 通义千问 App / 文小言",
+            productsEn: "Doubao / Kimi App / Tongyi Qianwen App / Wenxiaoyan",
+            positioningZh: "国内流量入口与应用层体验竞争。",
+            positioningEn: "Domestic traffic entry and application experience competition."
+          }
+        ];
+
+        tbody.innerHTML = rows.map(function (row) {
+          return "<tr>" +
+            "<td><span class='pill-region'>" + (isEn ? row.regionEn : row.regionZh) + "</span></td>" +
+            "<td>" + (isEn ? row.layerEn : row.layerZh) + "</td>" +
+            "<td>" + (isEn ? row.productsEn : row.productsZh) + "</td>" +
+            "<td>" + (isEn ? row.positioningEn : row.positioningZh) + "</td>" +
+          "</tr>";
+        }).join("");
       }
 
       function applyStructuredCopy(lang) {
@@ -1063,12 +1187,7 @@
         const mapThZh = ["区域", "层级", "代表产品", "定位"];
         const mapThEn = ["Region", "Layer", "Representative Products", "Positioning"];
         mapTh.forEach(function (el, i) { el.textContent = (isEn ? mapThEn : mapThZh)[i]; });
-
-        const regionPills = Array.from(document.querySelectorAll(".pill-region"));
-        regionPills.forEach(function (el) {
-          if (el.textContent.trim() === "国内" || el.textContent.trim() === "China") el.textContent = isEn ? "China" : "国内";
-          if (el.textContent.trim() === "全球" || el.textContent.trim() === "Global") el.textContent = isEn ? "Global" : "全球";
-        });
+        renderMappingRows(lang);
 
         setText(".metrics-panel h3", isEn ? "Four-Dimension Agent Effectiveness Metrics" : "四维度智能体效能指标体系");
         setText(".metrics-panel p", isEn

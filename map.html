@@ -203,11 +203,12 @@
         <button class="btn view active" data-view="normal" type="button" data-i18n="v_normal"></button>
         <button class="btn view" data-view="invest" type="button" data-i18n="v_invest"></button>
         <button class="btn view" data-view="procure" type="button" data-i18n="v_procure"></button>
-        <button class="btn" id="langBtn" type="button">EN</button>
         <button class="btn toggle" id="cleanModeBtn" type="button" data-i18n="clean_mode"></button>
         <button class="btn" id="exportBtn" type="button" data-i18n="export"></button>
       </div>
     </section>
+
+    <button class="vp-lang-toggle" id="langBtn" type="button" aria-label="Switch language">EN</button>
 
     <div class="legend">
       <span class="chip"><span class="dot comp"></span><span data-i18n="legend_comp"></span></span>
@@ -320,7 +321,15 @@
         appSubcategory: ["customer-chat", "search-answer", "coding-developer", "agent-runtime", "other"]
       };
 
-      const state = { lang: "zh", filter: "all", view: "normal", scope: "all", graph: null, schema: null, cleanExport: false };
+      const state = {
+        lang: localStorage.getItem("vp-site-lang") === "en" ? "en" : "zh",
+        filter: "all",
+        view: "normal",
+        scope: "all",
+        graph: null,
+        schema: null,
+        cleanExport: false
+      };
       const board = document.getElementById("board");
       const svg = document.getElementById("edgeLayer");
       const filterButtons = Array.from(document.querySelectorAll(".btn[data-filter]"));
@@ -731,6 +740,14 @@
 
         langBtn.addEventListener("click", function () {
           state.lang = state.lang === "zh" ? "en" : "zh";
+          localStorage.setItem("vp-site-lang", state.lang);
+          rerender();
+        });
+
+        window.addEventListener("vp:langchange", function (ev) {
+          const nextLang = (ev && ev.detail && ev.detail.lang === "en") ? "en" : "zh";
+          if (nextLang === state.lang) return;
+          state.lang = nextLang;
           rerender();
         });
 
