@@ -5,6 +5,45 @@
   const savedLang = localStorage.getItem(STORE_KEY);
   const initialLang = queryLang === "en" || queryLang === "zh" ? queryLang : (savedLang || "zh");
   const hasNativeLangBtn = Boolean(document.getElementById("langBtn"));
+  const currentPath = (window.location.pathname.split("/").pop() || "").toLowerCase();
+
+  const pageLexicons = {
+    "ai_vibe_coding_guide.html": {
+      "返回首页": "Back Home",
+      "返回首页 Home": "Back Home",
+      "什么是 AI Vibe Coding": "What Is AI Vibe Coding",
+      "三阶段发展路径": "Three-Stage Evolution",
+      "工具地图：Cursor / Claude Code / Copilot / OpenCode / CodeBuddy": "Tool Map: Cursor / Claude Code / Copilot / OpenCode / CodeBuddy",
+      "三条常见落地路径": "Three Common Adoption Paths",
+      "定义": "Definition",
+      "三阶段演进": "Three Stages",
+      "工具地图": "Tool Map",
+      "发展路径": "Adoption Paths"
+    },
+    "enterprise_agent_architecture.html": {
+      "企业级四类 Agent 架构": "Enterprise Four-Agent Architecture",
+      "四类 Agent 架构": "Four-Agent Architecture",
+      "智能体六层架构与全市场产品映射": "Six-Layer Agent Architecture and Market Mapping",
+      "四维度智能体效能指标体系": "Four-Dimension Agent Effectiveness Metrics",
+      "返回首页": "Back Home",
+      "返回首页 Home": "Back Home",
+      "企业级 Agent Dashboard": "Enterprise Agent Dashboard"
+    },
+    "agent_effectiveness_metrics.html": {
+      "返回首页": "Back Home",
+      "四维度智能体效能指标体系": "Four-Dimension Agent Effectiveness Metrics",
+      "推荐落地步骤": "Recommended Rollout Steps",
+      "指标金字塔（漏斗模型）": "Metrics Pyramid (Funnel Model)"
+    },
+    "products.html": {
+      "返回导航页": "Back Home",
+      "国内外主流 AI 产品能力与应用案例库": "AI Product Capability and Case Library",
+      "全部": "All",
+      "仅国内": "China Only",
+      "仅国外": "Global Only",
+      "建议新增评估维度（用于下一版）": "Suggested Additional Evaluation Dimensions"
+    }
+  };
 
   const zhToEn = {
     "返回首页": "Back Home",
@@ -22,6 +61,11 @@
     "新开指标体系原页面": "Open Metrics Page",
     "页面已迁移": "Page Moved"
   };
+
+  const activePageLexicon = pageLexicons[currentPath] || {};
+  Object.keys(activePageLexicon).forEach((k) => {
+    zhToEn[k] = activePageLexicon[k];
+  });
 
   const enToZh = Object.fromEntries(Object.entries(zhToEn).map(([zh, en]) => [en, zh]));
 
@@ -41,6 +85,18 @@
       if (!text) continue;
       if (fromTo[text]) {
         nodes.push({ node, raw, text, next: fromTo[text] });
+      } else {
+        const fromKeys = Object.keys(fromTo);
+        for (let i = 0; i < fromKeys.length; i += 1) {
+          const key = fromKeys[i];
+          if (text.includes(key)) {
+            const replaced = text.split(key).join(fromTo[key]);
+            if (replaced !== text) {
+              nodes.push({ node, raw, text, next: replaced });
+              break;
+            }
+          }
+        }
       }
     }
 
@@ -57,6 +113,19 @@
     }
   }
 
+  function syncStructuredI18n(lang) {
+    const targetLang = lang === "en" ? "en" : "zh";
+    const docLang = targetLang === "en" ? "en" : "zh-CN";
+    document.documentElement.lang = docLang;
+
+    // Keep hash-based tabs and dynamic sections translatable after rerender.
+    setTimeout(() => {
+      if (!hasNativeLangBtn) {
+        translateTextNodes(targetLang);
+      }
+    }, 120);
+  }
+
   function setLang(lang) {
     const safe = lang === "en" ? "en" : "zh";
     localStorage.setItem(STORE_KEY, safe);
@@ -64,11 +133,26 @@
     if (!hasNativeLangBtn) {
       translateTextNodes(safe);
     }
+    syncStructuredI18n(safe);
 
     const btn = document.querySelector(".vp-lang-toggle") || document.getElementById("langBtn");
     if (btn) {
       btn.textContent = safe === "en" ? "中文" : "EN";
     }
+  }
+
+  function observeDomForDynamicContent() {
+    const observer = new MutationObserver(() => {
+      const lang = localStorage.getItem(STORE_KEY) || initialLang;
+      if (!hasNativeLangBtn) {
+        translateTextNodes(lang);
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
   }
 
   function ensureToggleButton() {
@@ -91,4 +175,5 @@
   document.body.classList.add("vp-home-theme");
   ensureToggleButton();
   setLang(initialLang);
+  observeDomForDynamicContent();
 })();

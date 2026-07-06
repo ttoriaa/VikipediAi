@@ -10,6 +10,7 @@
 }
 
 body.vp-home-theme {
+  margin: 0;
   color: #0f373a;
   background:
     radial-gradient(560px 240px at 12% 0%, rgba(218, 248, 243, 0.94), rgba(218, 248, 243, 0) 66%),
@@ -20,15 +21,84 @@ body.vp-home-theme {
 body.vp-home-theme .page,
 body.vp-home-theme .wrap,
 body.vp-home-theme .container {
-  border-radius: 24px;
+  width: min(1240px, calc(100% - 32px));
+  margin: 14px auto 28px;
+  border-radius: 28px;
+  border: 1px solid var(--vp-line);
+  background:
+    radial-gradient(500px 240px at -12% 0%, rgba(225, 250, 247, 0.96), rgba(225, 250, 247, 0) 66%),
+    linear-gradient(165deg, rgba(246, 255, 253, 0.98), rgba(239, 251, 248, 0.95));
+  box-shadow: var(--vp-shadow);
+  padding: 22px 22px 26px;
+}
+
+body.vp-home-theme .top,
+body.vp-home-theme .topline,
+body.vp-home-theme .topbar,
+body.vp-home-theme .top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--vp-muted);
+}
+
+body.vp-home-theme .card,
+body.vp-home-theme .agent,
+body.vp-home-theme .section,
+body.vp-home-theme .lane,
+body.vp-home-theme .hero,
+body.vp-home-theme .dims,
+body.vp-home-theme .flow,
+body.vp-home-theme .checklist,
+body.vp-home-theme .metrics-panel {
+  border: 1px solid var(--vp-line) !important;
+  border-radius: 18px !important;
+  background: var(--vp-panel) !important;
+  box-shadow: 0 14px 30px rgba(26, 122, 134, 0.11) !important;
 }
 
 body.vp-home-theme .btn,
 body.vp-home-theme .shimai-btn,
 body.vp-home-theme .tab-link,
 body.vp-home-theme button,
-body.vp-home-theme a.btn {
+body.vp-home-theme a.btn,
+body.vp-home-theme .lang {
   border-radius: 999px;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+body.vp-home-theme .btn:hover,
+body.vp-home-theme .shimai-btn:hover,
+body.vp-home-theme .tab-link:hover,
+body.vp-home-theme button:hover,
+body.vp-home-theme a.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 28px rgba(44, 168, 181, 0.18);
+}
+
+body.vp-home-theme h1,
+body.vp-home-theme h2,
+body.vp-home-theme h3 {
+  color: var(--vp-ink);
+}
+
+body.vp-home-theme .subtitle,
+body.vp-home-theme p,
+body.vp-home-theme li {
+  color: var(--vp-muted);
+}
+
+@media (max-width: 860px) {
+  body.vp-home-theme .page,
+  body.vp-home-theme .wrap,
+  body.vp-home-theme .container {
+    width: calc(100% - 20px);
+    margin: 10px auto 18px;
+    padding: 16px;
+    border-radius: 22px;
+  }
 }
 
 .vp-lang-toggle {
