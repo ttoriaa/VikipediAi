@@ -74,35 +74,43 @@
 
     .tab-nav {
       margin: 0 0 14px;
-      display: flex;
+      display: inline-flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
+      padding: 6px;
+      background: linear-gradient(160deg, #fff8ee 0%, #f3e7d8 100%);
+      border: 1px solid #ceb89b;
+      border-radius: 16px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 8px 20px rgba(40, 32, 17, 0.08);
     }
 
     .tab-link {
       appearance: none;
       cursor: pointer;
       text-decoration: none;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.92);
-      color: #0f172a;
-      border-radius: 999px;
-      padding: 8px 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #334155;
+      border-radius: 12px;
+      padding: 9px 14px;
+      min-height: 40px;
       font-size: 13px;
       font-weight: 700;
-      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      letter-spacing: 0.01em;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, color 0.16s ease;
     }
 
     .tab-link:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 22px rgba(40, 32, 17, 0.12);
+      color: #0f172a;
+      background: rgba(255, 255, 255, 0.7);
     }
 
     .tab-link.active {
-      background: #0f172a;
-      border-color: #0f172a;
+      background: linear-gradient(155deg, #0f172a 0%, #1f3b63 100%);
+      border-color: #122033;
       color: #fff;
-      box-shadow: none;
+      box-shadow: 0 10px 22px rgba(20, 34, 58, 0.28);
+      transform: translateY(-1px);
     }
 
     .tab-panels {
@@ -487,6 +495,57 @@
       z-index: 1;
     }
 
+    .metrics-panel {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .metrics-panel h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+
+    .metrics-panel p {
+      margin: 0 0 12px;
+      color: var(--text-1);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .metrics-actions {
+      margin-bottom: 12px;
+    }
+
+    .metrics-link {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #0f172a;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .metrics-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(40, 32, 17, 0.12);
+    }
+
+    .metrics-frame {
+      width: 100%;
+      min-height: 880px;
+      border: 1px solid #e7dbc9;
+      border-radius: 12px;
+      background: #fff;
+    }
+
     .pill-region {
       display: inline-block;
       border: 1px solid #cbb59a;
@@ -522,6 +581,19 @@
       }
     }
 
+    @media (max-width: 760px) {
+      .tab-nav {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr;
+      }
+
+      .tab-link {
+        width: 100%;
+        text-align: left;
+      }
+    }
+
     @keyframes rise {
       to {
         opacity: 1;
@@ -548,6 +620,7 @@
       <nav class="tab-nav" aria-label="页面导航标签">
         <button class="tab-link active" type="button" data-target="panel-four">四类 Agent 架构</button>
         <button class="tab-link" type="button" data-target="panel-six">智能体六层架构与全市场产品映射</button>
+        <button class="tab-link" type="button" data-target="panel-metrics">四维度智能体效能指标体系</button>
       </nav>
       <div class="tag">Enterprise Agent Architecture</div>
       <h1>企业级四类 Agent 架构</h1>
@@ -736,6 +809,24 @@
 
         <div class="footer">v1.1 · 六层架构与全市场映射（Tab 2）</div>
       </div>
+
+      <div class="tab-panel" id="panel-metrics">
+        <button class="back-tab-btn" type="button" id="back-metrics-to-four">← 返回企业级四类 Agent 架构</button>
+        <section class="metrics-panel" aria-label="四维度智能体效能指标体系">
+          <h3>四维度智能体效能指标体系</h3>
+          <p>本 tab 内嵌原有指标页面，便于在同一页面下查看“架构层”和“效能层”。如需独立查看，也可以用下方按钮新开原页面。</p>
+          <div class="metrics-actions">
+            <a class="metrics-link" href="agent_effectiveness_metrics.html" target="_blank" rel="noopener noreferrer">↗ 新开指标体系原页面</a>
+          </div>
+          <iframe
+            class="metrics-frame"
+            src="agent_effectiveness_metrics.html"
+            title="四维度智能体效能指标体系"
+            loading="lazy"
+          ></iframe>
+        </section>
+        <div class="footer">v1.2 · 智能体效能指标体系（Tab 3）</div>
+      </div>
     </div>
   </main>
 
@@ -746,6 +837,7 @@
       const pageTitle = document.querySelector("h1");
       const pageLead = document.querySelector(".lead");
       const backButton = document.getElementById("back-to-four");
+      const backMetricsButton = document.getElementById("back-metrics-to-four");
 
       function setActiveTab(targetId) {
         tabLinks.forEach((link) => {
@@ -759,6 +851,9 @@
         if (targetId === "panel-six") {
           pageTitle.textContent = "智能体六层架构与全市场产品映射";
           pageLead.textContent = "在同一页面中查看图形化六层结构、市场映射和四类 Agent 架构，支持快速来回切换。";
+        } else if (targetId === "panel-metrics") {
+          pageTitle.textContent = "四维度智能体效能指标体系";
+          pageLead.textContent = "在同一页面查看指标体系、维度定义和评估框架，并可随时切回架构 tab。";
         } else {
           pageTitle.textContent = "企业级四类 Agent 架构";
           pageLead.textContent = "目标是把 AI 能力从“会回答”升级到“会办事”：由上层负责识别与编排，由中层负责业务执行，由底层负责受控动作执行，形成可观测、可治理、可规模化的智能体体系。";
@@ -766,6 +861,8 @@
 
         if (targetId === "panel-six") {
           window.location.hash = "six-layer";
+        } else if (targetId === "panel-metrics") {
+          window.location.hash = "metrics";
         } else {
           if (window.location.hash) {
             history.replaceState(null, "", window.location.pathname + window.location.search);
@@ -785,9 +882,17 @@
         });
       }
 
+      if (backMetricsButton) {
+        backMetricsButton.addEventListener("click", function () {
+          setActiveTab("panel-four");
+        });
+      }
+
       // Support direct links like enterprise_agent_architecture.html#six-layer
       if (window.location.hash === "#six-layer") {
         setActiveTab("panel-six");
+      } else if (window.location.hash === "#metrics") {
+        setActiveTab("panel-metrics");
       }
     })();
   </script>
