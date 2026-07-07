@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-07T04:29:36.579954+00:00",
+  "generated_at": "2026-07-07T10:04:12.332405+00:00",
   "source_feed_url": "https://ttoriaa.github.io/vikipedia/assets/github-projects.json",
   "button_count": 6,
   "buttons": [
@@ -49,11 +49,11 @@
       "rel": "noopener"
     },
     {
-      "id": "site-market-research",
-      "name": "market-research",
-      "label_zh": "打开 market-research",
-      "label_en": "Open market-research",
-      "href": "https://ttoriaa.github.io/market-research/",
+      "id": "site-podcast-creator",
+      "name": "podcast_creator",
+      "label_zh": "打开 podcast_creator",
+      "label_en": "Open podcast_creator",
+      "href": "https://ttoriaa.github.io/podcast_creator/",
       "target": "_blank",
       "rel": "noopener"
     }
