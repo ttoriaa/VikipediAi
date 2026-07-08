@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-08T03:51:41.424330+00:00",
+  "generated_at": "2026-07-08T09:03:57.003707+00:00",
   "source_feed_url": "https://ttoriaa.github.io/vikipedia/assets/github-projects.json",
   "button_count": 6,
   "buttons": [
@@ -31,6 +31,15 @@
       "rel": "noopener"
     },
     {
+      "id": "site-product-manager",
+      "name": "product-manager",
+      "label_zh": "打开 product-manager",
+      "label_en": "Open product-manager",
+      "href": "https://ttoriaa.github.io/product-manager/",
+      "target": "_blank",
+      "rel": "noopener"
+    },
+    {
       "id": "site-c7-ota-hub",
       "name": "C7-OTA-Hub",
       "label_zh": "打开 C7-OTA-Hub",
@@ -45,15 +54,6 @@
       "label_zh": "打开 automotive-benchmarking",
       "label_en": "Open automotive-benchmarking",
       "href": "https://ttoriaa.github.io/automotive-benchmarking/",
-      "target": "_blank",
-      "rel": "noopener"
-    },
-    {
-      "id": "site-podcast-creator",
-      "name": "podcast_creator",
-      "label_zh": "打开 podcast_creator",
-      "label_en": "Open podcast_creator",
-      "href": "https://ttoriaa.github.io/podcast_creator/",
       "target": "_blank",
       "rel": "noopener"
     }
