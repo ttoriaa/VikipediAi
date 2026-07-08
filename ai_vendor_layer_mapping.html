@@ -79,6 +79,25 @@
       border-color: #4d6fa0;
     }
 
+    .btn-back {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid #2b98a5;
+      background: linear-gradient(120deg, #1a7a86, #2b98a5);
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 12px 22px rgba(43, 152, 165, 0.26);
+    }
+
+    .btn-back:hover {
+      border-color: #2b98a5;
+      box-shadow: 0 14px 26px rgba(43, 152, 165, 0.34);
+      filter: brightness(1.04);
+    }
+
     .tabs {
       display: flex;
       gap: 8px;
@@ -376,7 +395,7 @@
     <p class="sub" data-i18n="subtitle">目的：用“基座模型层 / Agent 执行层 / 产品层”统一口径，避免对标时混淆同名能力（例如 Codex、Claude Code）。</p>
 
     <div class="toolbar">
-      <a class="btn" href="index.html" id="backBtn" data-i18n="backBtn">返回首页</a>
+      <a class="btn btn-back" href="index.html" id="backBtn" data-i18n="backBtn">返回首页</a>
       <button class="btn" id="exportCsvBtn" data-i18n="exportCsv">导出CSV</button>
       <label>
         <select id="mainFilter" class="select" aria-label="main class filter">
