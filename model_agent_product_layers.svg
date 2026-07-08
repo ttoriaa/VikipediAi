@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1500" viewBox="0 0 2200 1500">
+  <defs>
+    <style>
+      .title { font: 700 44px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #102a43; }
+      .subtitle { font: 600 28px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #243b53; }
+      .text { font: 24px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #102a43; }
+      .small { font: 22px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #334e68; }
+      .layerTitle { font: 700 34px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #102a43; }
+      .cardTitle { font: 700 26px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #102a43; }
+      .cardText { font: 22px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #243b53; }
+    </style>
+    <marker id="arrow" markerWidth="14" markerHeight="10" refX="12" refY="5" orient="auto">
+      <polygon points="0,0 14,5 0,10" fill="#486581" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="2200" height="1500" fill="#f7fbff" />
+
+  <text x="70" y="80" class="title">AI 三层分类图：基座模型层 / Agent 执行层 / 产品层</text>
+  <text x="70" y="125" class="subtitle">一图区分“引擎（模型）-执行系统（Agent）-用户入口（产品）”，避免对标时混淆</text>
+
+  <!-- Layer 1 -->
+  <rect x="60" y="170" rx="22" ry="22" width="2080" height="380" fill="#e6f4ff" stroke="#9ec5fe" stroke-width="2" />
+  <text x="90" y="220" class="layerTitle">1) 基座模型层 Model Foundation</text>
+  <text x="90" y="255" class="small">定位：负责推理、生成、编码、上下文理解；是 Agent 与产品共同调用的智能引擎</text>
+
+  <rect x="90" y="280" rx="14" ry="14" width="390" height="240" fill="#ffffff" stroke="#b6e0fe" />
+  <text x="110" y="318" class="cardTitle">OpenAI GPT</text>
+  <text x="110" y="352" class="cardText">- GPT-4o / GPT-4.1</text>
+  <text x="110" y="384" class="cardText">- GPT-4.1 mini / nano</text>
+  <text x="110" y="416" class="cardText">- o1 / o1-mini</text>
+  <text x="110" y="448" class="cardText">- o3 / o3-mini / o4-mini</text>
+  <text x="110" y="480" class="cardText">- 若 5.4 Codex 为模型ID，也归此层</text>
+
+  <rect x="500" y="280" rx="14" ry="14" width="390" height="240" fill="#ffffff" stroke="#b6e0fe" />
+  <text x="520" y="318" class="cardTitle">Claude Models</text>
+  <text x="520" y="352" class="cardText">- Claude 3 Haiku / Sonnet / Opus</text>
+  <text x="520" y="384" class="cardText">- Claude 3.5 Haiku / Sonnet</text>
+  <text x="520" y="416" class="cardText">- Claude 3.7 Sonnet</text>
+  <text x="520" y="448" class="cardText">- Claude 4 Sonnet / Opus</text>
+
+  <rect x="910" y="280" rx="14" ry="14" width="390" height="240" fill="#ffffff" stroke="#b6e0fe" />
+  <text x="930" y="318" class="cardTitle">Gemini Models</text>
+  <text x="930" y="352" class="cardText">- Gemini 1.5 Pro / Flash</text>
+  <text x="930" y="384" class="cardText">- Gemini 2.0 Flash</text>
+  <text x="930" y="416" class="cardText">- Gemini 2.0 Flash Thinking</text>
+  <text x="930" y="448" class="cardText">- Gemini 2.5 Flash / Pro</text>
+
+  <rect x="1320" y="280" rx="14" ry="14" width="390" height="240" fill="#ffffff" stroke="#b6e0fe" />
+  <text x="1340" y="318" class="cardTitle">DeepSeek Models</text>
+  <text x="1340" y="352" class="cardText">- DeepSeek V3</text>
+  <text x="1340" y="384" class="cardText">- DeepSeek R1 / R1-Zero</text>
+  <text x="1340" y="416" class="cardText">- DeepSeek Coder 系列</text>
+
+  <rect x="1730" y="280" rx="14" ry="14" width="390" height="240" fill="#ffffff" stroke="#b6e0fe" />
+  <text x="1750" y="318" class="cardTitle">GLM Models</text>
+  <text x="1750" y="352" class="cardText">- GLM-4 / GLM-4-Plus</text>
+  <text x="1750" y="384" class="cardText">- GLM-4-Air</text>
+  <text x="1750" y="416" class="cardText">- GLM-4-Flash</text>
+
+  <!-- Arrow 1 -->
+  <line x1="1100" y1="560" x2="1100" y2="620" stroke="#486581" stroke-width="4" marker-end="url(#arrow)" />
+
+  <!-- Layer 2 -->
+  <rect x="60" y="640" rx="22" ry="22" width="2080" height="410" fill="#ecfdf3" stroke="#86efac" stroke-width="2" />
+  <text x="90" y="690" class="layerTitle">2) Agent 执行层 Planning + Tool Use + Multi-step Execution</text>
+  <text x="90" y="725" class="small">定位：负责规划、拆解、工具调用、并行协作、状态管理与失败重试</text>
+
+  <rect x="90" y="750" rx="14" ry="14" width="490" height="270" fill="#ffffff" stroke="#bbf7d0" />
+  <text x="110" y="788" class="cardTitle">OpenAI Agents API（真实平台）</text>
+  <text x="110" y="822" class="cardText">- Responses API + Tools（官方）</text>
+  <text x="110" y="854" class="cardText">- Web Search Tool</text>
+  <text x="110" y="886" class="cardText">- File Search Tool</text>
+  <text x="110" y="918" class="cardText">- Computer Use Tool</text>
+  <text x="110" y="950" class="cardText">- 以“工具能力”命名，而非固定角色名</text>
+
+  <rect x="600" y="750" rx="14" ry="14" width="490" height="270" fill="#ffffff" stroke="#bbf7d0" />
+  <text x="620" y="788" class="cardTitle">主流 Agent Framework（真实）</text>
+  <text x="620" y="822" class="cardText">- LangGraph Runtime（官方定位）</text>
+  <text x="620" y="854" class="cardText">- LangChain Deep Agents（官方 harness）</text>
+  <text x="620" y="886" class="cardText">- AutoGen AgentChat + AutoGen Studio</text>
+  <text x="620" y="918" class="cardText">- Microsoft Agent Framework（MAF）</text>
+  <text x="620" y="950" class="cardText">- CrewAI Agents / Crews / Flows</text>
+
+  <rect x="1110" y="750" rx="14" ry="14" width="490" height="270" fill="#ffffff" stroke="#bbf7d0" />
+  <text x="1130" y="788" class="cardTitle">Agent Runtime / 托管执行平台</text>
+  <text x="1130" y="822" class="cardText">- Azure AI Foundry Agent Service（Hosted）</text>
+  <text x="1130" y="854" class="cardText">- AWS Bedrock Agents</text>
+  <text x="1130" y="886" class="cardText">- Google Gemini Enterprise / Agentspace</text>
+  <text x="1130" y="918" class="cardText">- LangGraph Runtime + LangSmith Deploy</text>
+  <text x="1130" y="950" class="cardText">- OpenHands / 自建 Runtime</text>
+
+  <rect x="1620" y="750" rx="14" ry="14" width="500" height="270" fill="#ffffff" stroke="#bbf7d0" />
+  <text x="1640" y="788" class="cardTitle">执行型 Coding Agent（真实产品）</text>
+  <text x="1640" y="822" class="cardText">- Claude Code（Anthropic）</text>
+  <text x="1640" y="854" class="cardText">- Devin（Cognition）</text>
+  <text x="1640" y="886" class="cardText">- OpenHands（开源）</text>
+  <text x="1640" y="918" class="cardText">- 共同特点：终端/仓库级任务执行</text>
+
+  <!-- Arrow 2 -->
+  <line x1="1100" y1="1060" x2="1100" y2="1120" stroke="#486581" stroke-width="4" marker-end="url(#arrow)" />
+
+  <!-- Layer 3 -->
+  <rect x="60" y="1140" rx="22" ry="22" width="2080" height="300" fill="#fff7ed" stroke="#fdba74" stroke-width="2" />
+  <text x="90" y="1190" class="layerTitle">3) 产品层 Product Entry and Workflow</text>
+  <text x="90" y="1225" class="small">定位：面向用户的 IDE / Web / 平台入口，承载交互与团队工作流</text>
+
+  <rect x="90" y="1245" rx="14" ry="14" width="320" height="165" fill="#ffffff" stroke="#fed7aa" />
+  <text x="110" y="1283" class="cardTitle">GitHub Copilot</text>
+  <text x="110" y="1317" class="cardText">IDE 集成开发助手</text>
+
+  <rect x="430" y="1245" rx="14" ry="14" width="320" height="165" fill="#ffffff" stroke="#fed7aa" />
+  <text x="450" y="1283" class="cardTitle">Cursor</text>
+  <text x="450" y="1317" class="cardText">IDE 深度改造体验</text>
+
+  <rect x="770" y="1245" rx="14" ry="14" width="320" height="165" fill="#ffffff" stroke="#fed7aa" />
+  <text x="790" y="1283" class="cardTitle">Claude Code</text>
+  <text x="790" y="1317" class="cardText">终端工作流产品入口</text>
+
+  <rect x="1110" y="1245" rx="14" ry="14" width="320" height="165" fill="#ffffff" stroke="#fed7aa" />
+  <text x="1130" y="1283" class="cardTitle">Codex 产品</text>
+  <text x="1130" y="1317" class="cardText">端到端任务委派入口</text>
+
+  <rect x="1450" y="1245" rx="14" ry="14" width="320" height="165" fill="#ffffff" stroke="#fed7aa" />
+  <text x="1470" y="1283" class="cardTitle">通义灵码 / 百度 Comate</text>
+  <text x="1470" y="1317" class="cardText">本地研发流程产品入口</text>
+
+  <rect x="1790" y="1245" rx="14" ry="14" width="330" height="165" fill="#ffffff" stroke="#fed7aa" />
+  <text x="1810" y="1283" class="cardTitle">Trae / MarsCode</text>
+  <text x="1810" y="1317" class="cardText">开发效率产品入口</text>
+
+  <text x="70" y="1480" class="small">备注：同一名称可能跨层出现（例如 Codex、Claude Code）。判断规则：看当前语境是在讲模型能力、执行机制还是产品入口。</text>
+</svg>

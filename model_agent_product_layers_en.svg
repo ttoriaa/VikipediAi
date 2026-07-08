@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1500" viewBox="0 0 2200 1500">
+  <defs>
+    <style>
+      .title { font: 700 44px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #102a43; }
+      .subtitle { font: 600 28px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #243b53; }
+      .small { font: 22px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #334e68; }
+      .layerTitle { font: 700 34px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #102a43; }
+      .cardTitle { font: 700 26px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #102a43; }
+      .cardText { font: 22px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #243b53; }
+    </style>
+    <marker id="arrow" markerWidth="14" markerHeight="10" refX="12" refY="5" orient="auto">
+      <polygon points="0,0 14,5 0,10" fill="#486581" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="2200" height="1500" fill="#f7fbff" />
+
+  <text x="70" y="80" class="title">AI Three-Layer Map: Foundation Models / Agent Execution / Products</text>
+  <text x="70" y="125" class="subtitle">A single view to separate the engine layer, execution layer, and user entry layer for cleaner benchmarking</text>
+
+  <rect x="60" y="170" rx="22" ry="22" width="2080" height="380" fill="#e6f4ff" stroke="#9ec5fe" stroke-width="2" />
+  <text x="90" y="220" class="layerTitle">1) Foundation Model Layer</text>
+  <text x="90" y="255" class="small">Role: the intelligence engine for reasoning, generation, coding, and long-context understanding that both agents and products invoke.</text>
+
+  <rect x="90" y="280" rx="14" ry="14" width="390" height="240" fill="#ffffff" stroke="#b6e0fe" />
+  <text x="110" y="318" class="cardTitle">OpenAI GPT</text>
+  <text x="110" y="352" class="cardText">- GPT-4o / GPT-4.1</text>
+  <text x="110" y="384" class="cardText">- GPT-4.1 mini / nano</text>
+  <text x="110" y="416" class="cardText">- o1 / o1-mini</text>
+  <text x="110" y="448" class="cardText">- o3 / o3-mini / o4-mini</text>
+  <text x="110" y="480" class="cardText">- If 5.4 Codex is a model ID, it belongs here</text>
+
+  <rect x="500" y="280" rx="14" ry="14" width="390" height="240" fill="#ffffff" stroke="#b6e0fe" />
+  <text x="520" y="318" class="cardTitle">Claude Models</text>
+  <text x="520" y="352" class="cardText">- Claude 3 Haiku / Sonnet / Opus</text>
+  <text x="520" y="384" class="cardText">- Claude 3.5 Haiku / Sonnet</text>
+  <text x="520" y="416" class="cardText">- Claude 3.7 Sonnet</text>
+  <text x="520" y="448" class="cardText">- Claude 4 Sonnet / Opus</text>
+
+  <rect x="910" y="280" rx="14" ry="14" width="390" height="240" fill="#ffffff" stroke="#b6e0fe" />
+  <text x="930" y="318" class="cardTitle">Gemini Models</text>
+  <text x="930" y="352" class="cardText">- Gemini 1.5 Pro / Flash</text>
+  <text x="930" y="384" class="cardText">- Gemini 2.0 Flash</text>
+  <text x="930" y="416" class="cardText">- Gemini 2.0 Flash Thinking</text>
+  <text x="930" y="448" class="cardText">- Gemini 2.5 Flash / Pro</text>
+
+  <rect x="1320" y="280" rx="14" ry="14" width="390" height="240" fill="#ffffff" stroke="#b6e0fe" />
+  <text x="1340" y="318" class="cardTitle">DeepSeek Models</text>
+  <text x="1340" y="352" class="cardText">- DeepSeek V3</text>
+  <text x="1340" y="384" class="cardText">- DeepSeek R1 / R1-Zero</text>
+  <text x="1340" y="416" class="cardText">- DeepSeek Coder family</text>
+
+  <rect x="1730" y="280" rx="14" ry="14" width="390" height="240" fill="#ffffff" stroke="#b6e0fe" />
+  <text x="1750" y="318" class="cardTitle">GLM Models</text>
+  <text x="1750" y="352" class="cardText">- GLM-4 / GLM-4-Plus</text>
+  <text x="1750" y="384" class="cardText">- GLM-4-Air</text>
+  <text x="1750" y="416" class="cardText">- GLM-4-Flash</text>
+
+  <line x1="1100" y1="560" x2="1100" y2="620" stroke="#486581" stroke-width="4" marker-end="url(#arrow)" />
+
+  <rect x="60" y="640" rx="22" ry="22" width="2080" height="410" fill="#ecfdf3" stroke="#86efac" stroke-width="2" />
+  <text x="90" y="690" class="layerTitle">2) Agent Execution Layer</text>
+  <text x="90" y="725" class="small">Role: planning, decomposition, tool invocation, parallel collaboration, state management, and recovery from failure.</text>
+
+  <rect x="90" y="750" rx="14" ry="14" width="490" height="270" fill="#ffffff" stroke="#bbf7d0" />
+  <text x="110" y="788" class="cardTitle">OpenAI Agents API</text>
+  <text x="110" y="822" class="cardText">- Responses API + Tools</text>
+  <text x="110" y="854" class="cardText">- Web Search Tool</text>
+  <text x="110" y="886" class="cardText">- File Search Tool</text>
+  <text x="110" y="918" class="cardText">- Computer Use Tool</text>
+  <text x="110" y="950" class="cardText">- Officially named as tools, not fixed role agents</text>
+
+  <rect x="600" y="750" rx="14" ry="14" width="490" height="270" fill="#ffffff" stroke="#bbf7d0" />
+  <text x="620" y="788" class="cardTitle">Major Agent Frameworks</text>
+  <text x="620" y="822" class="cardText">- LangGraph Runtime</text>
+  <text x="620" y="854" class="cardText">- LangChain Deep Agents</text>
+  <text x="620" y="886" class="cardText">- AutoGen AgentChat + AutoGen Studio</text>
+  <text x="620" y="918" class="cardText">- Microsoft Agent Framework (MAF)</text>
+  <text x="620" y="950" class="cardText">- CrewAI Agents / Crews / Flows</text>
+
+  <rect x="1110" y="750" rx="14" ry="14" width="490" height="270" fill="#ffffff" stroke="#bbf7d0" />
+  <text x="1130" y="788" class="cardTitle">Agent Runtime / Managed Execution</text>
+  <text x="1130" y="822" class="cardText">- Azure AI Foundry Agent Service</text>
+  <text x="1130" y="854" class="cardText">- AWS Bedrock Agents</text>
+  <text x="1130" y="886" class="cardText">- Google Gemini Enterprise / Agentspace</text>
+  <text x="1130" y="918" class="cardText">- LangGraph Runtime + LangSmith Deploy</text>
+  <text x="1130" y="950" class="cardText">- OpenHands / self-hosted runtime</text>
+
+  <rect x="1620" y="750" rx="14" ry="14" width="500" height="270" fill="#ffffff" stroke="#bbf7d0" />
+  <text x="1640" y="788" class="cardTitle">Execution-oriented Coding Agents</text>
+  <text x="1640" y="822" class="cardText">- Claude Code (Anthropic)</text>
+  <text x="1640" y="854" class="cardText">- Devin (Cognition)</text>
+  <text x="1640" y="886" class="cardText">- OpenHands (open source)</text>
+  <text x="1640" y="918" class="cardText">- Shared trait: terminal/repository-level execution</text>
+
+  <line x1="1100" y1="1060" x2="1100" y2="1120" stroke="#486581" stroke-width="4" marker-end="url(#arrow)" />
+
+  <rect x="60" y="1140" rx="22" ry="22" width="2080" height="300" fill="#fff7ed" stroke="#fdba74" stroke-width="2" />
+  <text x="90" y="1190" class="layerTitle">3) Product Layer</text>
+  <text x="90" y="1225" class="small">Role: user-facing IDE, web, or platform entry points that package interaction and team workflows.</text>
+
+  <rect x="90" y="1245" rx="14" ry="14" width="320" height="165" fill="#ffffff" stroke="#fed7aa" />
+  <text x="110" y="1283" class="cardTitle">GitHub Copilot</text>
+  <text x="110" y="1317" class="cardText">IDE-integrated coding assistant</text>
+
+  <rect x="430" y="1245" rx="14" ry="14" width="320" height="165" fill="#ffffff" stroke="#fed7aa" />
+  <text x="450" y="1283" class="cardTitle">Cursor</text>
+  <text x="450" y="1317" class="cardText">IDE-native deep coding workflow</text>
+
+  <rect x="770" y="1245" rx="14" ry="14" width="320" height="165" fill="#ffffff" stroke="#fed7aa" />
+  <text x="790" y="1283" class="cardTitle">Claude Code</text>
+  <text x="790" y="1317" class="cardText">Terminal-native product entry</text>
+
+  <rect x="1110" y="1245" rx="14" ry="14" width="320" height="165" fill="#ffffff" stroke="#fed7aa" />
+  <text x="1130" y="1283" class="cardTitle">Codex Product</text>
+  <text x="1130" y="1317" class="cardText">End-to-end task delegation entry</text>
+
+  <rect x="1450" y="1245" rx="14" ry="14" width="320" height="165" fill="#ffffff" stroke="#fed7aa" />
+  <text x="1470" y="1283" class="cardTitle">Tongyi Lingma / Baidu Comate</text>
+  <text x="1470" y="1317" class="cardText">Localized engineering workflow entry</text>
+
+  <rect x="1790" y="1245" rx="14" ry="14" width="330" height="165" fill="#ffffff" stroke="#fed7aa" />
+  <text x="1810" y="1283" class="cardTitle">Trae / MarsCode</text>
+  <text x="1810" y="1317" class="cardText">Developer productivity product entry</text>
+
+  <text x="70" y="1480" class="small">Note: a single name can span multiple layers, such as Codex or Claude Code. The correct classification depends on whether the context refers to the model, the execution mechanism, or the product entry point.</text>
+</svg>

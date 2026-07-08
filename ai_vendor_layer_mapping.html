@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 厂商三层归位清单</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #101a2b;
+      --panel-2: #0f1726;
+      --text: #e6edf7;
+      --muted: #9fb0c7;
+      --line: #243247;
+      --head: #16243a;
+      --chip: #1e2f4a;
+      --accent: #6ea8fe;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 500px at 15% -10%, #1b2c47 0%, var(--bg) 50%), var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+      line-height: 1.5;
+    }
+
+    .wrap {
+      width: min(1600px, 96vw);
+      margin: 28px auto 40px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      backdrop-filter: blur(4px);
+    }
+
+    h1 {
+      margin: 4px 0 8px;
+      font-size: clamp(24px, 2.4vw, 36px);
+      letter-spacing: .2px;
+    }
+
+    .sub {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      align-items: center;
+    }
+
+    .btn,
+    .select {
+      border: 1px solid #314766;
+      background: #13233a;
+      color: #d8e7ff;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .btn:hover,
+    .select:hover {
+      border-color: #4d6fa0;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      border: 1px solid #314766;
+      background: #13233a;
+      color: #d8e7ff;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      border-color: #6ea8fe;
+      box-shadow: inset 0 0 0 1px #6ea8fe;
+      color: #eaf2ff;
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .hero-card {
+      border: 1px solid #2f4c73;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(110,168,254,0.16), rgba(110,168,254,0.05));
+      padding: 18px;
+    }
+
+    .hero-card h2 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      color: #f4f8ff;
+    }
+
+    .hero-card p {
+      margin: 0;
+      color: #d7e6fb;
+      font-size: 15px;
+    }
+
+    .callout-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .callout {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #132139;
+      padding: 14px;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #eef5ff;
+      font-size: 15px;
+    }
+
+    .callout span {
+      color: #c9d7ea;
+      font-size: 13px;
+    }
+
+    .content-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      padding: 16px;
+    }
+
+    .content-card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: #e8f1ff;
+    }
+
+    .content-card p {
+      margin: 0 0 10px;
+      color: #cdd9ea;
+      font-size: 14px;
+    }
+
+    .content-card ul,
+    .content-card ol {
+      margin: 0;
+      padding-left: 20px;
+      color: #dbe7f6;
+      font-size: 14px;
+    }
+
+    .content-card li {
+      margin: 6px 0;
+    }
+
+    .section-kicker {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #1a2a44;
+      border: 1px solid #35527d;
+      color: #cfe0ff;
+      font-size: 11px;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+    }
+
+    .full-span {
+      grid-column: 1 / -1;
+    }
+
+    .compare-shell {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+
+    .compare-table {
+      width: 100%;
+      min-width: 860px;
+      border-collapse: collapse;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      text-align: left;
+      padding: 10px 12px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    .compare-table th {
+      background: #16243a;
+      color: #e8f1ff;
+    }
+
+    .compare-table td {
+      background: #101a2b;
+      color: #d8e5f6;
+    }
+
+    .compare-table tr:nth-child(even) td {
+      background: #0f1726;
+    }
+
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .summary-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    }
+
+    .summary-card h4 {
+      margin: 0 0 8px;
+      color: #eef5ff;
+      font-size: 16px;
+    }
+
+    .summary-card p {
+      margin: 0;
+      color: #cbd8ea;
+      font-size: 14px;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--chip);
+      color: #cfe0ff;
+      border: 1px solid #314766;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+
+    table {
+      width: 100%;
+      min-width: 1300px;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--head);
+      color: #d8e7ff;
+      text-align: left;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 12px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+    }
+
+    tbody td {
+      vertical-align: top;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      font-size: 14px;
+      color: #e8eef9;
+    }
+
+    tbody tr:nth-child(odd) td {
+      background: var(--panel);
+    }
+
+    tbody tr:nth-child(even) td {
+      background: var(--panel-2);
+    }
+
+    .vendor {
+      font-weight: 700;
+      color: #d7e8ff;
+    }
+
+    .main-tag {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #d6e8ff;
+      background: #1a2a44;
+      border: 1px solid #36507a;
+    }
+
+    .note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .diagram-shell {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      padding: 12px;
+      min-height: 520px;
+    }
+
+    .diagram-object {
+      width: 100%;
+      min-height: 520px;
+      border: none;
+      background: #0d182a;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .wrap { padding: 12px; }
+      .sub { font-size: 13px; }
+      .content-grid { grid-template-columns: 1fr; }
+      .callout-row { grid-template-columns: 1fr; }
+      .summary-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1 data-i18n="title">AI 厂商三层归位清单</h1>
+    <p class="sub" data-i18n="subtitle">目的：用“基座模型层 / Agent 执行层 / 产品层”统一口径，避免对标时混淆同名能力（例如 Codex、Claude Code）。</p>
+
+    <div class="toolbar">
+      <button class="btn" id="exportCsvBtn" data-i18n="exportCsv">导出CSV</button>
+      <label>
+        <select id="mainFilter" class="select" aria-label="main class filter">
+          <option value="all" data-i18n="filterAll">全部主归类</option>
+          <option value="model" data-i18n="filterModel">只看模型型</option>
+          <option value="agent" data-i18n="filterAgent">只看Agent型</option>
+          <option value="product" data-i18n="filterProduct">只看产品型</option>
+        </select>
+      </label>
+      <button class="btn" id="langBtn">EN</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" id="tableTab" data-target="tablePanel" data-i18n="tabTable">表格</button>
+      <button class="tab-btn" id="diagramTab" data-target="diagramPanel" data-i18n="tabDiagram">图示</button>
+      <button class="tab-btn" id="researchTab" data-target="researchPanel" data-i18n="tabResearch">研究解读</button>
+    </div>
+
+    <div class="legend" id="legendPanel">
+      <span class="chip" data-i18n="chipModel">模型层 = 引擎能力</span>
+      <span class="chip" data-i18n="chipAgent">Agent层 = 规划 + 工具调用 + 多步执行</span>
+      <span class="chip" data-i18n="chipProduct">产品层 = 用户入口与工作流</span>
+    </div>
+
+    <section id="tablePanel" class="panel active">
+      <section class="table-shell" aria-label="AI vendor layer mapping table">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 170px;" data-i18n="thVendor">厂商</th>
+            <th style="width: 330px;" data-i18n="thModel">基座模型层</th>
+            <th style="width: 280px;" data-i18n="thAgent">Agent层</th>
+            <th style="width: 330px;" data-i18n="thProduct">产品层</th>
+            <th style="width: 220px;" data-i18n="thMain">你做对标时的主归类</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-main="model">
+            <td class="vendor">OpenAI</td>
+            <td>GPT/o 系列；Codex（模型语义）</td>
+            <td>OpenAI Agents</td>
+            <td>ChatGPT、Codex（产品语义）</td>
+            <td><span class="main-tag">模型+Agent+产品全栈</span></td>
+          </tr>
+          <tr data-main="model">
+            <td class="vendor">Anthropic</td>
+            <td>Claude 系列</td>
+            <td>Claude Code（执行型能力）</td>
+            <td>Claude、Claude Code</td>
+            <td><span class="main-tag">模型+Agent/产品一体</span></td>
+          </tr>
+          <tr data-main="model">
+            <td class="vendor">Google</td>
+            <td>Gemini 系列</td>
+            <td>Agentspace / Agent 能力</td>
+            <td>Gemini App、Workspace 集成、Code Assist</td>
+            <td><span class="main-tag">模型+企业产品</span></td>
+          </tr>
+          <tr data-main="product">
+            <td class="vendor">Microsoft</td>
+            <td>Azure OpenAI（模型服务聚合）</td>
+            <td>Azure AI Agent Service</td>
+            <td>Copilot 家族（M365/GitHub 等）</td>
+            <td><span class="main-tag">产品编排层强</span></td>
+          </tr>
+          <tr data-main="agent">
+            <td class="vendor">AWS</td>
+            <td>Bedrock 模型聚合</td>
+            <td>Bedrock Agents</td>
+            <td>Amazon Q Developer</td>
+            <td><span class="main-tag">Agent+企业平台</span></td>
+          </tr>
+          <tr data-main="model">
+            <td class="vendor">Meta</td>
+            <td>Llama 系列</td>
+            <td>（较少统一商用 Agent 入口）</td>
+            <td>生态集成型产品较多</td>
+            <td><span class="main-tag">模型生态型</span></td>
+          </tr>
+          <tr data-main="model">
+            <td class="vendor">xAI</td>
+            <td>Grok 系列</td>
+            <td>（有 Agent 能力但平台化较轻）</td>
+            <td>Grok 应用</td>
+            <td><span class="main-tag">模型+应用</span></td>
+          </tr>
+          <tr data-main="product">
+            <td class="vendor">Perplexity</td>
+            <td>（以外部模型为主）</td>
+            <td>检索/研究工作流 Agent 能力</td>
+            <td>Perplexity 搜索产品</td>
+            <td><span class="main-tag">产品层主导</span></td>
+          </tr>
+          <tr data-main="product">
+            <td class="vendor">GitHub</td>
+            <td>（依赖上游模型）</td>
+            <td>Copilot Agent 能力（逐步增强）</td>
+            <td>GitHub Copilot</td>
+            <td><span class="main-tag">产品层（IDE入口）</span></td>
+          </tr>
+          <tr data-main="agent">
+            <td class="vendor">Cursor（Anysphere）</td>
+            <td>（依赖多模型）</td>
+            <td>强 Agent 式编码流程</td>
+            <td>Cursor IDE</td>
+            <td><span class="main-tag">产品+Agent体验</span></td>
+          </tr>
+          <tr data-main="product">
+            <td class="vendor">JetBrains</td>
+            <td>（依赖多模型）</td>
+            <td>IDE 内 Agent 化能力</td>
+            <td>JetBrains AI Assistant</td>
+            <td><span class="main-tag">产品层</span></td>
+          </tr>
+          <tr data-main="product">
+            <td class="vendor">Sourcegraph</td>
+            <td>（依赖多模型）</td>
+            <td>Cody 工作流能力</td>
+            <td>Cody</td>
+            <td><span class="main-tag">产品层</span></td>
+          </tr>
+          <tr data-main="product">
+            <td class="vendor">Tabnine</td>
+            <td>自有+外部组合</td>
+            <td>企业侧 Agent 能力</td>
+            <td>Tabnine</td>
+            <td><span class="main-tag">产品层（私有化）</span></td>
+          </tr>
+          <tr data-main="agent">
+            <td class="vendor">Replit</td>
+            <td>（多模型接入）</td>
+            <td>Replit Agent</td>
+            <td>Replit 平台</td>
+            <td><span class="main-tag">Agent+产品</span></td>
+          </tr>
+          <tr data-main="agent">
+            <td class="vendor">Cognition</td>
+            <td>（多模型接入）</td>
+            <td>Devin（任务委派 Agent）</td>
+            <td>Devin 产品</td>
+            <td><span class="main-tag">Agent层主导</span></td>
+          </tr>
+          <tr data-main="model">
+            <td class="vendor">阿里云/阿里</td>
+            <td>Qwen</td>
+            <td>百炼 Agent</td>
+            <td>通义千问 App、通义灵码</td>
+            <td><span class="main-tag">模型+Agent+产品</span></td>
+          </tr>
+          <tr data-main="product">
+            <td class="vendor">腾讯/腾讯云</td>
+            <td>混元</td>
+            <td>（腾讯云工作流、Agent 能力）</td>
+            <td>元宝、企业微信生态入口</td>
+            <td><span class="main-tag">产品+平台</span></td>
+          </tr>
+          <tr data-main="model">
+            <td class="vendor">百度/百度云</td>
+            <td>文心</td>
+            <td>千帆 Agent</td>
+            <td>文小言、Comate</td>
+            <td><span class="main-tag">模型+Agent+产品</span></td>
+          </tr>
+          <tr data-main="product">
+            <td class="vendor">华为云</td>
+            <td>（盘古等）</td>
+            <td>Astro / 企业流程编排</td>
+            <td>企业云产品入口</td>
+            <td><span class="main-tag">平台层</span></td>
+          </tr>
+          <tr data-main="product">
+            <td class="vendor">字节/火山引擎</td>
+            <td>豆包模型系</td>
+            <td>火山方舟 Agent 能力</td>
+            <td>豆包、Trae/MarsCode</td>
+            <td><span class="main-tag">产品+模型</span></td>
+          </tr>
+          <tr data-main="model">
+            <td class="vendor">DeepSeek</td>
+            <td>DeepSeek 系列</td>
+            <td>（生态中被编排调用）</td>
+            <td>API/开源生态</td>
+            <td><span class="main-tag">模型层主导</span></td>
+          </tr>
+          <tr data-main="model">
+            <td class="vendor">智谱</td>
+            <td>GLM</td>
+            <td>（企业 Agent 接入）</td>
+            <td>GLM 开放平台产品</td>
+            <td><span class="main-tag">模型层主导</span></td>
+          </tr>
+          <tr data-main="product">
+            <td class="vendor">Moonshot</td>
+            <td>Kimi 相关模型</td>
+            <td>（研究工作流能力）</td>
+            <td>Kimi App</td>
+            <td><span class="main-tag">产品+模型</span></td>
+          </tr>
+          <tr data-main="agent">
+            <td class="vendor">Dify / FastGPT</td>
+            <td>（接多模型）</td>
+            <td>Agent 编排能力强</td>
+            <td>平台产品本身</td>
+            <td><span class="main-tag">Agent 平台层</span></td>
+          </tr>
+        </tbody>
+      </table>
+      </section>
+    </section>
+
+    <section id="diagramPanel" class="panel" aria-label="layer diagram panel">
+      <div class="diagram-shell">
+        <object id="diagramObject" class="diagram-object" data="model_agent_product_layers.svg" type="image/svg+xml"></object>
+      </div>
+    </section>
+
+    <section id="researchPanel" class="panel" aria-label="agent framework research panel">
+      <div class="content-grid">
+        <article class="hero-card full-span">
+          <h2 data-i18n="heroTitle">Agent 框架研究：从 LLM 调用器到任务执行基础设施</h2>
+          <p data-i18n="heroBody">这一页用于解释 Agent 框架为什么正在成为独立软件层：它们不只是模型调用封装，而是在模型之上补齐编排、工具、记忆、状态、可观测性和治理能力。</p>
+        </article>
+
+        <div class="callout-row full-span">
+          <div class="callout">
+            <strong data-i18n="callout1Title">研究主结论 1</strong>
+            <span data-i18n="callout1Body">真正的分水岭，不是“能不能做 demo”，而是“能不能稳定执行长任务”。</span>
+          </div>
+          <div class="callout">
+            <strong data-i18n="callout2Title">研究主结论 2</strong>
+            <span data-i18n="callout2Body">协议标准化正在把工具调用和 Agent 协作从框架私有能力，变成生态公共接口。</span>
+          </div>
+          <div class="callout">
+            <strong data-i18n="callout3Title">研究主结论 3</strong>
+            <span data-i18n="callout3Body">未来竞争重点将从 Prompt 质量，转向状态、治理、可观测性与生产部署能力。</span>
+          </div>
+        </div>
+
+        <article class="content-card">
+          <span class="section-kicker" data-i18n="kickerDefinition">Definition</span>
+          <h3 data-i18n="r1Title">什么是 Agent 开发框架</h3>
+          <p data-i18n="r1Body">Agent 开发框架是为了构建基于大语言模型的自主代理系统而设计的软件框架与运行时工具集。它不是单次问答包装，而是让系统具备目标驱动、环境感知、工具调用、多步规划、状态持久化和可治理执行能力。</p>
+        </article>
+
+        <article class="content-card">
+          <span class="section-kicker" data-i18n="kickerDifference">Difference</span>
+          <h3 data-i18n="r2Title">它与传统 LLM 应用的区别</h3>
+          <ul>
+            <li data-i18n="r2a">传统 LLM 更偏“一次生成答案”。</li>
+            <li data-i18n="r2b">Agent 框架更偏“围绕目标持续执行任务”。</li>
+            <li data-i18n="r2c">核心差异在于：规划、工具、状态、记忆、可观测性。</li>
+          </ul>
+        </article>
+
+        <article class="content-card">
+          <span class="section-kicker" data-i18n="kickerComponents">Components</span>
+          <h3 data-i18n="r3Title">五个核心能力组件</h3>
+          <ol>
+            <li data-i18n="r3a">Agent 定义层：身份、角色、指令、权限与边界。</li>
+            <li data-i18n="r3b">编排引擎：顺序、并行、路由、循环、handoff。</li>
+            <li data-i18n="r3c">工具系统：API、数据库、浏览器、代码执行器、企业系统。</li>
+            <li data-i18n="r3d">记忆与状态：短期记忆、长期记忆、checkpoint、恢复。</li>
+            <li data-i18n="r3e">可观测性：Tracing、Logging、Eval、成本和错误定位。</li>
+          </ol>
+        </article>
+
+        <article class="content-card">
+          <span class="section-kicker" data-i18n="kickerProtocols">Protocols</span>
+          <h3 data-i18n="r4Title">协议与理念演进</h3>
+          <ul>
+            <li data-i18n="r4a">MCP：标准化 LLM 与工具/数据源的连接方式。</li>
+            <li data-i18n="r4b">A2A：让不同框架构建的 agent 可以互相通信与协作。</li>
+            <li data-i18n="r4c">Context Engineering：从写 prompt 转向管理上下文供应链。</li>
+            <li data-i18n="r4d">HITL 成熟化：从确认/拒绝升级为中断、恢复、分级审批。</li>
+          </ul>
+        </article>
+
+        <article class="content-card full-span">
+          <span class="section-kicker" data-i18n="kickerEvaluation">Evaluation</span>
+          <h3 data-i18n="r5Title">如何评估一个 Agent 框架</h3>
+          <div class="content-grid">
+            <div>
+              <ul>
+                <li data-i18n="r5a">架构设计：抽象清晰度、表达力、可扩展性。</li>
+                <li data-i18n="r5b">多 Agent 编排：协作模式、handoff、group workflow。</li>
+                <li data-i18n="r5c">记忆管理：短期/长期/跨会话管理完整度。</li>
+                <li data-i18n="r5d">工具与协议：MCP、A2A、自定义工具生态。</li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li data-i18n="r5e">可观测性：trace、日志、调试、评估闭环。</li>
+                <li data-i18n="r5f">部署成熟度：持久化执行、容错、伸缩、K8s/托管。</li>
+                <li data-i18n="r5g">生态与社区：模型支持、集成广度、文档和活跃度。</li>
+                <li data-i18n="r5h">治理与安全：权限、审批、审计、数据边界。</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="content-card full-span">
+          <span class="section-kicker" data-i18n="kickerComparison">Comparison</span>
+          <h3 data-i18n="compareTitle">主流框架定位对比</h3>
+          <div class="compare-shell">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th data-i18n="cmpFramework">框架</th>
+                  <th data-i18n="cmpPosition">定位</th>
+                  <th data-i18n="cmpStrength">强项</th>
+                  <th data-i18n="cmpFit">适合场景</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>LangGraph</td>
+                  <td data-i18n="cmpLangGraphPos">底层 orchestration runtime</td>
+                  <td data-i18n="cmpLangGraphStr">状态持久化、graph workflow、HITL、durable execution</td>
+                  <td data-i18n="cmpLangGraphFit">复杂长流程、强控制、生产级 agent 系统</td>
+                </tr>
+                <tr>
+                  <td>Microsoft Agent Framework</td>
+                  <td data-i18n="cmpMafPos">生产级多 Agent 框架</td>
+                  <td data-i18n="cmpMafStr">workflow、hosting、observability、enterprise integration</td>
+                  <td data-i18n="cmpMafFit">企业部署、托管运行、可治理协作系统</td>
+                </tr>
+                <tr>
+                  <td>CrewAI</td>
+                  <td data-i18n="cmpCrewPos">业务协作抽象层</td>
+                  <td data-i18n="cmpCrewStr">agents/crews/flows 表达简单、业务流程自动化友好</td>
+                  <td data-i18n="cmpCrewFit">快速搭建多角色业务自动化</td>
+                </tr>
+                <tr>
+                  <td>OpenAI Agents</td>
+                  <td data-i18n="cmpOpenAIPos">模型厂商原生 agent 能力层</td>
+                  <td data-i18n="cmpOpenAIStr">工具链短、模型协同紧、官方能力更新快</td>
+                  <td data-i18n="cmpOpenAIFit">OpenAI 体系内快速落地执行型 agent</td>
+                </tr>
+                <tr>
+                  <td>Dify</td>
+                  <td data-i18n="cmpDifyPos">可视化平台产品</td>
+                  <td data-i18n="cmpDifyStr">低代码、工作流、RAG、团队协作门槛低</td>
+                  <td data-i18n="cmpDifyFit">业务团队落地、内部工具、应用层快速上线</td>
+                </tr>
+                <tr>
+                  <td>AutoGen</td>
+                  <td data-i18n="cmpAutoGenPos">历史影响力较强的多 Agent 研究框架</td>
+                  <td data-i18n="cmpAutoGenStr">启发性强、多 Agent 模式经典、生态认知度高</td>
+                  <td data-i18n="cmpAutoGenFit">研究参考、历史体系理解、多 Agent 演进对照</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="content-card full-span">
+          <span class="section-kicker" data-i18n="kickerPositioning">Positioning</span>
+          <h3 data-i18n="r6Title">主流框架一句话定位</h3>
+          <ul>
+            <li data-i18n="r6a">LangGraph：偏底层 orchestration runtime，强状态、强控制、强持久化。</li>
+            <li data-i18n="r6b">Microsoft Agent Framework：偏生产级多 Agent 框架，强调 workflow、hosting、observability。</li>
+            <li data-i18n="r6c">CrewAI：偏 agents/crews/flows 的业务协作抽象，上手快。</li>
+            <li data-i18n="r6d">OpenAI Agents：偏模型厂商自带 agent 能力层，接入路径短。</li>
+            <li data-i18n="r6e">Dify：偏可视化平台产品，适合低代码工作流落地。</li>
+            <li data-i18n="r6f">AutoGen：历史影响力强，适合作为多 Agent 演进参考系。</li>
+          </ul>
+        </article>
+
+        <div class="summary-cards full-span">
+          <article class="summary-card">
+            <h4 data-i18n="sum1Title">结论一：框架层正在独立</h4>
+            <p data-i18n="sum1Body">Agent 框架正在从“模型调用封装”演变为独立的软件基础设施层，承接执行、治理与可观测性。</p>
+          </article>
+          <article class="summary-card">
+            <h4 data-i18n="sum2Title">结论二：协议与状态是核心壁垒</h4>
+            <p data-i18n="sum2Body">未来框架差异化会越来越集中在 MCP/A2A 支持、状态恢复、HITL 和多 Agent 编排能力上。</p>
+          </article>
+          <article class="summary-card">
+            <h4 data-i18n="sum3Title">结论三：生产化比 Demo 更重要</h4>
+            <p data-i18n="sum3Body">真正的企业价值不在于做一个会说话的 agent，而在于交付一个可审计、可持续、可部署的任务系统。</p>
+          </article>
+        </div>
+
+        <article class="content-card full-span">
+          <span class="section-kicker" data-i18n="kickerConclusion">Conclusion</span>
+          <h3 data-i18n="r7Title">结论</h3>
+          <p data-i18n="r7Body">Agent 框架的核心竞争力，不再只是“能不能做一个 demo”，而是谁能在协议互通、状态持久化、HITL、可观测性和生产治理上提供真正可落地的执行基础设施。</p>
+        </article>
+      </div>
+    </section>
+
+    <p class="note" data-i18n="note">判断规则：同名能力先看语境。讲推理能力是模型层；讲规划执行是 Agent 层；讲 IDE/Web 入口和团队工作流是产品层。</p>
+  </main>
+
+  <script>
+    (function () {
+      const i18n = {
+        zh: {
+          title: "AI 厂商三层归位清单",
+          subtitle: "目的：用“基座模型层 / Agent 执行层 / 产品层”统一口径，避免对标时混淆同名能力（例如 Codex、Claude Code）。",
+          exportCsv: "导出CSV",
+          filterAll: "全部主归类",
+          filterModel: "只看模型型",
+          filterAgent: "只看Agent型",
+          filterProduct: "只看产品型",
+          tabTable: "表格",
+          tabDiagram: "图示",
+          tabResearch: "研究解读",
+          heroTitle: "Agent 框架研究：从 LLM 调用器到任务执行基础设施",
+          heroBody: "这一页用于解释 Agent 框架为什么正在成为独立软件层：它们不只是模型调用封装，而是在模型之上补齐编排、工具、记忆、状态、可观测性和治理能力。",
+          callout1Title: "研究主结论 1",
+          callout1Body: "真正的分水岭，不是“能不能做 demo”，而是“能不能稳定执行长任务”。",
+          callout2Title: "研究主结论 2",
+          callout2Body: "协议标准化正在把工具调用和 Agent 协作从框架私有能力，变成生态公共接口。",
+          callout3Title: "研究主结论 3",
+          callout3Body: "未来竞争重点将从 Prompt 质量，转向状态、治理、可观测性与生产部署能力。",
+          kickerDefinition: "Definition",
+          kickerDifference: "Difference",
+          kickerComponents: "Components",
+          kickerProtocols: "Protocols",
+          kickerEvaluation: "Evaluation",
+          kickerComparison: "Comparison",
+          kickerPositioning: "Positioning",
+          kickerConclusion: "Conclusion",
+          chipModel: "模型层 = 引擎能力",
+          chipAgent: "Agent层 = 规划 + 工具调用 + 多步执行",
+          chipProduct: "产品层 = 用户入口与工作流",
+          thVendor: "厂商",
+          thModel: "基座模型层",
+          thAgent: "Agent层",
+          thProduct: "产品层",
+          thMain: "你做对标时的主归类",
+          note: "判断规则：同名能力先看语境。讲推理能力是模型层；讲规划执行是 Agent 层；讲 IDE/Web 入口和团队工作流是产品层。",
+          csvName: "ai_vendor_layer_mapping_zh.csv",
+          r1Title: "什么是 Agent 开发框架",
+          r1Body: "Agent 开发框架是为了构建基于大语言模型的自主代理系统而设计的软件框架与运行时工具集。它不是单次问答包装，而是让系统具备目标驱动、环境感知、工具调用、多步规划、状态持久化和可治理执行能力。",
+          r2Title: "它与传统 LLM 应用的区别",
+          r2a: "传统 LLM 更偏“一次生成答案”。",
+          r2b: "Agent 框架更偏“围绕目标持续执行任务”。",
+          r2c: "核心差异在于：规划、工具、状态、记忆、可观测性。",
+          r3Title: "五个核心能力组件",
+          r3a: "Agent 定义层：身份、角色、指令、权限与边界。",
+          r3b: "编排引擎：顺序、并行、路由、循环、handoff。",
+          r3c: "工具系统：API、数据库、浏览器、代码执行器、企业系统。",
+          r3d: "记忆与状态：短期记忆、长期记忆、checkpoint、恢复。",
+          r3e: "可观测性：Tracing、Logging、Eval、成本和错误定位。",
+          r4Title: "协议与理念演进",
+          r4a: "MCP：标准化 LLM 与工具/数据源的连接方式。",
+          r4b: "A2A：让不同框架构建的 agent 可以互相通信与协作。",
+          r4c: "Context Engineering：从写 prompt 转向管理上下文供应链。",
+          r4d: "HITL 成熟化：从确认/拒绝升级为中断、恢复、分级审批。",
+          r5Title: "如何评估一个 Agent 框架",
+          r5a: "架构设计：抽象清晰度、表达力、可扩展性。",
+          r5b: "多 Agent 编排：协作模式、handoff、group workflow。",
+          r5c: "记忆管理：短期/长期/跨会话管理完整度。",
+          r5d: "工具与协议：MCP、A2A、自定义工具生态。",
+          r5e: "可观测性：trace、日志、调试、评估闭环。",
+          r5f: "部署成熟度：持久化执行、容错、伸缩、K8s/托管。",
+          r5g: "生态与社区：模型支持、集成广度、文档和活跃度。",
+          r5h: "治理与安全：权限、审批、审计、数据边界。",
+          compareTitle: "主流框架定位对比",
+          cmpFramework: "框架",
+          cmpPosition: "定位",
+          cmpStrength: "强项",
+          cmpFit: "适合场景",
+          cmpLangGraphPos: "底层 orchestration runtime",
+          cmpLangGraphStr: "状态持久化、graph workflow、HITL、durable execution",
+          cmpLangGraphFit: "复杂长流程、强控制、生产级 agent 系统",
+          cmpMafPos: "生产级多 Agent 框架",
+          cmpMafStr: "workflow、hosting、observability、enterprise integration",
+          cmpMafFit: "企业部署、托管运行、可治理协作系统",
+          cmpCrewPos: "业务协作抽象层",
+          cmpCrewStr: "agents/crews/flows 表达简单、业务流程自动化友好",
+          cmpCrewFit: "快速搭建多角色业务自动化",
+          cmpOpenAIPos: "模型厂商原生 agent 能力层",
+          cmpOpenAIStr: "工具链短、模型协同紧、官方能力更新快",
+          cmpOpenAIFit: "OpenAI 体系内快速落地执行型 agent",
+          cmpDifyPos: "可视化平台产品",
+          cmpDifyStr: "低代码、工作流、RAG、团队协作门槛低",
+          cmpDifyFit: "业务团队落地、内部工具、应用层快速上线",
+          cmpAutoGenPos: "历史影响力较强的多 Agent 研究框架",
+          cmpAutoGenStr: "启发性强、多 Agent 模式经典、生态认知度高",
+          cmpAutoGenFit: "研究参考、历史体系理解、多 Agent 演进对照",
+          r6Title: "主流框架一句话定位",
+          r6a: "LangGraph：偏底层 orchestration runtime，强状态、强控制、强持久化。",
+          r6b: "Microsoft Agent Framework：偏生产级多 Agent 框架，强调 workflow、hosting、observability。",
+          r6c: "CrewAI：偏 agents/crews/flows 的业务协作抽象，上手快。",
+          r6d: "OpenAI Agents：偏模型厂商自带 agent 能力层，接入路径短。",
+          r6e: "Dify：偏可视化平台产品，适合低代码工作流落地。",
+          r6f: "AutoGen：历史影响力强，适合作为多 Agent 演进参考系。",
+          sum1Title: "结论一：框架层正在独立",
+          sum1Body: "Agent 框架正在从“模型调用封装”演变为独立的软件基础设施层，承接执行、治理与可观测性。",
+          sum2Title: "结论二：协议与状态是核心壁垒",
+          sum2Body: "未来框架差异化会越来越集中在 MCP/A2A 支持、状态恢复、HITL 和多 Agent 编排能力上。",
+          sum3Title: "结论三：生产化比 Demo 更重要",
+          sum3Body: "真正的企业价值不在于做一个会说话的 agent，而在于交付一个可审计、可持续、可部署的任务系统。",
+          r7Title: "结论",
+          r7Body: "Agent 框架的核心竞争力，不再只是“能不能做一个 demo”，而是谁能在协议互通、状态持久化、HITL、可观测性和生产治理上提供真正可落地的执行基础设施。"
+        },
+        en: {
+          title: "AI Vendor Three-Layer Mapping",
+          subtitle: "Goal: align terms into Foundation Model / Agent Execution / Product Layer, and avoid confusion for overlapping names like Codex and Claude Code.",
+          exportCsv: "Export CSV",
+          filterAll: "All Main Classes",
+          filterModel: "Model-focused",
+          filterAgent: "Agent-focused",
+          filterProduct: "Product-focused",
+          tabTable: "Table",
+          tabDiagram: "Diagram",
+          tabResearch: "Research Notes",
+          heroTitle: "Agent Framework Research: From LLM Interface Layer to Execution Infrastructure",
+          heroBody: "This section frames agent frameworks as an emerging software layer in their own right. Rather than merely wrapping model calls, these systems add orchestration, tool connectivity, memory, state persistence, observability, and governance on top of foundation models.",
+          callout1Title: "Key Finding 1",
+          callout1Body: "The decisive distinction is no longer whether a framework can produce a demo, but whether it can execute long-running tasks with reliability and control.",
+          callout2Title: "Key Finding 2",
+          callout2Body: "Protocol standardization is transforming tool invocation and agent collaboration from proprietary framework features into ecosystem-level public interfaces.",
+          callout3Title: "Key Finding 3",
+          callout3Body: "Competitive differentiation is shifting away from prompt quality alone and toward state management, governance, observability, and production-grade deployment maturity.",
+          kickerDefinition: "Definition",
+          kickerDifference: "Difference",
+          kickerComponents: "Components",
+          kickerProtocols: "Protocols",
+          kickerEvaluation: "Evaluation",
+          kickerComparison: "Comparison",
+          kickerPositioning: "Positioning",
+          kickerConclusion: "Conclusion",
+          chipModel: "Model Layer = Core Intelligence Engine",
+          chipAgent: "Agent Layer = Planning + Tool Use + Multi-step Execution",
+          chipProduct: "Product Layer = User Entry and Workflow",
+          thVendor: "Vendor",
+          thModel: "Foundation Model Layer",
+          thAgent: "Agent Layer",
+          thProduct: "Product Layer",
+          thMain: "Primary Benchmark Category",
+          note: "Rule of thumb: same name, different layer by context. Reasoning ability -> model layer; planning/execution -> agent layer; IDE/web workflow entry -> product layer.",
+          csvName: "ai_vendor_layer_mapping_en.csv",
+          r1Title: "What Is an Agent Framework",
+          r1Body: "An agent framework is a software framework and runtime toolkit designed to build autonomous systems on top of large language models. It extends beyond one-shot chat interfaces by enabling goal-directed execution, environmental awareness, tool invocation, multi-step planning, persistent state, and governed operation.",
+          r2Title: "How It Differs from Traditional LLM Apps",
+          r2a: "Traditional LLM applications are generally centered on one-shot response generation.",
+          r2b: "Agent frameworks are better understood as systems for continuous, goal-oriented task execution.",
+          r2c: "The key differentiators are planning, tool invocation, state management, memory architecture, and observability.",
+          r3Title: "Five Core Capability Blocks",
+          r3a: "Agent definition: identity, role, system instructions, permissions, and behavioral boundaries.",
+          r3b: "Orchestration: sequencing, parallel execution, routing, loops, and handoff patterns.",
+          r3c: "Tooling: APIs, databases, browsers, code execution environments, and enterprise systems.",
+          r3d: "Memory and state: short-term memory, long-term memory, checkpoints, and resumability.",
+          r3e: "Observability: tracing, logging, evaluation, cost monitoring, and failure diagnosis.",
+          r4Title: "Protocols and Design Evolution",
+          r4a: "MCP: standardizes how LLMs connect to tools, context providers, and data sources.",
+          r4b: "A2A: enables communication and coordination across agents built with different frameworks.",
+          r4c: "Context Engineering: shifts emphasis from prompt writing toward disciplined context supply-chain design.",
+          r4d: "Mature HITL: evolves from binary approve/reject flows into interrupt, resume, and tiered review mechanisms.",
+          r5Title: "How to Evaluate an Agent Framework",
+          r5a: "Architecture: clarity of abstractions, expressive power, and extensibility.",
+          r5b: "Multi-agent orchestration: collaboration patterns, handoff, and group workflow support.",
+          r5c: "Memory: completeness across short-term, long-term, and cross-session memory layers.",
+          r5d: "Tools and protocols: MCP, A2A, and the breadth of the custom integration ecosystem.",
+          r5e: "Observability: traces, logs, debugging workflows, and evaluation loops.",
+          r5f: "Deployment maturity: durable execution, fault tolerance, scale, and K8s/hosted options.",
+          r5g: "Ecosystem and community: model support, integrations, documentation quality, and developer activity.",
+          r5h: "Governance and security: permissions, approvals, auditability, and data-boundary controls.",
+          compareTitle: "Positioning Comparison of Major Frameworks",
+          cmpFramework: "Framework",
+          cmpPosition: "Positioning",
+          cmpStrength: "Strength",
+          cmpFit: "Best Fit",
+          cmpLangGraphPos: "Low-level orchestration runtime",
+          cmpLangGraphStr: "State persistence, graph-based workflows, HITL, and durable execution",
+          cmpLangGraphFit: "Complex long-running flows, high control requirements, and production-grade agent systems",
+          cmpMafPos: "Production-grade multi-agent framework",
+          cmpMafStr: "Workflow orchestration, hosting, observability, and enterprise integration",
+          cmpMafFit: "Enterprise deployment, hosted execution, and governable collaboration systems",
+          cmpCrewPos: "Business collaboration abstraction layer",
+          cmpCrewStr: "Straightforward agents/crews/flows abstractions with automation-friendly ergonomics",
+          cmpCrewFit: "Rapid setup of multi-role business automations",
+          cmpOpenAIPos: "Native model-vendor agent capability layer",
+          cmpOpenAIStr: "Tight model coupling, short tool chain, and rapid first-party capability updates",
+          cmpOpenAIFit: "Fast delivery of execution-oriented agents within the OpenAI stack",
+          cmpDifyPos: "Visual platform product",
+          cmpDifyStr: "Low-code workflows, RAG integration, and a low adoption barrier for teams",
+          cmpDifyFit: "Business delivery, internal tools, and rapid application launch",
+          cmpAutoGenPos: "Historically influential multi-agent research framework",
+          cmpAutoGenStr: "High reference value, classic multi-agent patterns, and broad ecosystem recognition",
+          cmpAutoGenFit: "Research reference, legacy-system understanding, and evolutionary comparison",
+          r6Title: "One-line Positioning of Major Frameworks",
+          r6a: "LangGraph: a low-level orchestration runtime distinguished by strong state management, control, and persistence.",
+          r6b: "Microsoft Agent Framework: a production-oriented multi-agent framework built around workflows, hosting, and observability.",
+          r6c: "CrewAI: a business-friendly abstraction around agents, crews, and flows with rapid onboarding characteristics.",
+          r6d: "OpenAI Agents: a native agent capability layer from the model vendor with short integration paths.",
+          r6e: "Dify: a visual platform product well suited to low-code workflow delivery and internal application enablement.",
+          r6f: "AutoGen: historically influential and still useful as a reference point for multi-agent architectural evolution.",
+          sum1Title: "Conclusion 1: The framework layer is becoming independent",
+          sum1Body: "Agent frameworks are evolving from model-call wrappers into an independent software infrastructure layer for execution, governance, and observability.",
+          sum2Title: "Conclusion 2: Protocols and state are the core moat",
+          sum2Body: "Future differentiation is likely to concentrate on MCP/A2A support, state recovery, HITL, and multi-agent orchestration.",
+          sum3Title: "Conclusion 3: Production matters more than demos",
+          sum3Body: "The real enterprise value lies not in producing a conversational demo, but in delivering an auditable, durable, and deployable task system.",
+          r7Title: "Conclusion",
+          r7Body: "The real competitive edge of agent frameworks is no longer whether they can produce a demo, but whether they can provide deployable execution infrastructure across protocol interoperability, durable state, HITL, observability, and production governance."
+        }
+      };
+
+      const mainTagI18n = {
+        "模型+Agent+产品全栈": "Model + Agent + Product Full Stack",
+        "模型+Agent/产品一体": "Model + Agent/Product Integrated",
+        "模型+企业产品": "Model + Enterprise Product",
+        "产品编排层强": "Strong Product Orchestration",
+        "Agent+企业平台": "Agent + Enterprise Platform",
+        "模型生态型": "Model Ecosystem",
+        "模型+应用": "Model + Application",
+        "产品层主导": "Product-led",
+        "产品层（IDE入口）": "Product Layer (IDE Entry)",
+        "产品+Agent体验": "Product + Agent Experience",
+        "产品层": "Product Layer",
+        "产品层（私有化）": "Product Layer (Private Deployment)",
+        "Agent+产品": "Agent + Product",
+        "Agent层主导": "Agent-led",
+        "模型+Agent+产品": "Model + Agent + Product",
+        "产品+平台": "Product + Platform",
+        "平台层": "Platform Layer",
+        "产品+模型": "Product + Model",
+        "模型层主导": "Model-led",
+        "Agent 平台层": "Agent Platform Layer"
+      };
+
+      const vendorRowI18n = {
+        "OpenAI": ["OpenAI", "GPT/o series; Codex (model meaning)", "OpenAI Agents", "ChatGPT, Codex (product meaning)"],
+        "Anthropic": ["Anthropic", "Claude series", "Claude Code (execution capability)", "Claude, Claude Code"],
+        "Google": ["Google", "Gemini series", "Agentspace / agent capabilities", "Gemini App, Workspace integrations, Code Assist"],
+        "Microsoft": ["Microsoft", "Azure OpenAI (model service aggregation)", "Azure AI Agent Service", "Copilot family (M365/GitHub, etc.)"],
+        "AWS": ["AWS", "Bedrock model aggregation", "Bedrock Agents", "Amazon Q Developer"],
+        "Meta": ["Meta", "Llama series", "No widely unified commercial agent entry yet", "More ecosystem-integrated products"],
+        "xAI": ["xAI", "Grok series", "Has agent capabilities but lighter platformization", "Grok app"],
+        "Perplexity": ["Perplexity", "Primarily uses external models", "Research/search workflow agent capabilities", "Perplexity search product"],
+        "GitHub": ["GitHub", "Depends on upstream models", "Copilot agent capabilities (gradually expanding)", "GitHub Copilot"],
+        "Cursor（Anysphere）": ["Cursor (Anysphere)", "Depends on multiple models", "Strong agent-style coding workflow", "Cursor IDE"],
+        "JetBrains": ["JetBrains", "Depends on multiple models", "In-IDE agent capabilities", "JetBrains AI Assistant"],
+        "Sourcegraph": ["Sourcegraph", "Depends on multiple models", "Cody workflow capabilities", "Cody"],
+        "Tabnine": ["Tabnine", "Own + external model mix", "Enterprise-side agent capabilities", "Tabnine"],
+        "Replit": ["Replit", "Multi-model access", "Replit Agent", "Replit platform"],
+        "Cognition": ["Cognition", "Multi-model access", "Devin (task-delegation agent)", "Devin product"],
+        "阿里云/阿里": ["Alibaba Cloud / Alibaba", "Qwen", "Bailian Agent", "Tongyi Qianwen App, Tongyi Lingma"],
+        "腾讯/腾讯云": ["Tencent / Tencent Cloud", "Hunyuan", "Tencent Cloud workflows / agent capabilities", "Yuanbao, WeCom ecosystem entry"],
+        "百度/百度云": ["Baidu / Baidu Cloud", "ERNIE", "Qianfan Agent", "Wenxiaoyan, Comate"],
+        "华为云": ["Huawei Cloud", "Pangu and related models", "Astro / enterprise process orchestration", "Enterprise cloud product entry"],
+        "字节/火山引擎": ["ByteDance / Volcano Engine", "Doubao model family", "Volcano Ark agent capabilities", "Doubao, Trae/MarsCode"],
+        "DeepSeek": ["DeepSeek", "DeepSeek series", "Orchestrated through ecosystem integrations", "API / open-source ecosystem"],
+        "智谱": ["Zhipu", "GLM", "Enterprise agent integrations", "GLM open platform product"],
+        "Moonshot": ["Moonshot", "Kimi-related models", "Research workflow capabilities", "Kimi App"],
+        "Dify / FastGPT": ["Dify / FastGPT", "Connects to multiple models", "Strong agent orchestration capability", "The platform product itself"]
+      };
+
+      const compareRowI18n = {
+        "LangGraph": ["LangGraph", "Low-level orchestration runtime", "State persistence, graph workflows, HITL, durable execution", "Complex long-running flows, strong control, production-grade agent systems"],
+        "Microsoft Agent Framework": ["Microsoft Agent Framework", "Production-grade multi-agent framework", "Workflow, hosting, observability, enterprise integration", "Enterprise deployment, hosted execution, governable collaboration systems"],
+        "CrewAI": ["CrewAI", "Business collaboration abstraction layer", "Simple agents/crews/flows abstraction, automation-friendly", "Fast setup of multi-role business automations"],
+        "OpenAI Agents": ["OpenAI Agents", "Native model-vendor agent capability layer", "Short tool chain, tight model integration, fast official updates", "Fast delivery of execution agents inside the OpenAI stack"],
+        "Dify": ["Dify", "Visual platform product", "Low-code workflows, RAG, low adoption barrier for teams", "Business delivery, internal tools, rapid application launch"],
+        "AutoGen": ["AutoGen", "Historically influential multi-agent research framework", "Strong inspiration value, classic multi-agent patterns, broad recognition", "Research reference, legacy-system understanding, evolutionary comparison"]
+      };
+
+      const STORAGE_KEYS = {
+        lang: "ai-vendor-layer-lang",
+        tab: "ai-vendor-layer-tab",
+        filter: "ai-vendor-layer-filter"
+      };
+
+      const state = {
+        lang: "zh",
+        tab: "tablePanel",
+        filter: "all"
+      };
+
+      const langBtn = document.getElementById("langBtn");
+      const exportBtn = document.getElementById("exportCsvBtn");
+      const mainFilter = document.getElementById("mainFilter");
+      const diagramObject = document.getElementById("diagramObject");
+      const tabButtons = Array.from(document.querySelectorAll(".tab-btn"));
+      const panels = Array.from(document.querySelectorAll(".panel"));
+      const rows = Array.from(document.querySelectorAll(".table-shell tbody tr"));
+      const compareRows = Array.from(document.querySelectorAll(".compare-table tbody tr"));
+
+      rows.forEach(function (row) {
+        const tag = row.querySelector(".main-tag");
+        if (!tag) return;
+        tag.dataset.zh = tag.textContent.trim();
+        tag.dataset.en = mainTagI18n[tag.dataset.zh] || tag.dataset.zh;
+
+        const cells = Array.from(row.querySelectorAll("td"));
+        if (cells.length < 5) return;
+        const vendorKey = cells[0].textContent.trim();
+        const en = vendorRowI18n[vendorKey];
+        cells.forEach(function (cell) {
+          cell.dataset.zh = cell.textContent.trim();
+        });
+        if (en) {
+          cells[0].dataset.en = en[0];
+          cells[1].dataset.en = en[1];
+          cells[2].dataset.en = en[2];
+          cells[3].dataset.en = en[3];
+          cells[4].dataset.en = tag.dataset.en;
+        }
+      });
+
+      compareRows.forEach(function (row) {
+        const cells = Array.from(row.querySelectorAll("td"));
+        if (cells.length !== 4) return;
+        const key = cells[0].textContent.trim();
+        const en = compareRowI18n[key];
+        cells.forEach(function (cell) {
+          cell.dataset.zh = cell.textContent.trim();
+        });
+        if (en) {
+          cells.forEach(function (cell, index) {
+            cell.dataset.en = en[index];
+          });
+        }
+      });
+
+      function restoreState() {
+        const savedLang = localStorage.getItem(STORAGE_KEYS.lang);
+        const savedTab = localStorage.getItem(STORAGE_KEYS.tab);
+        const savedFilter = localStorage.getItem(STORAGE_KEYS.filter);
+
+        if (savedLang === "zh" || savedLang === "en") {
+          state.lang = savedLang;
+        }
+        if (savedTab && document.getElementById(savedTab)) {
+          state.tab = savedTab;
+        }
+        if (savedFilter === "all" || savedFilter === "model" || savedFilter === "agent" || savedFilter === "product") {
+          state.filter = savedFilter;
+        }
+
+        mainFilter.value = state.filter;
+      }
+
+      function persistState() {
+        localStorage.setItem(STORAGE_KEYS.lang, state.lang);
+        localStorage.setItem(STORAGE_KEYS.tab, state.tab);
+        localStorage.setItem(STORAGE_KEYS.filter, state.filter);
+      }
+
+      function applyI18n() {
+        const dict = i18n[state.lang];
+        document.documentElement.lang = state.lang === "en" ? "en" : "zh-CN";
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          const k = el.dataset.i18n;
+          if (dict[k]) el.textContent = dict[k];
+        });
+        langBtn.textContent = state.lang === "zh" ? "EN" : "中";
+
+        document.querySelectorAll(".main-tag").forEach(function (tag) {
+          tag.textContent = state.lang === "zh" ? tag.dataset.zh : tag.dataset.en;
+        });
+
+        rows.forEach(function (row) {
+          Array.from(row.querySelectorAll("td")).forEach(function (cell, index) {
+            if (index === 4) return;
+            cell.textContent = state.lang === "zh" ? (cell.dataset.zh || cell.textContent) : (cell.dataset.en || cell.dataset.zh || cell.textContent);
+          });
+          const tag = row.querySelector(".main-tag");
+          if (tag) tag.textContent = state.lang === "zh" ? tag.dataset.zh : tag.dataset.en;
+        });
+
+        compareRows.forEach(function (row) {
+          Array.from(row.querySelectorAll("td")).forEach(function (cell) {
+            cell.textContent = state.lang === "zh" ? (cell.dataset.zh || cell.textContent) : (cell.dataset.en || cell.dataset.zh || cell.textContent);
+          });
+        });
+
+        if (diagramObject) {
+          diagramObject.data = state.lang === "zh" ? "model_agent_product_layers.svg" : "model_agent_product_layers_en.svg";
+        }
+      }
+
+      function applyFilter() {
+        rows.forEach(function (row) {
+          const show = state.filter === "all" || row.dataset.main === state.filter;
+          row.style.display = show ? "" : "none";
+        });
+      }
+
+      function applyTab() {
+        tabButtons.forEach(function (btn) {
+          const active = btn.dataset.target === state.tab;
+          btn.classList.toggle("active", active);
+        });
+        panels.forEach(function (p) {
+          p.classList.toggle("active", p.id === state.tab);
+        });
+        document.getElementById("legendPanel").style.display = state.tab === "tablePanel" ? "flex" : "none";
+      }
+
+      function exportVisibleCsv() {
+        const headers = Array.from(document.querySelectorAll("thead th")).map(function (th) {
+          return th.textContent.trim();
+        });
+        const body = rows
+          .filter(function (row) { return row.style.display !== "none"; })
+          .map(function (row) {
+            return Array.from(row.querySelectorAll("td")).map(function (td) {
+              const text = td.textContent.replace(/\s+/g, " ").trim();
+              return '"' + text.replace(/"/g, '""') + '"';
+            }).join(",");
+          });
+
+        const csv = [
+          headers.map(function (h) { return '"' + h.replace(/"/g, '""') + '"'; }).join(",")
+        ].concat(body).join("\n");
+
+        const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = i18n[state.lang].csvName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      langBtn.addEventListener("click", function () {
+        state.lang = state.lang === "zh" ? "en" : "zh";
+        persistState();
+        applyI18n();
+      });
+
+      mainFilter.addEventListener("change", function () {
+        state.filter = mainFilter.value;
+        persistState();
+        applyFilter();
+      });
+
+      exportBtn.addEventListener("click", exportVisibleCsv);
+
+      tabButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          state.tab = btn.dataset.target;
+          persistState();
+          applyTab();
+        });
+      });
+
+      restoreState();
+      applyI18n();
+      applyFilter();
+      applyTab();
+    })();
+  </script>
+</body>
+</html>

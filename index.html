@@ -243,6 +243,61 @@
       font-size: 12px;
     }
 
+    .embed-shell {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--panel);
+      padding: 12px;
+      box-shadow: 0 12px 26px rgba(26, 122, 134, 0.1);
+    }
+
+    .embed-title {
+      margin: 0 0 10px;
+      color: #1a4d51;
+      font-family: "Space Grotesk", "Helvetica Neue", "PingFang SC", sans-serif;
+      font-size: 18px;
+    }
+
+    .embed-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .embed-tab {
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #1a7a86;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    }
+
+    .embed-tab:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(44, 168, 181, 0.16);
+    }
+
+    .embed-tab.active {
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(120deg, var(--brandA), var(--brandB));
+      box-shadow: 0 14px 24px rgba(44, 168, 181, 0.22);
+    }
+
+    .embed-frame {
+      width: 100%;
+      min-height: 640px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
     @keyframes shimaiHeroIn {
       0% {
         opacity: 0;
@@ -307,6 +362,16 @@
           </div>
           <a class="shimai-btn primary entry-cta" href="agent_effectiveness_metrics.html" id="openMetricsSpotlight">立即查看</a>
         </div>
+
+        <section class="embed-shell" aria-label="embedded pages">
+          <h2 class="embed-title" id="embedTitle">重点页面内嵌浏览</h2>
+          <div class="embed-tabs" id="embedTabs">
+            <button class="embed-tab active" data-url="map.html" id="embedTabMap">竞争关系图</button>
+            <button class="embed-tab" data-url="enterprise_agent_architecture.html" id="embedTabEnterprise">企业级 Agent 架构</button>
+            <button class="embed-tab" data-url="ai_vendor_layer_mapping.html" id="embedTabLayer">三层归位清单</button>
+          </div>
+          <iframe id="embedFrame" class="embed-frame" src="map.html" title="Embedded VikipediAi Page" loading="lazy"></iframe>
+        </section>
       </div>
     </section>
 
@@ -336,6 +401,10 @@
         zh: {
           version: "版本 v2.5.1",
           subtitle: "面向 AI 产品与产业链研究的一页式可视化入口。",
+          embedTitle: "重点页面内嵌浏览",
+          embedTabMap: "竞争关系图",
+          embedTabEnterprise: "企业级 Agent 架构",
+          embedTabLayer: "三层归位清单",
           card1Title: "中外 AI 竞争关系图",
           card1Desc: "查看国内与国外 AI 生态中的直接竞争关系、上下游依赖和中美对位竞争关系。",
           card2Title: "内容范围",
@@ -356,6 +425,10 @@
         en: {
           version: "version v2.5.1",
           subtitle: "A one-page visual entry point for AI product and value-chain research.",
+          embedTitle: "Embedded Quick Views",
+          embedTabMap: "Competition Map",
+          embedTabEnterprise: "Enterprise Agent Architecture",
+          embedTabLayer: "Three-Layer Mapping",
           card1Title: "China vs Global AI Competition Map",
           card1Desc: "Explore direct competition, upstream dependencies, and China-US head-to-head rivalries in one map.",
           card2Title: "Coverage",
@@ -379,6 +452,12 @@
       const langBtn = document.getElementById("langBtn");
       const versionText = document.getElementById("versionText");
       const subtitle = document.getElementById("subtitle");
+      const embedTitle = document.getElementById("embedTitle");
+      const embedTabMap = document.getElementById("embedTabMap");
+      const embedTabEnterprise = document.getElementById("embedTabEnterprise");
+      const embedTabLayer = document.getElementById("embedTabLayer");
+      const embedFrame = document.getElementById("embedFrame");
+      const embedTabs = Array.from(document.querySelectorAll(".embed-tab"));
       const card1Title = document.getElementById("card1Title");
       const card1Desc = document.getElementById("card1Desc");
       const card2Title = document.getElementById("card2Title");
@@ -395,11 +474,34 @@
       const metricsSpotlightDesc = document.getElementById("metricsSpotlightDesc");
       const openMetricsSpotlight = document.getElementById("openMetricsSpotlight");
       const footer = document.getElementById("footer");
+      const embedStorageKey = "vp-home-embed-tab";
+      let activeEmbedUrl = "map.html";
+
+      function applyEmbedTab(url, persist) {
+        activeEmbedUrl = url;
+        embedTabs.forEach(function (btn) {
+          btn.classList.toggle("active", btn.dataset.url === url);
+        });
+        if (embedFrame.getAttribute("src") !== url) {
+          embedFrame.setAttribute("src", url);
+        }
+        if (persist) {
+          try {
+            localStorage.setItem(embedStorageKey, url);
+          } catch (_) {
+            // Ignore storage errors in restricted contexts.
+          }
+        }
+      }
 
       function apply() {
         const t = i18n[lang];
         versionText.textContent = t.version;
         subtitle.textContent = t.subtitle;
+        embedTitle.textContent = t.embedTitle;
+        embedTabMap.textContent = t.embedTabMap;
+        embedTabEnterprise.textContent = t.embedTabEnterprise;
+        embedTabLayer.textContent = t.embedTabLayer;
         card1Title.textContent = t.card1Title;
         card1Desc.textContent = t.card1Desc;
         card2Title.textContent = t.card2Title;
@@ -424,6 +526,23 @@
         lang = lang === "zh" ? "en" : "zh";
         apply();
       });
+
+      embedTabs.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          applyEmbedTab(btn.dataset.url, true);
+        });
+      });
+
+      try {
+        const savedUrl = localStorage.getItem(embedStorageKey);
+        if (savedUrl && embedTabs.some(function (btn) { return btn.dataset.url === savedUrl; })) {
+          activeEmbedUrl = savedUrl;
+        }
+      } catch (_) {
+        // Ignore storage errors in restricted contexts.
+      }
+
+      applyEmbedTab(activeEmbedUrl, false);
 
       apply();
     })();
