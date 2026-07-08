@@ -243,60 +243,6 @@
       font-size: 12px;
     }
 
-    .embed-shell {
-      margin-top: 16px;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: var(--panel);
-      padding: 12px;
-      box-shadow: 0 12px 26px rgba(26, 122, 134, 0.1);
-    }
-
-    .embed-title {
-      margin: 0 0 10px;
-      color: #1a4d51;
-      font-family: "Space Grotesk", "Helvetica Neue", "PingFang SC", sans-serif;
-      font-size: 18px;
-    }
-
-    .embed-tabs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .embed-tab {
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: #1a7a86;
-      font-size: 13px;
-      font-weight: 700;
-      padding: 8px 12px;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
-    }
-
-    .embed-tab:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(44, 168, 181, 0.16);
-    }
-
-    .embed-tab.active {
-      color: #fff;
-      border-color: transparent;
-      background: linear-gradient(120deg, var(--brandA), var(--brandB));
-      box-shadow: 0 14px 24px rgba(44, 168, 181, 0.22);
-    }
-
-    .embed-frame {
-      width: 100%;
-      min-height: 640px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: #fff;
-    }
 
     @keyframes shimaiHeroIn {
       0% {
@@ -354,6 +300,7 @@
           <a class="shimai-btn primary" href="developer_coding_hub.html#overview" id="openDevHub">打开开发者与编程专题入口</a>
           <a class="shimai-btn primary" href="ai_vibe_coding_guide.html" id="openVibeCoding">打开 AI Vibe Coding 指南页</a>
           <a class="shimai-btn primary" href="enterprise_agent_architecture.html" id="openAgentArch">企业级 Agent</a>
+          <a class="shimai-btn primary" href="ai_vendor_layer_mapping.html" id="openLayerMapping">AI 厂商三层归位清单</a>
         </div>
         <div class="entry-spotlight">
           <div class="entry-copy">
@@ -363,15 +310,6 @@
           <a class="shimai-btn primary entry-cta" href="agent_effectiveness_metrics.html" id="openMetricsSpotlight">立即查看</a>
         </div>
 
-        <section class="embed-shell" aria-label="embedded pages">
-          <h2 class="embed-title" id="embedTitle">重点页面内嵌浏览</h2>
-          <div class="embed-tabs" id="embedTabs">
-            <button class="embed-tab active" data-url="map.html" id="embedTabMap">竞争关系图</button>
-            <button class="embed-tab" data-url="enterprise_agent_architecture.html" id="embedTabEnterprise">企业级 Agent 架构</button>
-            <button class="embed-tab" data-url="ai_vendor_layer_mapping.html" id="embedTabLayer">三层归位清单</button>
-          </div>
-          <iframe id="embedFrame" class="embed-frame" src="map.html" title="Embedded VikipediAi Page" loading="lazy"></iframe>
-        </section>
       </div>
     </section>
 
@@ -401,10 +339,6 @@
         zh: {
           version: "版本 v2.5.1",
           subtitle: "面向 AI 产品与产业链研究的一页式可视化入口。",
-          embedTitle: "重点页面内嵌浏览",
-          embedTabMap: "竞争关系图",
-          embedTabEnterprise: "企业级 Agent 架构",
-          embedTabLayer: "三层归位清单",
           card1Title: "中外 AI 竞争关系图",
           card1Desc: "查看国内与国外 AI 生态中的直接竞争关系、上下游依赖和中美对位竞争关系。",
           card2Title: "内容范围",
@@ -417,6 +351,7 @@
           openDevHub: "打开开发者与编程专题入口",
           openVibeCoding: "打开 AI Vibe Coding 指南页",
           openAgentArch: "企业级 Agent",
+          openLayerMapping: "AI 厂商三层归位清单",
           metricsSpotlightTitle: "新上线重点：智能体效能指标体系",
           metricsSpotlightDesc: "一页查看四维度指标、指标金字塔与团队责任分工，适合用于周会复盘与管理汇报。",
           openMetricsSpotlight: "立即查看",
@@ -425,10 +360,6 @@
         en: {
           version: "version v2.5.1",
           subtitle: "A one-page visual entry point for AI product and value-chain research.",
-          embedTitle: "Embedded Quick Views",
-          embedTabMap: "Competition Map",
-          embedTabEnterprise: "Enterprise Agent Architecture",
-          embedTabLayer: "Three-Layer Mapping",
           card1Title: "China vs Global AI Competition Map",
           card1Desc: "Explore direct competition, upstream dependencies, and China-US head-to-head rivalries in one map.",
           card2Title: "Coverage",
@@ -441,23 +372,40 @@
           openDevHub: "Open Developer and Coding Topic Hub",
           openVibeCoding: "Open AI Vibe Coding Guide",
           openAgentArch: "Enterprise Agent",
+          openLayerMapping: "Open AI Vendor Three-Layer Mapping",
           metricsSpotlightTitle: "New Highlight: Agent Effectiveness Metrics",
           metricsSpotlightDesc: "See the four-dimension framework, KPI pyramid, and team ownership in one page for weekly reviews and management updates.",
           openMetricsSpotlight: "View Now",
           footer: "Maintained in repository: ttoriaa/VikipediAi"
+        },
+        de: {
+          version: "Version v2.5.1",
+          subtitle: "Ein einseitiger visueller Einstieg fuer die Forschung zu KI-Produkten und Wertschoepfungsketten.",
+          card1Title: "Wettbewerbskarte KI: China vs. Global",
+          card1Desc: "Direkter Wettbewerb, Upstream-Abhaengigkeiten und China-USA-Gegenueberstellung in einer Karte.",
+          card2Title: "Abdeckung",
+          card2Desc: "Umfasst Modellschicht, Anwendungsschicht, Agent-Orchestrierung und Angebotsseite; mit Investor-/Einkaufsperspektive und 16:9-Export.",
+          card3Title: "Was ist die Agent-Orchestrierungsschicht?",
+          card3Desc: "Sie ist die Steuerungsschicht fuer Aufgabenrouting, Ausfuehrungsreihenfolge, Tool-Aufrufe, Statusverfolgung und Wiederholungen. So koennen mehrere Agenten nach gemeinsamen Regeln zusammenarbeiten.",
+          openMap: "Wettbewerbskarte oeffnen",
+          openFoundation: "Seite zur Leistung von Foundation-LLMs oeffnen",
+          openAppHub: "Einstieg Anwendungsschicht oeffnen",
+          openDevHub: "Entwickler- und Coding-Hub oeffnen",
+          openVibeCoding: "AI Vibe Coding Leitfaden oeffnen",
+          openAgentArch: "Enterprise Agent",
+          openLayerMapping: "Drei-Schichten-Mapping der KI-Anbieter",
+          metricsSpotlightTitle: "Neues Highlight: Agenten-Effektivitaetsmetriken",
+          metricsSpotlightDesc: "Vier Dimensionen, KPI-Pyramide und Teamverantwortung auf einer Seite fuer Wochenreview und Management-Updates.",
+          openMetricsSpotlight: "Jetzt ansehen",
+          footer: "Repository: ttoriaa/VikipediAi"
         }
       };
 
       let lang = "zh";
+      const langOrder = ["zh", "en", "de"];
       const langBtn = document.getElementById("langBtn");
       const versionText = document.getElementById("versionText");
       const subtitle = document.getElementById("subtitle");
-      const embedTitle = document.getElementById("embedTitle");
-      const embedTabMap = document.getElementById("embedTabMap");
-      const embedTabEnterprise = document.getElementById("embedTabEnterprise");
-      const embedTabLayer = document.getElementById("embedTabLayer");
-      const embedFrame = document.getElementById("embedFrame");
-      const embedTabs = Array.from(document.querySelectorAll(".embed-tab"));
       const card1Title = document.getElementById("card1Title");
       const card1Desc = document.getElementById("card1Desc");
       const card2Title = document.getElementById("card2Title");
@@ -470,38 +418,41 @@
       const openDevHub = document.getElementById("openDevHub");
       const openVibeCoding = document.getElementById("openVibeCoding");
       const openAgentArch = document.getElementById("openAgentArch");
+      const openLayerMapping = document.getElementById("openLayerMapping");
       const metricsSpotlightTitle = document.getElementById("metricsSpotlightTitle");
       const metricsSpotlightDesc = document.getElementById("metricsSpotlightDesc");
       const openMetricsSpotlight = document.getElementById("openMetricsSpotlight");
       const footer = document.getElementById("footer");
-      const embedStorageKey = "vp-home-embed-tab";
-      let activeEmbedUrl = "map.html";
 
-      function applyEmbedTab(url, persist) {
-        activeEmbedUrl = url;
-        embedTabs.forEach(function (btn) {
-          btn.classList.toggle("active", btn.dataset.url === url);
-        });
-        if (embedFrame.getAttribute("src") !== url) {
-          embedFrame.setAttribute("src", url);
+      function getNextLang(current) {
+        const idx = langOrder.indexOf(current);
+        return langOrder[(idx + 1) % langOrder.length];
+      }
+
+      function getLangButtonLabel(nextLang) {
+        if (nextLang === "zh") {
+          return "中文";
         }
-        if (persist) {
-          try {
-            localStorage.setItem(embedStorageKey, url);
-          } catch (_) {
-            // Ignore storage errors in restricted contexts.
-          }
+        if (nextLang === "en") {
+          return "EN";
         }
+        return "DE";
+      }
+
+      function getHtmlLangCode(value) {
+        if (value === "zh") {
+          return "zh-CN";
+        }
+        if (value === "de") {
+          return "de";
+        }
+        return "en";
       }
 
       function apply() {
         const t = i18n[lang];
         versionText.textContent = t.version;
         subtitle.textContent = t.subtitle;
-        embedTitle.textContent = t.embedTitle;
-        embedTabMap.textContent = t.embedTabMap;
-        embedTabEnterprise.textContent = t.embedTabEnterprise;
-        embedTabLayer.textContent = t.embedTabLayer;
         card1Title.textContent = t.card1Title;
         card1Desc.textContent = t.card1Desc;
         card2Title.textContent = t.card2Title;
@@ -514,35 +465,19 @@
         openDevHub.textContent = t.openDevHub;
         openVibeCoding.textContent = t.openVibeCoding;
         openAgentArch.textContent = t.openAgentArch;
+        openLayerMapping.textContent = t.openLayerMapping;
         metricsSpotlightTitle.textContent = t.metricsSpotlightTitle;
         metricsSpotlightDesc.textContent = t.metricsSpotlightDesc;
         openMetricsSpotlight.textContent = t.openMetricsSpotlight;
         footer.textContent = t.footer;
-        langBtn.textContent = lang === "zh" ? "EN" : "中文";
-        document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+        langBtn.textContent = getLangButtonLabel(getNextLang(lang));
+        document.documentElement.lang = getHtmlLangCode(lang);
       }
 
       langBtn.addEventListener("click", function () {
-        lang = lang === "zh" ? "en" : "zh";
+        lang = getNextLang(lang);
         apply();
       });
-
-      embedTabs.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          applyEmbedTab(btn.dataset.url, true);
-        });
-      });
-
-      try {
-        const savedUrl = localStorage.getItem(embedStorageKey);
-        if (savedUrl && embedTabs.some(function (btn) { return btn.dataset.url === savedUrl; })) {
-          activeEmbedUrl = savedUrl;
-        }
-      } catch (_) {
-        // Ignore storage errors in restricted contexts.
-      }
-
-      applyEmbedTab(activeEmbedUrl, false);
 
       apply();
     })();
