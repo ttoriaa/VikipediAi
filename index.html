@@ -293,7 +293,7 @@
         <h1 id="title">VikipediAi</h1>
         <p class="subtitle" id="subtitle">面向 AI 产品与产业链研究的一页式可视化入口。</p>
 
-        <div class="actions">
+        <div class="actions" id="rightButtons">
           <a class="shimai-btn primary" href="map.html" id="openMap">打开竞争关系图</a>
           <a class="shimai-btn primary" href="foundation_models.html" id="openFoundation">打开基座大模型性能页</a>
           <a class="shimai-btn primary" href="usecases.html#copilot" id="openAppHub">打开应用层：分类入口</a>
@@ -423,6 +423,8 @@
       const metricsSpotlightDesc = document.getElementById("metricsSpotlightDesc");
       const openMetricsSpotlight = document.getElementById("openMetricsSpotlight");
       const footer = document.getElementById("footer");
+      const rightButtons = document.getElementById("rightButtons");
+      let syncedRightButtons = null;
 
       function getNextLang(current) {
         const idx = langOrder.indexOf(current);
@@ -449,6 +451,62 @@
         return "en";
       }
 
+      function getRightButtonLabel(button) {
+        if (lang === "zh") {
+          return button.label_zh || button.name || "打开入口";
+        }
+        return button.label_en || button.name || "Open";
+      }
+
+      function renderRightButtons(buttons) {
+        if (!rightButtons || !Array.isArray(buttons) || buttons.length === 0) {
+          return;
+        }
+        rightButtons.replaceChildren();
+        buttons.forEach(function (button) {
+          if (!button || !button.href) {
+            return;
+          }
+          const link = document.createElement("a");
+          link.className = "shimai-btn primary";
+          link.href = button.href;
+          link.textContent = getRightButtonLabel(button);
+          if (button.id) {
+            link.id = button.id;
+          }
+          if (button.target) {
+            link.target = button.target;
+          }
+          if (button.rel) {
+            link.rel = button.rel;
+          }
+          rightButtons.appendChild(link);
+        });
+      }
+
+      function loadRightButtons() {
+        if (!rightButtons || !window.fetch) {
+          return;
+        }
+        fetch("assets/right-buttons.json", { cache: "no-store" })
+          .then(function (response) {
+            if (!response.ok) {
+              throw new Error("right-buttons.json " + response.status);
+            }
+            return response.json();
+          })
+          .then(function (payload) {
+            if (!payload || !Array.isArray(payload.buttons) || payload.buttons.length === 0) {
+              return;
+            }
+            syncedRightButtons = payload.buttons;
+            renderRightButtons(syncedRightButtons);
+          })
+          .catch(function (error) {
+            console.warn("Using fallback right buttons", error);
+          });
+      }
+
       function apply() {
         const t = i18n[lang];
         versionText.textContent = t.version;
@@ -472,6 +530,9 @@
         footer.textContent = t.footer;
         langBtn.textContent = getLangButtonLabel(getNextLang(lang));
         document.documentElement.lang = getHtmlLangCode(lang);
+        if (syncedRightButtons) {
+          renderRightButtons(syncedRightButtons);
+        }
       }
 
       langBtn.addEventListener("click", function () {
@@ -480,6 +541,7 @@
       });
 
       apply();
+      loadRightButtons();
     })();
   </script>
   <script src="assets/global-ui.js"></script>
