@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-10T15:07:09.317122+00:00",
+  "generated_at": "2026-07-10T19:55:46.114208+00:00",
   "source_feed_url": "https://ttoriaa.github.io/vikipedia/assets/github-projects.json",
   "button_count": 6,
   "buttons": [
@@ -22,11 +22,11 @@
       "rel": "noopener"
     },
     {
-      "id": "site-c7-ota-hub",
-      "name": "C7-OTA-Hub",
-      "label_zh": "打开 C7-OTA-Hub",
-      "label_en": "Open C7-OTA-Hub",
-      "href": "https://ttoriaa.github.io/C7-OTA-Hub/",
+      "id": "site-automotive-benchmarking",
+      "name": "automotive-benchmarking",
+      "label_zh": "打开 automotive-benchmarking",
+      "label_en": "Open automotive-benchmarking",
+      "href": "https://ttoriaa.github.io/automotive-benchmarking/",
       "target": "_blank",
       "rel": "noopener"
     },
@@ -40,11 +40,11 @@
       "rel": "noopener"
     },
     {
-      "id": "site-automotive-benchmarking",
-      "name": "automotive-benchmarking",
-      "label_zh": "打开 automotive-benchmarking",
-      "label_en": "Open automotive-benchmarking",
-      "href": "https://ttoriaa.github.io/automotive-benchmarking/",
+      "id": "site-c7-ota-hub",
+      "name": "C7-OTA-Hub",
+      "label_zh": "打开 C7-OTA-Hub",
+      "label_en": "Open C7-OTA-Hub",
+      "href": "https://ttoriaa.github.io/C7-OTA-Hub/",
       "target": "_blank",
       "rel": "noopener"
     },
