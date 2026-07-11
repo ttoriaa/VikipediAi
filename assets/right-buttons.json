@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-11T13:58:44.173514+00:00",
+  "generated_at": "2026-07-11T19:37:19.166089+00:00",
   "source_feed_url": "https://ttoriaa.github.io/vikipedia/assets/github-projects.json",
   "button_count": 6,
   "buttons": [
@@ -22,20 +22,20 @@
       "rel": "noopener"
     },
     {
-      "id": "site-automotive-benchmarking",
-      "name": "automotive-benchmarking",
-      "label_zh": "打开 automotive-benchmarking",
-      "label_en": "Open automotive-benchmarking",
-      "href": "https://ttoriaa.github.io/automotive-benchmarking/",
-      "target": "_blank",
-      "rel": "noopener"
-    },
-    {
       "id": "site-shimai-podcast-site",
       "name": "shimai-podcast-site",
       "label_zh": "打开 shimai-podcast-site",
       "label_en": "Open shimai-podcast-site",
       "href": "https://ttoriaa.github.io/shimai-podcast-site/",
+      "target": "_blank",
+      "rel": "noopener"
+    },
+    {
+      "id": "site-automotive-benchmarking",
+      "name": "automotive-benchmarking",
+      "label_zh": "打开 automotive-benchmarking",
+      "label_en": "Open automotive-benchmarking",
+      "href": "https://ttoriaa.github.io/automotive-benchmarking/",
       "target": "_blank",
       "rel": "noopener"
     },
