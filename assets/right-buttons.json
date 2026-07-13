@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-13T04:06:38.044130+00:00",
+  "generated_at": "2026-07-13T07:13:45.540412+00:00",
   "source_feed_url": "https://ttoriaa.github.io/vikipedia/assets/github-projects.json",
   "button_count": 6,
   "buttons": [
@@ -18,6 +18,15 @@
       "label_zh": "打开 VikipediAi",
       "label_en": "Open VikipediAi",
       "href": "https://ttoriaa.github.io/VikipediAi/",
+      "target": "_blank",
+      "rel": "noopener"
+    },
+    {
+      "id": "site-interview-depot",
+      "name": "interview-depot",
+      "label_zh": "打开 interview-depot",
+      "label_en": "Open interview-depot",
+      "href": "https://ttoriaa.github.io/interview-depot/",
       "target": "_blank",
       "rel": "noopener"
     },
@@ -45,15 +54,6 @@
       "label_zh": "打开 C7-OTA-Hub",
       "label_en": "Open C7-OTA-Hub",
       "href": "https://ttoriaa.github.io/C7-OTA-Hub/",
-      "target": "_blank",
-      "rel": "noopener"
-    },
-    {
-      "id": "site-product-manager",
-      "name": "product-manager",
-      "label_zh": "打开 product-manager",
-      "label_en": "Open product-manager",
-      "href": "https://ttoriaa.github.io/product-manager/",
       "target": "_blank",
       "rel": "noopener"
     }
