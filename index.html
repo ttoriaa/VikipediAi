@@ -423,9 +423,6 @@
       const metricsSpotlightDesc = document.getElementById("metricsSpotlightDesc");
       const openMetricsSpotlight = document.getElementById("openMetricsSpotlight");
       const footer = document.getElementById("footer");
-      const rightButtons = document.getElementById("rightButtons");
-      let syncedRightButtons = null;
-
       function getNextLang(current) {
         const idx = langOrder.indexOf(current);
         return langOrder[(idx + 1) % langOrder.length];
@@ -451,62 +448,6 @@
         return "en";
       }
 
-      function getRightButtonLabel(button) {
-        if (lang === "zh") {
-          return button.label_zh || button.name || "打开入口";
-        }
-        return button.label_en || button.name || "Open";
-      }
-
-      function renderRightButtons(buttons) {
-        if (!rightButtons || !Array.isArray(buttons) || buttons.length === 0) {
-          return;
-        }
-        rightButtons.replaceChildren();
-        buttons.forEach(function (button) {
-          if (!button || !button.href) {
-            return;
-          }
-          const link = document.createElement("a");
-          link.className = "shimai-btn primary";
-          link.href = button.href;
-          link.textContent = getRightButtonLabel(button);
-          if (button.id) {
-            link.id = button.id;
-          }
-          if (button.target) {
-            link.target = button.target;
-          }
-          if (button.rel) {
-            link.rel = button.rel;
-          }
-          rightButtons.appendChild(link);
-        });
-      }
-
-      function loadRightButtons() {
-        if (!rightButtons || !window.fetch) {
-          return;
-        }
-        fetch("assets/right-buttons.json", { cache: "no-store" })
-          .then(function (response) {
-            if (!response.ok) {
-              throw new Error("right-buttons.json " + response.status);
-            }
-            return response.json();
-          })
-          .then(function (payload) {
-            if (!payload || !Array.isArray(payload.buttons) || payload.buttons.length === 0) {
-              return;
-            }
-            syncedRightButtons = payload.buttons;
-            renderRightButtons(syncedRightButtons);
-          })
-          .catch(function (error) {
-            console.warn("Using fallback right buttons", error);
-          });
-      }
-
       function apply() {
         const t = i18n[lang];
         versionText.textContent = t.version;
@@ -530,9 +471,6 @@
         footer.textContent = t.footer;
         langBtn.textContent = getLangButtonLabel(getNextLang(lang));
         document.documentElement.lang = getHtmlLangCode(lang);
-        if (syncedRightButtons) {
-          renderRightButtons(syncedRightButtons);
-        }
       }
 
       langBtn.addEventListener("click", function () {
@@ -541,7 +479,6 @@
       });
 
       apply();
-      loadRightButtons();
     })();
   </script>
   <script src="assets/global-ui.js"></script>
