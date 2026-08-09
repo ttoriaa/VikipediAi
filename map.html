@@ -140,6 +140,8 @@
     .note h3 { margin: 0 0 8px; font-size: 15px; font-family: "Space Grotesk", "Noto Sans SC", sans-serif; }
     .note p, .note li { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 0; }
     .note ul { margin: 0; padding-left: 18px; }
+    .note.source-note { grid-column: 1 / -1; }
+    .note.source-note p { margin-bottom: 9px; }
     .capture-clean .topline,
     .capture-clean .toolbar,
     .capture-clean .legend,
@@ -302,6 +304,17 @@
     <section class="notes">
       <article class="note"><h3 data-i18n="note1_title"></h3><ul><li data-i18n="note1_1"></li><li data-i18n="note1_2"></li><li data-i18n="note1_3"></li><li data-i18n="note1_4"></li></ul></article>
       <article class="note"><h3 data-i18n="note2_title"></h3><p data-i18n="note2_desc"></p></article>
+      <article class="note source-note"><h3 data-i18n="map_sources_title"></h3><p data-i18n="map_sources_desc"></p><ul class="source-list">
+        <li><a href="https://api-docs.deepseek.com/updates/" target="_blank" rel="noopener" data-i18n="src_deepseek"></a></li>
+        <li><a href="https://help.aliyun.com/en/model-studio/model-pricing" target="_blank" rel="noopener" data-i18n="src_qwen"></a></li>
+        <li><a href="https://seed.bytedance.com/en/blog/seed2-0-%25E6%25AD%25A3%25E5%25BC%258F%25E5%258F%2591%25E5%25B8%2583" target="_blank" rel="noopener" data-i18n="src_seed"></a></li>
+        <li><a href="https://cloud.baidu.com/product/model.html" target="_blank" rel="noopener" data-i18n="src_ernie"></a></li>
+        <li><a href="https://cloud.tencent.com/document/product/1729/131925" target="_blank" rel="noopener" data-i18n="src_hunyuan"></a></li>
+        <li><a href="https://platform.minimaxi.com/docs/release-notes/models" target="_blank" rel="noopener" data-i18n="src_minimax"></a></li>
+        <li><a href="https://developers.openai.com/api/docs/models/all" target="_blank" rel="noopener" data-i18n="src_openai"></a></li>
+        <li><a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noopener" data-i18n="src_gemini"></a></li>
+        <li><a href="https://www.anthropic.com/news" target="_blank" rel="noopener" data-i18n="src_anthropic"></a></li>
+      </ul></article>
     </section>
     </section>
 
@@ -442,12 +455,15 @@
           col_domestic: "国内", col_global: "国外", lane_upstream: "上游能力 / 供给", lane_model: "基座模型层", lane_app: "应用层", lane_agent: "Agent 编排层（跨区）",
           sub_customer: "客户与通用对话", sub_search: "搜索与知识问答", sub_coding: "开发者与编码",
           note1_title: "读图提示：谁和谁直接竞争？",
-          note1_1: "模型层：DeepSeek、GLM、Qwen、Moonshot、Baichuan、MiniMax、01.AI 与 OpenAI、Gemini、Anthropic 在 API 与企业预算上直接竞争。",
+          note1_1: "模型层：DeepSeek、GLM、Qwen、Seed、混元、ERNIE、Moonshot、Baichuan、MiniMax、01.AI 与 OpenAI、Gemini、Anthropic 在 API 与企业预算上直接竞争。",
           note1_2: "消费应用层：豆包、Kimi 与 ChatGPT、Claude、Gemini App、Perplexity 在用户时长与留存上竞争。",
           note1_3: "Coding 层：通义灵码、Trae / MarsCode、百度 Comate、Cursor、GitHub Copilot、Codex、Claude Code、Amazon Q Developer、JetBrains AI Assistant 与 Windsurf 在开发者席位与团队预算上直接竞争。",
           note1_4: "中美直接对位竞争：聚焦中美同赛道产品对打关系。",
           note2_title: "什么是 Agent 编排区（跨区）",
           note2_desc: "Agent 编排区是多智能体协作的控制层，负责任务分配、执行顺序、工具调用、状态跟踪与失败重试。OpenClaw 是其中一种实现，不是唯一方案；Temporal、Argo、云工作流等也可承担跨区编排能力。",
+          map_sources_title: "数据口径与官方信源（更新于 2026-08-10）",
+          map_sources_desc: "代表模型优先采用厂商官方 API 文档、产品页和发布记录。连线只表达明确的自有产品依赖或同赛道竞争；支持多模型切换不再画成对单一模型厂商的确定依赖。",
+          src_deepseek: "DeepSeek API 更新", src_qwen: "阿里云百炼模型目录", src_seed: "字节 Seed 2.0", src_ernie: "百度文心模型页", src_hunyuan: "腾讯混元迁移公告", src_minimax: "MiniMax 发布记录", src_openai: "OpenAI 模型目录", src_gemini: "Gemini API 模型目录", src_anthropic: "Anthropic Newsroom",
           export_fail: "导出依赖 html2canvas，加载失败。请检查网络后重试。",
           schema_fail: "graph.json 未通过 schema 校验，请检查数据文件。",
           close: "关闭", modal_company: "公司", modal_positioning: "定位", modal_models: "代表模型", modal_competitors: "竞品", modal_dependencies: "依赖",
@@ -499,12 +515,15 @@
           col_domestic: "China", col_global: "Global", lane_upstream: "Upstream Capability / Supply", lane_model: "Foundation Model Layer", lane_app: "Application Layer", lane_agent: "Agent Orchestration Layer (Cross-region)",
           sub_customer: "Customer and General Chat", sub_search: "Search and Answer", sub_coding: "Developer and Coding",
           note1_title: "How to read direct competition",
-          note1_1: "Model layer: DeepSeek, GLM, Qwen, Moonshot, Baichuan, MiniMax, and 01.AI directly compete with OpenAI, Gemini, and Anthropic for API and enterprise budget.",
+          note1_1: "Model layer: DeepSeek, GLM, Qwen, Seed, Hunyuan, ERNIE, Moonshot, Baichuan, MiniMax, and 01.AI compete with OpenAI, Gemini, and Anthropic for API and enterprise budgets.",
           note1_2: "Consumer layer: Doubao and Kimi compete with ChatGPT, Claude, Gemini App, and Perplexity for attention and retention.",
           note1_3: "Coding layer: Tongyi Lingma, Trae / MarsCode, Baidu Comate, Cursor, GitHub Copilot, Codex, Claude Code, Amazon Q Developer, JetBrains AI Assistant, and Windsurf compete for developer seats and team budgets.",
           note1_4: "China-US matchup mode focuses on direct head-to-head battles in the same track.",
           note2_title: "What Is the Agent Orchestration Layer (Cross-region)",
           note2_desc: "It is the control layer for multi-agent collaboration, handling task routing, execution order, tool calls, state tracking, and retries. OpenClaw is one implementation, not the only option; Temporal, Argo, and cloud workflows can also provide cross-region orchestration.",
+          map_sources_title: "Data scope and official sources (updated 2026-08-10)",
+          map_sources_desc: "Representative models prioritize official API docs, product pages, and release notes. Edges now show only explicit first-party dependencies or same-market competition; multi-model support is no longer presented as dependence on one provider.",
+          src_deepseek: "DeepSeek API updates", src_qwen: "Alibaba Model Studio catalog", src_seed: "ByteDance Seed 2.0", src_ernie: "Baidu ERNIE models", src_hunyuan: "Tencent Hunyuan migration", src_minimax: "MiniMax releases", src_openai: "OpenAI model catalog", src_gemini: "Gemini API models", src_anthropic: "Anthropic Newsroom",
           export_fail: "Export requires html2canvas. Please retry after network is available.",
           schema_fail: "graph.json did not pass schema validation. Please check the data file.",
           close: "Close", modal_company: "Company", modal_positioning: "Positioning", modal_models: "Representative Models", modal_competitors: "Competitors", modal_dependencies: "Dependencies",
@@ -624,6 +643,9 @@
           "deepseek": "DeepSeek",
           "glm": "Zhipu AI",
           "qwen": "Alibaba",
+          "seed-model": "ByteDance",
+          "hunyuan-model": "Tencent",
+          "ernie-model": "Baidu",
           "moonshot-model": "Moonshot AI",
           "baichuan": "Baichuan",
           "minimax-model": "MiniMax",
@@ -983,8 +1005,8 @@
       }
 
       Promise.all([
-        fetch("data/graph.schema.json?v=2.9.0").then(function (r) { return r.json(); }),
-        fetch("data/graph.json?v=2.9.0").then(function (r) { return r.json(); })
+        fetch("data/graph.schema.json?v=2.11.0").then(function (r) { return r.json(); }),
+        fetch("data/graph.json?v=2.11.0").then(function (r) { return r.json(); })
       ]).then(function (arr) {
         state.schema = arr[0];
         state.graph = arr[1];
