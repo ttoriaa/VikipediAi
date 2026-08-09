@@ -42,6 +42,10 @@
     h1 { margin: 0; line-height: 1.12; font-family: "Space Grotesk", "Noto Sans SC", sans-serif; font-size: clamp(28px, 4.2vw, 46px); letter-spacing: -0.02em; }
     .subtitle { margin: 0; color: var(--muted); font-size: 16px; }
     .toolbar { display: flex; flex-wrap: wrap; gap: 10px; }
+    .page-tabs { display: inline-flex; gap: 6px; padding: 5px; margin: 4px 0 18px; border: 1px solid rgba(17, 32, 24, 0.12); border-radius: 999px; background: rgba(255,255,255,0.72); }
+    .page-tab { min-width: 0; border: 0; border-radius: 999px; padding: 9px 16px; color: var(--muted); background: transparent; cursor: pointer; font: 700 13px/1.2 "Space Grotesk", "Noto Sans SC", sans-serif; white-space: normal; }
+    .page-tab.active { color: #fff; background: linear-gradient(120deg, #14532d, #0f766e); box-shadow: 0 8px 18px rgba(15,118,110,.18); }
+    .view-panel[hidden] { display: none; }
     .btn {
       border: 1px solid rgba(17, 32, 24, 0.2);
       background: rgba(255, 255, 255, 0.9);
@@ -169,17 +173,64 @@
       font-size: 13px;
       font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
     }
+    .office-hero { padding: 26px; border-radius: 24px; color: #f5fff9; background: linear-gradient(135deg, #10281e 0%, #0f615a 64%, #164e63 100%); box-shadow: var(--shadow); }
+    .office-kicker { margin: 0 0 9px; color: #9ee7d1 !important; font: 700 12px/1.2 "Space Grotesk", sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+    .office-hero h2 { margin: 0; max-width: 920px; color: #fff !important; font-size: clamp(26px, 4vw, 44px); line-height: 1.13; }
+    .office-lead { max-width: 920px; margin: 13px 0 0; color: rgba(245,255,249,.82) !important; line-height: 1.7; }
+    .verdict-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+    .verdict-item { padding: 13px; border: 1px solid rgba(255,255,255,.16); border-radius: 14px; background: rgba(255,255,255,.08); }
+    .verdict-item strong, .verdict-item span { display: block; }
+    .verdict-item strong { margin-bottom: 4px; color: #fff; font-size: 14px; }
+    .verdict-item span { color: rgba(245,255,249,.72); font-size: 12px; line-height: 1.5; }
+    .analysis-section { margin-top: 18px; }
+    .analysis-section > h3 { margin: 0 0 10px; font-size: 20px; }
+    .org-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .org-card { padding: 18px; border: 1px solid rgba(17,32,24,.12); border-radius: 18px; background: rgba(255,255,255,.84); box-shadow: 0 12px 30px rgba(17,32,24,.07); }
+    .org-card.alibaba { border-top: 4px solid #f97316; }
+    .org-card.bytedance { border-top: 4px solid #2563eb; }
+    .org-card.tencent { border-top: 4px solid #16a34a; }
+    .org-head { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+    .org-head h4 { margin: 0; font-size: 20px; }
+    .org-badge { padding: 4px 8px; border-radius: 999px; color: var(--muted); background: #edf3ef; font-size: 11px; white-space: nowrap; }
+    .org-thesis { min-height: 48px; margin: 10px 0 13px; color: var(--ink); font-weight: 700; line-height: 1.5; }
+    .logic-chain { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 5px; margin: 10px 0 14px; }
+    .logic-chain span { padding: 7px 5px; border-radius: 9px; background: #f0f5f2; text-align: center; font-size: 11px; line-height: 1.25; }
+    .logic-chain b { color: #5b7469; }
+    .org-card h5 { margin: 12px 0 5px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+    .org-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+    .battle-table-wrap { overflow-x: auto; border: 1px solid rgba(17,32,24,.12); border-radius: 18px; background: rgba(255,255,255,.86); }
+    .battle-table { width: 100%; min-width: 760px; border-collapse: collapse; }
+    .battle-table th, .battle-table td { padding: 13px 14px; border-bottom: 1px solid rgba(17,32,24,.09); text-align: left; vertical-align: top; font-size: 13px; line-height: 1.5; }
+    .battle-table th { color: var(--muted); background: rgba(234,241,237,.72); font-size: 12px; }
+    .battle-table tr:last-child td { border-bottom: 0; }
+    .winner-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 12px; }
+    .winner-card, .watch-card { padding: 18px; border: 1px solid rgba(17,32,24,.12); border-radius: 18px; background: rgba(255,255,255,.86); }
+    .winner-card { background: linear-gradient(145deg, rgba(255,247,237,.95), rgba(255,255,255,.9)); }
+    .winner-card h4, .watch-card h4 { margin: 0 0 9px; font-size: 18px; }
+    .winner-card p, .watch-card li { color: var(--muted); font-size: 13px; line-height: 1.65; }
+    .watch-card ul { margin: 0; padding-left: 18px; }
+    .evidence-note { margin-top: 12px; padding: 14px; border-left: 4px solid #b45309; border-radius: 8px; background: #fffbeb; color: #75520d; font-size: 12px; line-height: 1.65; }
+    .source-list { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; }
+    .source-list a { display: inline-flex; padding: 6px 10px; border: 1px solid rgba(17,32,24,.12); border-radius: 999px; color: #0f766e; background: rgba(255,255,255,.82); text-decoration: none; font-size: 12px; }
     @keyframes reveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 980px) {
       .board-inner { grid-template-columns: 1fr; }
       .column { border-right: none; border-bottom: 1px dashed rgba(17, 32, 24, 0.16); }
       .column:last-child { border-bottom: none; }
       .notes { grid-template-columns: 1fr; }
+      .org-grid, .winner-grid { grid-template-columns: 1fr; }
+      .org-thesis { min-height: 0; }
     }
     @media (max-width: 640px) {
       .nodes { grid-template-columns: 1fr; }
       .page { padding: 22px 14px 28px; }
       .modal-grid { grid-template-columns: 1fr; }
+      .page-tabs { display: flex; width: 100%; }
+      .page-tab { flex: 1 1 0; padding-inline: 7px; font-size: 11px; }
+      .office-hero { padding: 20px; }
+      .verdict-strip { grid-template-columns: 1fr; }
+      .logic-chain { grid-template-columns: 1fr; }
+      .logic-chain b { transform: rotate(90deg); text-align: center; }
     }
   </style>
   <link rel="stylesheet" href="assets/global-ui.css" />
@@ -190,6 +241,15 @@
       <a href="index.html" data-i18n="back">Back to Home</a>
       <span id="versionBadge">version</span>
     </div>
+
+    <nav class="page-tabs" aria-label="Analysis views">
+      <button class="page-tab active" data-page-tab="map" type="button" data-i18n="tab_map"></button>
+      <button class="page-tab" data-page-tab="office" type="button" data-i18n="tab_office"></button>
+    </nav>
+
+    <button class="vp-lang-toggle" id="langBtn" type="button" aria-label="Switch language">EN</button>
+
+    <section class="view-panel" id="mapPanel" data-page-panel="map">
 
     <section class="hero">
       <h1 id="titleText"></h1>
@@ -207,8 +267,6 @@
         <button class="btn" id="exportBtn" type="button" data-i18n="export"></button>
       </div>
     </section>
-
-    <button class="vp-lang-toggle" id="langBtn" type="button" aria-label="Switch language">EN</button>
 
     <div class="legend">
       <span class="chip"><span class="dot comp"></span><span data-i18n="legend_comp"></span></span>
@@ -245,6 +303,80 @@
       <article class="note"><h3 data-i18n="note1_title"></h3><ul><li data-i18n="note1_1"></li><li data-i18n="note1_2"></li><li data-i18n="note1_3"></li><li data-i18n="note1_4"></li></ul></article>
       <article class="note"><h3 data-i18n="note2_title"></h3><p data-i18n="note2_desc"></p></article>
     </section>
+    </section>
+
+    <section class="view-panel" id="officePanel" data-page-panel="office" hidden>
+      <section class="office-hero">
+        <p class="office-kicker" data-i18n="office_kicker"></p>
+        <h2 data-i18n="office_title"></h2>
+        <p class="office-lead" data-i18n="office_lead"></p>
+        <div class="verdict-strip">
+          <div class="verdict-item"><strong data-i18n="verdict_ali_title"></strong><span data-i18n="verdict_ali_desc"></span></div>
+          <div class="verdict-item"><strong data-i18n="verdict_byte_title"></strong><span data-i18n="verdict_byte_desc"></span></div>
+          <div class="verdict-item"><strong data-i18n="verdict_tencent_title"></strong><span data-i18n="verdict_tencent_desc"></span></div>
+        </div>
+      </section>
+
+      <section class="analysis-section">
+        <h3 data-i18n="org_logic_title"></h3>
+        <div class="org-grid">
+          <article class="org-card alibaba">
+            <div class="org-head"><h4 data-i18n="ali_name"></h4><span class="org-badge" data-i18n="ali_badge"></span></div>
+            <p class="org-thesis" data-i18n="ali_thesis"></p>
+            <div class="logic-chain"><span data-i18n="ali_chain_1"></span><b>→</b><span data-i18n="ali_chain_2"></span><b>→</b><span data-i18n="ali_chain_3"></span></div>
+            <h5 data-i18n="org_design"></h5><p data-i18n="ali_design"></p>
+            <h5 data-i18n="org_advantage"></h5><p data-i18n="ali_advantage"></p>
+            <h5 data-i18n="org_risk"></h5><p data-i18n="ali_risk"></p>
+          </article>
+          <article class="org-card bytedance">
+            <div class="org-head"><h4 data-i18n="byte_name"></h4><span class="org-badge" data-i18n="byte_badge"></span></div>
+            <p class="org-thesis" data-i18n="byte_thesis"></p>
+            <div class="logic-chain"><span data-i18n="byte_chain_1"></span><b>→</b><span data-i18n="byte_chain_2"></span><b>→</b><span data-i18n="byte_chain_3"></span></div>
+            <h5 data-i18n="org_design"></h5><p data-i18n="byte_design"></p>
+            <h5 data-i18n="org_advantage"></h5><p data-i18n="byte_advantage"></p>
+            <h5 data-i18n="org_risk"></h5><p data-i18n="byte_risk"></p>
+          </article>
+          <article class="org-card tencent">
+            <div class="org-head"><h4 data-i18n="tencent_name"></h4><span class="org-badge" data-i18n="tencent_badge"></span></div>
+            <p class="org-thesis" data-i18n="tencent_thesis"></p>
+            <div class="logic-chain"><span data-i18n="tencent_chain_1"></span><b>→</b><span data-i18n="tencent_chain_2"></span><b>→</b><span data-i18n="tencent_chain_3"></span></div>
+            <h5 data-i18n="org_design"></h5><p data-i18n="tencent_design"></p>
+            <h5 data-i18n="org_advantage"></h5><p data-i18n="tencent_advantage"></p>
+            <h5 data-i18n="org_risk"></h5><p data-i18n="tencent_risk"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="analysis-section">
+        <h3 data-i18n="battle_title"></h3>
+        <div class="battle-table-wrap"><table class="battle-table"><thead><tr><th data-i18n="battle_dim"></th><th data-i18n="ali_name"></th><th data-i18n="byte_name"></th><th data-i18n="tencent_name"></th></tr></thead><tbody>
+          <tr><td data-i18n="battle_entry"></td><td data-i18n="ali_entry"></td><td data-i18n="byte_entry"></td><td data-i18n="tencent_entry"></td></tr>
+          <tr><td data-i18n="battle_motion"></td><td data-i18n="ali_motion"></td><td data-i18n="byte_motion"></td><td data-i18n="tencent_motion"></td></tr>
+          <tr><td data-i18n="battle_moat"></td><td data-i18n="ali_moat"></td><td data-i18n="byte_moat"></td><td data-i18n="tencent_moat"></td></tr>
+          <tr><td data-i18n="battle_gap"></td><td data-i18n="ali_gap"></td><td data-i18n="byte_gap"></td><td data-i18n="tencent_gap"></td></tr>
+          <tr><td data-i18n="battle_win"></td><td data-i18n="ali_win"></td><td data-i18n="byte_win"></td><td data-i18n="tencent_win"></td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="analysis-section">
+        <h3 data-i18n="winner_title"></h3>
+        <div class="winner-grid">
+          <article class="winner-card"><h4 data-i18n="winner_head"></h4><p data-i18n="winner_desc"></p><div class="evidence-note" data-i18n="evidence_note"></div></article>
+          <article class="watch-card"><h4 data-i18n="watch_title"></h4><ul><li data-i18n="watch_1"></li><li data-i18n="watch_2"></li><li data-i18n="watch_3"></li><li data-i18n="watch_4"></li></ul></article>
+        </div>
+      </section>
+
+      <section class="analysis-section">
+        <h3 data-i18n="sources_title"></h3>
+        <ul class="source-list">
+          <li><a href="https://www.caixin.com/2026-07-03/102460271.html" target="_blank" rel="noopener" data-i18n="source_ali"></a></li>
+          <li><a href="https://www.nbd.com.cn/articles/2026-07-23/4505005.html" target="_blank" rel="noopener" data-i18n="source_ali2"></a></li>
+          <li><a href="https://finance.china.com/TMT/13004688/20260730/49643059.html" target="_blank" rel="noopener" data-i18n="source_byte"></a></li>
+          <li><a href="https://companies.caixin.com/m/2026-07-24/102467665.html" target="_blank" rel="noopener" data-i18n="source_tencent"></a></li>
+          <li><a href="https://www.yicai.com/news/103097489.html" target="_blank" rel="noopener" data-i18n="source_tencent2"></a></li>
+        </ul>
+      </section>
+    </section>
 
     <section class="modal" id="nodeModal" aria-hidden="true">
       <article class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -265,6 +397,43 @@
     (function () {
       const i18n = {
         zh: {
+          tab_map: "AI 竞争地图", tab_office: "企业 AI 办公组织战",
+          office_kicker: "2026 ORGANIZATION DEEP DIVE",
+          office_title: "三种组织重构，争夺同一个企业 AI 入口",
+          office_lead: "表面上，阿里、字节、腾讯都在收拢 AI 力量；本质上却在解决三类不同问题：阿里要把产品拼成可销售的企业方案，字节要把超级 AI 入口嵌入工作流，腾讯则先消除模型研发的内部摩擦。真正的胜负不在模型榜单，而在能否把 Agent 变成企业可部署、可治理、可持续付费的生产系统。",
+          verdict_ali_title: "阿里：商业闭环最完整", verdict_ali_desc: "钉钉组织入口 + 千问模型与 Agent + 阿里云交付，最接近端到端 To B 方案。",
+          verdict_byte_title: "字节：产品势能最强", verdict_byte_desc: "豆包智能核心 + 飞书工作入口 + 火山引擎 GTM，适合快速制造 AI 原生工作方式。",
+          verdict_tencent_title: "腾讯：生态期权最大", verdict_tencent_desc: "统一混元底座后可赋能微信、企微、腾讯云与办公应用，但上层整合仍待验证。",
+          org_logic_title: "一、组织逻辑：三家其实在解不同的题",
+          ali_name: "阿里", ali_badge: "销售闭环型", ali_thesis: "从“多产品赛马”转向“一个企业生产力方案”，组织结构服务于打包销售和规模交付。",
+          ali_chain_1: "千问 / Agent 能力", ali_chain_2: "钉钉组织与工作流", ali_chain_3: "阿里云销售交付",
+          byte_name: "字节", byte_badge: "入口融合型", byte_thesis: "把豆包的智能和用户心智注入飞书，让 AI 不再是办公套件里的功能，而成为产品主入口。",
+          byte_chain_1: "豆包智能核心", byte_chain_2: "飞书协作入口", byte_chain_3: "火山引擎 GTM",
+          tencent_name: "腾讯", tencent_badge: "底座治理型", tencent_thesis: "先统一语言、多模态、强化学习与 Agent 研发，再用 AI PaaS 向分散的产品矩阵供给能力。",
+          tencent_chain_1: "统一基础模型", tencent_chain_2: "AI PaaS 中台", tencent_chain_3: "微信 / 企微 / 应用",
+          org_design: "组织设计", org_advantage: "结构性优势", org_risk: "关键风险",
+          ali_design: "产品研发贴近钉钉场景，云侧承接企业销售与实施；实质是前台统一方案、中后台复用技术与渠道。",
+          ali_advantage: "企业客户、云资源、模型服务和协同入口可以交叉销售，客户采购链路最短，收入归因也最清楚。",
+          ali_risk: "双体系协作成本高：产品节奏、云销售 KPI 与客户定制需求可能互相拉扯；整合后还要避免“大而全但体验不尖”。",
+          byte_design: "产品权收拢到豆包，GTM 收拢到火山引擎；用两条强指挥链同时解决产品一体化和商业一体化。",
+          byte_advantage: "C 端 AI 心智、算法迭代速度与飞书产品体验相互放大，最有机会率先定义 AI 原生交互范式。",
+          byte_risk: "消费级流量不等于企业信任。复杂组织的权限、审计、数据驻留、采购与交付能力，会决定 To B 转化率。",
+          tencent_design: "撤销按模态划分的模型部门，以统一基础模型部降低重复训练、数据割裂和技术标准不一致。",
+          tencent_advantage: "社交、办公、内容、游戏与云场景提供海量真实反馈；统一底座可显著提高内部能力复用率。",
+          tencent_risk: "底座统一不自动等于产品统一。微信、企微、腾讯文档、元宝等业务的边界与优先级仍可能削弱端到端体验。",
+          battle_title: "二、竞争格局：不是一张榜，而是五场战役",
+          battle_dim: "战役", battle_entry: "入口控制权", battle_motion: "企业成交方式", battle_moat: "核心护城河", battle_gap: "最大短板", battle_win: "最适合先赢的客群",
+          ali_entry: "钉钉中的组织、审批、群聊与业务流程", byte_entry: "飞书协作界面 + 豆包 AI 心智", tencent_entry: "微信 / 企微关系链与腾讯产品矩阵",
+          ali_motion: "云资源、模型服务与办公 Agent 组合销售", byte_motion: "SaaS + MaaS 统一 GTM，以产品渗透带动云消费", tencent_motion: "腾讯云与行业方案切入，再由统一底座供给应用",
+          ali_moat: "B 端基本盘与完整交付链", byte_moat: "产品创新速度和用户增长能力", tencent_moat: "高频生态、场景广度与分发能力",
+          ali_gap: "跨 BU 执行与产品聚焦", byte_gap: "企业治理、交付深度和客户信任", tencent_gap: "上层产品收敛与明确主入口",
+          ali_win: "已有钉钉 / 阿里云基础的大中型企业", byte_win: "互联网、创意、成长型和 AI 原生团队", tencent_win: "依赖微信生态、企微连接和行业方案的组织",
+          winner_title: "三、潜在赢家：领先者取决于你用什么计分",
+          winner_head: "综合判断：阿里略占企业商业化先手，字节最可能赢得产品定义权；腾讯是高上限、慢兑现的追赶者。",
+          winner_desc: "若以未来 12–18 个月的企业合同、云消耗和部署规模计分，阿里的“办公入口 + 模型 + 云销售交付”链路最短，条件性领先。若以日活、用户心智和新工作方式计分，字节更可能领先。腾讯只有在统一模型后进一步统一产品入口与商业责任，才会把生态优势转化为办公份额。因此目前不存在可确认的单一赢家。",
+          evidence_note: "证据边界：公开报道可支持三家的组织调整方向，但“人员 100% 划入”、具体汇报线、2600 万组织、豆包 3.82 亿月活，以及 WorkBuddy / TRAE / QoderWork 的 2097 / 1279 / 788 万桌面月访问量，尚未找到足够一致且可追溯的原始口径，本页不把它们作为胜负依据。",
+          watch_title: "未来两个季度看四个领先指标", watch_1: "企业客户中 Agent 的周活跃使用率，而不是签约席位数。", watch_2: "每个客户的跨应用工作流数量与自动执行成功率。", watch_3: "AI 带来的云消耗、续约率和增购率是否同步上升。", watch_4: "权限、审计、数据隔离与行业合规能否产品化，而非依赖项目制交付。",
+          sources_title: "公开信源（组织事实）", source_ali: "财新：阿里整合三款智能体", source_ali2: "每日经济新闻：千问办公与 ATH", source_byte: "中华网财经：字节 To B 调整", source_tencent: "财新：腾讯成立基础模型部", source_tencent2: "第一财经：腾讯撤销 AI Lab",
           subtitle: "同一张图展示两种关系：直接竞争（同层抢用户/开发者/企业预算）与上下游依赖（算力/模型/分发链路）。",
           back: "返回导航页", f_all: "显示全部关系", f_comp: "仅看直接竞争", f_dep: "仅看上下游依赖", f_pair: "中美直接对位竞争",
           s_domestic_model: "只看国内模型层",
@@ -285,6 +454,43 @@
           goto_usecase: "查看该产品的详细场景与流程页"
         },
         en: {
+          tab_map: "AI Competition Map", tab_office: "Enterprise AI Office Re-org",
+          office_kicker: "2026 ORGANIZATION DEEP DIVE",
+          office_title: "Three re-org models, one battle for the enterprise AI gateway",
+          office_lead: "Alibaba, ByteDance, and Tencent are all consolidating AI resources, but they are solving different problems. Alibaba is turning fragmented products into a sellable enterprise solution; ByteDance is embedding a mass-market AI gateway into work; Tencent is first removing friction from model R&D. The real contest is not a model leaderboard—it is who can turn agents into deployable, governable, recurring enterprise production systems.",
+          verdict_ali_title: "Alibaba: strongest commercial loop", verdict_ali_desc: "DingTalk entry + Qwen and agents + Alibaba Cloud delivery is closest to an end-to-end enterprise offer.",
+          verdict_byte_title: "ByteDance: strongest product momentum", verdict_byte_desc: "Doubao intelligence + Feishu workflow + Volcano Engine GTM can rapidly shape AI-native work.",
+          verdict_tencent_title: "Tencent: largest ecosystem option", verdict_tencent_desc: "A unified Hunyuan base can serve WeChat, WeCom, cloud, and office apps, but top-layer integration remains unproven.",
+          org_logic_title: "1. Organization logic: three companies, three different problems",
+          ali_name: "Alibaba", ali_badge: "Commercial-loop model", ali_thesis: "It is moving from internal product races to one enterprise productivity offer, optimized for bundled selling and scaled delivery.",
+          ali_chain_1: "Qwen / agent capability", ali_chain_2: "DingTalk workflow", ali_chain_3: "Alibaba Cloud GTM",
+          byte_name: "ByteDance", byte_badge: "Gateway-fusion model", byte_thesis: "It is injecting Doubao intelligence and mindshare into Feishu, making AI the product gateway rather than another suite feature.",
+          byte_chain_1: "Doubao intelligence", byte_chain_2: "Feishu workspace", byte_chain_3: "Volcano Engine GTM",
+          tencent_name: "Tencent", tencent_badge: "Foundation-governance model", tencent_thesis: "It is unifying language, multimodal, reinforcement learning, and agent R&D before serving a broad app portfolio through AI PaaS.",
+          tencent_chain_1: "Unified foundation model", tencent_chain_2: "AI PaaS", tencent_chain_3: "WeChat / WeCom / apps",
+          org_design: "Organization design", org_advantage: "Structural advantage", org_risk: "Critical risk",
+          ali_design: "Product development stays close to DingTalk scenarios while cloud teams own enterprise selling and implementation: one front-end offer, reusable technology and channels behind it.",
+          ali_advantage: "Enterprise accounts, cloud resources, model services, and collaboration entry can be cross-sold through the shortest procurement path with clear revenue ownership.",
+          ali_risk: "Two operating systems must coordinate. Product cadence, cloud sales KPIs, and customization can conflict, producing a broad offer without a sharp experience.",
+          byte_design: "Product authority consolidates under Doubao and GTM under Volcano Engine, creating two strong command chains for product and commercial integration.",
+          byte_advantage: "Consumer AI mindshare, algorithm velocity, and Feishu product craft reinforce one another, giving ByteDance the best shot at defining AI-native interaction.",
+          byte_risk: "Consumer traffic is not enterprise trust. Permissions, auditability, data residency, procurement, and deep delivery will determine To B conversion.",
+          tencent_design: "Modality-based model departments are removed so one foundation-model organization can reduce duplicated training, fragmented data, and inconsistent standards.",
+          tencent_advantage: "Social, work, content, gaming, and cloud scenarios create rich feedback; one base can materially improve internal capability reuse.",
+          tencent_risk: "A unified base does not automatically unify products. Boundaries across WeChat, WeCom, Tencent Docs, and Yuanbao may still weaken the end-to-end experience.",
+          battle_title: "2. Competitive landscape: five battles, not one leaderboard",
+          battle_dim: "Battle", battle_entry: "Gateway control", battle_motion: "Enterprise motion", battle_moat: "Core moat", battle_gap: "Largest gap", battle_win: "Best initial segment",
+          ali_entry: "Organizations, approvals, chats, and workflows in DingTalk", byte_entry: "Feishu collaboration + Doubao AI mindshare", tencent_entry: "WeChat / WeCom graph and Tencent app portfolio",
+          ali_motion: "Bundle cloud, model services, and office agents", byte_motion: "Unified SaaS + MaaS GTM; product adoption drives cloud usage", tencent_motion: "Enter through Tencent Cloud and industry solutions, then supply apps from a common base",
+          ali_moat: "Enterprise installed base and complete delivery chain", byte_moat: "Product velocity and user-growth engine", tencent_moat: "High-frequency ecosystem, scenario breadth, and distribution",
+          ali_gap: "Cross-BU execution and product focus", byte_gap: "Governance, delivery depth, and enterprise trust", tencent_gap: "Top-layer convergence and a clear primary gateway",
+          ali_win: "Large organizations already using DingTalk or Alibaba Cloud", byte_win: "Internet, creative, growth, and AI-native teams", tencent_win: "Organizations built around WeChat, WeCom connections, and industry solutions",
+          winner_title: "3. Potential winner: it depends on the scoreboard",
+          winner_head: "Overall: Alibaba has a slight enterprise monetization lead; ByteDance is most likely to win product definition; Tencent is a high-upside, slower-conversion challenger.",
+          winner_desc: "For enterprise contracts, cloud consumption, and deployment scale over the next 12–18 months, Alibaba's office entry + model + cloud sales and delivery path is shortest, giving it a conditional lead. For daily use, mindshare, and new work patterns, ByteDance is more likely to lead. Tencent must follow foundation unification with one product gateway and commercial owner before ecosystem reach becomes office share. There is no confirmed single winner today.",
+          evidence_note: "Evidence boundary: public reporting supports the direction of all three re-orgs. Claims such as 100% staff transfers, exact reporting lines, 26 million DingTalk organizations, 382 million Doubao MAU, and the 20.97 / 12.79 / 7.88 million desktop visits attributed to WorkBuddy / TRAE / QoderWork lack sufficiently consistent, traceable primary methodology, so this page does not use them to rank winners.",
+          watch_title: "Four leading indicators for the next two quarters", watch_1: "Weekly active agent usage inside customer organizations—not contracted seats.", watch_2: "Cross-app workflows per customer and autonomous execution success rate.", watch_3: "Whether AI-driven cloud usage, retention, and expansion rise together.", watch_4: "Whether permissions, audit, isolation, and compliance become products rather than project delivery.",
+          sources_title: "Public sources for organization facts", source_ali: "Caixin: Alibaba combines three agents", source_ali2: "NBD: Qwen Office and ATH", source_byte: "China.com Finance: ByteDance To B re-org", source_tencent: "Caixin: Tencent Foundation Model unit", source_tencent2: "Yicai: Tencent closes AI Lab",
           subtitle: "One map overlays two relationships: direct competition and upstream-downstream dependencies.",
           back: "Back to Home", f_all: "Show All", f_comp: "Competition Only", f_dep: "Dependency Only", f_pair: "China-US Matchups",
           s_domestic_model: "China Models Only",
@@ -338,6 +544,8 @@
       const langBtn = document.getElementById("langBtn");
       const cleanModeBtn = document.getElementById("cleanModeBtn");
       const exportBtn = document.getElementById("exportBtn");
+      const pageTabs = Array.from(document.querySelectorAll("[data-page-tab]"));
+      const pagePanels = Array.from(document.querySelectorAll("[data-page-panel]"));
       const versionBadge = document.getElementById("versionBadge");
       const titleText = document.getElementById("titleText");
       const nodeModal = document.getElementById("nodeModal");
@@ -708,6 +916,15 @@
       }
 
       function wire() {
+        pageTabs.forEach(function (tabButton) {
+          tabButton.addEventListener("click", function () {
+            const target = tabButton.getAttribute("data-page-tab") || "map";
+            pageTabs.forEach(function (x) { x.classList.toggle("active", x === tabButton); });
+            pagePanels.forEach(function (panel) { panel.hidden = panel.getAttribute("data-page-panel") !== target; });
+            if (target === "map") requestAnimationFrame(renderEdges);
+          });
+        });
+
         filterButtons.forEach(function (btn) {
           btn.addEventListener("click", function () {
             state.filter = btn.getAttribute("data-filter") || "all";
